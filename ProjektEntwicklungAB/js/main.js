@@ -344,8 +344,8 @@
 			} , { offset: '90%' } );
 		}
 	};
-
-	
+    
+    
 	$(function(){
 		mobileMenuOutsideClick();
 		offcanvasMenu();
@@ -362,3 +362,8 @@
 
 
 }());
+function setValue(name) {
+    console.log((name == 1 ? "links" : "rechts")+" wurde geklickt");
+    window.location.replace("sample2.html");
+}
+
