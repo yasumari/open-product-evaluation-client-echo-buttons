@@ -1,25 +1,13 @@
 angular.module('controllerAsExample', [])
   .controller('SettingsController1', SettingsController1);
 
-function SettingsController1() {
-  this.name = 'John Smith';
-  this.contacts = [
-    {type: 'phone', value: '408 555 1212'},
-    {type: 'email', value: 'john.smith@example.org'}
-  ];
+function SettingsController1($scope, $http) {
+    $http.get('http://localhost:3000/project').
+        then(function(response) {
+            console.log(response.data.title);
+            $scope.greeting = response.data;
+        });
 }
-
-/*var myApp = angular.module('myApp', ['ngRoute', 'ngCookies']);
-myApp.controller('myController', ['$scope', 'DataService', function ($scope, myService) {
-    $log.info('inside the Dashboardcontroller');
-  $scope.myService = myService;
-}]);
-myApp.factory('myService', function () {
-  return {
-      myImportantValue: 42
-  };
-});*/
-
 /*appIndex.controller('indexController', ['$scope', 'DataService', function ($scope, DataService) {
     $scope.listProject = "";
     //load all available Projects from server.
