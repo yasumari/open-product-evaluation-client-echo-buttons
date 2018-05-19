@@ -1,7 +1,11 @@
 //import required module
 var express = require('express');
+var cors = require('cors');
 //instantiate
 var app = express();
+
+
+app.use(cors())
 //build our restful service
 app.get('/', function (req, res) {
    res.end('Hello World');
