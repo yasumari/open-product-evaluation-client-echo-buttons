@@ -35,13 +35,28 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
-	</head>
-	<body>
-		
-	<div class="gtco-loader"></div>
-	
-	<div id="page">
+        <!-- AngularJS-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+        <!-- Controller -->
+        <script src="./Controllers/indexCtrl.js"></script>
+        <!-- Service -->
+        <script src="./Services/indexServices.js"></script>
 
+	</head>
+
+        <body ng-app="controllerAsExample">
+        <div id="ctrl-as-exmpl" ng-controller="SettingsController1 as settings">
+            <label>Name: <input type="text" ng-model="settings.name"/></label>
+        </div>
+        
+        
+        
+	<!--	<body>
+<div ng-app="myApp" ng-controller="myController">{{ myService.myImportantValue }}</div>-->
+	<div class="gtco-loader" ></div>
+	<!--AngularJS verwenden (ng-app)-->
+	<div id="page">
 		<header id="gtco-header" class="gtco-cover" role="banner">
 			<div class="gtco-container">
 				<div class="row">
@@ -53,7 +68,8 @@
 										<img src="images/cube.png" >
 									</div>
 									<div class="col-md-7 copy">
-										<h1>Project Name</h1> 
+										<h1>Project Name</h1>
+                                        <input type="button" ng-click="loadProjects()">
 										<p>Description:  a short description about the project.</p>
 										<p><a href="./sample.html" target="_blank" class="btn btn-white">Start</a></p>
 									<div class="pull-left" style="margin-top: 50px">
