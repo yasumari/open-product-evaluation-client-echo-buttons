@@ -46,15 +46,7 @@
 
 	</head>
 
-        <body ng-app="controllerAsExample">
-        <div id="ctrl-as-exmpl" ng-controller="SettingsController1 as settings">
-            <label>Name: <input type="text" ng-model="greeting.title"/></label>
-        </div>
-        
-        
-        
-	<!--	<body>
-<div ng-app="myApp" ng-controller="myController">{{ myService.myImportantValue }}</div>-->
+        <body ng-app="controllerAsExample" ng-controller="SettingsController1">
 	<div class="gtco-loader" ></div>
 	<!--AngularJS verwenden (ng-app)-->
 	<div id="page">
@@ -69,8 +61,10 @@
 										<img src="images/cube.png" >
 									</div>
 									<div class="col-md-7 copy">
-										<h1>Project Name</h1>
-                                        <input type="button" ng-click="loadProjects()">
+                                        <!-- TESTEN mit AngularJS
+                                        <h1>{{name}}</h1>
+										<p>{{description}}-->
+										<h1>Projekt Name</h1>
 										<p>Description:  a short description about the project.</p>
 										<p><a href="./sample.html" target="_blank" class="btn btn-white">Start</a></p>
 									<div class="pull-left" style="margin-top: 50px">
