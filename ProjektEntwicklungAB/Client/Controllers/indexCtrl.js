@@ -1,4 +1,18 @@
-var app = angular.module('controllerAsExample', ['ngResource']);
+angular.module('controllerAsExample', ['ngResource', 'serviceAsExample'])
+    .controller('SettingsController1', ContactController);
+
+ContactController.$inject = ['$scope', 'Person'];
+
+function ContactController($scope, Person) {
+ Person.getAll().get().$promise.then(function(result) {
+    //success
+    $scope.bloglist = result.description;
+    console.log($scope.bloglist);
+  }, function(errResponse) {
+    // fail
+  });
+}
+/*var app = angular.module('controllerAsExample', ['ngResource']);
 app.factory('Person', ['$resource', function ($resource) {
     return {
         getAll: function(){
@@ -15,4 +29,4 @@ app.controller('SettingsController1', ['$scope', 'Person', function($scope, Pers
   }, function(errResponse) {
     // fail
   });
-}]);   
+}]); */

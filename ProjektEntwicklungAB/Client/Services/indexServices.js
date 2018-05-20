@@ -1,10 +1,7 @@
-var myApp = angular.module('myApp', ['ngRoute']);
-myApp.factory('dataService', ['$http', function ($http) {
-
-    var getProject = function () {
-        return $http.get("http://127.0.0.1:3000/project");
-    }
+angular.module('serviceAsExample', ['ngResource']).factory('Person', ['$resource', function ($resource) {
     return {
-        getProject: getProject
+        getAll: function(){
+            return $resource("http://localhost:3000/project")
+        }
     }
 }]);
