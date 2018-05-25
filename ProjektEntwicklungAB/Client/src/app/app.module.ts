@@ -7,17 +7,25 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
+import { QuestionComponent } from './question/question.component';
+import { MenuComponent } from './menu.component';
+import { CONST_ROUTING } from './app.routing';
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent
+    ListComponent,
+    QuestionComponent,
+    MenuComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+     CONST_ROUTING
   ],
   providers: [],
   bootstrap: [AppComponent]
