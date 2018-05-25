@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
     ngOnInit() {
     this.surveys = this.apollo.watchQuery<Query>({
     query: gql`
-        query surveys{
+        query list{
         surveys {
             id
             name

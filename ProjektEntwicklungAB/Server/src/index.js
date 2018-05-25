@@ -66,7 +66,7 @@ type Survey {
     public : Boolean!
 }
     type Query {
-        survey(id: Int!): Survey
+        survey: Survey
         surveys: [Survey]
     }
 `);
@@ -93,13 +93,15 @@ var surveysData = [
     public : 'true'
     }
 ]
-var getSurvey = function(args) { 
-    var id = args.id;
+var getSurvey = function() { 
+    console.log("getSurvey");
+    var id = 1;
     return surveysData.filter(survey => {
         return survey.id == id;
     })[0];
 }
 var getSurveys = function(args) {
+    console.log("alle Surveys");
     if (args.topic) {
         var name = args.name;
         return surveysData.filter(survey => survey.name === name);

@@ -6,4 +6,5 @@ description: string;
 
 export type Query={
     surveys: Survey[];
+    survey: Survey;
 }
