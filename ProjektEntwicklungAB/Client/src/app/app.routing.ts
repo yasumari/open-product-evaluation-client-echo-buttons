@@ -5,7 +5,7 @@ import { ListComponent } from "./list/list.component";
 import { ProjectComponent } from "./project/project.component";
 const MAINMENU_ROUTES: Routes = [
     //full : makes sure the path is absolute 
-    { path: '', component: AppComponent, pathMatch: 'full'},
+    { path: '', component: ProjectComponent, pathMatch: 'full'},
     { path: 'question', component: QuestionComponent, pathMatch: 'full' },
      { path: 'list', component: ListComponent, pathMatch: 'full' },
      { path: 'project', component: ProjectComponent, pathMatch: 'full' },
