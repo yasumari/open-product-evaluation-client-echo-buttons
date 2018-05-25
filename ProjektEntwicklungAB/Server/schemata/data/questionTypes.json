@@ -1,0 +1,71 @@
+{
+  "_id" : 1,
+  "typeName" : "Like und Dislike",
+  "properties": {
+    "stepSize": 1,
+    "stepDescription": ["Dislike", "Like"],
+    "default": null,
+    "min": 0,
+    "max": 1
+  }
+}
+
+{
+  "_id" : 2,
+  "typeName" : "Like",
+  "properties": {
+    "stepSize": 1,
+    "stepDescription": ["Like"],
+    "default": null,
+    "min": 0,
+    "max": 1
+  }
+}
+
+{
+  "_id" : 3,
+  "typeName" : "Steps",
+  "properties": {
+    "stepSize": 1,
+    "stepDescription": ["Step 1", "Step 2", "Step 3", "..."],
+    "default": null,
+    "min": 0,
+    "max": 3
+  }
+}
+
+{
+  "_id" : 4,
+  "typeName" : "Regulator",
+  "properties": {
+    "stepSize": 1,
+    "stepDescription": ["Bad", "Good"],
+    "default": 50,
+    "min": 0,
+    "max": 100
+  }
+}
+
+{
+  "_id": 5,
+  "typeName" : "Ranking",
+  "properties": {
+    "stepSize" : 1,
+    "stepDescription": ["Bild 1 Beschreibung", "Bild 2 Beschreibung", "..."],
+    "default": null,
+    "min": 1,
+    "max": 10
+  }
+}
+
+{
+  "_id": 6,
+  "typeName" : "Favorite",
+  "properties": {
+    "stepSize" : 1,
+    "stepDescription": ["Bild 1 Beschreibung", "Bild 2 Beschreibung", "..."],
+    "default": null,
+    "min": 0,
+    "max": 1
+  }
+}

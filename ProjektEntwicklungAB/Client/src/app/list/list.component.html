@@ -1,0 +1,12 @@
+<p>
+  list works! lala
+</p>
+<div *ngFor="let survey of surveys | async">
+  <div class="card" style="width: 100%; margin-top: 10px">
+    <div class="card-body">
+      <h5 class="card-title">HI: {{survey.id}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">by {{survey.name}}</h6>
+      <p class="card-text">{{survey.description}}</p>
+    </div>
+  </div>
+</div>

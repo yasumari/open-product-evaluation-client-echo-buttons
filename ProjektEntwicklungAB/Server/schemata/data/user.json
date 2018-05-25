@@ -1,0 +1,9 @@
+{
+  "_id" : 1,
+  "authentication" : {},
+  "firstname" : "Hans",
+  "lastname": "Peter",
+  "email" : "email@email.de",
+  "password" : "hg563456g3jh4g6456",
+  "rights": []
+}
