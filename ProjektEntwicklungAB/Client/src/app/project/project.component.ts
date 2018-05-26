@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs/Observable';
-import{ map } from 'rxjs/operators';
+import {Subscription} from 'rxjs/Subscription';
 
-import gql from 'graphql-tag';
+import {CurrentProjectQuery} from './project.model';
 
 import { Survey, Query } from '../types'
 
@@ -13,25 +12,21 @@ import { Survey, Query } from '../types'
   styles: []
 })
 export class ProjectComponent implements OnInit {
- surveys: Observable<Survey>;
-    myHero='Windstorm';
-    constructor(private apollo: Apollo) { }
+  public loading = true;
+  public currentProject: Survey;
 
-    ngOnInit() {
-    this.surveys = this.apollo.watchQuery<Query>({
-    query: gql`
-        query list{
-        survey {
-            id
-            name
-        }
-        }
-    `
-    })
-    .valueChanges
-    .pipe(
-    map(result => result.data.survey)
-    );
+  private currentProjectSub: Subscription;
+
+  constructor(private apollo: Apollo) {
   }
 
+  public ngOnInit(): void {
+    this.currentProjectSub = this.apollo.watchQuery({
+      query: CurrentProjectQuery,
+    }).valueChanges.subscribe(({data, loading}) => {
+      this.currentProject = data['survey'];
+      this.loading = loading;
+    });
+    console.log(this.currentProjectSub);
+  }
 }
