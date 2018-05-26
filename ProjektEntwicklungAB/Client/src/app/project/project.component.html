@@ -1,46 +1,17 @@
 <div id="page">
-    <p>
-  list works! lala
-</p>
-  <div class="card" style="width: 100%; margin-top: 10px">
-    <div class="card-body">
-        
-<p *ngIf="loading" class="navbar-text navbar-right">
-  Loading...
-</p>
-<span *ngIf="!loading && currentProject">
-  <p class="navbar-text navbar-right">
-    {{currentProject.name}}
-    &nbsp;
-    <a href="/logout">Log out</a>
-  </p>
-  <a
-    class="btn navbar-btn navbar-right btn-success"
-    routerLink="/submit">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    &nbsp;
-    Submit
-  </a>
-</span>
-<p *ngIf="!loading && !currentProject" class="navbar-text navbar-right">
-  <a href="/login/github">Log in with GitHub</a>
-</p>
-       
-    </div>
-  </div>
     <header id="gtco-header" class="gtco-cover" role="banner">
         <div class="gtco-container">
             <div class="row">
 				<div class="col-md-12 col-md-offset-0 text-left">
                     <div class="display-t">
                                 <div class="display-tc">
-                                    <div class="row">
+                                    <div class="row" *ngIf=" currentProject">
                                         <div class="col-md-5 text-center header-img">
                                             <img src="../assets/images/cube.png" >
                                         </div>
                                         <div class="col-md-7 copy">
-                                            <h1>Projekt Name</h1>
-                                            <p>Description:  a short description about the project.</p>
+                                            <h1> {{currentProject.name}}</h1>
+                                            <p>{{currentProject.description}}</p>
                                             <p><a class="btn btn-white" routerLink="/question" routerLinkActive="active">Start</a></p>
                                         <div class="pull-left" style="margin-top: 50px">
                                             

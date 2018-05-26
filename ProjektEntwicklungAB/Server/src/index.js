@@ -16,13 +16,6 @@ var express_graphql = require('express-graphql');
 var { buildSchema } = require('graphql');
 // GraphQL schema
 var schema = buildSchema(`
-type Image {
-    _id : ID!
-    filename : String!
-    type : String!
-    hash : String!
-}
-
 type Question {
     _id : ID!
     survey : Survey!
@@ -62,44 +55,139 @@ type Survey {
     id : ID!
     name : String!
     description : String!
+    owner : User!
     active : Boolean!
     public : Boolean!
+    questions : [Question!]!
+    votes : [Vote!]!
+    images : [Image!]!
 }
+
+type User {
+    _id : ID!
+    firstname : String!
+    lastname : String!
+    email : String!
+    password : String!
+}
+
+type Vote {
+    _id : ID!
+    survey : Survey!
+}
+type Image {
+    _id : ID!
+    filename : String!
+    type : String!
+    hash : String!
+}
+
+
     type Query {
-        survey: Survey
+        survey(id: Int): Survey
         surveys: [Survey]
     }
 `);
+
 var surveysData = [
-    {
-        id : 1,
+   {
+    id : 1,
     name : 'Projekt Entwicklung 1',
     description : 'Das ist ein Projekt für Entwicklung!',
-    active : 'true',
-    public : 'true'
+    owner : {
+            _id : 1,
+            firstname : 'Alexander',
+            lastname : 'Baum',
+            email : 'a.b@ab.com'
     },
+    active : 'true',
+    public : 'true',
+    questions : [{
+                _id : 1,
+                value: 'In welchem Bild sind die Farben besser?',
+                description : 'StyleGuide',
+                sequence : 1,
+                images : 
+                    [{
+                    _id : 1,
+                    filename : '1.png'},
+                    {
+                    _id : 2,
+                    filename : '2.png'
+                    }]
+                },
+                {
+                _id : 2,
+                value: 'Was gefällt Ihnen besser?',
+                description : 'Geschmack',
+                sequence : 2,
+                images : 
+                    [{
+                    _id : 3,
+                    filename : '3.png'},
+                    {
+                    _id : 4,
+                    filename : '4.png'
+                    }]
+                }]
+},
     {
         id : 2,
     name : 'Projekt Entwicklung 2',
-    description : 'Das ist das zweite Projekt für Entwicklung!',
-    active : 'true',
-    public : 'true'
+    description : 'Das ist zweite Projekt für Entwicklung!',
+    owner : {
+            _id : 1,
+            firstname : 'ZZ',
+            lastname : 'XX',
+            email : 'a.b@ab.com'
     },
-    {
-        id : 3,
-    name : 'Projekt Entwicklung 3',
-    description : 'Das ist das dritte Projekt für Entwicklung!',
     active : 'true',
-    public : 'true'
+    public : 'true',
+    questions : [{
+                _id : 1,
+                value: 'Lieber links oder rechts??',
+                description : 'StyleGuide',
+                sequence : 1,
+                images : 
+                    [{
+                    _id : 1,
+                    filename : '1.png'},
+                    {
+                    _id : 2,
+                    filename : '2.png'
+                    }]
+                },
+                {
+                _id : 2,
+                value: 'Was gefällt Ihnen besser?',
+                description : 'Geschmack',
+                sequence : 2,
+                images : 
+                    [{
+                    _id : 3,
+                    filename : '3.png'},
+                    {
+                    _id : 4,
+                    filename : '4.png'
+                    }]
+                }]
     }
 ]
-var getSurvey = function() { 
+
+var getSurvey = function(args) { 
     console.log("getSurvey");
-    var id = 1;
+    
+    if (args.id>0 || surveysData.length==0){
+            var id = args.id;
+    }
+    else {
+        var id=1;
+    }
     return surveysData.filter(survey => {
         return survey.id == id;
     })[0];
 }
+
 var getSurveys = function(args) {
     console.log("alle Surveys");
     if (args.topic) {

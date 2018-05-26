@@ -4,7 +4,7 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {CurrentProjectQuery} from './project.model';
 
-import { Survey, Query } from '../types'
+import { Survey, Query, Owner, Question, Images } from '../types';
 
 @Component({
   selector: 'app-project',
@@ -12,7 +12,6 @@ import { Survey, Query } from '../types'
   styles: []
 })
 export class ProjectComponent implements OnInit {
-  public loading = true;
   public currentProject: Survey;
 
   private currentProjectSub: Subscription;
@@ -23,9 +22,9 @@ export class ProjectComponent implements OnInit {
   public ngOnInit(): void {
     this.currentProjectSub = this.apollo.watchQuery({
       query: CurrentProjectQuery,
-    }).valueChanges.subscribe(({data, loading}) => {
+      variables: {id: 2},
+    }).valueChanges.subscribe(({data}) => {
       this.currentProject = data['survey'];
-      this.loading = loading;
     });
     console.log(this.currentProjectSub);
   }
