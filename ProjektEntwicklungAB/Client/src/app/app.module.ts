@@ -11,7 +11,7 @@ import { QuestionComponent } from './question/question.component';
 import { MenuComponent } from './menu.component';
 import { CONST_ROUTING } from './app.routing';
 import { ProjectComponent } from './project/project.component';
-
+import { DataService} from './data.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,7 @@ import { ProjectComponent } from './project/project.component';
     HttpLinkModule,
      CONST_ROUTING
   ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

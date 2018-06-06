@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs/Observable';
-import{ map } from 'rxjs/operators';
-
+import { DataService} from '../data.service';
 import gql from 'graphql-tag';
 
-import { Survey, Query } from '../types'
-
+import { Survey, Query, Question, Owner, Images } from '../types';
+import {CurrentProjectQuery} from '../project/project.model';
 
 
 @Component({
@@ -16,25 +14,11 @@ import { Survey, Query } from '../types'
 })
 
 export class QuestionComponent implements OnInit {
-    surveys: Observable<Survey[]>;
-    
-    constructor(private apollo: Apollo) { }
+    public currentProject: Survey;
+    constructor(private apollo: Apollo, private dataService: DataService) { }
 
     ngOnInit() {
-    this.surveys = this.apollo.watchQuery<Query>({
-    query: gql`
-        query list{
-        surveys {
-            id
-            name
-        }
-        }
-    `
-    })
-    .valueChanges
-    .pipe(
-    map(result => result.data.surveys)
-    );
+      this.currentProject=this.dataService.getSurvey();
   }
 
 }
