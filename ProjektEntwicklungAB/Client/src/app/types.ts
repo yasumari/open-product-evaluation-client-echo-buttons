@@ -2,6 +2,7 @@ export type Survey = {
 id: number;
 name: string;
 description: string;
+questions: Question[];
 }
 
 export type Question ={

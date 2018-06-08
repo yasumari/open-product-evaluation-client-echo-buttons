@@ -6,6 +6,7 @@ import {CurrentProjectQuery} from './project.model';
 
 import { Survey, Query, Owner, Question, Images } from '../types';
 
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -19,11 +20,6 @@ export class ProjectComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-   /* this.ds.subject.subscribe(function(message){
-    this.currentProject=message;
-      console.log(message.name);
-    });*/
-   
     this.currentProjectSub = this.apollo.watchQuery({
       query: CurrentProjectQuery,
       variables: {id: 2},

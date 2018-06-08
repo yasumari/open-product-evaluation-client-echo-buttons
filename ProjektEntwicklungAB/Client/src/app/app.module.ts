@@ -12,13 +12,17 @@ import { MenuComponent } from './menu.component';
 import { CONST_ROUTING } from './app.routing';
 import { ProjectComponent } from './project/project.component';
 import { DataService} from './data.service';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { EndScreenComponent } from './end-screen/end-screen.component';
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     QuestionComponent,
     MenuComponent,
-    ProjectComponent
+    ProjectComponent,
+    FeedbackComponent,
+    EndScreenComponent
   ],
   imports: [
     BrowserModule,
