@@ -16,3 +16,14 @@ Echo Buttons:
 
 4. BluetoothSerialPort
 	npm install bluetooth-serial-port
+
+
+Server: 
+1. Gehe in den Ordern "Server"
+2. öffne mit rechts-klick "git bash here"
+3. gebe "npm start" ein
+
+Client: 
+1. Gehe in den Ordern "Client"
+2. öffne mit rechts-klick "git bash here"
+3. gebe "npm start" ein
