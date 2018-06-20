@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 
-import { Survey, Query, Owner, Question, Images } from './types';
+import { Survey, Query, Owner, Question, Images, Vote } from './types';
 
 export class DataService {
     private subjectProject;
     private currentPositionQuestion=0;
-  
+    subjectp:Vote[]=[];
     getPositionQuestion(){
       return this.currentPositionQuestion;
     }
@@ -21,8 +21,19 @@ export class DataService {
     getSurvey() {
       return this.subjectProject;
     }
-    sendSurvey(project: Survey) {
-      this.subjectProject = project;
+    sendSurvey(project1: Survey ) {
+      
+      this.subjectProject = project1;
+     
     }
+  sendVote(project: Vote[] ) {
+      
+      this.subjectProject = project;
+     
+    }
+   getVote() {
+      return this.subjectp;
+    }
+ 
   constructor() { }
 }

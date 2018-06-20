@@ -1,13 +1,10 @@
 /*const {GraphQLServer} = require('graphql-yoga')
 const {express: middleware} = require('graphql-voyager/middleware')
-
 const server = new GraphQLServer({
     typeDefs: './src/schema.graphql',
     resolvers: {}
 })
-
 server.express.use('/voyager', middleware({endpointUrl: '/'}))
-
 server.start({port: 3000}, () => console.log('Server is running on http://localhost:3000'))*/
 
 var express = require('express');
@@ -25,7 +22,6 @@ type Question {
     evaluationMethod : EvaluationMethod!
     images : [Image!]!
 }
-
 type EvaluationMethod {
     _id : ID!
     type : EvaluationType!
@@ -35,7 +31,6 @@ type EvaluationMethod {
     min: Float!
     max: Float!
 }
-
 enum EvaluationType {
     LIKE
     LIKE_DISLIKE
@@ -44,13 +39,11 @@ enum EvaluationType {
     RANKING
     FAVORITE
 }
-
 type StepDescription {
     value : String!
     image : Image
     sequence : Int!
 }
-
 type Survey {
     id : ID!
     name : String!
@@ -62,7 +55,6 @@ type Survey {
     votes : [Vote!]!
     images : [Image!]!
 }
-
 type User {
     _id : ID!
     firstname : String!
@@ -70,7 +62,6 @@ type User {
     email : String!
     password : String!
 }
-
 type Vote {
     _id : ID!
     survey : Survey!
@@ -81,12 +72,12 @@ type Image {
     type : String!
     hash : String!
 }
-
-
     type Query {
         survey(id: Int): Survey
         surveys: [Survey]
+        vote(_id : Int) : Vote
     }
+  
 `);
 
 var surveysData = [
@@ -197,18 +188,30 @@ var getSurveys = function(args) {
         return surveysData;
     }
 }
+var updateCourseTopic = function(args) {
+    surveysData.map(survey => {
+        if (survey.id === this.dataService.getVote().survey.id) {
+              this.dataService.sendVote(survey.votes);
+          //  return survey;
+        }
+    });
+    return survey;
+}
 
 var root = {
     survey: getSurvey,
-    surveys: getSurveys
+    surveys: getSurveys,
+    updateCourseTopic: updateCourseTopic
 };
 // Create an express server and a GraphQL endpoint
 var app = express();
 app.use(cors());
+app.use(express.json());
 app.use('/graphql', express_graphql({
     schema: schema,
     rootValue: root,
-    graphiql: true
+    graphiql: true   
 }));
+
 
 app.listen(3000, () => console.log('Express GraphQL Server Now Running On localhost:3000/graphql'));
