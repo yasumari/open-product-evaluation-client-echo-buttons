@@ -1,11 +1,42 @@
 export type Survey = {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  questions: Question[];
+  isPublic: boolean,
+  creator: Owner,
+  images: Image[],
   votes: Vote;
   }
-  
+  export type Image={
+    url:string;
+    date: Data;
+  }
+
+  export type Data={
+    id: string;
+    name: string;
+    type: string;
+  }
+  export type Context={
+    name: string;
+    id: string;
+    lastUpdate: Date;
+    creationDate: Date;
+    activeQuestion: Question,
+    activeSurvey: Survey,
+    owners: Owner[],
+    devices: Device[],
+    states: State[]
+  }
+export type Device={
+  name: string;
+  id: string;
+}
+
+  export type State={
+    key: string;
+    value: string;
+  }
   export type Question ={
     id: number;
     sequence: number;

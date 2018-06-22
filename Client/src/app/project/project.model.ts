@@ -1,5 +1,15 @@
 import gql from 'graphql-tag';
 export const CurrentProjectQuery: any = gql`
+fragment itemsPart on Item{
+  image{
+          url
+          data{
+            id
+            creationDate
+          }
+        }
+}
+
 query CurrentProjectForController ($contextID: ID!){
   context(contextID: $contextID){
     name
@@ -8,18 +18,13 @@ query CurrentProjectForController ($contextID: ID!){
     creationDate 
     activeQuestion{
       id
-      items{
-        image{
-          url
-          data{
-            id
-            creationDate
-          }
-        }
-      }
       description
-      type
       value
+      type
+      __typename
+      items{
+        ...itemsPart
+      }
     }
     activeSurvey{
       id

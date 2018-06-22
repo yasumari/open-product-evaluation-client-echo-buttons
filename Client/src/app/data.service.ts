@@ -1,6 +1,4 @@
-import { Observable } from 'rxjs';
-
-import { Survey, Query, Owner, Question, Images, Vote } from './types';
+import { Context, Vote } from './types';
 
 export class DataService {
     private subjectProject;
@@ -14,22 +12,20 @@ export class DataService {
       this.currentPositionQuestion+=1;
     }  
       
-    clearSurvey() {
+    clearContext() {
         this.subjectProject.next();
     }
 
-    getSurvey() {
+    getContext() {
       return this.subjectProject;
     }
-    sendSurvey(project1: Survey ) {
-      
+    sendContext(project1: Context ) {
       this.subjectProject = project1;
      
     }
   sendVote(project: Vote[] ) {
-      
       this.subjectProject = project;
-     
+
     }
    getVote() {
       return this.subjectp;

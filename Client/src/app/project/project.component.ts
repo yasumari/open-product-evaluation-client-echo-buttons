@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {DataService } from '../data.service';
 import {CurrentProjectQuery} from './project.model';
-import 'rxjs/add/operator/map';
-import { Survey } from '../types';
-import {Subscription} from 'rxjs/Subscription';
+import { Context } from '../types';
 
 @Component({
   selector: 'app-project',
@@ -12,18 +10,17 @@ import {Subscription} from 'rxjs/Subscription';
   styles: []
 })
 export class ProjectComponent implements OnInit {
-  public currentProject: Survey;
-  private currentProjectSub: Subscription;
+  public currentProject: Context;
   constructor(private apollo: Apollo, private dataService: DataService) {
   }
     public ngOnInit(): void {
-      this.currentProjectSub = this.apollo.watchQuery({
+      this.apollo.watchQuery({
         query: CurrentProjectQuery,
         variables: {contextID: 1},
       }).valueChanges.subscribe(({data}) => {
         this.currentProject = data['context'];
          console.log(this.currentProject);
-        this.dataService.sendSurvey(this.currentProject);
+        this.dataService.sendContext(this.currentProject);
       })
   }
 }
