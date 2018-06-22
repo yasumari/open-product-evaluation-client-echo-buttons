@@ -1,20 +1,53 @@
 import gql from 'graphql-tag';
-import { Survey, Query, Question, Owner, Images } from '../types';
-
 export const CurrentProjectQuery: any = gql`
-query CurrentProjectForController ($surveyid: ID!){
-  survey(surveyID: $surveyid){
-    id,
-    title,
-    description,
-    creator{
-        firstName, 
-        lastName,
-        email},
-    questions{
-        id,
-        value,
-        description
+query CurrentProjectForController ($contextID: ID!){
+  context(contextID: $contextID){
+    name
+    id
+    lastUpdate
+    creationDate 
+    activeQuestion{
+      id
+      items{
+        image{
+          url
+          data{
+            id
+            creationDate
+          }
+        }
+      }
+      description
+      type
+      value
+    }
+    activeSurvey{
+      id
+      title
+      description
+      isPublic
+      creator{
+        firstName
+        lastName
+      }
+      images{
+        url
+      	data{
+          id
+          creationDate
+        }
+      }
+    }
+    owners{
+      firstName
+      lastName
+    }
+    devices{
+      id
+    }
+    states{
+      key
+      value
     }
   }
 }`;

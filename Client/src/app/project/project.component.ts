@@ -19,9 +19,9 @@ export class ProjectComponent implements OnInit {
     public ngOnInit(): void {
       this.currentProjectSub = this.apollo.watchQuery({
         query: CurrentProjectQuery,
-        variables: {surveyid: 1},
+        variables: {contextID: 1},
       }).valueChanges.subscribe(({data}) => {
-        this.currentProject = data['survey'];
+        this.currentProject = data['context'];
          console.log(this.currentProject);
         this.dataService.sendSurvey(this.currentProject);
       })

@@ -1,8 +1,7 @@
 <div id="page">
     <header id="gtco-header" class="gtco-cover" role="banner">
         <div class="gtco-container">
-    <br><br> 
-    <h1>{{message}}</h1>
+    <br><br>
             <div class="row">
 				<div class="col-md-12 col-md-offset-0 text-left">
                     <div class="display-t">
@@ -12,17 +11,15 @@
                                             <img src="../assets/images/cube.png" >
                                         </div>
                                         <div class="col-md-7 copy">
-                                            <h1> {{currentProject.name}}</h1>
-                                            <p>{{currentProject.description}}</p>
+                                            <h1>Title: {{currentProject.activeSurvey.title}}</h1>
+                                            <p>Beschreibung: {{currentProject.activeSurvey.description}}</p>
+                                            <p>Autor: {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p>
                                             <p><a class="btn btn-white" routerLink="/question" routerLinkActive="active" >Start</a></p>
                                         <div class="pull-left" style="margin-top: 50px">
-                                            
                                         <p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>						
                                         <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/></p>
                                         </div>
                                         </div>
-
-                                        
                                     </div>
                                 </div>
                             </div>

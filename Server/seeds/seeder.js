@@ -1,5 +1,3 @@
-
-
 // run dotenv (needs to run as early as possible)
 require('dotenv').config()
 
