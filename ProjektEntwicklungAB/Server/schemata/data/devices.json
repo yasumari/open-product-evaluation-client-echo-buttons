@@ -1,9 +1,0 @@
-{
-  "_id" : 1,
-  "devicename" : "Handy",
-  "type" : ["Like", "Slider"],
-  "creationDate" : "..",
-  "lastUpdate" : "...",
-  "remote" : true,
-  "controllerID" : 1
-}

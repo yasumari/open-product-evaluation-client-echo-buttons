@@ -1,0 +1,177 @@
+""" Defines to GraphQL Queries """
+type Query {
+    """ Returns a list of Contexts the user is allowed to see """
+    contexts(types : [QuestionType!]) : [Context!]
+
+
+    """ Returns the specified Context """
+    context(contextID : ID!) : Context!
+}
+
+""" Defines the GraphQL Mutations """
+type Mutation {
+    """ Creates a Context and returns the created Context data """
+    createContext(data : ContextCreateInput) : ContextCreatePayload!
+
+
+    """ Updates the specified Context and returns the updated Context data """
+    updateContext(data : ContextUpdateInput!, contextID : ID!) : ContextUpdatePayload!
+
+
+    """ Deletes the specified Context and returns the deleted Context data """
+    deleteContext(contextID : ID!) : ContextDeletePayload!
+
+    """ Creates a State for a controller and returns the created State data """
+    createState(data : StateCreateInput!) : StateCreatePayload!
+
+
+    """ Updates the specified State and returns the updated State data """
+    updateState(data : StateUpdateInput!, contextID : String!) : StateUpdatePayload!
+
+
+    """ Deletes the specified State and returns the deleted State data """
+    deleteState(data : StateDeleteInput!, contextID : String!) : StateDeletePayload!
+}
+
+""" Defines the GraphQL Subscriptions """
+type Subscription {
+    """ Subscribe a specific Context """
+    context(contextID : ID!) : Context!
+}
+
+""" Defines a Context representing a survey instance """
+type Context {
+    """ Unique controllerID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ Optional: The active question displayed by the context """
+    activeQuestion : Question
+
+    """ Optional: The active survey handled by the context """
+    activeSurvey : Survey
+
+    """ The users the device is connected to """
+    owners : [User!]
+
+    """ All devices connected to the context """
+    devices : [Device!]
+
+    """ The name of the context """
+    name : String!
+
+    """ List of controller defined states """
+    states : [State!]
+}
+
+""" Defines the input to create a context """
+input ContextCreateInput {
+    """ the name """
+    name : String!
+}
+
+""" Defines the payload to create a context """
+type ContextCreatePayload {
+
+    """ the context """
+    context : Context!
+
+    """ a token """
+    token : String!
+}
+
+""" Defines the input to  """
+input ContextUpdateInput {
+
+    """ the active questionID """
+    activeQuestion : ID
+
+    """ the active surveyID """
+    activeSurvey : ID
+
+    """ the context name """
+    name : String
+
+    """ a list of owners """
+    owner : [ID!]
+}
+
+""" Defines the payload to update a context """
+type ContextUpdatePayload {
+
+    """ the context data """
+    context : Context!
+}
+
+""" Defines the payload to delete a context """
+type ContextDeletePayload {
+
+    """ the context data """
+    context : Context!
+}
+
+""" Key-value pairs representing a client state """
+type State {
+
+    """ the key """
+    key : String!
+
+    """ the value """
+    value : String!
+}
+
+""" Defines the input to create a state """
+input StateCreateInput {
+
+    """ the associated contextID """
+    contextID : String!
+
+    """ the key """
+    key : String!
+
+    """ the value """
+    value : String!
+}
+
+""" Defines the payload to create a state """
+type StateCreatePayload {
+
+    """ the state """
+    state : State!
+}
+
+""" Defines the input to update a state """
+input StateUpdateInput {
+
+    """ the key """
+    key : String!
+
+    """ the value """
+    value : String!
+}
+
+""" Defines the payload to update state """
+type StateUpdatePayload {
+
+    """ the state to update """
+    state : State!
+}
+
+""" Defines the input to delete a state """
+input StateDeleteInput {
+
+    """ the key """
+    key : String!
+}
+
+""" Defines the payload to delete state """
+type StateDeletePayload {
+
+    """ the state to delete """
+    state : State!
+}

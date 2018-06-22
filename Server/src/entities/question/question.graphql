@@ -1,0 +1,575 @@
+""" Defines the GraphQL Mutations """
+type Mutation {
+    """ Creates a Question and returns the created Question data """
+    createLikeQuestion(data : LikeQuestionCreateInput!) : QuestionCreatePayload!
+
+
+    """ Updates the specified Question and returns the updated Question data """
+    updateLikeQuestion(data : LikeQuestionUpdateInput!, questionID : ID!) : QuestionUpdatePayload!
+
+
+    """ Creates a Question and returns the created Question data """
+    createLikeDislikeQuestion(data : LikeDislikeQuestionCreateInput!) : QuestionCreatePayload!
+
+
+    """ Updates the specified Question and returns the updated Question data """
+    updateLikeDislikeQuestion(data : LikeDislikeQuestionUpdateInput!, questionID : ID!) : QuestionUpdatePayload!
+
+
+    """ Creates a Question and returns the created Question data """
+    createChoiceQuestion(data : ChoiceQuestionCreateInput!,) : QuestionCreatePayload!
+
+
+    """ Updates the specified Question and returns the updated Question data """
+    updateChoiceQuestion(data : ChoiceQuestionUpdateInput!, questionID : ID!) : QuestionUpdatePayload!
+
+
+    """ Creates a Question and returns the created Question data """
+    createRegulatorQuestion(data : RegulatorQuestionCreateInput!) : QuestionCreatePayload!
+
+
+    """ Updates the specified Question and returns the updated Question data """
+    updateRegulatorQuestion(data : RegulatorQuestionUpdateInput!, questionID : ID!) : QuestionUpdatePayload!
+
+
+    """ Creates a Question and returns the created Question data """
+    createRankingQuestion(data : RankingQuestionCreateInput!) : QuestionCreatePayload!
+
+
+    """ Updates the specified Question and returns the updated Question data """
+    updateRankingQuestion(data : RankingQuestionUpdateInput!, questionID : ID!) : QuestionUpdatePayload!
+
+
+    """ Creates a Question and returns the created Question data """
+    createFavoriteQuestion(data : FavoriteQuestionCreateInput!) : QuestionCreatePayload!
+
+
+    """ Updates the specified Question and returns the updated Question data """
+    updateFavoriteQuestion(data : FavoriteQuestionUpdateInput!, questionID : ID!) : QuestionUpdatePayload!
+
+
+    """ Deletes the specified Question and returns the deleted Question data """
+    deleteQuestion(questionID : ID!) : QuestionDeletePayload!
+}
+
+""" Defines attributes all questions need """
+interface Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ Items / Images that need to be shown """
+    items : [Item!]
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+}
+
+""" Defines a question of type Like """
+type LikeQuestion implements Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ Items / Images that need to be shown """
+    items : [Item!]
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+
+    """ Default Like-Icon """
+    likeIcon : ImagePayload!
+}
+
+""" Defines the input to create a question of type like """
+input LikeQuestionCreateInput {
+
+    """ the associated surveyID """
+    surveyID : ID!
+
+    """ the value """
+    value : String!
+
+    """ the description """
+    description : String
+
+    """ a list of items """
+    items : [ItemCreateInput!]
+
+    """ the imageID for the like icon """
+    likeIcon : ID
+}
+
+""" Defines the input to update a question of type like """
+input LikeQuestionUpdateInput {
+
+    """ the value """
+    value : String
+
+    """ the description """
+    description : String
+
+    """ a list of items """
+    items : [ItemCreateInput!]
+
+    """ the imageiD for the like icon """
+    likeIcon : ID
+}
+
+""" Defines a question of type Like & Dislike """
+type LikeDislikeQuestion implements Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ Items / Images that need to be shown """
+    items : [Item!]
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+
+    """ Default like icon """
+    likeIcon : ImagePayload!
+
+    """ Default dislike icon """
+    dislikeIcon : ImagePayload!
+}
+
+""" Defines the input to create a question of type like/dislike """
+input LikeDislikeQuestionCreateInput {
+
+    """ the associated """
+    surveyID : ID!
+
+    """ the value """
+    value : String!
+
+    """ the description """
+    description : String
+
+    """ the imageID for the like icon """
+    likeIcon : ID
+
+    """ the imageID for the dislike icon """
+    dislikeIcon : ID
+
+    """ a list of items """
+    items : [ItemCreateInput!]
+}
+
+""" Defines the input to update question of type like/dislike """
+input LikeDislikeQuestionUpdateInput {
+
+    """ the new value """
+    value : String
+
+    """ the new description """
+    description : String
+
+    """ the imageID for a new like icon """
+    likeIcon : ID
+
+    """ the imageID for a new dislike icon """
+    dislikeIcon : ID
+
+    """ a new list of items """
+    items : [ItemCreateInput!]
+}
+
+""" Defines a question with fixed set of choices """
+type ChoiceQuestion implements Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ Items / Images that need to be shown """
+    items : [Item!]
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+
+    """ The descriptions of all possible choices """
+    choices : [ChoiceDescription!]!
+
+    """ Optional: The code of the choice that is selected by default """
+    default : String
+}
+
+""" Defines the input to create a choice """
+input ChoiceQuestionCreateInput {
+
+    """ the associated surveyID """
+    surveyID : ID!
+
+    """ the value """
+    value : String!
+
+    """ the description """
+    description : String
+
+    """ a list of choices """
+    choices : [ChoiceDescriptionCreateInput!]!
+
+    """ the default value """
+    default : String
+
+    """ a list of items """
+    items : [ItemCreateInput!]
+}
+
+""" Defines the input to update a choice """
+input ChoiceQuestionUpdateInput {
+
+    """ the new value """
+    value : String
+
+    """ the new description """
+    description : String
+
+    """ a list of choices """
+    choices : [ChoiceDescriptionCreateInput!]
+
+    """ the default value """
+    default : String
+
+    """ a list of items """
+    items : [ItemCreateInput!]
+}
+
+""" The description of a choice """
+type ChoiceDescription {
+    """ The label of a choice """
+    label : String!
+
+    """ Optional : The image that has to be shown for a choice """
+    image : ImagePayload
+
+    """ Unique String representing each choice """
+    code : String!
+}
+
+""" Defines the input to create a choice description """
+input ChoiceDescriptionCreateInput {
+
+    """ the description """
+    label : String!
+
+    """ the image data """
+    image : ID
+}
+
+""" Defines a question of type Like """
+type RegulatorQuestion implements Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ Items / Images that need to be shown """
+    items : [Item!]
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+
+    """ The labels that need to be visualized (only for visual feedback and orientation) """
+    labels : [Label!]!
+
+    """ The distance between every selectable step of the regulator """
+    stepSize : Float!
+
+    """ The minimum value for the regulator """
+    min : Float!
+
+    """ The maximum value for the regulator """
+    max : Float!
+
+    """ The default value the regulator has to start at """
+    default : Float!
+}
+
+""" Defines the input to create a question of type regulator """
+input RegulatorQuestionCreateInput {
+
+    """ the associated surveyID """
+    surveyID : ID!
+
+    """ the value """
+    value : String!
+
+    """ the description """
+    description : String
+
+    """ a list of labels """
+    labels : [LabelCreateInput!]!
+
+    """ the stepsize """
+    stepSize : Float!
+
+    """ the minimum value """
+    min : Float!
+
+    """ the maximum value """
+    max : Float!
+
+    """ the default value """
+    default : Float!
+
+    """ a list of items """
+    items : [ItemCreateInput!]
+}
+
+""" Defines the input to update a question of type regulator """
+input RegulatorQuestionUpdateInput {
+
+    """ the new value """
+    value : String
+
+    """ the new description """
+    description : String
+
+    """ a new list of labels """
+    labels : [LabelCreateInput!]
+
+    """ a new stepsize """
+    stepSize : Float
+
+    """" the new minimum """
+    min : Float
+
+    """ the new maximum """
+    max : Float
+
+    """ the new default value """
+    default : Float
+
+    """ a new list of items """
+    items : [ItemCreateInput!]
+}
+
+""" The description of steps that are important for orientation / understanding (distributed in a linear way) """
+type Label {
+    """ The text of a label """
+    text : String!
+
+    """ The image that has to be shown for a label """
+    image : ImagePayload
+
+    """ The value a label belongs to (has to be placed at) """
+    value : Float!
+}
+
+""" Defines the input to create a label """
+input LabelCreateInput {
+
+    """ the label text """
+    text : String!
+
+    """ the label image """
+    image : ID
+
+    """ the label value """
+    value : Float!
+}
+
+""" Defines a question in which multiple images need to get ranked """
+type RankingQuestion implements Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+
+    """ Items / Images that need to be shown """
+    items : [Item!]!
+}
+
+""" Defines the input to create a question of type ranking  """
+input RankingQuestionCreateInput {
+
+    """ the associated surveyID """
+    surveyID : ID!
+
+    """ the value """
+    value : String!
+
+    """ the description """
+    description : String
+
+    """ a list of items """
+    items : [ItemCreateInput!]!
+}
+
+""" Defines the input to update a question of type ranking """
+input RankingQuestionUpdateInput {
+
+    """ the new value """
+    value : String
+
+    """ the new description """
+    description : String
+
+    """ the updated list of items """
+    items : [ItemCreateInput!]
+}
+
+""" Defines a question where a single image of a set is selected as favorite """
+type FavoriteQuestion implements Question {
+    """ Unique questionID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The type of the question """
+    type : QuestionType!
+
+    """ The question text / the question itself """
+    value : String!
+
+    """ Optional: A description / extension of the question (help text) """
+    description : String
+
+    """ Items / Images that need to be shown """
+    items : [Item!]!
+}
+
+""" Defines the input to create a question of type favorite """
+input FavoriteQuestionCreateInput {
+
+    """ Defines the associated surveyID """
+    surveyID : ID!
+
+    """ The input value """
+    value : String!
+
+    """ The description """
+    description : String
+
+    """ A list of items """
+    items : [ItemCreateInput!]!
+}
+
+""" Defines the input to update a question of type favorite """
+input FavoriteQuestionUpdateInput {
+
+    """ the input value """
+    value : String
+
+    """ the new description """
+    description : String
+
+    """ a list of updated items """
+    items : [ItemCreateInput!]
+}
+
+""" Defines the data of an item """
+type Item {
+    """ The ImageData of the image that needs to be shown """
+    image : ImagePayload!
+
+    """ The Label that describes the image depending on the context """
+    label : String!
+
+    """ Unique String representing each item """
+    code : String!
+}
+
+""" Defines input to create an item """
+input ItemCreateInput {
+
+    """ the image data """
+    image : ID!
+
+    """ the item label """
+    label : String!
+}
+
+""" Defines the payload to create a question """
+type QuestionCreatePayload {
+
+    """ Defines the survey to create """
+    survey: Survey!
+}
+
+""" Defines the payload to delete a question """
+type QuestionUpdatePayload {
+
+    """ Defines the survey to update """
+    survey : Survey!
+}
+
+""" Defines the payload to delete a question """
+type QuestionDeletePayload {
+
+    """ Defines the survey to delete """
+    survey : Survey!
+}

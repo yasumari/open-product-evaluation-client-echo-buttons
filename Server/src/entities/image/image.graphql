@@ -1,0 +1,82 @@
+""" Defines the GraphQL Mutations """
+type Mutation {
+    """ Uploads an image and returns the ImageData """
+    createImage(data : ImageCreateInput!, image : Upload!) : ImageCreatePayload!
+
+    """ Uploads an image and returns the ImageData """
+    updateImage(data : ImageUpdateInput!, imageID : ID!) : ImageUpdatePayload!
+
+    """ Deletes the specified ImageData and returns the ImageData """
+    deleteImage(imageID : ID!) : ImageDeletePayload!
+}
+
+""" Defines the data representing an image """
+type ImageData{
+    """ Unique imageID """
+    id : ID!
+
+    """ Date of creation """
+    creationDate : DateTime!
+
+    """ Date of last update """
+    lastUpdate : DateTime!
+
+    """ The name of the image """
+    name : String!
+
+    """ The mimetype of the image """
+    type : String!
+
+    """ The hash identifying the image """
+    hash : String!
+
+    """ Tags this image is represented through """
+    tags : [String!]
+}
+
+""" Defines the Payload for Image Data """
+type ImagePayload {
+
+    """ Defines the image data """
+    data : ImageData!
+
+    """ The URL an image can be downloaded from """
+    url : String!
+}
+
+""" Defines the input to create an image """
+input ImageCreateInput {
+
+    """ Defines an associated surveyID for the image """
+    surveyID : ID!
+
+    """ Defines a list of tags for the image """
+    tags : [String!]
+}
+
+""" Defines the payload to create an image """
+type ImageCreatePayload {
+
+    """ Defines the image data """
+    image : ImagePayload!
+}
+
+""" Defines the input to update an image """
+input ImageUpdateInput {
+    """ Defines a list of tags for the image """
+    tags : [String!]
+}
+
+""" Defines the payload to update an image """
+type ImageUpdatePayload {
+
+    """ Defines the image data """
+    image : ImagePayload!
+}
+
+""" Defines the payload to delete an image """
+type ImageDeletePayload {
+
+    """ Defines the image data """
+    image : ImageData!
+}
