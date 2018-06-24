@@ -43,7 +43,8 @@ export type Device={
     value: string;
     description:string; 
     images: Images[];
-    owner: Owner
+    owner: Owner;
+    answer: Answer;
   }
   export type Owner={
     firstname: string;
@@ -65,4 +66,12 @@ export type Device={
   export type Vote={
       _id: any;
       survey: Survey;
+  }
+
+  export type Answer={
+    contextID: string,
+    deviceID: string,
+    questionID: number,
+    itemCode: string,
+    choiceCode: string
   }

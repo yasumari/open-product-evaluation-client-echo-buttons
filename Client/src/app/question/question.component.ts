@@ -4,7 +4,7 @@ import { DataService} from '../data.service';
 import {CreateLinkMutationResponse, CurrentAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
 
-import { Survey, Context, Vote} from '../types';
+import { Context, Answer} from '../types';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -16,31 +16,31 @@ import {Subscription} from 'rxjs/Subscription';
 
 export class QuestionComponent implements OnInit {
   public currentProject: Context;
-
+  private currentAnswer: Answer;
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router) 
  {
 
  }
    public currentPositionQuestion; 
-    Arrayproject: Vote []= [];
-
    buttonClick(btn_number)
  {    
    //TODO btn_number in itemID, um dem Bild einen Button zuordnen zu können
+  this.currentAnswer.itemCode="test";
+  this.currentAnswer.choiceCode="test2";
+  let i=0;
    this.apollo.mutate({
     mutation: CurrentAnswerMutate,
-    variables: { contextID: 1,
-      deviceID: 1,
-      questionID: 1,
-      itemCode: "dsfdg",
-      choiceCode: "hi"},
-  }).subscribe(
-    (d) => console.log("mutation", d));;
+    variables: { 
+      contextID: this.currentAnswer.contextID,
+      deviceID: this.currentAnswer.deviceID,
+      questionID: this.currentAnswer.questionID,
+      itemCode: this.currentAnswer.itemCode,
+      choiceCode: this.currentAnswer.choiceCode},
+  }).subscribe();
+    //(mutationResponse) => console.log("mutation", mutationResponse));
 
-      this.dataService.updatePositionQuestion(); 
-      for (var i=0; i<this.Arrayproject.length; i++){
-        console.log(this.Arrayproject[i]._id);
-      }
+    //TODO letzte Position prüfen
+      this.dataService.updatePositionQuestion();
      //Wurde die letzte Frage erreicht, dann zum Ende gehen
      ((this.currentPositionQuestion + 1) == this.currentProject.activeQuestion) ? this.router.navigate(['/end']) : this.router.navigate(['/feedback']);
      }
@@ -50,6 +50,13 @@ export class QuestionComponent implements OnInit {
        this.currentProject = this.dataService.getContext();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
       console.log("current: "+ this.currentPositionQuestion);
-      //this.Arrayproject = this.dataService.getVote();
+      //TODO deviceID ändern
+      this.currentAnswer={
+        contextID: this.currentProject.id,
+        deviceID: this.currentProject.devices[0].id,
+        questionID: this.currentProject.activeQuestion.id,
+        itemCode: "",
+        choiceCode: ""
+      }
       }
 }

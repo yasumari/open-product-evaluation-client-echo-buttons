@@ -28,6 +28,7 @@
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "graphql": "^0.13.2",
+    "graphql-anywhere": "^4.1.14",
     "graphql-tag": "^2.9.2",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.0",
