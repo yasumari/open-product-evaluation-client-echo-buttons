@@ -1,12 +1,11 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService} from '../data.service';
-import gql from 'graphql-tag';
+import {CreateLinkMutationResponse, CurrentAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
 
 import { Survey, Context, Vote} from '../types';
 import {Subscription} from 'rxjs/Subscription';
-
 
 @Component({
   selector: 'app-question',
@@ -16,26 +15,28 @@ import {Subscription} from 'rxjs/Subscription';
 })
 
 export class QuestionComponent implements OnInit {
-  //[x: string]: any;
   public currentProject: Context;
-  public applicationUser: Survey;
-
-  private currentProjectSub: Subscription;    
 
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router) 
  {
 
  }
    public currentPositionQuestion; 
-     
-  
- 
-     Arrayproject: Vote []= [];
- 
+    Arrayproject: Vote []= [];
+
    buttonClick(btn_number)
  {    
+   //TODO btn_number in itemID, um dem Bild einen Button zuordnen zu können
+   this.apollo.mutate({
+    mutation: CurrentAnswerMutate,
+    variables: { contextID: 1,
+      deviceID: 1,
+      questionID: 1,
+      itemCode: "dsfdg",
+      choiceCode: "hi"},
+  }).subscribe(
+    (d) => console.log("mutation", d));;
 
-     this.Arrayproject.push({_id:btn_number, survey :this.currentProject.activeSurvey});
       this.dataService.updatePositionQuestion(); 
       for (var i=0; i<this.Arrayproject.length; i++){
         console.log(this.Arrayproject[i]._id);
@@ -49,6 +50,6 @@ export class QuestionComponent implements OnInit {
        this.currentProject = this.dataService.getContext();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
       console.log("current: "+ this.currentPositionQuestion);
-      this.Arrayproject = this.dataService.getVote();
+      //this.Arrayproject = this.dataService.getVote();
       }
 }
