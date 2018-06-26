@@ -3,10 +3,7 @@ export const CurrentProjectQuery: any = gql`
 fragment itemsPart on Item{
   image{
           url
-          data{
-            id
-            creationDate
-          }
+         id
         }
 }
 
@@ -37,10 +34,7 @@ query CurrentProjectForController ($contextID: ID!){
       }
       images{
         url
-      	data{
-          id
-          creationDate
-        }
+      	id
       }
     }
     owners{

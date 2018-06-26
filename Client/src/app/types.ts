@@ -9,14 +9,9 @@ export type Survey = {
   }
   export type Image={
     url:string;
-    date: Data;
+    id: string
   }
 
-  export type Data={
-    id: string;
-    name: string;
-    type: string;
-  }
   export type Context={
     name: string;
     id: string;
@@ -72,6 +67,5 @@ export type Device={
     contextID: string,
     deviceID: string,
     questionID: number,
-    itemCode: string,
-    choiceCode: string
+    favoriteImage: string
   }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService} from '../data.service';
-import {CreateLinkMutationResponse, CurrentAnswerMutate} from './question.model';
+import {CreateLinkMutationResponse, favoriteAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
 
 import { Context, Answer} from '../types';
@@ -24,20 +24,25 @@ export class QuestionComponent implements OnInit {
    public currentPositionQuestion; 
    buttonClick(btn_number)
  {    
-   //TODO btn_number in itemID, um dem Bild einen Button zuordnen zu können
-  this.currentAnswer.itemCode="test";
-  this.currentAnswer.choiceCode="test2";
-  let i=0;
+  //TODO btn_number in itemID, um dem Bild einen Button zuordnen zu können
+  //TODO deviceID ändern
+ this.currentAnswer={
+  contextID: this.currentProject.id,
+  deviceID: this.currentProject.devices[0].id,
+  questionID: this.currentProject.activeQuestion.id,
+  favoriteImage: "Button "+btn_number,
+}
+console.log(this.currentAnswer);
    this.apollo.mutate({
-    mutation: CurrentAnswerMutate,
+     fetchPolicy: 'no-cache',
+    mutation: favoriteAnswerMutate,
     variables: { 
       contextID: this.currentAnswer.contextID,
       deviceID: this.currentAnswer.deviceID,
       questionID: this.currentAnswer.questionID,
-      itemCode: this.currentAnswer.itemCode,
-      choiceCode: this.currentAnswer.choiceCode},
-  }).subscribe();
-    //(mutationResponse) => console.log("mutation", mutationResponse));
+      favoriteImage: this.currentAnswer.favoriteImage},
+  }).subscribe((mutationResponse) => 
+        console.log("mutation", mutationResponse));
 
     //TODO letzte Position prüfen
       this.dataService.updatePositionQuestion();
@@ -50,13 +55,6 @@ export class QuestionComponent implements OnInit {
        this.currentProject = this.dataService.getContext();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
       console.log("current: "+ this.currentPositionQuestion);
-      //TODO deviceID ändern
-      this.currentAnswer={
-        contextID: this.currentProject.id,
-        deviceID: this.currentProject.devices[0].id,
-        questionID: this.currentProject.activeQuestion.id,
-        itemCode: "",
-        choiceCode: ""
-      }
+     
       }
 }
