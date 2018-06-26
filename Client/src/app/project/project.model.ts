@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-export const CurrentProjectQuery: any = gql`
+export const CurrentProjectSubscription: any = gql`
 fragment itemsPart on Item{
   image{
           url
@@ -7,7 +7,7 @@ fragment itemsPart on Item{
         }
 }
 
-query CurrentProjectForController ($contextID: ID!){
+subscription CurrentProjectForController ($contextID: ID!){
   context(contextID: $contextID){
     name
     id

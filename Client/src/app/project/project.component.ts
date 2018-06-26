@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {DataService } from '../data.service';
-import {CurrentProjectQuery} from './project.model';
+import {CurrentProjectSubscription} from './project.model';
 import { Context } from '../types';
 
 @Component({
@@ -14,10 +14,10 @@ export class ProjectComponent implements OnInit {
   constructor(private apollo: Apollo, private dataService: DataService) {
   }
     public ngOnInit(): void {
-      this.apollo.watchQuery({
-        query: CurrentProjectQuery,
+      this.apollo.subscribe({
+        query: CurrentProjectSubscription,
         variables: {contextID: 1},
-      }).valueChanges.subscribe(({data}) => {
+      }).subscribe(({data}) => {
         this.currentProject = data['context'];
          console.log(this.currentProject);
         this.dataService.sendContext(this.currentProject);
