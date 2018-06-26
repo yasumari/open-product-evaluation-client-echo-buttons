@@ -17,6 +17,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class QuestionComponent implements OnInit {
   public currentProject: Context;
   private currentAnswer: Answer;
+  private token: string;
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router) 
  {
 
@@ -25,10 +26,9 @@ export class QuestionComponent implements OnInit {
    buttonClick(btn_number)
  {    
   //TODO btn_number in itemID, um dem Bild einen Button zuordnen zu können
-  //TODO deviceID ändern
  this.currentAnswer={
   contextID: this.currentProject.id,
-  deviceID: this.currentProject.devices[0].id,
+  deviceID: this.token,
   questionID: this.currentProject.activeQuestion.id,
   favoriteImage: "Button "+btn_number,
 }
@@ -53,8 +53,7 @@ console.log(this.currentAnswer);
  public ngOnInit(): void {
       console.log("Question.component.ts init");
        this.currentProject = this.dataService.getContext();
+       this.token=this.dataService.getToken();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
-      console.log("current: "+ this.currentPositionQuestion);
-     
       }
 }
