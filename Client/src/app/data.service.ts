@@ -1,8 +1,10 @@
 import { Context, Vote } from './types';
 
 export class DataService {
+    private deviceToken;
     private subjectProject;
     private currentPositionQuestion=0;
+
     subjectp:Vote[]=[];
     getPositionQuestion(){
       return this.currentPositionQuestion;
@@ -31,5 +33,12 @@ export class DataService {
       return this.subjectp;
     }
  
+    setToken(token: String){
+      this.deviceToken=token;
+    }
+
+    getToken(){
+      return this.deviceToken;
+    }
   constructor() { }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import {DataService } from '../data.service';
-import {CurrentProjectSubscription} from './project.model';
+import { DataService } from '../data.service';
+import { CurrentProjectSubscription, newDeviceMutation} from './project.model';
 import { Context } from '../types';
 
 @Component({
@@ -22,5 +22,16 @@ export class ProjectComponent implements OnInit {
          console.log(this.currentProject);
         this.dataService.sendContext(this.currentProject);
       })
+
+      this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+       mutation: newDeviceMutation,
+       variables: { 
+         deviceName: "Fernseher",
+       }
+     }).subscribe(({data}) => { 
+      console.log("mutation", data.createDevice.token);
+      this.dataService.setToken(data.createDevice.token);
+    });
   }
 }
