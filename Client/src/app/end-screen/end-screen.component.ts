@@ -59,9 +59,9 @@ export class EndScreenComponent implements OnInit {
 
   public ngOnInit(): void {
   // get array
-  //Wofür denn sendVote? Ist doch am Ende
-  
-  this.dataService.sendVote(this.array);
+  //Wofür denn sendVote bei DataService? Ist doch am Ende
+  //this.dataService.sendVote(this.array);
+
   // send  Data to Server Graphql
      this.apollo.watchQuery({
       query: CurrentProjectQuery

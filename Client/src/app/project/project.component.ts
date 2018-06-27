@@ -14,9 +14,12 @@ export class ProjectComponent implements OnInit {
   constructor(private apollo: Apollo, private dataService: DataService) {
   }
     public ngOnInit(): void {
+      //TODO: Prüfen ob es von Liste-Startseite kommt oder schon spezifische ContextID kennt
+      let contextid=this.dataService.getContextID();
+      console.log(contextid);
       this.apollo.subscribe({
         query: CurrentProjectSubscription,
-        variables: {contextID: 1},
+        variables: {contextID: contextid},
       }).subscribe(({data}) => {
         this.currentProject = data['context'];
          console.log(this.currentProject);
