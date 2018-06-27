@@ -1,11 +1,10 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService} from '../data.service';
-import {CreateLinkMutationResponse, favoriteAnswerMutate} from './question.model';
+import {favoriteAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
 
 import { Context, Answer} from '../types';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-question',
@@ -51,7 +50,7 @@ console.log(this.currentAnswer);
      }
 
  public ngOnInit(): void {
-      console.log("Question.component.ts init");
+      //console.log("Question.component.ts init");
        this.currentProject = this.dataService.getContext();
        this.token=this.dataService.getToken();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();

@@ -14,7 +14,3 @@ mutation($contextID: ID!, $deviceID: ID!, $questionID: ID!, $favoriteImage: ID!)
       }
   	}
 }`;
-//TODO löschen, wofür war das ?
-export interface CreateLinkMutationResponse {
-  createAnswer: any;
-}
