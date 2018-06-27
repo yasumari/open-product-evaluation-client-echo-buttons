@@ -1,17 +1,20 @@
 import gql from 'graphql-tag';
 
-export const newDeviceMutation: any = gql`
-mutation addNewDevice ($deviceName: String!){
-	createDevice(data: {
-  	name: $deviceName
-  }){
-    device{
+export const updateDevice: any = gql`
+mutation updateDeviceMutation ($deviceID: ID!, $name: String, $context: ID!, $owners: [ID!]){
+  updateDevice(data: 
+    {
+      name: $name
+      context: $context
+      owners: $owners
+    }, deviceID: $deviceID){
+    device {
+      name
       id
       creationDate
     }
-    token
-  } 
-}`;
+    }
+  }`;
 
 export const CurrentProjectSubscription: any = gql`
 fragment itemsPart on Item{

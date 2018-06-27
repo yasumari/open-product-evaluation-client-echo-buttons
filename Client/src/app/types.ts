@@ -25,6 +25,7 @@ export type Survey = {
   }
 export type Device={
   name: string;
+  token: string;
   id: string;
 }
 

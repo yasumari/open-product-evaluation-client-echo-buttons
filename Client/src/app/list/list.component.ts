@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
-import{ map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { newDeviceMutation } from './list.model';
 
 import gql from 'graphql-tag';
 
@@ -20,9 +21,17 @@ export class ListComponent implements OnInit {
 
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService) { }
-
+    //
     openProject(contextID : string): void{
         this.dataService.setContextID(contextID);
+        this.router.navigateByUrl('/project');
+    }
+
+    //TODO noch nicht fertig
+    openSpecificProject(): void{
+        let id=document.getElementById("specificContextID").nodeValue;
+        console.log("geht noch nicht: " + id);
+        this.dataService.setContextID(id);
         this.router.navigateByUrl('/project');
     }
     ngOnInit() {
@@ -45,6 +54,19 @@ export class ListComponent implements OnInit {
     .pipe(
     map(result => result.data.surveys)
     );
+
+//TODO neues Device immer??
+    this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+       mutation: newDeviceMutation,
+       variables: { 
+         deviceName: "Fernseher",
+       }
+     }).subscribe(({data}) => { 
+      console.log("mutation createDevice", data.createDevice.device.name);
+      this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.deviceName);
+    });
+
   }
 
 }

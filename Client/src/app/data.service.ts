@@ -1,7 +1,10 @@
-import { Context, Vote } from './types';
+import { Context, Vote, Device } from './types';
 
 export class DataService {
+  //TODO Device ändern: 
+    private deviceID;
     private deviceToken;
+    private deviceName;
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
@@ -34,12 +37,20 @@ export class DataService {
       return this.subjectp;
     }
  
-    setToken(token: String){
-      this.deviceToken=token;
+    setDevice(token: string, id: string, name: string){
+      console.log("Token: " + token + " id: " + id + " name: " +name);
+      this.deviceID=token;
+      this.deviceToken=id;
+      this.deviceName=name;
     }
 
+    //TODO: in Device
     getToken(){
       return this.deviceToken;
+    }
+
+    getDevice(){
+      return (this.deviceID, this.deviceToken, this.deviceName);
     }
 
     setContextID(id: string){
@@ -47,8 +58,10 @@ export class DataService {
       this.contextID=id;
       console.log(this.contextID);
     }
+    
     getContextID(){
       return this.contextID;
     }
+
   constructor() { }
 }
