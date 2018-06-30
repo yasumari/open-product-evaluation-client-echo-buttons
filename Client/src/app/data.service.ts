@@ -38,6 +38,7 @@ export class DataService {
     }
  
     setDevice(token: string, id: string, name: string){
+      //TODO Probleme mit Namen
       console.log("Token: " + token + " id: " + id + " name: " +name);
       this.deviceID=token;
       this.deviceToken=id;

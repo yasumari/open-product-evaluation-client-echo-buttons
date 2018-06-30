@@ -62,8 +62,7 @@ export class ListComponent implements OnInit {
          deviceName: "Fernseher",
        }
      }).subscribe(({data}) => { 
-      console.log("mutation createDevice", data.createDevice.device.name);
-      this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.deviceName);
+      this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
     });
 
   }
