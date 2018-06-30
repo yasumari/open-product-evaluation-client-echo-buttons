@@ -30,6 +30,7 @@ export class ProjectComponent implements OnInit {
       })
 
       //Device contextID übergeben mit updateDevice()
+      //TODO Name und Nutzer festlegen
       this.apollo.mutate({
         fetchPolicy: 'no-cache',
         mutation: updateDevice,

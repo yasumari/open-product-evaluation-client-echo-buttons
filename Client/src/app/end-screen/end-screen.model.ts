@@ -1,6 +1,5 @@
 import gql from 'graphql-tag';
 
-
 export const updateDevice: any = gql`
 mutation updateDeviceMutation ($deviceID: ID!, $context: ID){
   updateDevice(data: 
@@ -14,5 +13,15 @@ mutation updateDeviceMutation ($deviceID: ID!, $context: ID){
         id
       }
     }
+    }
+  }`;
+
+  export const deleteDevice: any = gql`
+  mutation deleteDeviceMutation ($deviceID: ID!){
+    deleteDevice(deviceID: $deviceID){
+      device{
+        id
+        name
+      }
     }
   }`;

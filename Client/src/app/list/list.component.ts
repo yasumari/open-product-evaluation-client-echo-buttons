@@ -27,7 +27,6 @@ export class ListComponent implements OnInit {
         this.router.navigateByUrl('/project');
     }
 
-    //TODO noch nicht fertig
     openSpecificProject(): void{
         let id=(<HTMLInputElement>document.getElementById("specificContextID")).value;
         this.dataService.setContextID(id);
