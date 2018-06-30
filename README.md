@@ -19,9 +19,7 @@ Echo Buttons:
 
 
 Server: 
-1. Gehe in den Ordern "Server"
-2. öffne mit rechts-klick "git bash here"
-3. gebe "npm start" ein
+1. Starte Server von open-product-evaluation-server
 
 Client: 
 1. Gehe in den Ordern "Client"
