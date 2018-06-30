@@ -29,8 +29,7 @@ export class ListComponent implements OnInit {
 
     //TODO noch nicht fertig
     openSpecificProject(): void{
-        let id=document.getElementById("specificContextID").nodeValue;
-        console.log("geht noch nicht: " + id);
+        let id=(<HTMLInputElement>document.getElementById("specificContextID")).value;
         this.dataService.setContextID(id);
         this.router.navigateByUrl('/project');
     }

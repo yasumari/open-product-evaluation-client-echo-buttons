@@ -14,7 +14,8 @@ export class ProjectComponent implements OnInit {
   constructor(private apollo: Apollo, private dataService: DataService) {
   }
     public ngOnInit(): void {
-      //TODO: Prüfen ob es von Liste-Startseite kommt oder schon spezifische ContextID kennt
+      //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
+      
       //TODO: DeviceID abfrage immer oder nur bei neuen, speichern der ID
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
       let deviceID = ((this.dataService.getDevice() !=null ) ? this.dataService.getDevice() : "1");
