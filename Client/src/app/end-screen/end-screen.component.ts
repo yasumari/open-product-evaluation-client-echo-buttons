@@ -2,47 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {Subscription} from 'rxjs/Subscription';
 import {DataService } from '../data.service';
-import gql from 'graphql-tag';
-import { Survey, Query, Question, Owner, Images,Vote } from '../types';
-export const CurrentProjectQuery: any = gql`
-  query CurrentProjectForController ($id: Int){
-     survey (id: $id){
-      id,
-      name,
-      description,
-      owner{
-          firstname, 
-          lastname,
-          email},
-      questions{
-          _id,
-          sequence,
-          value,
-          description
-      }
-      votes{
-          _id
-      survey{
-      id,
-      name,
-      description,
-      owner{
-          firstname, 
-          lastname,
-          email},
-      questions{
-          _id,
-          sequence,
-          value,
-          description
-      }
-      } 
-      }
-    }
-  
-  }
-`;
-
+import { Vote } from '../types';
+import { updateDevice} from './end-screen.model';
 
 @Component({
   selector: 'app-end-screen',
@@ -51,24 +12,24 @@ export const CurrentProjectQuery: any = gql`
 })
 export class EndScreenComponent implements OnInit {
 
-  array: Vote []= [];
-  private currentProjectSub: Subscription;
-  
   constructor(private apollo: Apollo, private dataService: DataService) {
   }
 
+  //abmelden setzt nur context auf null
+  //TODO Gerät vollständig entfernen
+  abmelden(): void{
+    let deviceID=this.dataService.getDevice();
+    this.apollo.mutate({
+      fetchPolicy: 'no-cache',
+      mutation: updateDevice,
+      variables: {
+        deviceID: deviceID,
+        context: null,
+      }
+    }).subscribe(({data}) => { 
+        console.log("mutation update DeviceContext", data);
+      });
+  }
   public ngOnInit(): void {
-  // get array
-  //Wofür denn sendVote bei DataService? Ist doch am Ende
-  //this.dataService.sendVote(this.array);
-
-  // send  Data to Server Graphql
-     this.apollo.watchQuery({
-      query: CurrentProjectQuery
-    }).valueChanges.subscribe(({ data }) => {
-         for(var i=0;i<=this.array.length;i++)
-           // data.votes=this.array[i];
-            console.log(data);
-    })
   }
   }
