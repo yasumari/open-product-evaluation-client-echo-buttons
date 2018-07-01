@@ -15,18 +15,21 @@ export class ProjectComponent implements OnInit {
   }
     public ngOnInit(): void {
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
-      
       //TODO: DeviceID abfrage immer oder nur bei neuen, speichern der ID
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
       let deviceID = ((this.dataService.getDevice() !=null ) ? this.dataService.getDevice() : "1");
-      //Komplette Umfrage abfragen
+      //Umfrage abfragen ohne Inhalt der Fragen
       this.apollo.subscribe({
         query: CurrentProjectSubscription,
         variables: {contextID: contextid},
       }).subscribe(({data}) => {
+        //TODO brauche ich die activeQuestion abzufragen?
         this.currentProject = data['context'];
-         console.log(this.currentProject);
+        console.log(this.currentProject.activeSurvey.questions);
+        //vorne im Array starten und dann eins hochzählen bei einer Antwort 
+        //leere Antworten sind nicht möglich bis September
         this.dataService.sendContext(this.currentProject);
+        this.dataService.setPositionQuestion(0);
       })
 
       //Device contextID übergeben mit updateDevice()

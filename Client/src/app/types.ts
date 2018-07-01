@@ -6,10 +6,7 @@ export type Survey = {
   creator: Owner,
   images: Image[],
   votes: Vote;
-  }
-  export type Image={
-    url:string;
-    id: string
+  questions: Question[]
   }
 
   export type Context={
@@ -35,29 +32,33 @@ export type Device={
   }
   export type Question ={
     id: number;
-    sequence: number;
     value: string;
     description:string; 
-    images: Images[];
-    owner: Owner;
-    answer: Answer;
+    items: Item[];
   }
   export type Owner={
     firstname: string;
     lastname: string;
     email: string
   }
-  export type Images={
-    _id: number;
-    filename: string
+  export type Item={
+    label: string; 
+    image: Image;
   }
   
+  export type Image={
+    id: string;
+    name: string;
+    type: string; 
+    hash: string;
+    tags: string;
+    url: string;
+  }
   export type Query={
       surveys: Survey[];
       survey: Survey;
       questions: Question[];
       votes: Vote;
-         
   }
   export type Vote={
       _id: any;

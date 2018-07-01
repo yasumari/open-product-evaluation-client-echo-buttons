@@ -1,9 +1,9 @@
 <!-- <div class="gtco-loader"></div> -->
-<h1> {{currentProject.name}} </h1>
 <div class="row row-pb-sm">
 	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-		<h2>{{currentProject.activeQuestion.value}}</h2>
-		<p>{{currentProject.activeQuestion.description}}</p>
+		<h1> Projektname: {{currentProject.name}} </h1>
+		<h2>Aktuelle Frage: {{currentQuestion.description}}</h2>
+		<p>Value: {{currentQuestion.value}}</p>
 	</div>
 </div>
 <div class="row row-pb-md">
@@ -11,9 +11,8 @@
 		<div class="overlay">
 			<div class="copy text-center">
 				<img src="./../../../assets/images/33.jpg" alt="Img">
-				<h2>Design 1</h2>
-				<p class="role">Hexagon Wood Frame</p>
-				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(1)">Design 1 </button>
+				<h2>Label: {{currentQuestion.items[0].label}}</h2>
+				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(0)">Design 1 </button>
 			</div>
 		</div>
 	</div>
@@ -22,11 +21,10 @@
 <div class="row row-pb-md">
 	<div class="col-md-4 col-sm-4 col-sm-offset-1">
 		<div class="overlay">
-			<div class="copy text-center">
+			<div class="copy text-center" id="{{currentQuestion.items[1].id}}">
 				<img src="./../../../assets/images/22.jpg" alt="Img">
-				<h2>Design 1</h2>
-				<p class="role">Hexagon Wood Print</p>
-				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(2)">Design 2 </button>
+				<h2>Label: {{currentQuestion.items[1].label}}</h2>
+				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(1)">Design 2 </button>
 			</div>
 		</div>
 	</div>

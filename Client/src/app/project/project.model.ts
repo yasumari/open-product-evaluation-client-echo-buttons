@@ -53,6 +53,19 @@ subscription CurrentProjectForController ($contextID: ID!){
         url
       	id
       }
+      questions{
+        id
+        value
+        items{
+          label
+          image{
+            id
+            url
+          }
+        }
+        type
+        description
+      }
     }
     owners{
       firstName

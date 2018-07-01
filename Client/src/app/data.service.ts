@@ -14,6 +14,9 @@ export class DataService {
       return this.currentPositionQuestion;
     }
   
+    setPositionQuestion(position: number){
+      this.currentPositionQuestion=position;
+    }
     updatePositionQuestion(){
       this.currentPositionQuestion+=1;
     }  
@@ -39,7 +42,6 @@ export class DataService {
  
     setDevice(token: string, id: string, name: string){
       //TODO Probleme mit Namen
-      console.log("Token: " + token + " id: " + id + " name: " +name);
       this.deviceID=token;
       this.deviceToken=id;
       this.deviceName=name;
@@ -55,9 +57,7 @@ export class DataService {
     }
 
     setContextID(id: string){
-      console.log(id);
       this.contextID=id;
-      console.log(this.contextID);
     }
     
     getContextID(){
