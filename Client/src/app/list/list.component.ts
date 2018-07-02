@@ -10,6 +10,7 @@ import { Survey, Query } from '../types'
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',

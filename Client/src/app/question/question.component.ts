@@ -31,7 +31,8 @@ export class QuestionComponent implements OnInit {
   questionID: this.currentQuestion.id,
   favoriteImage: this.currentQuestion.items[btn_number].image.id,
 }
-console.log(this.currentAnswer);
+
+//Sende Antwort der Frage an den Server
    this.apollo.mutate({
      fetchPolicy: 'no-cache',
     mutation: favoriteAnswerMutate,
@@ -43,6 +44,7 @@ console.log(this.currentAnswer);
   }).subscribe((mutationResponse) => 
         console.log("mutation", mutationResponse));
 
+        //Nehme die nächste Position des Arrays, 
       this.dataService.updatePositionQuestion();
      //Wurde die letzte Frage erreicht, dann zum Ende gehen
      ((this.currentPositionQuestion + 1) == this.currentProject.activeSurvey.questions.length) ? this.router.navigate(['/end']) : this.router.navigate(['/feedback']);
