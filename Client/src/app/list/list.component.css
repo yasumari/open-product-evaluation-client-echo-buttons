@@ -4,12 +4,19 @@ body {
   padding-right: 50px;
   padding-bottom: 50px;
   background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
-  font-family: "Raleway";
+  font-family: "Raleway", Arial, sans-serif;
   height: 900px;
+  position: relative;
+  overflow-x: hidden;
 }
 
 h1{
   color: white;
+  font-family: "Raleway", Arial, sans-serif;
+  margin: 0 0 20px 0;
+  font-size: 50px;
+  line-height: 1.2 !important;
+  font-weight: 100;
 }
 
 h6{
@@ -20,7 +27,7 @@ h6{
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     cursor: pointer;
 }
 
@@ -32,32 +39,14 @@ h6{
   color: #34a7bd;
 }
 
-.container {
-    padding: 2px 16px;
-}
-
 #button {
-  margin-left: 5px;
-  background-color: white;
-  border: none;
   color: #34a7bd;
-  font-family: "Raleway";
-  font-size: 13px;
-  font-weight: 700 !important;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
 }
 
 #specificContextID {
   border: none;
-  margin-right: 5px;
   padding-left: 5px;
+  margin-bottom: 1px;
   font-size: 15px;
   font-family: "Raleway";
 }
