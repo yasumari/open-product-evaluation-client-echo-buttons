@@ -11,13 +11,13 @@
                                             <img src="../assets/images/cube.png" >
                                         </div>
                                         <div class="col-md-7 copy">
-                                            <h1>Title: {{currentProject.activeSurvey.title}}</h1>
-                                            <p>Beschreibung: {{currentProject.activeSurvey.description}}</p>
-                                            <p>Autor: {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p>
+                                            <h1> {{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
+                                            <p>{{currentProject.activeSurvey.description}}</p> <!-- Beschreibung des Projektes -->
+                                            <p>von {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p> <!-- Autor des Projektes -->
                                             <p><a class="btn btn-white" routerLink="/question" routerLinkActive="active" >Start</a></p>
                                         <div class="pull-left" style="margin-top: 50px">
-                                        <p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>						
-                                        <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/></p>
+                                        <!--><p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>
+                                        <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/>     !!!QR-CODE!!! </p><-->
                                         </div>
                                         </div>
                                     </div>
