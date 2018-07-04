@@ -54,6 +54,20 @@ h1, h2, h3, h4, h5, h6, figure {
   margin: 0 0 20px 0;
 }
 
+h1{
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+h2{
+  padding-top: 50px;
+  color: grey;
+}
+
+h5{
+  margin-top: 10px;
+}
+
 .gtco-container {
   max-width: 1140px;
   position: relative;
