@@ -1,9 +1,14 @@
-<!-- <div class="gtco-loader"></div> -->
+<head>
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+</head>
+
+<div class="gtco-section gtco-products">
+<div class="gtco-container">
 <div class="row row-pb-sm">
 	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-		<h1> Projektname: {{currentProject.name}} </h1>
-		<h2>Aktuelle Frage: {{currentQuestion.description}}</h2>
-		<p>Value: {{currentQuestion.value}}</p>
+		<h2>{{currentProject.name}} </h2> <!-- Name des Projektes -->
+		<h1>Frage: {{currentQuestion.description}}</h1> <!-- Aktuelle Frage des Projektes -->
+		<!-- <p>Value: {{currentQuestion.value}}</p> --> <!-- Value des Projektes -->
 	</div>
 </div>
 <div class="row row-pb-md">
@@ -11,25 +16,20 @@
 		<div class="overlay">
 			<div class="copy text-center">
 				<img src="./../../../assets/images/33.jpg" alt="Img">
-				<h2>Label: {{currentQuestion.items[0].label}}</h2>
-				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(0)">Design 1 </button>
+				<h5>Label: {{currentQuestion.items[0].label}}</h5>
+				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(0)">Design 1</button>
 			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row row-pb-md">
 	<div class="col-md-4 col-sm-4 col-sm-offset-1">
 		<div class="overlay">
 			<div class="copy text-center" id="{{currentQuestion.items[1].id}}">
 				<img src="./../../../assets/images/22.jpg" alt="Img">
-				<h2>Label: {{currentQuestion.items[1].label}}</h2>
-				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(1)">Design 2 </button>
+				<h5>Label: {{currentQuestion.items[1].label}}</h5>
+				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(1)">Design 2</button>
 			</div>
 		</div>
 	</div>
 </div>
-<!-- 
-<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div> -->
+</div>

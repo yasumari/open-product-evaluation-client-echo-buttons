@@ -1,0 +1,24 @@
+body {
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
+  font-family: "Raleway", Arial, sans-serif;
+  height: 900px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1{
+  color: white;
+  font-family: "Raleway", Arial, sans-serif;
+  margin: 0 0 20px 0;
+  font-size: 50px;
+  line-height: 1.2 !important;
+  font-weight: 100;
+}
+
+#button {
+  color: #34a7bd;
+}

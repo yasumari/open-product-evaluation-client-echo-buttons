@@ -1,0 +1,52 @@
+body {
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
+  font-family: "Raleway", Arial, sans-serif;
+  height: 900px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1{
+  color: white;
+  font-family: "Raleway", Arial, sans-serif;
+  margin: 0 0 20px 0;
+  font-size: 50px;
+  line-height: 1.2 !important;
+  font-weight: 100;
+}
+
+h6{
+  margin-top: 10px;
+
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card-title:hover {
+  color: #34a7bd;
+}
+
+#button {
+  color: #34a7bd;
+}
+
+#specificContextID {
+  border: none;
+  padding-left: 5px;
+  margin-bottom: 1px;
+  font-size: 15px;
+  font-family: "Raleway";
+}
