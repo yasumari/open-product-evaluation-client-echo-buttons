@@ -45,9 +45,10 @@ export class AppModule {
     private dataService: DataService
   ) {
   const http = httpLink.create({uri: 'http://localhost:3000/'});
-    let token = this.dataService.getToken();
     
         const authMiddleware = new ApolloLink((operation, forward) => {
+          let token = this.dataService.getToken();
+        console.log("NEUER HEADER " + token);
           // add the authorization to the headers
           operation.setContext({
             headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)

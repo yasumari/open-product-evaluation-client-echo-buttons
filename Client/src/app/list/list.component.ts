@@ -34,37 +34,36 @@ export class ListComponent implements OnInit {
         this.router.navigateByUrl('/project');
     }
     ngOnInit() {
-    this.surveys = this.apollo.watchQuery<Query>({
-    query: gql`
-        query list{
-            surveys{
-                id
-                title
-                description
-                creator{
-                  lastName
-                  firstName
-                }
-            }
-        }
-    `
-    })
-    .valueChanges
-    .pipe(
-    map(result => result.data.surveys)
-    );
 
 //TODO neues Device immer??
+//TODO als Promise auslagern
     this.apollo.mutate({
-        fetchPolicy: 'no-cache',
+       fetchPolicy: 'no-cache',
        mutation: newDeviceMutation,
        variables: { 
          deviceName: "Fernseher",
        }
      }).subscribe(({data}) => { 
       this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
+      this.surveys = this.apollo.watchQuery<Query>({
+        query: gql`
+            query list{
+                surveys{
+                    id
+                    title
+                    description
+                    creator{
+                      lastName
+                      firstName
+                    }
+                }
+            }
+        `
+        }).valueChanges
+        .pipe(
+        map(result => result.data.surveys)
+        );
     });
-
   }
 
 }
