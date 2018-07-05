@@ -1,6 +1,10 @@
+<head>
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
+</head>
 <body>
 <h1>Projekte</h1>
+<div class="tile">
 <div *ngFor="let survey of surveys | async">
   <div class="card" style="width: 100%; margin-top: 10px" (click)="openProject(survey.id)">
     <div class="card-body" id="{{survey.id}}">
@@ -9,6 +13,7 @@
       <h6 class="card-subtitle mb-2 text-muted">von {{survey.creator.firstName + survey.creator.lastName}}</h6> <!-- Autor des Projektes -->
     </div>
   </div>
+</div>
 </div>
 <div>
   <p><input name="searchid" type="text" id="specificContextID" placeholder="ID-Suche"></p>
