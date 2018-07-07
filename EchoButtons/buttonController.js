@@ -37,16 +37,6 @@ btSerial.findSerialPortChannel(address, function(channel) {
 			 });
 
 
-		/*			request.post(
-			    'http://localhost:8080/',
-			    { json: { requestKey: 'Data received from button one' } },
-			    function (error, response, body) {
-			        if (!error && response.statusCode == 200) {
-			            console.log(body)
-			        }
-			    }
-			);*/
-
 
 
 			}else{
@@ -96,15 +86,8 @@ btSerial2.findSerialPortChannel(address2, function(channel) {
 			 		pressedButton: '2'
 			 		});
 			 });
-					/*request.post(
-			    'http://localhost:8080/',
-			    { json: { requestKey: 'Data received from button two' } },
-			    function (error, response, body) {
-			        if (!error && response.statusCode == 200) {
-			            console.log(body)
-			        }
-			    }
-			);*/
+					
+
 
 			}else{
 			 console.log(' >> button 2 is ' + 'released');
@@ -150,15 +133,8 @@ btSerial3.findSerialPortChannel(address3, function(channel) {
 			 		});
 			 });
 
-					/*request.post(
-			    'http://localhost:8080/',
-			    { json: { requestKey: 'Data received from button three' } },
-			    function (error, response, body) {
-			        if (!error && response.statusCode == 200) {
-			            console.log(body)
-			        }
-			    }
-			);*/
+				
+				
 
 			}else{
 			 console.log(' >> button 3 is ' + 'released');
