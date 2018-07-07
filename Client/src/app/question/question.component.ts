@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 
 import { Context, Answer, Question } from '../types';
 
+
+
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -49,6 +51,11 @@ export class QuestionComponent implements OnInit {
      //Wurde die letzte Frage erreicht, dann zum Ende gehen
      ((this.currentPositionQuestion + 1) == this.currentProject.activeSurvey.questions.length) ? this.router.navigate(['/end']) : this.router.navigate(['/feedback']);
      }
+
+  private position :any;
+calculate ():string {
+  return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
+}
 
  public ngOnInit(): void {
        this.currentProject = this.dataService.getContext();

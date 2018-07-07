@@ -17,7 +17,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './data.service';
 import { ApolloLink, concat } from 'apollo-link';
 
-
+import {ProgressBarModule} from "angular-progress-bar"
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,13 +28,16 @@ import { ApolloLink, concat } from 'apollo-link';
     ProjectComponent,
     FeedbackComponent,
     EndScreenComponent
+    
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
-     CONST_ROUTING
+     CONST_ROUTING,
+     ProgressBarModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -11,10 +11,15 @@
 		<!-- <p>Value: {{currentQuestion.value}}</p> --> <!-- Value des Projektes -->
 	</div>
 </div>
+<div class="progress">
+<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px" >{{calculate()}}</div>
+</div>
+
+
 <div class="row row-pb-md">
 	<div class="col-md-4 col-sm-4 col-sm-offset-1">
 		<div class="overlay">
-			<div class="copy text-center">
+			<div class="copy text-center" >
 				<img src="./../../../assets/images/33.jpg" alt="Img">
 				<h5>Label: {{currentQuestion.items[0].label}}</h5>
 				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(0)">Design 1</button>
@@ -22,7 +27,16 @@
 		</div>
 	</div>
 
-	<div class="col-md-4 col-sm-4 col-sm-offset-1">
+	<div class="col-md-4 col-sm-4 col-sm-offset-1" >
+		<div class="overlay">
+			<div class="copy text-center" id="{{currentQuestion.items[1].id}}">
+				<img src="./../../../assets/images/22.jpg" alt="Img">
+				<h5>Label: {{currentQuestion.items[1].label}}</h5>
+				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(1)">Design 2</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-4 col-sm-offset-1" style="position:relative">
 		<div class="overlay">
 			<div class="copy text-center" id="{{currentQuestion.items[1].id}}">
 				<img src="./../../../assets/images/22.jpg" alt="Img">

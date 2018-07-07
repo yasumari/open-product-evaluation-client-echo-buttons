@@ -67,7 +67,19 @@ h2{
 h5{
   margin-top: 10px;
 }
+img{
 
+
+display: table-cell;
+padding: 0 4px;
+margin: 0 auto;
+text-align: center;
+width: 50%
+}
+#grid {
+display: table;
+width: 50%
+}
 .gtco-container {
   max-width: 1140px;
   position: relative;
