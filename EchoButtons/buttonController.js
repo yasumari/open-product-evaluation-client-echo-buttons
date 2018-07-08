@@ -12,7 +12,16 @@ const server  = http.Server(app);
 
 const io = socketIo(server);
 
-server.listen(3000);
+/* TESTEN*/
+/*
+ io.on('connection', (socket) => {
+			 	socket.emit('message', {
+			 		pressedButton: '1'
+			 		});
+			 });
+*/
+
+server.listen(3001);
 ////////////Button 1
 
 var btSerial = new (require('bluetooth-serial-port')).BluetoothSerialPort();
