@@ -1,33 +1,10 @@
-<div id="page">
-    <header id="gtco-header" class="gtco-cover" role="banner">
-        <div class="gtco-container">
-        <br><br>
-            <div class="row">
-				<div class="col-md-12 col-md-offset-0 text-left">
-                    <div class="display-t">
-                                <div class="display-tc">
-                                    <div class="row" *ngIf="currentProject">
-                                        <div class="col-md-5 text-center header-img">
-                                            <img src="../assets/images/cube.png" >
-                                        </div>
-                                        <div class="col-md-7 copy">
-                                            <h1> {{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
-                                            <p>{{currentProject.activeSurvey.description}}</p> <!-- Beschreibung des Projektes -->
-                                            <p>von {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p> <!-- Autor des Projektes -->
-                                            <p><a class="btn btn-white" routerLink="/question" routerLinkActive="active" >Start</a></p>
-                                        <div class="pull-left" style="margin-top: 50px">
-                                        <!--><p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>
-                                        <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/>     !!!QR-CODE!!! </p><-->
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-					</div>
-				</div>
-			</div>
-		</header>
-	</div>
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
+<body id="gtco-header">
+  <div class="project">
+  <h1>{{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
+  <p>{{currentProject.activeSurvey.description}}</p> <!-- Beschreibung des Projektes -->
+  <p>von {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p> <!-- Autor des Projektes -->
+  <p><a class="btn btn-white" routerLink="/question" routerLinkActive="active" >Start</a></p>
+  <!--><p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>
+  <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/>     !!!QR-CODE!!! </p><-->
+</div>
+</body>
