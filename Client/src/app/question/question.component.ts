@@ -3,8 +3,11 @@ import { Apollo } from 'apollo-angular';
 import { DataService} from '../data.service';
 import {favoriteAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
+import * as io from 'socket.io-client';
 
 import { Context, Answer, Question } from '../types';
+
+
 
 @Component({
   selector: 'app-question',
@@ -14,6 +17,7 @@ import { Context, Answer, Question } from '../types';
 })
 
 export class QuestionComponent implements OnInit {
+  private socket;
   public currentProject: Context;
   private currentAnswer: Answer;
   private token: string;
@@ -31,7 +35,8 @@ export class QuestionComponent implements OnInit {
   questionID: this.currentQuestion.id,
   favoriteImage: this.currentQuestion.items[btn_number].image.id,
 }
-console.log(this.currentAnswer);
+
+//Sende Antwort der Frage an den Server
    this.apollo.mutate({
      fetchPolicy: 'no-cache',
     mutation: favoriteAnswerMutate,
@@ -43,15 +48,35 @@ console.log(this.currentAnswer);
   }).subscribe((mutationResponse) => 
         console.log("mutation", mutationResponse));
 
+        //Nehme die nächste Position des Arrays, 
       this.dataService.updatePositionQuestion();
      //Wurde die letzte Frage erreicht, dann zum Ende gehen
      ((this.currentPositionQuestion + 1) == this.currentProject.activeSurvey.questions.length) ? this.router.navigate(['/end']) : this.router.navigate(['/feedback']);
      }
+
+  private position :any;
+calculate ():string {
+  return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
+}
 
  public ngOnInit(): void {
        this.currentProject = this.dataService.getContext();
        this.token=this.dataService.getToken();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
        this.currentQuestion = this.currentProject.activeSurvey.questions[this.currentPositionQuestion];
-      }
+
+       this.socket = io('http://localhost:3001');
+ this.getClickedButton();
+
+  }
+
+  getClickedButton() {
+      this.socket.on('message', (data) => {
+        //Button wurde gedrückt
+        this.buttonClick(data.pressedButton);
+      });
+      return () => {
+        this.socket.disconnect();
+      };  
+  }
 }

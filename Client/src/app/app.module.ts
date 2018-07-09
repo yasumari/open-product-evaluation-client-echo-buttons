@@ -11,9 +11,14 @@ import { QuestionComponent } from './question/question.component';
 import { MenuComponent } from './menu.component';
 import { CONST_ROUTING } from './app.routing';
 import { ProjectComponent } from './project/project.component';
-import { DataService} from './data.service';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { EndScreenComponent } from './end-screen/end-screen.component';
+import { HttpHeaders } from '@angular/common/http';
+import { DataService } from './data.service';
+import { ApolloLink, concat } from 'apollo-link';
+
+
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +28,9 @@ import { EndScreenComponent } from './end-screen/end-screen.component';
     ProjectComponent,
     FeedbackComponent,
     EndScreenComponent
+    
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -35,13 +42,26 @@ import { EndScreenComponent } from './end-screen/end-screen.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-    constructor(
+  constructor(
     apollo: Apollo,
-    httpLink: HttpLink    
-    ){
-     apollo.create({
-     link: httpLink.create({ uri: 'http://localhost:3000/' }),
-         cache: new InMemoryCache()
-     })
-    }
+    httpLink: HttpLink,
+    private dataService: DataService
+  ) {
+  const http = httpLink.create({uri: 'http://localhost:3000/'});
+    
+        const authMiddleware = new ApolloLink((operation, forward) => {
+          let token = this.dataService.getToken();
+        console.log("NEUER HEADER " + token);
+          // add the authorization to the headers
+          operation.setContext({
+            headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+          });
+
+          return forward(operation);
+        });
+    apollo.create({
+      link:concat(authMiddleware, http),
+      cache: new InMemoryCache()
+    });
+  }
 }

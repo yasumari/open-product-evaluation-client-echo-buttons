@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
-import { newDeviceMutation } from './list.model';
-
-import gql from 'graphql-tag';
+import { newDeviceMutation, queryAllSurveys } from './list.model';
 
 import { Survey, Query } from '../types'
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
+
 
 @Component({
   selector: 'app-list',
@@ -33,37 +32,28 @@ export class ListComponent implements OnInit {
         this.router.navigateByUrl('/project');
     }
     ngOnInit() {
-    this.surveys = this.apollo.watchQuery<Query>({
-    query: gql`
-        query list{
-            surveys{
-                id
-                title
-                description
-                creator{
-                  lastName
-                  firstName
-                }
-            }
-        }
-    `
-    })
-    .valueChanges
-    .pipe(
-    map(result => result.data.surveys)
-    );
 
 //TODO neues Device immer??
-    this.apollo.mutate({
-        fetchPolicy: 'no-cache',
-       mutation: newDeviceMutation,
-       variables: { 
-         deviceName: "Fernseher",
-       }
-     }).subscribe(({data}) => { 
-      this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
-    });
+//TODO als Promise auslagern
 
-  }
+
+
+
+this.apollo.mutate({
+    fetchPolicy: 'no-cache',
+    mutation: newDeviceMutation,
+    variables: { 
+      deviceName: "Fernseher",
+    }
+  }).subscribe(({data}) => { 
+   this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
+   this.surveys = this.apollo.watchQuery<Query>({
+     query: queryAllSurveys
+     }).valueChanges
+     .pipe(
+     map(result => result.data.surveys)
+     );
+ });
+}
 
 }

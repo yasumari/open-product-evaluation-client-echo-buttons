@@ -13,3 +13,17 @@ mutation addNewDevice ($deviceName: String!){
     token
   } 
 }`;
+
+export const queryAllSurveys: any=gql`
+query list{
+    surveys{
+        id
+        title
+        description
+        creator{
+          lastName
+          firstName
+        }
+    }
+}
+`;

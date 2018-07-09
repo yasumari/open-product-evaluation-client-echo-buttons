@@ -30,7 +30,6 @@ export class EndScreenComponent implements OnInit {
   }
 
   deleteDevice(): void{
-    let deviceID=this.dataService.getDevice();
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: deleteDevice,

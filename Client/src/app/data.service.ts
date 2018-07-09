@@ -34,14 +34,13 @@ export class DataService {
 
     /*sendVote(project: Vote[] ) {
       this.subjectProject = project;
-    }*/
+    }
     
     getVote() {
       return this.subjectp;
-    }
+    }*/
  
     setDevice(token: string, id: string, name: string){
-      //TODO Probleme mit Namen
       this.deviceID=token;
       this.deviceToken=id;
       this.deviceName=name;
