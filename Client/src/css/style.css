@@ -67,7 +67,24 @@ h2{
 
 h5{
   margin-top: 10px;
+<<<<<<< HEAD
   margin-left: 20px;
+=======
+}
+
+img{
+
+}
+
+.project{
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  height: 900px;
+  position: relative;
+  overflow-x: hidden;
+>>>>>>> 68c06582423f2439d9d8a9c79a556d05e10da9dc
 }
 
 .gtco-container {
