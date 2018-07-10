@@ -21,6 +21,9 @@ export class QuestionComponent implements OnInit {
   private token: string;
   private currentPositionQuestion;
   private currentQuestion: Question;
+ 
+  public n:any;
+  
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router) 
  {}
 
@@ -53,11 +56,16 @@ export class QuestionComponent implements OnInit {
      }
 
   private position :any;
-calculate ():string {
+  calculate ():string {
   return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
-}
+     
 
+}
+  
  public ngOnInit(): void {
+   
+     
+         
        this.currentProject = this.dataService.getContext();
        this.token=this.dataService.getToken();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
