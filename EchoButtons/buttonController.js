@@ -10,14 +10,17 @@ app.get('/', (req, res) => res.send("Hello World"));
 
 const server  = http.Server(app);
 
-const io = socketIo(server);
 
-server.listen(3000);
+server.listen(3001);
+console.log("HÖRT AUF PORT 3001");
 ////////////Button 1
 
+const io = socketIo(server);
+	
 var btSerial = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 var address= '4C-EF-C0-EE-96-FB';
-
+io.on('connection', (socket)=>{
+	
 
 btSerial.findSerialPortChannel(address, function(channel) {
 	btSerial.connect(address, channel, function() {
@@ -26,18 +29,13 @@ btSerial.findSerialPortChannel(address, function(channel) {
 			console.log('> receiving ('+buffer.length+' bytes):', buffer);
 
 			var isPressed = buffer[buffer.length-2] == 0xc6;
-
+			console.log("Gedrückt: " + buffer[buffer.length-2]);
 			if(isPressed){
 			 console.log(' >> button 1 is ' + 'pressed');
 
-			 io.on('connection', (socket) => {
-			 	socket.emit('message', {
+			 socket.emit('message', {
 			 		pressedButton: '1'
 			 		});
-			 });
-
-
-
 
 			}else{
 			 console.log(' >> button 1 is ' + 'released');
@@ -46,7 +44,7 @@ btSerial.findSerialPortChannel(address, function(channel) {
 		});
 
 	}, function () {
-		console.log('> cannot connect');
+		console.log('> cannot connect 1' );
 	});
 
 }, function() {
@@ -64,8 +62,8 @@ process.on('SIGINT', function() {
 
 //////////////////////Button 2
 
-
-
+/*
+Hier auskommentiert: 
 var btSerial2 = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 
 var address2 = '00-71-47-76-66-0C';
@@ -95,7 +93,7 @@ btSerial2.findSerialPortChannel(address2, function(channel) {
 		});
 
 	}, function () {
-		console.log('> cannot connect');
+		console.log('> cannot connect 2');
 	});
 
 }, function() {
@@ -142,7 +140,7 @@ btSerial3.findSerialPortChannel(address3, function(channel) {
 		});
 
 	}, function () {
-		console.log('> cannot connect');
+		console.log('> cannot connect 3');
 	});
 
 }, function() {
@@ -181,19 +179,7 @@ btSerial4.findSerialPortChannel(address4, function(channel) {
 			 		pressedButton: '4'
 			 		});
 			 });
-
-
-
-/*
-					request.post(
-			    'http://localhost:8080/',
-			    { json: { requestKey: 'Data received from button four' } },
-			    function (error, response, body) {
-			        if (!error && response.statusCode == 200) {
-			            console.log(body)
-			        }
-			    }
-			);*/
+				
 
 			}else{
 			 console.log(' >> button 4 is ' + 'released');
@@ -201,16 +187,20 @@ btSerial4.findSerialPortChannel(address4, function(channel) {
 		});
 
 	}, function () {
-		console.log('> cannot connect');
+		console.log('> cannot connect 4');
 	});
 
 }, function() {
 	console.log('found nothing');
 });
 
-
+*/
 process.on('SIGINT', function() {
 	console.log("> closing bluetooth connection.");
-	btSerial4.close();
+	btSerial.close();
+//btSerial2.close();
+	//btSerial3.close();
+	//btSerial4.close();
 	process.exit();
+});
 });
