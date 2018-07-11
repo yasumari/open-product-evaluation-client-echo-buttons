@@ -10,6 +10,10 @@ body {
   overflow-x: hidden;
 }
 
+div:not(:last-child){
+  margin-right: 10px;
+}
+
 h1{
   color: white;
   font-family: "Raleway", Arial, sans-serif;
