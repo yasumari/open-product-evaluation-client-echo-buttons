@@ -8,6 +8,7 @@ export class DataService {
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
+    private socketID;
 
     subjectp:Vote[]=[];
     getPositionQuestion(){
@@ -46,6 +47,13 @@ export class DataService {
       this.deviceName=name;
     }
 
+    setSocketID(id: string){
+      this.socketID=id;
+    }
+
+    getSocketID(){
+      return this.socketID;
+    }
     //TODO: in Device
     getToken(){
       return this.deviceToken;

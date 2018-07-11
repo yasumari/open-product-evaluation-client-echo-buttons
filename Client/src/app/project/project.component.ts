@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../data.service';
 import { CurrentProjectSubscription, updateDevice} from './project.model';
 import { Context } from '../types';
+import { SocketService } from '../socket.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styles: []
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
-  constructor(private apollo: Apollo, private dataService: DataService) {
+
+  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private socketService: SocketService) {
   }
     public ngOnInit(): void {
+
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //TODO: DeviceID abfrage immer oder nur bei neuen, speichern der ID
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
@@ -46,5 +50,7 @@ export class ProjectComponent implements OnInit {
       }).subscribe(({data}) => { 
           console.log("mutation update Device", data);
         });
+  }
+  ngOnDestroy(){
   }
 }

@@ -64,13 +64,7 @@ calculate ():string {
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
        this.currentQuestion = this.currentProject.activeSurvey.questions[this.currentPositionQuestion];
        //SOCKET
-       this.connection=this.socketService.getMessages().subscribe(message=>{
-          console.log(message);
-          this.messages.push(message);
-          this.buttonClick(1);
-      }) 
+
+       
       }
-        ngOnDestroy() {
-          this.connection.unsubscribe();
-        }
 }
