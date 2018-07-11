@@ -3,8 +3,9 @@ import { Apollo } from 'apollo-angular';
 import { DataService } from '../data.service';
 import { CurrentProjectSubscription, updateDevice} from './project.model';
 import { Context } from '../types';
-import { SocketService } from '../socket.service';
+import { MessageService } from '../message.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-project',
@@ -13,11 +14,20 @@ import { Router } from '@angular/router';
 })
 export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
+  message: any;
+  sub: Subscription;
 
-  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private socketService: SocketService) {
-  }
+  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
+//Router zum weiterleiten an die nächste Component /project 
+        //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
+        //this.sub = this.messageService.getMessage().subscribe(message => { console.log("Erhalten" + message) });
+        
+    }
     public ngOnInit(): void {
-
+      this.sub=this.messageService.getMessage().subscribe( message => {
+        console.log("PROJECT: " + message);
+        this.router.navigateByUrl('/question')}
+    )
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //TODO: DeviceID abfrage immer oder nur bei neuen, speichern der ID
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
@@ -29,7 +39,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
       }).subscribe(({data}) => {
         //TODO brauche ich die activeQuestion abzufragen?
         this.currentProject = data['context'];
-        console.log(this.currentProject.activeSurvey.questions);
         //vorne im Array starten und dann eins hochzählen bei einer Antwort 
         //leere Antworten sind nicht möglich bis September
         this.dataService.sendContext(this.currentProject);
@@ -48,9 +57,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
           owner: ["asdf", "asdf"]
         }
       }).subscribe(({data}) => { 
-          console.log("mutation update Device", data);
+          //console.log("mutation update Device", data);
         });
   }
   ngOnDestroy(){
+    this.sub.unsubscribe();
   }
 }

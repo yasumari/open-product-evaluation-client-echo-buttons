@@ -10,7 +10,6 @@ export class MessageService {
     private subject = new Subject<string>();
  
     sendMessage(message: string) {
-        console.log("gesendet: " + message);
         this.subject.next(message);
     }
  

@@ -22,7 +22,11 @@ export class ListComponent implements OnInit, OnDestroy {
     sub: Subscription;
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
-        this.sub = this.messageService.getMessage().subscribe(message => { console.log("GET in LISTE") });
+        //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
+        //this.sub = this.messageService.getMessage().subscribe(message => { console.log("Erhalten" + message) });
+        this.sub=this.messageService.getMessage().subscribe( message => {
+            this.router.navigateByUrl('/project')}
+        )
     }
     
     openProject(contextID : string): void{
@@ -39,11 +43,7 @@ export class ListComponent implements OnInit, OnDestroy {
     ngOnInit() {
         //TODO neues Device immer??
         //TODO als Promise auslagern  
-        //SOCKETS
-        // subscribe to home component messages
-        
-       
-
+      
         this.apollo.mutate({
             fetchPolicy: 'no-cache',
             mutation: newDeviceMutation,

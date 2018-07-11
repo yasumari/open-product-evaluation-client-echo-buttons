@@ -16,14 +16,12 @@ export class AppComponent implements OnInit, OnDestroy{
 
   title = 'app';
   constructor(private socketService: SocketService, private messageService: MessageService){
-    this.subscription = this.messageService.getMessage().subscribe(message => { console.log("asdfg") });
+    //this.subscription = this.messageService.getMessage().subscribe(message => { console.log("asdfg" + message) });
   }
   ngOnInit(){
     this.socketService.connect();
-        this.socketService.getMessages().subscribe(message => {
-            console.log(message);
-            //Neue Nachricht an message service senden
-            this.messageService.sendMessage('Button wurde gedrück!');
+        this.socketService.getMessages().subscribe((message: string) => {
+            this.messageService.sendMessage(message);
           })
    
   }

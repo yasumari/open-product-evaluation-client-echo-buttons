@@ -18,22 +18,19 @@ export class SocketService {
   }
   disconnect(){
     this.socket.disconnect();
-    console.log("Wird disconnected")
+    console.log("Sockets disconnected")
   }
 
   getMessages(){
-    
     let observable=new Observable(observer=>{
       this.socket.on('message', (data)=>{
-        observer.next(data);
+        console.log(data.pressedButton + " und " + data.numbers);
+        observer.next(data.pressedButton);
       })
-    // return ()=>{
-    //   this.socket.disconnect();
-    // }
   })
   return observable;
   }
 
 
-  constructor(private dataService: DataService) { }
+  constructor() { }
 }

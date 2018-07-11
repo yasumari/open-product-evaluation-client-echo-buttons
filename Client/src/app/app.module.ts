@@ -51,7 +51,6 @@ export class AppModule {
     
         const authMiddleware = new ApolloLink((operation, forward) => {
           let token = this.dataService.getToken();
-        console.log("NEUER HEADER " + token);
           // add the authorization to the headers
           operation.setContext({
             headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
