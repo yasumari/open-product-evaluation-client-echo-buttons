@@ -57,7 +57,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
           owner: ["asdf", "asdf"]
         }
       }).subscribe(({data}) => { 
-          //console.log("mutation update Device", data);
+          //  console.log("mutation update Device", data);
         });
   }
   ngOnDestroy(){

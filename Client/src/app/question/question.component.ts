@@ -22,6 +22,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private token: string;
   private currentPositionQuestion;
   private currentQuestion: Question;
+ 
+  public n:any;
 
 
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private messageService: MessageService) 
@@ -61,10 +63,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
    
 
   private position :any;
-calculate ():string {
+  calculate ():string {
   return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
-}
+     
 
+}
+  
  public ngOnInit(): void {
   this.sub=this.messageService.getMessage().subscribe( message => {
     let tmp=parseInt(message);
