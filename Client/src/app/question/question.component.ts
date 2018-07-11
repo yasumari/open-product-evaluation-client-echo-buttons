@@ -3,27 +3,26 @@ import { Apollo } from 'apollo-angular';
 import { DataService} from '../data.service';
 import {favoriteAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
-import * as io from 'socket.io-client';
-
+import { SocketService } from '../socket.service';
 import { Context, Answer, Question } from '../types';
-
-
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styles: []
-  
+  styles: [],
+  providers: [SocketService]
 })
 
 export class QuestionComponent implements OnInit {
-  private socket;
+  messages=[];
+  connection;
+  message; 
   public currentProject: Context;
   private currentAnswer: Answer;
   private token: string;
   private currentPositionQuestion;
   private currentQuestion: Question;
- constructor(private apollo: Apollo, private dataService: DataService, private router: Router) 
+ constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private socketService: SocketService) 
  {}
 
    buttonClick(btn_number: number)
@@ -64,19 +63,14 @@ calculate ():string {
        this.token=this.dataService.getToken();
        this.currentPositionQuestion = this.dataService.getPositionQuestion();
        this.currentQuestion = this.currentProject.activeSurvey.questions[this.currentPositionQuestion];
-
-       this.socket = io('http://localhost:3001');
- this.getClickedButton();
-
-  }
-
-  getClickedButton() {
-      this.socket.on('message', (data) => {
-        //Button wurde gedrückt
-        this.buttonClick(data.pressedButton);
-      });
-      return () => {
-        this.socket.disconnect();
-      };  
-  }
+       //SOCKET
+       this.connection=this.socketService.getMessages().subscribe(message=>{
+          console.log(message);
+          this.messages.push(message);
+          this.buttonClick(1);
+      }) 
+      }
+        ngOnDestroy() {
+          this.connection.unsubscribe();
+        }
 }

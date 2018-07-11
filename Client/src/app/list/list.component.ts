@@ -8,7 +8,6 @@ import { Survey, Query } from '../types'
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
 
-
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -17,7 +16,6 @@ import { DataService } from '../data.service';
 
 export class ListComponent implements OnInit {
     surveys: Observable<Survey[]>;
-
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService) { }
     //
@@ -31,12 +29,12 @@ export class ListComponent implements OnInit {
         this.dataService.setContextID(id);
         this.router.navigateByUrl('/project');
     }
+
+
     ngOnInit() {
 
 //TODO neues Device immer??
-//TODO als Promise auslagern
-
-
+//TODO als Promise auslagern  
 
 
 this.apollo.mutate({
@@ -55,5 +53,4 @@ this.apollo.mutate({
      );
  });
 }
-
 }
