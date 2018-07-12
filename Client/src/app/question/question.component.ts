@@ -26,7 +26,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
    buttonClick(btn_number: number){    
       this.sub.unsubscribe();
-      console.log(btn_number + " wurde gedrück");
+      console.log(btn_number + " wurde gedrückt");
       //TODO btn_number sagt welches Item im Array gewählt wurde 
       //Button 1,2,3,4
       //       | | | |
@@ -67,10 +67,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
           
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
-            console.log("Button ausgelöst");
             this.buttonClick(message);
           } else {
-            console.log("nicht ausgelöst");
+            console.log("Button ungültigt Nachricht");
           }
       })
     }

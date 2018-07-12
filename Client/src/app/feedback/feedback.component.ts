@@ -17,8 +17,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
   nextPage(){
     //this.sub.unsubscribe(); 
-    console.log("Aktuelle Anzahl " + this.dataService.getAnswerNumber());
-    console.log("Maximal Anzahl " + this.max); 
     //Prüfe ob zum Ende oder zur nächsten Frage
     (this.dataService.getAnswerNumber() == this.max) ? this.router.navigate(['/end']) : this.router.navigate(['/question']);
   }
@@ -31,7 +29,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       this.nextPage();
     });*/
 
-    console.log("im Feedback");
     setTimeout( () => {
       this.nextPage();
   }, 5000);  //5s

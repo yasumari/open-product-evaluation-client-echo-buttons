@@ -13,7 +13,6 @@ export class DataService {
 
     setAnswerNumber(){
       this.numberAnswerQuestions++;
-      console.log("NUMBERS: " + this.numberAnswerQuestions);
     }
 
     getAnswerNumber(){
