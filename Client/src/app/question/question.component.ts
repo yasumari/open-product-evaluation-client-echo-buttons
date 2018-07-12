@@ -71,9 +71,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
   
  public ngOnInit(): void {
   this.sub=this.messageService.getMessage().subscribe( message => {
+    //Sobald eine Nachricht erhalten wurde, vom messageService unsubsriben
+    this.sub.unsubscribe();
+
     let tmp=parseInt(message);
     //console.log("QUESTION: " + tmp);
-   if (message == undefined || message == null){
+    
+    if (message == undefined || message == null){
      // dann wurde keine Nummer übergeben, also leere Nachricht erhalten, passiert nichts 
    } else {
      //console.log("BUTTON GEDRÜCK: " + message);
