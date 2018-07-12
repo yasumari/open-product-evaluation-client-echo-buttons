@@ -6,7 +6,7 @@
 <div class="gtco-container">
 
 <div class="progress" style="margin-top:25px">
-<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px" >{{calculate()}}</div>
+<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px" >hi</div>
 </div>
 
 
@@ -31,7 +31,8 @@
 			<div class="overlay">
 				<div class="copy text-center">
 					<img src="./../../../assets/images/{{i+2}}.jpg" alt="Img">
-					<h5>Label: {{currentQuestion.items[i+1].label}}</h5>	
+					<!--Label-->
+					<h5>{{currentQuestion.items[i].label}}</h5>	
 					<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)">Design {{i+1}}</button>
 				</div>
 			</div>

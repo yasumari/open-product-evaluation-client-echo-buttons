@@ -1,4 +1,4 @@
-import { Context, Vote, Device } from '../types';
+import { Context, Vote, Device,  } from '../types';
 
 export class DataService {
   //TODO Device ändern: 
@@ -49,11 +49,11 @@ export class DataService {
         this.subjectProject.next();
     }*/
 
-    getContext() {
+    getContext(): Context {
       return this.subjectProject;
     }
-    sendContext(project1: Context ) {
-      this.subjectProject = project1;
+    sendContext(project: Context ) {
+      this.subjectProject = project;
     }
 
     /*sendVote(project: Vote[] ) {

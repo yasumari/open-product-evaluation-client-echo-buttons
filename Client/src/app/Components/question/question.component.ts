@@ -62,10 +62,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.dataService.setAnswerNumber();
         this.router.navigate(['/feedback']);
       }
-   
-  private position :any;
 
-  calculate ():string {
+  calculate():string {
     return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
   }
 

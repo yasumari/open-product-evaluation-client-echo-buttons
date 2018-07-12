@@ -4,7 +4,7 @@ import { DataService } from '../../Services/data.service';
 import { CurrentProjectSubscription, updateDevice} from './project.model';
 import { Context } from '../../types';
 import { MessageService } from '../../Services/message.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -56,8 +56,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
           owner: ["asdf", "asdf"]
         }
       }).subscribe(({data}) => { 
-          //  console.log("mutation update Device", data);
-        });
+          //console.log("mutation update Device", data);
+      });
   }
   ngOnDestroy(){
     this.sub.unsubscribe();
