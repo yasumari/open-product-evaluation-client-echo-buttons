@@ -14,8 +14,6 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class QuestionComponent implements OnInit, OnDestroy {
-  messages=[];
-  message: any;
   sub: Subscription;
   public currentProject: Context;
   private currentAnswer: Answer;
@@ -29,9 +27,14 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
    buttonClick(btn_number: number)
  {    
+   this.sub.unsubscribe();
     console.log(btn_number + " wurde gedrück");
     this.messageService.clearMessage();
     //TODO btn_number sagt welches Item im Array gewählt wurde 
+    //Button 1,2,3,4
+    //       | | | |
+    //Items  0,1,2,3
+    
    this.currentAnswer={
    contextID: this.currentProject.id,
    deviceID: this.token,
@@ -61,24 +64,20 @@ calculate ():string {
 }
 
  public ngOnInit(): void {
+  this.currentProject = this.dataService.getContext();
+  this.token=this.dataService.getToken();
+  this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
   this.sub=this.messageService.getMessage().subscribe( message => {
-    //Sobald eine Nachricht erhalten wurde, vom messageService unsubsriben
-    this.sub.unsubscribe();
-
-    let tmp=parseInt(message);
-    console.log("QUESTION: " + tmp);
-    
-    if (message == undefined || message == null){
-     // dann wurde keine Nummer übergeben, also leere Nachricht erhalten, passiert nichts 
-   } else {
-     console.log("BUTTON GEDRÜCK: " + message);
-    this.buttonClick(message);
-   }
+      //Sobald eine Nachricht erhalten wurde, vom messageService unsubsriben
+      let tmp=parseInt(message);
+      console.log("QUESTION: " + tmp);
+      console.log("BUTTON GEDRÜCK: " + message);
+      this.buttonClick(message);
   })
-       this.currentProject = this.dataService.getContext();
-       this.token=this.dataService.getToken();
-       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-      }
+}
+
+
+
       ngOnDestroy(){
         this.sub.unsubscribe();
     }

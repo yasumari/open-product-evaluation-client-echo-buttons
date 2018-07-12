@@ -20,6 +20,9 @@ export class DataService {
       return this.numberAnswerQuestions;
     }
 
+    setAnswerNumberZero(){
+      this.numberAnswerQuestions=0;
+    }
     //TODO Wofür noch Votes?
     subjectp:Vote[]=[];
 

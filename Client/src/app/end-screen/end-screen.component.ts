@@ -49,11 +49,11 @@ export class EndScreenComponent implements OnInit {
   public ngOnInit(): void {
     this.deviceID=this.dataService.getDevice();
     this.sub=this.messageService.getMessage().subscribe( message => {
-      console.log("FEEDBACK: " + message);
+      console.log("EndScreen: " + message);
       this.sub.unsubscribe();
-        this.messageService.clearMessage();
-        this.dataService.setPositionQuestion(0);
-        this.router.navigate(['/']);
+      this.dataService.setPositionQuestion(0);
+      this.dataService.setAnswerNumberZero();
+      this.router.navigate(['/']);
     });
   }
   }
