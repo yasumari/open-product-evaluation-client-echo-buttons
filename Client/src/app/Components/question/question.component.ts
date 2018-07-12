@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { DataService} from '../data.service';
+import { DataService} from '../../Services/data.service';
 import {favoriteAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
-import { MessageService } from '../message.service';
-import { Context, Answer, Question } from '../types';
+import { MessageService } from '../../Services/message.service';
+import { Context, Answer, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

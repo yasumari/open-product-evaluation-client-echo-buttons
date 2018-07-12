@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 //import { Subject } from 'rxjs/Subjects';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
-import {DataService} from './data.service';
 
 @Injectable({
   providedIn: 'root'

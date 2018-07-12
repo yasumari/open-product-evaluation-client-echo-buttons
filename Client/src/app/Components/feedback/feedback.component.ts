@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
-import { MessageService } from '../message.service'; 
-import { Subscription } from 'rxjs';
+import { DataService } from '../../Services/data.service';
+import { MessageService } from '../../Services/message.service'; 
 
 @Component({
   selector: 'app-feedback',
@@ -24,6 +23,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.image=this.dataService.getChosenImageUrl();
+
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
     /*this.sub=this.messageService.getMessage().subscribe( message => {
@@ -31,14 +31,10 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       this.nextPage();
     });*/
 
-    setTimeout( () => {
-      this.nextPage();
-  }, 5000);  //5s
-
+      setTimeout( () => {
+        this.nextPage();
+    }, 5000);  //5s
   }
 
-
-
-  ngOnDestroy(){
-}
+  ngOnDestroy(){}
 }

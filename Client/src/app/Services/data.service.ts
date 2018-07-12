@@ -1,4 +1,4 @@
-import { Context, Vote, Device } from './types';
+import { Context, Vote, Device } from '../types';
 
 export class DataService {
   //TODO Device ändern: 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import {DataService } from '../data.service';
+import {DataService } from '../../Services/data.service';
 import { updateDevice, deleteDevice} from './end-screen.model';
-import { MessageService} from '../message.service';
+import { MessageService} from '../../Services/message.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 

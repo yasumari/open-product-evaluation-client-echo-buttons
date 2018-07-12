@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { DataService } from '../data.service';
+import { DataService } from '../../Services/data.service';
 import { CurrentProjectSubscription, updateDevice} from './project.model';
-import { Context } from '../types';
-import { MessageService } from '../message.service';
+import { Context } from '../../types';
+import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 

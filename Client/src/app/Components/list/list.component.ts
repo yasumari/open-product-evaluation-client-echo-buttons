@@ -5,10 +5,10 @@ import { map } from 'rxjs/operators';
 import { newDeviceMutation, queryAllSurveys } from './list.model';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Survey, Query } from '../types'
+import { Survey, Query } from '../../types'
 import { Router } from '@angular/router';
-import { DataService } from '../data.service';
-import { MessageService } from '../message.service';
+import { DataService } from '../../Services/data.service';
+import { MessageService } from '../../Services/message.service';
 
 @Component({
   selector: 'app-list',
