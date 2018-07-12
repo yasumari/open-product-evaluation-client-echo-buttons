@@ -22,63 +22,60 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
 
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private messageService: MessageService) 
- {
- }
+ {}
 
-   buttonClick(btn_number: number)
- {    
-   this.sub.unsubscribe();
-    console.log(btn_number + " wurde gedrück");
-    this.messageService.clearMessage();
-    //TODO btn_number sagt welches Item im Array gewählt wurde 
-    //Button 1,2,3,4
-    //       | | | |
-    //Items  0,1,2,3
-    
-   this.currentAnswer={
-   contextID: this.currentProject.id,
-   deviceID: this.token,
-   questionID: this.currentQuestion.id,
-   favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
- }
- 
- //Sende Antwort der Frage an den Server
-    this.apollo.mutate({
-      fetchPolicy: 'no-cache',
-     mutation: favoriteAnswerMutate,
-     variables: { 
-       contextID: this.currentAnswer.contextID,
-       deviceID: this.currentAnswer.deviceID,
-       questionID: this.currentAnswer.questionID,
-       favoriteImage: this.currentAnswer.favoriteImage},
-   }).subscribe((mutationResponse) => 
-         console.log("mutation", mutationResponse));
-         this.dataService.setAnswerNumber();
-          this.router.navigate(['/feedback']);
+   buttonClick(btn_number: number){    
+      this.sub.unsubscribe();
+      console.log(btn_number + " wurde gedrück");
+      //TODO btn_number sagt welches Item im Array gewählt wurde 
+      //Button 1,2,3,4
+      //       | | | |
+      //Items  0,1,2,3
+      this.currentAnswer={
+        contextID: this.currentProject.id,
+        deviceID: this.token,
+        questionID: this.currentQuestion.id,
+        favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
+      }
+
+      //Sende Antwort der Frage an den Server
+      this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+        mutation: favoriteAnswerMutate,
+        variables: { 
+          contextID: this.currentAnswer.contextID,
+          deviceID: this.currentAnswer.deviceID,
+          questionID: this.currentAnswer.questionID,
+          favoriteImage: this.currentAnswer.favoriteImage},
+      }).subscribe((mutationResponse) => 
+        console.log("mutation", mutationResponse));
+        this.dataService.setAnswerNumber();
+        this.router.navigate(['/feedback']);
       }
    
-
   private position :any;
-calculate ():string {
-  return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
-}
+
+  calculate ():string {
+    return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
+  }
 
  public ngOnInit(): void {
-  this.currentProject = this.dataService.getContext();
-  this.token=this.dataService.getToken();
-  this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-  this.sub=this.messageService.getMessage().subscribe( message => {
-      //Sobald eine Nachricht erhalten wurde, vom messageService unsubsriben
-      let tmp=parseInt(message);
-      console.log("QUESTION: " + tmp);
-      console.log("BUTTON GEDRÜCK: " + message);
-      this.buttonClick(message);
-  })
-}
-
-
-
-      ngOnDestroy(){
+      this.currentProject = this.dataService.getContext();
+      this.token=this.dataService.getToken();
+      this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      this.sub=this.messageService.getMessage().subscribe( message => {
+          
+          //TODO noch benötigt?
+          if (message!=undefined || message!=null){
+            console.log("Button ausgelöst");
+            this.buttonClick(message);
+          } else {
+            console.log("nicht ausgelöst");
+          }
+      })
+    }
+    
+    ngOnDestroy(){
         this.sub.unsubscribe();
     }
 }
