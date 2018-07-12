@@ -18,7 +18,6 @@ import { MessageService } from '../../Services/message.service';
 
 export class ListComponent implements OnInit, OnDestroy {
     surveys: Observable<Survey[]>;
-    message: any;
     sub: Subscription;
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
@@ -41,27 +40,34 @@ export class ListComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/project');
     }
 
+    getProjects(){
+        this.surveys = this.apollo.watchQuery<Query>({
+            query: queryAllSurveys
+        }).valueChanges
+        .pipe(
+            map(result => result.data.surveys)
+        );
+    }
+
     ngOnInit() {
         //TODO neues Device immer??
         //TODO als Promise auslagern  
-      
-        this.apollo.mutate({
-            fetchPolicy: 'no-cache',
-            mutation: newDeviceMutation,
-            variables: { 
-            deviceName: "Fernseher",
-            }
-        }).subscribe(({data}) => { 
-        this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
-        this.surveys = this.apollo.watchQuery<Query>({
-            query: queryAllSurveys
-            }).valueChanges
-            .pipe(
-            map(result => result.data.surveys)
-            );
-        });
-}
-ngOnDestroy(){
-    this.sub.unsubscribe();
-}
+        let deviceID=this.dataService.getDevice();
+        if (deviceID==undefined || deviceID==null){
+            this.apollo.mutate({
+                fetchPolicy: 'no-cache',
+                mutation: newDeviceMutation,
+                variables: { 
+                deviceName: "Fernseher",
+                }
+            }).subscribe(({data}) => { 
+            this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
+            });
+        }
+        this.getProjects();
+    }
+    
+    ngOnDestroy(){
+        this.sub.unsubscribe();
+    }
 }

@@ -12,10 +12,13 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   //private sub: Subscription;
   private max: number;
   private image:string;
+  private timer;
   constructor(private dataService: DataService, private router: Router, private messageService: MessageService) { 
 
   }
   nextPage(){
+    //Button wurde gedrückt, dann stoppt der Timer
+    clearTimeout(this.timer);
     //this.sub.unsubscribe(); 
     //Prüfe ob zum Ende oder zur nächsten Frage
     (this.dataService.getAnswerNumber() == this.max) ? this.router.navigate(['/end']) : this.router.navigate(['/question']);
@@ -31,10 +34,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       this.nextPage();
     });*/
 
-      setTimeout( () => {
+  this.timer= setTimeout( () => {
         this.nextPage();
     }, 5000);  //5s
   }
+
+
 
   ngOnDestroy(){}
 }
