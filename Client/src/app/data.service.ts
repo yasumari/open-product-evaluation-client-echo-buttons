@@ -9,8 +9,20 @@ export class DataService {
     private currentPositionQuestion=0;
     private contextID;
     private socketID;
+    private numberAnswerQuestions=0;
 
+    setAnswerNumber(){
+      this.numberAnswerQuestions++;
+      console.log("NUMBERS: " + this.numberAnswerQuestions);
+    }
+
+    getAnswerNumber(){
+      return this.numberAnswerQuestions;
+    }
+
+    //TODO Wofür noch Votes?
     subjectp:Vote[]=[];
+
     getPositionQuestion(){
       return this.currentPositionQuestion;
     }

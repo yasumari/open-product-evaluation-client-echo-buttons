@@ -23,10 +23,11 @@ export class ListComponent implements OnInit, OnDestroy {
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
         //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
-        //this.sub = this.messageService.getMessage().subscribe(message => { console.log("Erhalten" + message) });
         this.sub=this.messageService.getMessage().subscribe( message => {
-            this.router.navigateByUrl('/project')}
-        )
+            console.log("Liste: " + message);
+            this.sub.unsubscribe();
+            this.openProject("123");
+        })
     }
     
     openProject(contextID : string): void{

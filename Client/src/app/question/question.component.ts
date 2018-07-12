@@ -20,7 +20,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public currentProject: Context;
   private currentAnswer: Answer;
   private token: string;
-  private currentPositionQuestion;
   private currentQuestion: Question;
 
 
@@ -51,18 +50,14 @@ export class QuestionComponent implements OnInit, OnDestroy {
        favoriteImage: this.currentAnswer.favoriteImage},
    }).subscribe((mutationResponse) => 
          console.log("mutation", mutationResponse));
- 
-         //Nehme die nächste Position des Arrays, 
-       this.dataService.updatePositionQuestion();
-      //Wurde die letzte Frage erreicht, dann zum Ende gehen
-      //TODO nach Beantwortung der letzten Frage zum Feedback wechseln und dann zum Ende
-      ((this.currentPositionQuestion + 1) == this.currentProject.activeSurvey.questions.length) ? this.router.navigate(['/end']) : this.router.navigate(['/feedback']);
+         this.dataService.setAnswerNumber();
+          this.router.navigate(['/feedback']);
       }
    
 
   private position :any;
 calculate ():string {
-  return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
+  return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
 }
 
  public ngOnInit(): void {
@@ -71,20 +66,18 @@ calculate ():string {
     this.sub.unsubscribe();
 
     let tmp=parseInt(message);
-    //console.log("QUESTION: " + tmp);
+    console.log("QUESTION: " + tmp);
     
     if (message == undefined || message == null){
      // dann wurde keine Nummer übergeben, also leere Nachricht erhalten, passiert nichts 
    } else {
-     //console.log("BUTTON GEDRÜCK: " + message);
-     this.messageService.clearMessage();
+     console.log("BUTTON GEDRÜCK: " + message);
     this.buttonClick(message);
    }
   })
        this.currentProject = this.dataService.getContext();
        this.token=this.dataService.getToken();
-       this.currentPositionQuestion = this.dataService.getPositionQuestion();
-       this.currentQuestion = this.currentProject.activeSurvey.questions[this.currentPositionQuestion];
+       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       }
       ngOnDestroy(){
         this.sub.unsubscribe();

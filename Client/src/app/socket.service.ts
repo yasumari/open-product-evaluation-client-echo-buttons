@@ -12,13 +12,12 @@ import {DataService} from './data.service';
 export class SocketService {
   private url = 'http://localhost:3001';
   private socket;
-
   connect(){
-    this.socket=io(this.url);
+    this.socket=io(this.url, {forceNew: true});
   }
   disconnect(){
-    this.socket.disconnect();
-    console.log("Sockets disconnected")
+    this.socket.close();
+    console.log("Sockets disconnected" +  io.Sockets.disconnect);
   }
 
   getMessages(){
