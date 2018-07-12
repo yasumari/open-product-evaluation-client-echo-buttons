@@ -9,8 +9,17 @@ export class DataService {
     private currentPositionQuestion=0;
     private contextID;
     private socketID;
+    private chosenImage;
     private numberAnswerQuestions=0;
 
+    setChosenImageUrl(url: string){
+      this.chosenImage=url;
+    }
+
+    getChosenImageUrl(){
+      return this.chosenImage;
+    }
+    
     setAnswerNumber(){
       this.numberAnswerQuestions++;
     }

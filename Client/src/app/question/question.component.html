@@ -2,10 +2,6 @@
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
 </head>
 
-
-
-
-
 <div class="gtco-section gtco-products">
 <div class="gtco-container">
 
@@ -24,34 +20,32 @@
 	</div>
 </div>
 
-	<div class="row row-pb-md" >
-	
-	
-	 
- <div  class="col-md-3 col-sm-3 col-sm-offset-1" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<div class="overlay">
-			<div class="copy text-center">
-				<img src="./../../../assets/images/{{i+2}}.jpg" alt="Img">
-				<h5>Label: {{currentQuestion.items[1].label}}</h5>	
-			
-		<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i)">Design {{i+1}}</button>
-			</div>
-		</div>
-		
-		 </div>
-		 
-	
-		
-		 </div>
-			
 
-	<div class="col-md-4 col-sm-4 col-sm-offset-1" style="position:relative">
+<div class="row row-pb-md" >
+	
+	
+		<!-- TODO Überarbeiten! dieser Container für 2 Bilder -->
+		<!-- TODO wenn es 4 Bilder sind, dann über diesen Container iterieren mit abstand dazwischen-->
+		<!-- Beispiel drittes Bild, dann alle in eine Reihe, mit eigenem div Container-->
+	<div  class="col-md-3 col-sm-3 col-sm-offset-1" *ngFor="let item of currentQuestion.items ; let i = index " >
+			<div class="overlay">
+				<div class="copy text-center">
+					<img src="./../../../assets/images/{{i+2}}.jpg" alt="Img">
+					<h5>Label: {{currentQuestion.items[i+1].label}}</h5>	
+					<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)">Design {{i+1}}</button>
+				</div>
+			</div>
+	</div>
+</div>
+			
+<!--Beispiel drittes Bild -->
+	<!-- <div class="col-md-4 col-sm-4 col-sm-offset-1" style="position:relative">
 		<div class="overlay">
 			<div class="copy text-center" id="{{currentQuestion.items[1].id}}">
-				<img src="./../../../assets/images/22.jpg" alt="Img">
+				<img src="./../../../assets/images/{{i+3}}.jpg" alt="Img">
 				<h5>Label: {{currentQuestion.items[2].label}}</h5>
-				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(i+1)">Design 2</button>
+				<button target="_blank" class="btn btn-primary" id="button_right" (click)="buttonClick(i+2)">Design {{i+2}}</button>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	

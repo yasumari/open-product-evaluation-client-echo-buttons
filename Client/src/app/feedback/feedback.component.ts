@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class FeedbackComponent implements OnInit, OnDestroy {
   //private sub: Subscription;
   private max: number;
+  private image:string;
   constructor(private dataService: DataService, private router: Router, private messageService: MessageService) { 
 
   }
@@ -22,6 +23,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.image=this.dataService.getChosenImageUrl();
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
     /*this.sub=this.messageService.getMessage().subscribe( message => {

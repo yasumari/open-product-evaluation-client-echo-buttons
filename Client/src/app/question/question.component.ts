@@ -33,6 +33,14 @@ export class QuestionComponent implements OnInit, OnDestroy {
       //Button 1,2,3,4
       //       | | | |
       //Items  0,1,2,3
+
+      switch(btn_number){
+        case 1:  this.dataService.setChosenImageUrl("2"); break;
+        case 2:  this.dataService.setChosenImageUrl("3"); break;
+        case 3:  this.dataService.setChosenImageUrl("4"); break;
+        case 4:  this.dataService.setChosenImageUrl("5"); break;
+      }
+
       this.currentAnswer={
         contextID: this.currentProject.id,
         deviceID: this.token,
@@ -56,23 +64,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
    
   private position :any;
-<<<<<<< HEAD
-  calculate ():string {
-  return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
-     
-
-}
-  
- public ngOnInit(): void {
-  this.sub=this.messageService.getMessage().subscribe( message => {
-    //Sobald eine Nachricht erhalten wurde, vom messageService unsubsriben
-    this.sub.unsubscribe();
-=======
 
   calculate ():string {
     return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
   }
->>>>>>> feat-clickEchoButtons
 
  public ngOnInit(): void {
       this.currentProject = this.dataService.getContext();
