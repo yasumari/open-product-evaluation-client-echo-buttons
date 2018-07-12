@@ -18,14 +18,13 @@ export class ProjectComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
-//Router zum weiterleiten an die nächste Component /project 
-        //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
-        //this.sub = this.messageService.getMessage().subscribe(message => { console.log("Erhalten" + message) });
+        //Router zum weiterleiten an die nächste Component /project 
         
     }
     public ngOnInit(): void {
       this.sub=this.messageService.getMessage().subscribe( message => {
         console.log("PROJECT: " + message);
+        this.sub.unsubscribe();
         this.router.navigateByUrl('/question')}
     )
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen

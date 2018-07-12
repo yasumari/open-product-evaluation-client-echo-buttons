@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Apollo } from 'apollo-angular';
+import { DataService } from '../data.service';
 import { MessageService } from '../message.service'; 
 import { Subscription } from 'rxjs';
 
@@ -10,31 +10,33 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit, OnDestroy {
-  private sub: Subscription;
-  constructor(private apollo: Apollo, private router: Router, private messageService: MessageService) { 
+  //private sub: Subscription;
+  private max: number;
+  constructor(private dataService: DataService, private router: Router, private messageService: MessageService) { 
 
   }
-  
+  nextPage(){
+    //this.sub.unsubscribe(); 
+    //Prüfe ob zum Ende oder zur nächsten Frage
+    (this.dataService.getAnswerNumber() == this.max) ? this.router.navigate(['/end']) : this.router.navigate(['/question']);
+  }
 
   ngOnInit() {
+    //TODO WIRD HIER AUCH mit dem Button gedrückt?
+    this.max=this.dataService.getContext().activeSurvey.questions.length;
+    /*this.sub=this.messageService.getMessage().subscribe( message => {
+      console.log("FEEDBACK: " + message);
+      this.nextPage();
+    });*/
 
-    this.sub=this.messageService.getMessage().subscribe( message => {
-      //console.log("FEEDBACK: " + message);
-      if (message == undefined || message == null){
-        // dann wurde keine Nummer übergeben, also leere Nachricht erhalten, passiert nichts 
-      } else {
-        this.messageService.clearMessage();
-        this.router.navigate(['/question']);
-      }
-    });
-
-    console.log("im Feedback");
     setTimeout( () => {
-      this.router.navigate(['/question']);
+      this.nextPage();
   }, 5000);  //5s
 
   }
+
+
+
   ngOnDestroy(){
-    this.sub.unsubscribe();
 }
 }

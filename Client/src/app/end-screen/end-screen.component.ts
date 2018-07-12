@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {DataService } from '../data.service';
 import { updateDevice, deleteDevice} from './end-screen.model';
+import { MessageService} from '../message.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-end-screen',
@@ -9,9 +13,9 @@ import { updateDevice, deleteDevice} from './end-screen.model';
   styleUrls: ['./end-screen.component.css']
 })
 export class EndScreenComponent implements OnInit {
-
+  private sub: Subscription;
   private deviceID;
-  constructor(private apollo: Apollo, private dataService: DataService) {
+  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
   }
 
   //abmelden setzt nur context auf null
@@ -42,7 +46,17 @@ export class EndScreenComponent implements OnInit {
       });
   }
 
+  getBacktoListProjects(){
+    this.sub.unsubscribe();
+    this.dataService.setPositionQuestion(0);
+    this.dataService.setAnswerNumberZero();
+    this.router.navigate(['/']);
+  }
   public ngOnInit(): void {
     this.deviceID=this.dataService.getDevice();
+    this.sub=this.messageService.getMessage().subscribe( message => {
+      console.log("EndScreenMessage: " + message);
+      this.getBacktoListProjects();
+    });
   }
   }

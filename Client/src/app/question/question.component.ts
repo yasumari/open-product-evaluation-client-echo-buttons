@@ -14,55 +14,49 @@ import { Subscription } from 'rxjs/Subscription';
 })
 
 export class QuestionComponent implements OnInit, OnDestroy {
-  messages=[];
-  message: any;
   sub: Subscription;
   public currentProject: Context;
   private currentAnswer: Answer;
   private token: string;
-  private currentPositionQuestion;
   private currentQuestion: Question;
  
   public n:any;
 
 
  constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private messageService: MessageService) 
- {
- }
+ {}
 
-   buttonClick(btn_number: number)
- {    
-    console.log(btn_number + " wurde gedrück");
-    this.messageService.clearMessage();
-    //TODO btn_number sagt welches Item im Array gewählt wurde 
-   this.currentAnswer={
-   contextID: this.currentProject.id,
-   deviceID: this.token,
-   questionID: this.currentQuestion.id,
-   favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
- }
- 
- //Sende Antwort der Frage an den Server
-    this.apollo.mutate({
-      fetchPolicy: 'no-cache',
-     mutation: favoriteAnswerMutate,
-     variables: { 
-       contextID: this.currentAnswer.contextID,
-       deviceID: this.currentAnswer.deviceID,
-       questionID: this.currentAnswer.questionID,
-       favoriteImage: this.currentAnswer.favoriteImage},
-   }).subscribe((mutationResponse) => 
-         console.log("mutation", mutationResponse));
- 
-         //Nehme die nächste Position des Arrays, 
-       this.dataService.updatePositionQuestion();
-      //Wurde die letzte Frage erreicht, dann zum Ende gehen
-      //TODO nach Beantwortung der letzten Frage zum Feedback wechseln und dann zum Ende
-      ((this.currentPositionQuestion + 1) == this.currentProject.activeSurvey.questions.length) ? this.router.navigate(['/end']) : this.router.navigate(['/feedback']);
+   buttonClick(btn_number: number){    
+      this.sub.unsubscribe();
+      console.log(btn_number + " wurde gedrückt");
+      //TODO btn_number sagt welches Item im Array gewählt wurde 
+      //Button 1,2,3,4
+      //       | | | |
+      //Items  0,1,2,3
+      this.currentAnswer={
+        contextID: this.currentProject.id,
+        deviceID: this.token,
+        questionID: this.currentQuestion.id,
+        favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
+      }
+
+      //Sende Antwort der Frage an den Server
+      this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+        mutation: favoriteAnswerMutate,
+        variables: { 
+          contextID: this.currentAnswer.contextID,
+          deviceID: this.currentAnswer.deviceID,
+          questionID: this.currentAnswer.questionID,
+          favoriteImage: this.currentAnswer.favoriteImage},
+      }).subscribe((mutationResponse) => 
+        console.log("mutation", mutationResponse));
+        this.dataService.setAnswerNumber();
+        this.router.navigate(['/feedback']);
       }
    
-
   private position :any;
+<<<<<<< HEAD
   calculate ():string {
   return (this.currentPositionQuestion*100/this.currentProject.activeSurvey.questions.length)+"%";
      
@@ -73,24 +67,29 @@ export class QuestionComponent implements OnInit, OnDestroy {
   this.sub=this.messageService.getMessage().subscribe( message => {
     //Sobald eine Nachricht erhalten wurde, vom messageService unsubsriben
     this.sub.unsubscribe();
+=======
 
-    let tmp=parseInt(message);
-    //console.log("QUESTION: " + tmp);
+  calculate ():string {
+    return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
+  }
+>>>>>>> feat-clickEchoButtons
+
+ public ngOnInit(): void {
+      this.currentProject = this.dataService.getContext();
+      this.token=this.dataService.getToken();
+      this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      this.sub=this.messageService.getMessage().subscribe( message => {
+          
+          //TODO noch benötigt?
+          if (message!=undefined || message!=null){
+            this.buttonClick(message);
+          } else {
+            console.log("Button ungültigt Nachricht");
+          }
+      })
+    }
     
-    if (message == undefined || message == null){
-     // dann wurde keine Nummer übergeben, also leere Nachricht erhalten, passiert nichts 
-   } else {
-     //console.log("BUTTON GEDRÜCK: " + message);
-     this.messageService.clearMessage();
-    this.buttonClick(message);
-   }
-  })
-       this.currentProject = this.dataService.getContext();
-       this.token=this.dataService.getToken();
-       this.currentPositionQuestion = this.dataService.getPositionQuestion();
-       this.currentQuestion = this.currentProject.activeSurvey.questions[this.currentPositionQuestion];
-      }
-      ngOnDestroy(){
+    ngOnDestroy(){
         this.sub.unsubscribe();
     }
 }
