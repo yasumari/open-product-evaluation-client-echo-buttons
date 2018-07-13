@@ -6,7 +6,7 @@
 <div class="gtco-container">
 
 <div class="progress" style="margin-top:25px">
-<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px" >{{calculate()}}</div>
+<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
 </div>
 
 
@@ -22,8 +22,8 @@
 
 
 <div class="row row-pb-md" >
-	
-	
+
+
 		<!-- TODO Überarbeiten! dieser Container für 2 Bilder -->
 		<!-- TODO wenn es 4 Bilder sind, dann über diesen Container iterieren mit abstand dazwischen-->
 		<!-- Beispiel drittes Bild, dann alle in eine Reihe, mit eigenem div Container-->
@@ -32,13 +32,13 @@
 				<div class="copy text-center">
 					<img src="./../../../assets/images/{{i+2}}.jpg" alt="Img">
 					<!--Label-->
-					<h5>{{currentQuestion.items[i].label}}</h5>	
+					<h5>{{currentQuestion.items[i].label}}</h5>
 					<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)">Design {{i+1}}</button>
 				</div>
 			</div>
 	</div>
 </div>
-			
+
 <!--Beispiel drittes Bild -->
 	<!-- <div class="col-md-4 col-sm-4 col-sm-offset-1" style="position:relative">
 		<div class="overlay">
@@ -49,4 +49,3 @@
 			</div>
 		</div>
 	</div> -->
-	
