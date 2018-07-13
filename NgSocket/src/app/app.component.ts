@@ -1,35 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-//import * as socketIo from 'socket.io-client';
-
-import { Observable, of } from 'rxjs'
-import * as io from 'socket.io-client';
+import { SocketServiceService} from './socket-service.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [SocketServiceService]
 })
-export class AppComponent {//implements OnInit{
-  //title = 'app';
-   private socket;
+export class AppComponent implements OnInit{
+  messages=[];
+  connection;
+  message; 
+
+  constructor(private socketService: SocketServiceService){}
+
   ngOnInit(): void{
-    // this.socket  = socketIo('http://localhost:3000');
-    console.log('I am in ngInit method');
- //   socket.on('hello', (data)=> console.log(data));
- this.socket = io('http://localhost:3000');
- this.getMessages();
-
+  this.connection=this.socketService.getMessages().subscribe(message=>{
+    console.log(message);
+    this.messages.push(message);
+  })    
   }
 
-    getMessages() {
-      console.log('I am in getMsg method');
 
-      this.socket.on('message', (data) => {
-        console.log(data);
-      });
-      return () => {
-        this.socket.disconnect();
-      };  
-  
-  }
 } 

@@ -1,10 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from "./app.component";
-import { QuestionComponent } from "./question/question.component";
-import { ListComponent } from "./list/list.component";
-import { ProjectComponent } from "./project/project.component";
-import { FeedbackComponent } from "./feedback/feedback.component";
-import { EndScreenComponent } from "./end-screen/end-screen.component";
+import { QuestionComponent } from "./Components/question/question.component";
+import { ListComponent } from "./Components/list/list.component";
+import { ProjectComponent } from "./Components/project/project.component";
+import { FeedbackComponent } from "./Components/feedback/feedback.component";
+import { EndScreenComponent } from "./Components/end-screen/end-screen.component";
 const MAINMENU_ROUTES: Routes = [
     //full : makes sure the path is absolute 
     { path: '', component: ListComponent, pathMatch: 'full'},
