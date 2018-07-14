@@ -3,6 +3,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
 </head>
 <body>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <h1>Projekte</h1>
 <div class="tile">
 <div *ngFor="let survey of surveys">
@@ -19,5 +21,7 @@
 <div>
   <p><input name="searchid" type="text" id="specificContextID" placeholder="ID-Suche"></p>
   <button class="btn btn-white" id="button" (click)="openSpecificProject()">öffnen</button>
+</div>
+</div>
 </div>
 </body>

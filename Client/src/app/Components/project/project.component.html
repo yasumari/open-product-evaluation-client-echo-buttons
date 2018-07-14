@@ -1,4 +1,6 @@
 <body id="gtco-header">
+  <div class="row row-pb-sm">
+    <div class="col-md-8 col-md-offset-2 gtco-heading text-center">
   <!-- ngIF abwarten bis was drin ist dann laden -->
   <div class="project" *ngIf="currentProject">
   <h1>{{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
@@ -7,5 +9,7 @@
   <p><a class="btn btn-white" routerLink="/question" routerLinkActive="active" >Start</a></p>
   <!--><p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>
   <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/>     !!!QR-CODE!!! </p><-->
+</div>
+</div>
 </div>
 </body>
