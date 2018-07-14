@@ -67,6 +67,31 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.token=this.dataService.getToken();
       console.log(this.currentProject.activeSurvey);
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      
+      //TODO FÜR PRÄSENTATION LOKAL BILDER LADEN
+      for (var i=0; i<this.currentQuestion.items.length; i++){
+        console.log("URL: " +this.currentQuestion.items[i].image.url );
+        switch(this.currentQuestion.items[i].image.url){
+          case("https://cdn.pixabay.com/photo/2016/03/31/19/50/checklist-1295319_1280.png"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/checklist-1295319_1280.png";
+             console.log(this.currentQuestion.items[i].image.url);
+             break;
+          case("https://cdn.pixabay.com/photo/2017/01/31/11/48/checklist-2023731_1280.png"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/checklist-2023731_1280.png";
+             console.log(this.currentQuestion.items[i].image.url);
+             break;
+          case("https://cdn.pixabay.com/photo/2018/01/11/09/42/network-3075716_1280.jpg"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/network-3075716_1280.jpg";
+             console.log(this.currentQuestion.items[i].image.url);
+             break;
+          case("https://cdn.pixabay.com/photo/2016/12/19/08/39/mobile-phone-1917737_1280.jpg"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/mobile-phone-1917737_1280.jpg";
+             console.log(this.currentQuestion.items[i].image.url);
+             break;
+        }
+      }
+        
+      
       this.sub=this.messageService.getMessage().subscribe( message => {
           
           //TODO noch benötigt?

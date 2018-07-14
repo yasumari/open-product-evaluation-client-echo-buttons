@@ -29,7 +29,7 @@
 	<div  class="col-md-3 col-sm-3 col-sm-offset-1" *ngFor="let item of currentQuestion.items ; let i = index " >
 			<div class="overlay">
 				<div class="copy text-center">
-					<img [src]="currentQuestion.items[i].image.url" alt="Img">
+					<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
 					<!--Label-->
 					<h5>{{currentQuestion.items[i].label}}</h5>
 					<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)">Design {{i+1}}</button>
