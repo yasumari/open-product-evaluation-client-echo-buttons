@@ -14,8 +14,10 @@
 <div class="row row-pb-sm">
 
 	<div class="col-md-8 col-sm-8 col-xs-8  col-lg-8 col-md-offset-2 gtco-heading text-center">
-		<h2>{{currentProject.name}} </h2> <!-- Name des Projektes -->
-		<h1>Frage: {{currentQuestion.description}}</h1> <!-- Aktuelle Frage des Projektes -->
+		<h2>{{currentProject.activeSurvey.title}} </h2> <!-- Name des Projektes -->
+		<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
+		<h1>Frage: {{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+
 		<!-- <p>Value: {{currentQuestion.value}}</p> --> <!-- Value des Projektes -->
 	</div>
 </div>

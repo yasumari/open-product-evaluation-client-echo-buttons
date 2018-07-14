@@ -18,6 +18,7 @@ import { MessageService } from '../../Services/message.service';
 
 export class ListComponent implements OnInit, OnDestroy {
     surveys: Observable<Context>;
+    testID;
     sub: Subscription;
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
@@ -36,7 +37,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
     openSpecificProject(): void{
         let id=(<HTMLInputElement>document.getElementById("specificContextID")).value;
-        this.dataService.setContextID(id);
+        //TODO später mal selber erhalten
+        //this.dataService.setContextID(id);
+        this.dataService.setContextID(this.testID);
         this.router.navigateByUrl('/project');
     }
 
@@ -46,6 +49,7 @@ export class ListComponent implements OnInit, OnDestroy {
         }).subscribe(({data})=> {
             console.log("ContextID "+ data.contexts[0].id);
             console.log("ContextID "+ data.contexts[1].id);
+            this.testID=data.contexts[0].id;
             this.surveys=data.contexts;
         })
       
@@ -65,10 +69,11 @@ export class ListComponent implements OnInit, OnDestroy {
                 console.log(data.createDevice.token);
                 
             this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
-            this.getProjects();    
+            this.getProjects();
         });
+        } else {
+            this.getProjects();
         }
-      
     }
     
     ngOnDestroy(){

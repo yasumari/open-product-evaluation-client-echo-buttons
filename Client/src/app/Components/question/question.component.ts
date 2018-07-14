@@ -42,8 +42,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
 
       this.currentAnswer={
-        contextID: this.currentProject.id,
-        deviceID: this.token,
         questionID: this.currentQuestion.id,
         favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
       }
@@ -53,8 +51,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
         fetchPolicy: 'no-cache',
         mutation: favoriteAnswerMutate,
         variables: { 
-          contextID: this.currentAnswer.contextID,
-          deviceID: this.currentAnswer.deviceID,
           questionID: this.currentAnswer.questionID,
           favoriteImage: this.currentAnswer.favoriteImage},
       }).subscribe((mutationResponse) => 
@@ -69,6 +65,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
  public ngOnInit(): void {
       this.currentProject = this.dataService.getContext();
+      console.log(this.currentProject);
       this.token=this.dataService.getToken();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       this.sub=this.messageService.getMessage().subscribe( message => {

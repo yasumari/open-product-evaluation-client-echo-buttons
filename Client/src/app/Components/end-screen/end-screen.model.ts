@@ -19,9 +19,6 @@ mutation updateDeviceMutation ($deviceID: ID!, $context: ID){
   export const deleteDevice: any = gql`
   mutation deleteDeviceMutation ($deviceID: ID!){
     deleteDevice(deviceID: $deviceID){
-      device{
-        id
-        name
-      }
+      status
     }
   }`;

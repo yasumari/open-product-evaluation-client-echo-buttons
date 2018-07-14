@@ -27,7 +27,7 @@ this.apollo.subscribe({
   query: CurrentProjectSubscription,
   variables: {contextID: contextID},
 }).subscribe(({data}) => {
-  //TODO brauche ich die activeQuestion abzufragen?
+  //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
   console.log(data.context);
   this.currentProject = data.context;
   //vorne im Array starten und dann eins hochzählen bei einer Antwort 
@@ -57,6 +57,7 @@ console.log(name + "   " + deviceID + "  " + contextId);
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
+      console.log("AUSGEWÄHLTE CONTEXTID: " + contextid);
       let deviceID =  this.dataService.getDeviceID();
       let deviceName =  this.dataService.getDeviceName();
       let token=this.dataService.getToken();
@@ -79,6 +80,8 @@ console.log(name + "   " + deviceID + "  " + contextId);
       }else{
         this.updateDevice(deviceID, contextid);
       }
+
+      //Button klick
       this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("PROJECT: " + message);
       this.sub.unsubscribe();

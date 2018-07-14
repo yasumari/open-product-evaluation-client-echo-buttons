@@ -98,8 +98,8 @@ subscription CurrentProjectForController ($contextID: ID!){
 
 
 export const CurrentProjectSubscription: any = gql`
-query gContexts {
-  context(contextID: "7df600774ceaa14488143c9d7877fd71662f4750c7c1c77aede7aa684d7c16f1") {
+query gContexts ($contextID: ID!){
+  context(contextID: $contextID) {
     owners{id}
     id
     name

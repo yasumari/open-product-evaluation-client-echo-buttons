@@ -66,8 +66,6 @@ export type Device={
   }
 
   export type Answer={
-    contextID: string,
-    deviceID: string,
     questionID: number,
     favoriteImage: string
   }
