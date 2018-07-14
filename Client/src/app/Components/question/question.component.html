@@ -5,9 +5,6 @@
 <div class="gtco-section gtco-products">
 <div class="gtco-container">
 
-<div class="progress" style="margin-top:25px">
-<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
-</div>
 
 
 <!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
@@ -51,3 +48,6 @@
 			</div>
 		</div>
 	</div> -->
+	<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 3%">
+			<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
+			</div>

@@ -29,11 +29,11 @@ h6{
 
 .tile{
   display: flex;
-  flex-flow: row wrap;
+  /*flex-flow: row wrap; */
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
-  align-items: center;
+  /*align-items: center;*/
 }
 
 .card {
