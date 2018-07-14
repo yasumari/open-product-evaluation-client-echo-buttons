@@ -28,16 +28,17 @@ this.apollo.subscribe({
   variables: {contextID: contextID},
 }).subscribe(({data}) => {
   //TODO brauche ich die activeQuestion abzufragen?
-  this.currentProject = data['context'];
+  console.log(data.context);
+  this.currentProject = data.context;
   //vorne im Array starten und dann eins hochzählen bei einer Antwort 
   //leere Antworten sind nicht möglich bis September
   this.dataService.sendContext(this.currentProject);
   this.dataService.setPositionQuestion(0);
 })
 }
-      
-
-updateDevice(name: string, deviceID: string, contextId: string, author: {prename: string, surname: string}){
+    
+updateDevice(deviceID: string, contextId: string){
+console.log(name + "   " + deviceID + "  " + contextId);
     //Device contextID übergeben mit updateDevice()
       this.apollo.mutate({
         fetchPolicy: 'no-cache',
@@ -45,11 +46,10 @@ updateDevice(name: string, deviceID: string, contextId: string, author: {prename
         variables: {
           name: name,
           deviceID: deviceID,
-          context: contextId,
-          owner: [author.prename, author.surname]
+          context: contextId
         }
       }).subscribe(({data}) => {
-          //console.log("mutation update Device", data);
+          console.log("mutation update Device", data);
       });
 }
 
@@ -57,28 +57,27 @@ updateDevice(name: string, deviceID: string, contextId: string, author: {prename
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
-      let deviceID =  this.dataService.getDevice();
-
+      let deviceID =  this.dataService.getDeviceID();
+      let deviceName =  this.dataService.getDeviceName();
+      let token=this.dataService.getToken();
       //TODO Name und Nutzer festlegen
-      let author={prename: "max", surname: "mustermann"};
-      
       this.getProject(contextid);
 
-      if (deviceID==null || deviceID==undefined){
+      if (token==null || token==undefined){
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
           variables: { 
-            deviceName: "Fernseher",
+            deviceName: deviceName,
           }
         }).subscribe(({data}) => { 
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
           deviceID=data.createDevice.device.id;
           //danach erst weitere Abfragen
-          this.updateDevice("fernseher", deviceID, contextid, author);
+          this.updateDevice(deviceID, contextid);
         });
       }else{
-        this.updateDevice("fernseher", deviceID, contextid, author);
+        this.updateDevice(deviceID, contextid);
       }
       this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("PROJECT: " + message);

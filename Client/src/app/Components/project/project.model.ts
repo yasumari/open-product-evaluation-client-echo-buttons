@@ -15,12 +15,10 @@ mutation addNewDevice ($deviceName: String!){
 }`;
 
 export const updateDevice: any = gql`
-mutation updateDeviceMutation ($deviceID: ID!, $name: String, $context: ID!, $owners: [ID!]){
+mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
   updateDevice(data: 
     {
-      name: $name
       context: $context
-      owners: $owners
     }, deviceID: $deviceID){
     device {
       name
@@ -29,7 +27,7 @@ mutation updateDeviceMutation ($deviceID: ID!, $name: String, $context: ID!, $ow
     }
     }
   }`;
-
+/* Subscription geht noch nicht 
 export const CurrentProjectSubscription: any = gql`
 fragment itemsPart on Item{
   image{
@@ -89,6 +87,96 @@ subscription CurrentProjectForController ($contextID: ID!){
       id
     }
     states{
+      key
+      value
+    }
+  }
+}`;*/
+
+
+
+
+
+export const CurrentProjectSubscription: any = gql`
+query gContexts {
+  context(contextID: "7df600774ceaa14488143c9d7877fd71662f4750c7c1c77aede7aa684d7c16f1") {
+    owners{id}
+    id
+    name
+    activeSurvey {
+      description
+      title
+      questions {
+        id
+        description
+        value
+        items {
+          image {
+            url
+            id
+          }
+          label
+        }
+        ... on LikeQuestion {
+          likeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+        }
+        ... on LikeDislikeQuestion {
+          likeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+          dislikeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+        }
+        ... on ChoiceQuestion {
+          choices {
+            image {
+              url
+            }
+            label
+            code
+          }
+          defaultChoice: default
+        }
+        ... on RegulatorQuestion {
+          labels {
+            image {
+              url
+            }
+            label
+            value
+          }
+          default
+          max
+          min
+          stepSize
+        }
+        items {
+          image {
+            url
+          }
+          label
+        }
+      }
+    }
+    activeQuestion {
+      id
+    }
+    states {
       key
       value
     }

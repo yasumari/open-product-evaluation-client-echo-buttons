@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { newDeviceMutation, queryAllSurveys } from './list.model';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Survey, Query } from '../../types'
+import { Query, Context } from '../../types'
 import { Router } from '@angular/router';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
@@ -17,7 +17,7 @@ import { MessageService } from '../../Services/message.service';
 })
 
 export class ListComponent implements OnInit, OnDestroy {
-    surveys: Observable<Survey[]>;
+    surveys: Observable<Context>;
     sub: Subscription;
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
@@ -41,18 +41,19 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     getProjects(){
-        this.surveys = this.apollo.watchQuery<Query>({
+        this.apollo.subscribe({
             query: queryAllSurveys
-        }).valueChanges
-        .pipe(
-            map(result => result.data.surveys)
-        );
+        }).subscribe(({data})=> {
+            console.log("ContextID "+ data.contexts[0].id);
+            console.log("ContextID "+ data.contexts[1].id);
+            this.surveys=data.contexts;
+        })
+      
     }
-
     ngOnInit() {
         //TODO neues Device immer??
         //TODO als Promise auslagern  
-        let deviceID=this.dataService.getDevice();
+        let deviceID=this.dataService.getDeviceID();
         if (deviceID==undefined || deviceID==null){
             this.apollo.mutate({
                 fetchPolicy: 'no-cache',
@@ -61,10 +62,13 @@ export class ListComponent implements OnInit, OnDestroy {
                 deviceName: "Fernseher",
                 }
             }).subscribe(({data}) => { 
+                console.log(data.createDevice.token);
+                
             this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
-            });
+            this.getProjects();    
+        });
         }
-        this.getProjects();
+      
     }
     
     ngOnDestroy(){

@@ -13,7 +13,7 @@ mutation addNewDevice ($deviceName: String!){
     token
   } 
 }`;
-
+/*
 export const queryAllSurveys: any=gql`
 query list{
     surveys{
@@ -26,4 +26,20 @@ query list{
         }
     }
 }
-`;
+`;*/
+
+export const queryAllSurveys: any=gql`
+query{
+  contexts{
+    id
+    activeSurvey{
+      id
+      description
+      creator{
+        lastName
+        firstName
+      }
+      title
+    }
+  }
+}`;

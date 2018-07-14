@@ -65,8 +65,8 @@ export class DataService {
     }*/
  
     setDevice(token: string, id: string, name: string){
-      this.deviceID=token;
-      this.deviceToken=id;
+      this.deviceID=id;
+      this.deviceToken=token;
       this.deviceName=name;
     }
 
@@ -82,10 +82,13 @@ export class DataService {
       return this.deviceToken;
     }
 
-    getDevice(){
-      return (this.deviceID, this.deviceToken, this.deviceName);
+    getDeviceID(){
+      return this.deviceID;
     }
 
+    getDeviceName(){
+      return this.deviceName
+    }
     setContextID(id: string){
       this.contextID=id;
     }

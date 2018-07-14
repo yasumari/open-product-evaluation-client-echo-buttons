@@ -5,12 +5,13 @@
 <body>
 <h1>Projekte</h1>
 <div class="tile">
-<div *ngFor="let survey of surveys | async">
+<div *ngFor="let survey of surveys">
   <div class="card" style="width: 100%; margin-top: 10px" (click)="openProject(survey.id)">
     <div class="card-body" id="{{survey.id}}">
-      <h3 class="card-title">{{survey.title}}</h3> <!-- Name des Projektes -->
-      <h4 class="card-subtitle mb-2 text-muted">{{survey.description}}</h4> <!-- Beschreibung des Projektes -->
-      <h6 class="card-subtitle mb-2 text-muted">von {{survey.creator.firstName + survey.creator.lastName}}</h6> <!-- Autor des Projektes -->
+      <h3 class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
+      <h4 class="card-subtitle mb-2 text-muted">{{survey.activeSurvey.description}}</h4> <!-- Beschreibung des Projektes -->
+     <!-- Noch nicht vorhanden -->
+      <!--><h6 class="card-subtitle mb-2 text-muted">von {{survey.activeSurvey.creator.firstName + survey.activeSurvey.creator.lastName}}</h6> <!-- Autor des Projektes -->
     </div>
   </div>
 </div>

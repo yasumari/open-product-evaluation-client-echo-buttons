@@ -53,7 +53,7 @@ export class EndScreenComponent implements OnInit {
     this.router.navigate(['/']);
   }
   public ngOnInit(): void {
-    this.deviceID=this.dataService.getDevice();
+    this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("EndScreenMessage: " + message);
       this.getBacktoListProjects();
