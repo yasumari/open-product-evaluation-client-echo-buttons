@@ -29,7 +29,7 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        console.log("mutation update DeviceContext", data);
+        //console.log("mutation update DeviceContext", data);
       });
   }
 

@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { newDeviceMutation, queryAllSurveys } from './list.model';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Query, Context } from '../../types'
+import { Context } from '../../types'
 import { Router } from '@angular/router';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
@@ -47,8 +46,6 @@ export class ListComponent implements OnInit, OnDestroy {
         this.apollo.subscribe({
             query: queryAllSurveys
         }).subscribe(({data})=> {
-            console.log("ContextID "+ data.contexts[0].id);
-            console.log("ContextID "+ data.contexts[1].id);
             this.testID=data.contexts[0].id;
             this.surveys=data.contexts;
         })
@@ -66,11 +63,9 @@ export class ListComponent implements OnInit, OnDestroy {
                 deviceName: "Fernseher",
                 }
             }).subscribe(({data}) => { 
-                console.log(data.createDevice.token);
-                
-            this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
-            this.getProjects();
-        });
+                this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
+                this.getProjects();
+            });
         } else {
             this.getProjects();
         }

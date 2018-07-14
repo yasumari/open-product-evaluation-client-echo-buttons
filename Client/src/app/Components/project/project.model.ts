@@ -1,5 +1,13 @@
 import gql from 'graphql-tag';
 
+
+export const queryContextID: any = gql`
+query{
+  contexts{
+    id
+  }
+}
+`;
 export const newDeviceMutation: any = gql`
 mutation addNewDevice ($deviceName: String!){
 	createDevice(data: {

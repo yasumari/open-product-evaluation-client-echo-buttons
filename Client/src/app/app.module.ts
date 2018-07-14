@@ -51,7 +51,6 @@ export class AppModule {
     
         const authMiddleware = new ApolloLink((operation, forward) => {
           let token = this.dataService.getToken();
-          console.log("TOKEN: " + token);
           // add the authorization to the headers when token isnt empty
           if (token !=null || token != undefined){
           operation.setContext({
