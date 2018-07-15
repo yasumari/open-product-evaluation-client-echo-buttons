@@ -87,12 +87,20 @@ h2{
 
 h5{
   margin-top: 10px;
+<<<<<<< HEAD
 
   margin-left: 20px;
 
 }
 
 
+=======
+}
+
+img{
+/* HIER was rein?*/
+}
+>>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e
 
 .project{
   padding-top: 50px;
@@ -102,7 +110,10 @@ h5{
   height: 900px;
   position: relative;
   overflow-x: hidden;
+<<<<<<< HEAD
 
+=======
+>>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e
 }
 
 .gtco-container {
@@ -162,11 +173,11 @@ h5{
 }
 
 .btn {
-  margin-right: 3px;
+  margin-right: 4px;
   margin-left: 0px;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   font-family: "Raleway", Arial, sans-serif;
-  font-size: 8px;
+  font-size: 13px;
   font-weight: 700 !important;
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
@@ -176,7 +187,7 @@ h5{
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
-  padding: 20px 20px;
+  padding: 20px 30px;
   text-transform: uppercase;
   text-shadow: none !important;
   -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
@@ -198,5 +209,5 @@ h5{
   background: #fff;
   color: #000;
   border: 2px solid #fff;
+  margin: 5px;
 }
-
