@@ -87,20 +87,18 @@ h2{
 
 h5{
   margin-top: 10px;
-<<<<<<< HEAD
+
+
 
   margin-left: 20px;
-
-}
-
-
+  /*
+<<<<<<< HEAD
 =======
+>>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e*/
 }
 
-img{
-/* HIER was rein?*/
-}
->>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e
+
+
 
 .project{
   padding-top: 50px;
@@ -110,10 +108,11 @@ img{
   height: 900px;
   position: relative;
   overflow-x: hidden;
+ /* 
 <<<<<<< HEAD
-
 =======
 >>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e
+*/
 }
 
 .gtco-container {
