@@ -81,21 +81,17 @@ h1{
 }
 
 h2{
-  padding-top: 20px;
+  padding-top: 12px;
   color: grey;
 }
 
 h5{
   margin-top: 10px;
 
-
-
   margin-left: 20px;
-  /*
-<<<<<<< HEAD
-=======
->>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e*/
+
 }
+
 
 
 
@@ -108,11 +104,7 @@ h5{
   height: 900px;
   position: relative;
   overflow-x: hidden;
- /* 
-<<<<<<< HEAD
-=======
->>>>>>> d54f74caf1b3e75e35e212335d5fc0fb9aec4e7e
-*/
+
 }
 
 .gtco-container {
