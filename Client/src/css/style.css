@@ -16,6 +16,26 @@ body {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
+.responsivee{
+	min-width:250px;
+	width:150px;
+}
+img.responsivee{
+	
+	width:50%;
+	min-width:370px;
+	height:auto;
+}
+.responsivee1{
+	min-width:220px;
+	width:150px;
+}
+img.responsivee1{
+	
+	width:50%;
+	min-width:329px;
+	height:auto;
+}
 
 .offcanvas #page {
   overflow: hidden;
@@ -56,8 +76,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 h1{
-  padding-top: 15px;
-  padding-bottom: 50px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 h2{
@@ -67,14 +87,12 @@ h2{
 
 h5{
   margin-top: 10px;
-<<<<<<< HEAD
+
   margin-left: 20px;
-=======
-}
-
-img{
 
 }
+
+
 
 .project{
   padding-top: 50px;
@@ -84,7 +102,7 @@ img{
   height: 900px;
   position: relative;
   overflow-x: hidden;
->>>>>>> 68c06582423f2439d9d8a9c79a556d05e10da9dc
+
 }
 
 .gtco-container {
@@ -142,9 +160,7 @@ img{
   display: table-cell !important;
   vertical-align: middle;
 }
-img{
-	width:270px;
-}
+
 .btn {
   margin-right: 3px;
   margin-left: 0px;

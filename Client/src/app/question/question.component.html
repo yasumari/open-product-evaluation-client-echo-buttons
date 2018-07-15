@@ -9,7 +9,7 @@
 <div class="gtco-section gtco-products">
 <div class="gtco-container">
 
-<div class="progress" style="margin-top:25px">
+<div class="progress" style="margin-top:6px">
 <div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:20px" >{{calculate()}}</div>
 </div>
 
@@ -24,27 +24,38 @@
 	</div>
 </div>
 
-	<div class="row row-pb-md" >
 	
-	
-	 
- <div  class="col-md-3 col-sm-3 col-sm-offset-1" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<div *ngIf="currentProject.activeSurvey.questions.length===2 || currentProject.activeSurvey.questions.length=== 4 "> 
+		 <div class="row row-pb-md" >
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 		<div class="overlay">
 			<div class="copy text-center">
-				<img src="./../../../assets/images/{{i+2}}.jpg" alt="Img">
-				<h5>Label: {{currentQuestion.items[i].label}}</h5>	
-			
-		<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i)">Design {{i+1}}</button>
+				<img class="responsivee" src="./../../../assets/images/{{i+2}}.jpg" alt="Img" >
+				<h5>Label: {{currentQuestion.items[i].label}}</h5>
+				
+				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i)" style="padding: 12px 12px" >Design {{i+1}} </button>
 			</div>
 		</div>
-		
-		 </div>
-		 
-	
-		
-		 </div>
+	</div>
+	 
+</div>
+</div>
+<div *ngIf="currentProject.activeSurvey.questions.length===3 ">
+	 <div class="row row-pb-md" >
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -0.66667%" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<div class="overlay">
+			<div class="copy text-center">
+				<img class="responsivee1" src="./../../../assets/images/{{i+2}}.jpg" alt="Img" >
+				<h5>Label: {{currentQuestion.items[i].label}}</h5>
+				
+				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i)" >Design {{i+1}} </button>
+			</div>
+		</div>
+	</div>
+	 
+</div>
+</div>
 			
-
 	 </div>
 	 
 	
