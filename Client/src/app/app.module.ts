@@ -16,6 +16,7 @@ import { EndScreenComponent } from './Components/end-screen/end-screen.component
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
+import { ButtonRegisterComponent } from './Components/button-register/button-register.component';
 
 
  
@@ -27,7 +28,8 @@ import { ApolloLink, concat } from 'apollo-link';
     MenuComponent,
     ProjectComponent,
     FeedbackComponent,
-    EndScreenComponent
+    EndScreenComponent,
+    ButtonRegisterComponent
     
   ],
 

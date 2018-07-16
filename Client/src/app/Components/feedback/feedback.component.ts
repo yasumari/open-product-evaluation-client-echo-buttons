@@ -26,7 +26,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.image=this.dataService.getChosenImageUrl();
-
+    console.log("IMAGE: " + this.image);
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
     /*this.sub=this.messageService.getMessage().subscribe( message => {
@@ -36,7 +36,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   this.timer= setTimeout( () => {
         this.nextPage();
-    }, 5000);  //5s
+    }, 3500);  //3s
   }
 
 

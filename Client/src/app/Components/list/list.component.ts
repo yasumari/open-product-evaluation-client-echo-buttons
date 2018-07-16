@@ -25,7 +25,14 @@ export class ListComponent implements OnInit, OnDestroy {
         this.sub=this.messageService.getMessage().subscribe( message => {
             console.log("Liste: " + message);
             this.sub.unsubscribe();
-            this.openProject("123");
+            //1= links und 2 = rechts
+            if (message==1){
+                this.openProject(this.surveys[0].id);
+            } else {
+                this.openProject(this.surveys[1].id);
+            }
+            
+            
         })
     }
     

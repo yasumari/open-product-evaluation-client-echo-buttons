@@ -43,7 +43,6 @@ updateDevice(deviceID: string, contextId: string){
         fetchPolicy: 'no-cache',
         mutation: updateDevice,
         variables: {
-          name: name,
           deviceID: deviceID,
           context: contextId
         }
