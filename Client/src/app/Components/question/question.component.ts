@@ -17,7 +17,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   sub: Subscription;
   public currentProject: Context;
   private currentAnswer: Answer;
-  private token: string;
   private currentQuestion: Question;
  
   public n:any;
@@ -27,12 +26,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
  {}
 
    buttonClick(btn_number: number){    
+     console.log("Button: " + btn_number);
       this.sub.unsubscribe();
       //TODO btn_number sagt welches Item im Array gewählt wurde 
       //Button 1,2,3,4
       //       | | | |
       //Items  0,1,2,3
-      console.log("Gedrückt: " + typeof(btn_number) + "  " + (btn_number==1) + "   " + (btn_number==2));
       switch(btn_number){
         case 1:  
             this.dataService.setChosenImageUrl(this.currentQuestion.items[0].image.url); 
@@ -73,36 +72,19 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
  public ngOnInit(): void {
       this.currentProject = this.dataService.getContext();
-      this.token=this.dataService.getToken();
       console.log(this.currentProject.activeSurvey);
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-      
-      //TODO FÜR PRÄSENTATION LOKAL BILDER LADEN
-      for (var i=0; i<this.currentQuestion.items.length; i++){
-        switch(this.currentQuestion.items[i].image.url){
-          case("https://cdn.pixabay.com/photo/2016/03/31/19/50/checklist-1295319_1280.png"):
-             this.currentQuestion.items[i].image.url="../../../assets/images/checklist-1295319_1280.png";
-             break;
-          case("https://cdn.pixabay.com/photo/2017/01/31/11/48/checklist-2023731_1280.png"):
-             this.currentQuestion.items[i].image.url="../../../assets/images/checklist-2023731_1280.png";
-             break;
-          case("https://cdn.pixabay.com/photo/2018/01/11/09/42/network-3075716_1280.jpg"):
-             this.currentQuestion.items[i].image.url="../../../assets/images/network-3075716_1280.jpg";
-             break;
-          case("https://cdn.pixabay.com/photo/2016/12/19/08/39/mobile-phone-1917737_1280.jpg"):
-             this.currentQuestion.items[i].image.url="../../../assets/images/mobile-phone-1917737_1280.jpg";
-             break;
-        }
-      }
-        
-      
+      //TODO rausnehmen
+      this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
+      this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
+
+
       this.sub=this.messageService.getMessage().subscribe( message => {
-          
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
             this.buttonClick(parseInt(message));
           } else {
-            console.log("Button ungültigt Nachricht");
+            console.log("Button ungültig Nachricht");
           }
       })
     }

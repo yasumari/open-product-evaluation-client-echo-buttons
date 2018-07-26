@@ -76,13 +76,8 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 h1{
-<<<<<<< HEAD
-  padding-top: 0px;
-  padding-bottom: 0px;
-=======
   padding-top: 15px;
   padding-bottom: 30px;
->>>>>>> testdata
 }
 
 h2{
@@ -92,9 +87,7 @@ h2{
 
 h5{
   margin-top: 10px;
-
   margin-left: 20px;
-
 }
 
 
