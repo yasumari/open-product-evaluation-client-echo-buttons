@@ -11,20 +11,20 @@
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} </h3> <!-- Name des Projektes -->
 			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<div *ngIf="currentProject.activeSurvey.questions.length===2 || currentProject.activeSurvey.questions.length=== 4 "> 
+			<div *ngIf="currentQuestion.items.length==2 || currentQuestion.items.length== 4 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+								<h3 style="margin-top: 5px">{{i}}{{currentQuestion.items[i].label}}</h3>
 								<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)" style="padding: 12px 12px" >Design {{i+1}} </button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div *ngIf="currentProject.activeSurvey.questions.length===3 ">
+			<div *ngIf="currentQuestion.items.length==3 ">
 	 			<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -0.66667%" *ngFor="let item of currentQuestion.items ; let i = index " >
 		<!--
@@ -34,7 +34,7 @@
 						<div class="overlay">
 							<div class="copy text-center">
 								<img class="responsivee1" src="./../../../assets/images/{{i+2}}.jpg" alt="Img" >
-								<h5>Label: {{currentQuestion.items[i].label}}</h5>	
+								<h5>{{currentQuestion.items[i].label}}</h5>	
 								<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)" style="padding: 12px 12px">Design {{i+1}} </button>
 							</div>
 						</div>

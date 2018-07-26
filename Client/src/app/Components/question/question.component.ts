@@ -78,7 +78,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
 
-
+      console.log(this.currentQuestion.items.length);
       this.sub=this.messageService.getMessage().subscribe( message => {
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
