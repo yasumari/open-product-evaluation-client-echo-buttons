@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
-import { CurrentProjectSubscription, updateDevice, newDeviceMutation} from './project.model';
+import { CurrentProjectSubscription, updateDevice, newDeviceMutation, queryContextID} from './project.model';
 import { Context } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
@@ -23,33 +23,31 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
 getProject(contextID: string){
 //Umfrage abfragen
+console.log(contextID);
 this.apollo.subscribe({
   query: CurrentProjectSubscription,
   variables: {contextID: contextID},
 }).subscribe(({data}) => {
-  //TODO brauche ich die activeQuestion abzufragen?
-  this.currentProject = data['context'];
+  //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
+  this.currentProject = data.context;
   //vorne im Array starten und dann eins hochzählen bei einer Antwort 
   //leere Antworten sind nicht möglich bis September
   this.dataService.sendContext(this.currentProject);
   this.dataService.setPositionQuestion(0);
 })
 }
-      
-
-updateDevice(name: string, deviceID: string, contextId: string, author: {prename: string, surname: string}){
+    
+updateDevice(deviceID: string, contextId: string){
     //Device contextID übergeben mit updateDevice()
       this.apollo.mutate({
         fetchPolicy: 'no-cache',
         mutation: updateDevice,
         variables: {
-          name: name,
           deviceID: deviceID,
-          context: contextId,
-          owner: [author.prename, author.surname]
+          context: contextId
         }
       }).subscribe(({data}) => {
-          //console.log("mutation update Device", data);
+          console.log("mutation update Device", data);
       });
 }
 
@@ -57,29 +55,39 @@ updateDevice(name: string, deviceID: string, contextId: string, author: {prename
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
-      let deviceID =  this.dataService.getDevice();
-
+      let deviceID =  this.dataService.getDeviceID();
+      let deviceName =  this.dataService.getDeviceName();
+      let token=this.dataService.getToken();
       //TODO Name und Nutzer festlegen
-      let author={prename: "max", surname: "mustermann"};
       
-      this.getProject(contextid);
-
-      if (deviceID==null || deviceID==undefined){
+      //Wenn es ohne Startseite aufgerufen wird, dann 
+      //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
+      if (token==null || token==undefined){
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
           variables: { 
-            deviceName: "Fernseher",
+            deviceName: "hi",
           }
         }).subscribe(({data}) => { 
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
           deviceID=data.createDevice.device.id;
+          console.log(deviceID);
           //danach erst weitere Abfragen
-          this.updateDevice("fernseher", deviceID, contextid, author);
+          this.apollo.subscribe({
+            query: queryContextID
+          }).subscribe((data)=>{
+            this.updateDevice(deviceID, data.data.contexts[0].id);
+            this.getProject(data.data.contexts[0].id);
+          })
+          
         });
       }else{
-        this.updateDevice("fernseher", deviceID, contextid, author);
+        this.getProject(contextid);
+        this.updateDevice(deviceID, contextid);
       }
+
+      //Button klick
       this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("PROJECT: " + message);
       this.sub.unsubscribe();

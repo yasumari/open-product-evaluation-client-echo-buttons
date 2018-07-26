@@ -1,7 +1,9 @@
 
 <head>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
 </head>
+<<<<<<< HEAD
 
 
 
@@ -12,14 +14,18 @@
 <div class="progress-bar progress-bar-striped active" [style.width]="calculate()"    style="min-width:20px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
 </div>
 <div class="row row-pb-sm">
+=======
+<body>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+<!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
+>>>>>>> testdata
 
-	<div class="col-md-8 col-sm-8 col-xs-8  col-lg-8 col-md-offset-2 gtco-heading text-center">
-		<h2>{{currentProject.name}} </h2> <!-- Name des Projektes -->
-		<h1>Frage: {{currentQuestion.description}}</h1> <!-- Aktuelle Frage des Projektes -->
-		<!-- <p>Value: {{currentQuestion.value}}</p> --> <!-- Value des Projektes -->
-	</div>
-</div>
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} </h3> <!-- Name des Projektes -->
+			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 
+<<<<<<< HEAD
 	
 		<div *ngIf="currentProject.activeSurvey.questions.length===2 || currentProject.activeSurvey.questions.length=== 4 "> 
 		 <div class="row row-pb-md" >
@@ -40,6 +46,27 @@
 <div *ngIf="currentProject.activeSurvey.questions.length===3 ">
 	 <div class="row row-pb-md" >
 	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -0.66667%" *ngFor="let item of currentQuestion.items ; let i = index " >
+=======
+		<!-- <p>Value: {{currentQuestion.value}}</p> --> <!-- Value des Projektes -->
+
+
+
+		<!-- TODO Überarbeiten! dieser Container für 2 Bilder -->
+		<!-- TODO wenn es 4 Bilder sind, dann über diesen Container iterieren mit abstand dazwischen-->
+		<!-- Beispiel drittes Bild, dann alle in eine Reihe, mit eigenem div Container-->
+			<div style="display: flex; justify-content: flex-start;align-items: stretch;align-content: flex-start;" >
+				<div  style="width: 50%;" *ngFor="let item of currentQuestion.items ; let i = index " >
+					<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+					<!--Label-->
+					<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+					<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)">Design {{i+1}}</button>
+				</div>
+			</div>
+			</div>
+</div>
+<!--Beispiel drittes Bild -->
+	<!-- <div class="col-md-4 col-sm-4 col-sm-offset-1" style="position:relative">
+>>>>>>> testdata
 		<div class="overlay">
 			<div class="copy text-center">
 				<img class="responsivee1" src="./../../../assets/images/{{i+2}}.jpg" alt="Img" >
@@ -48,6 +75,7 @@
 				<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)" style="padding: 12px 12px">Design {{i+1}} </button>
 			</div>
 		</div>
+<<<<<<< HEAD
 	</div>
 	 
 </div>
@@ -56,3 +84,10 @@
 	 </div>
 	 
 	
+=======
+	</div> -->
+<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 4%; font-size: 16px">
+	<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:23px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
+</div>
+</body>
+>>>>>>> testdata

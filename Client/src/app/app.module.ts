@@ -16,6 +16,7 @@ import { EndScreenComponent } from './Components/end-screen/end-screen.component
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
+import { ButtonRegisterComponent } from './Components/button-register/button-register.component';
 
 
  
@@ -27,7 +28,8 @@ import { ApolloLink, concat } from 'apollo-link';
     MenuComponent,
     ProjectComponent,
     FeedbackComponent,
-    EndScreenComponent
+    EndScreenComponent,
+    ButtonRegisterComponent
     
   ],
 
@@ -51,10 +53,12 @@ export class AppModule {
     
         const authMiddleware = new ApolloLink((operation, forward) => {
           let token = this.dataService.getToken();
-          // add the authorization to the headers
+          // add the authorization to the headers when token isnt empty
+          if (token !=null || token != undefined){
           operation.setContext({
             headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
           });
+        }
 
           return forward(operation);
         });

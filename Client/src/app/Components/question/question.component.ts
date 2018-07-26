@@ -28,22 +28,27 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
    buttonClick(btn_number: number){    
       this.sub.unsubscribe();
-      console.log(btn_number + " wurde gedrückt");
       //TODO btn_number sagt welches Item im Array gewählt wurde 
       //Button 1,2,3,4
       //       | | | |
       //Items  0,1,2,3
-
+      console.log("Gedrückt: " + typeof(btn_number) + "  " + (btn_number==1) + "   " + (btn_number==2));
       switch(btn_number){
-        case 1:  this.dataService.setChosenImageUrl("2"); break;
-        case 2:  this.dataService.setChosenImageUrl("3"); break;
-        case 3:  this.dataService.setChosenImageUrl("4"); break;
-        case 4:  this.dataService.setChosenImageUrl("5"); break;
+        case 1:  
+            this.dataService.setChosenImageUrl(this.currentQuestion.items[0].image.url); 
+            break;
+        case 2:  
+            this.dataService.setChosenImageUrl(this.currentQuestion.items[1].image.url); 
+            break;
+        case 3:  
+            this.dataService.setChosenImageUrl(this.currentQuestion.items[2].image.url); 
+            break;
+        case 4:   
+            this.dataService.setChosenImageUrl(this.currentQuestion.items[3].image.url); 
+            break;
       }
 
       this.currentAnswer={
-        contextID: this.currentProject.id,
-        deviceID: this.token,
         questionID: this.currentQuestion.id,
         favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
       }
@@ -53,16 +58,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
         fetchPolicy: 'no-cache',
         mutation: favoriteAnswerMutate,
         variables: { 
-          contextID: this.currentAnswer.contextID,
-          deviceID: this.currentAnswer.deviceID,
           questionID: this.currentAnswer.questionID,
           favoriteImage: this.currentAnswer.favoriteImage},
       }).subscribe((mutationResponse) => 
         console.log("mutation", mutationResponse));
         this.dataService.setAnswerNumber();
         this.router.navigate(['/feedback']);
-      }
+    }
 
+  //Progressbar
   calculate():string {
     return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
   }
@@ -70,12 +74,33 @@ export class QuestionComponent implements OnInit, OnDestroy {
  public ngOnInit(): void {
       this.currentProject = this.dataService.getContext();
       this.token=this.dataService.getToken();
+      console.log(this.currentProject.activeSurvey);
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      
+      //TODO FÜR PRÄSENTATION LOKAL BILDER LADEN
+      for (var i=0; i<this.currentQuestion.items.length; i++){
+        switch(this.currentQuestion.items[i].image.url){
+          case("https://cdn.pixabay.com/photo/2016/03/31/19/50/checklist-1295319_1280.png"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/checklist-1295319_1280.png";
+             break;
+          case("https://cdn.pixabay.com/photo/2017/01/31/11/48/checklist-2023731_1280.png"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/checklist-2023731_1280.png";
+             break;
+          case("https://cdn.pixabay.com/photo/2018/01/11/09/42/network-3075716_1280.jpg"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/network-3075716_1280.jpg";
+             break;
+          case("https://cdn.pixabay.com/photo/2016/12/19/08/39/mobile-phone-1917737_1280.jpg"):
+             this.currentQuestion.items[i].image.url="../../../assets/images/mobile-phone-1917737_1280.jpg";
+             break;
+        }
+      }
+        
+      
       this.sub=this.messageService.getMessage().subscribe( message => {
           
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
-            this.buttonClick(message);
+            this.buttonClick(parseInt(message));
           } else {
             console.log("Button ungültigt Nachricht");
           }

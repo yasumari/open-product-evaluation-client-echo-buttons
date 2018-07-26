@@ -1,5 +1,13 @@
 import gql from 'graphql-tag';
 
+
+export const queryContextID: any = gql`
+query{
+  contexts{
+    id
+  }
+}
+`;
 export const newDeviceMutation: any = gql`
 mutation addNewDevice ($deviceName: String!){
 	createDevice(data: {
@@ -15,12 +23,10 @@ mutation addNewDevice ($deviceName: String!){
 }`;
 
 export const updateDevice: any = gql`
-mutation updateDeviceMutation ($deviceID: ID!, $name: String, $context: ID!, $owners: [ID!]){
+mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
   updateDevice(data: 
     {
-      name: $name
       context: $context
-      owners: $owners
     }, deviceID: $deviceID){
     device {
       name
@@ -29,7 +35,7 @@ mutation updateDeviceMutation ($deviceID: ID!, $name: String, $context: ID!, $ow
     }
     }
   }`;
-
+/* Subscription geht noch nicht 
 export const CurrentProjectSubscription: any = gql`
 fragment itemsPart on Item{
   image{
@@ -89,6 +95,96 @@ subscription CurrentProjectForController ($contextID: ID!){
       id
     }
     states{
+      key
+      value
+    }
+  }
+}`;*/
+
+
+
+
+
+export const CurrentProjectSubscription: any = gql`
+query gContexts ($contextID: ID!){
+  context(contextID: $contextID) {
+    owners{id}
+    id
+    name
+    activeSurvey {
+      description
+      title
+      questions {
+        id
+        description
+        value
+        items {
+          image {
+            url
+            id
+          }
+          label
+        }
+        ... on LikeQuestion {
+          likeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+        }
+        ... on LikeDislikeQuestion {
+          likeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+          dislikeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+        }
+        ... on ChoiceQuestion {
+          choices {
+            image {
+              url
+            }
+            label
+            code
+          }
+          defaultChoice: default
+        }
+        ... on RegulatorQuestion {
+          labels {
+            image {
+              url
+            }
+            label
+            value
+          }
+          default
+          max
+          min
+          stepSize
+        }
+        items {
+          image {
+            url
+          }
+          label
+        }
+      }
+    }
+    activeQuestion {
+      id
+    }
+    states {
       key
       value
     }

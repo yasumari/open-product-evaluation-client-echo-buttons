@@ -29,11 +29,12 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        console.log("mutation update DeviceContext", data);
+        //console.log("mutation update DeviceContext", data);
       });
   }
 
   deleteDevice(): void{
+    console.log("DEVICE ID: " + this.deviceID);
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: deleteDevice,
@@ -42,21 +43,21 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        console.log("mutation deleteDevice", data);
+        //console.log("mutation deleteDevice", data.deleteDevice.status);
       });
   }
 
-  getBacktoListProjects(){
+  goBackToListProjects(){
     this.sub.unsubscribe();
     this.dataService.setPositionQuestion(0);
     this.dataService.setAnswerNumberZero();
     this.router.navigate(['/']);
   }
   public ngOnInit(): void {
-    this.deviceID=this.dataService.getDevice();
+    this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("EndScreenMessage: " + message);
-      this.getBacktoListProjects();
+      this.goBackToListProjects();
     });
   }
   }

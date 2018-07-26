@@ -5,7 +5,7 @@ body {
   padding-bottom: 50px;
   background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
   font-family: "Raleway", Arial, sans-serif;
-  height: 900px;
+  height: -webkit-fill-available;
   position: relative;
   overflow-x: hidden;
 }
@@ -29,11 +29,11 @@ h6{
 
 .tile{
   display: flex;
-  flex-flow: row wrap;
+  /*flex-flow: row wrap; */
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
-  align-items: center;
+  /*align-items: center;*/
 }
 
 .card {

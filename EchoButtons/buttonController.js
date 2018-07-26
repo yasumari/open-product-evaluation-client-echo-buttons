@@ -19,7 +19,7 @@ console.log("HÖRT AUF PORT 3001");
 var i=0, j=0;
 const io = socketIo(server);
 let sockets = new Set();
-
+let isConnected=false;
 var btSerial = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 var btSerial2 = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 
@@ -30,11 +30,15 @@ io.on('connection', (socket)=>{
 	//Öffne die Connection
 	console.log(socket.id + "Connection vorhanden++++++++++++++++++++");
 	sockets.add(socket);
+	isConnected=true;
 //Sockets Disconnected, dann auch Verbindung zum Device beenden um später wieder zu verbinden
 socket.on('disconnect', function(){
 	console.log( socket.id + ' has disconnected from the chat. ');
+	isConnected=false;
 	btSerial.close();
+	btSerial2.close();
 	sockets.delete(socket);
+	isConnected=false;
 });
     //BUTTON 1 
     
@@ -49,13 +53,17 @@ socket.on('disconnect', function(){
 				console.log(isPressed);
 				if(isPressed){
 				console.log(' >> button 1 is PRESSED');
-				
-				socket.emit('message', {
+				if (isConnected){
+					console.log("VERBUNDEN SCHICKE NACHRICHT")
+					socket.emit('message', {
 						"pressedButton": '1',
 						"numbers": i
 						});
                     console.log(socket.id + " NACHRICHT AN " + i);
                     i++;
+				}else{
+					console.log("-----Keine Nachricht, da nicht verbunden");
+				} 
 				}
 		}, function () {
 			console.log('> cannot connect 1' );

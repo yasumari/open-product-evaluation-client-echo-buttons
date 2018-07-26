@@ -1,11 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators';
 import { newDeviceMutation, queryAllSurveys } from './list.model';
 import { Subscription } from 'rxjs/Subscription';
 
-import { Survey, Query } from '../../types'
+import { Context } from '../../types'
 import { Router } from '@angular/router';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
@@ -17,7 +16,8 @@ import { MessageService } from '../../Services/message.service';
 })
 
 export class ListComponent implements OnInit, OnDestroy {
-    surveys: Observable<Survey[]>;
+    surveys: Observable<Context>;
+    testID;
     sub: Subscription;
 //Router zum weiterleiten an die nächste Component /project
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
@@ -25,7 +25,14 @@ export class ListComponent implements OnInit, OnDestroy {
         this.sub=this.messageService.getMessage().subscribe( message => {
             console.log("Liste: " + message);
             this.sub.unsubscribe();
-            this.openProject("123");
+            //1= links und 2 = rechts
+            if (message==1){
+                this.openProject(this.surveys[0].id);
+            } else {
+                this.openProject(this.surveys[1].id);
+            }
+            
+            
         })
     }
     
@@ -36,23 +43,25 @@ export class ListComponent implements OnInit, OnDestroy {
 
     openSpecificProject(): void{
         let id=(<HTMLInputElement>document.getElementById("specificContextID")).value;
-        this.dataService.setContextID(id);
+        //TODO später mal selber erhalten
+        //this.dataService.setContextID(id);
+        this.dataService.setContextID(this.testID);
         this.router.navigateByUrl('/project');
     }
 
     getProjects(){
-        this.surveys = this.apollo.watchQuery<Query>({
+        this.apollo.subscribe({
             query: queryAllSurveys
-        }).valueChanges
-        .pipe(
-            map(result => result.data.surveys)
-        );
+        }).subscribe(({data})=> {
+            this.testID=data.contexts[0].id;
+            this.surveys=data.contexts;
+        })
+      
     }
-
     ngOnInit() {
         //TODO neues Device immer??
         //TODO als Promise auslagern  
-        let deviceID=this.dataService.getDevice();
+        let deviceID=this.dataService.getDeviceID();
         if (deviceID==undefined || deviceID==null){
             this.apollo.mutate({
                 fetchPolicy: 'no-cache',
@@ -61,10 +70,12 @@ export class ListComponent implements OnInit, OnDestroy {
                 deviceName: "Fernseher",
                 }
             }).subscribe(({data}) => { 
-            this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
+                this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
+                this.getProjects();
             });
+        } else {
+            this.getProjects();
         }
-        this.getProjects();
     }
     
     ngOnDestroy(){
