@@ -78,7 +78,7 @@ img{
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 50px;
-  height: 900px;
+  height: -webkit-fill-available;
   position: relative;
   overflow-x: hidden;
 }
@@ -93,7 +93,7 @@ img{
 
 .gtco-cover .display-t,
 .gtco-cover .display-tc {
-  height: 900px;
+  height: -webkit-fill-available;
   display: table;
   width: 100%;
 }
