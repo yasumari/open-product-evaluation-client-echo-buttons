@@ -35,7 +35,7 @@ mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
     }
     }
   }`;
-/* Subscription geht noch nicht */
+/* Subscription geht noch nicht 
 export const CurrentProjectSubscription: any = gql`
 fragment itemsPart on Item{
   image{
@@ -73,18 +73,83 @@ subscription CurrentProjectForController ($contextID: ID!){
         url
       	id
       }
-      questions{
+      questions {
         id
+        description
         value
-        items{
+        items {
+          image {
+            url
+            id
+          }
           label
-          image{
+        }
+        ... on LikeQuestion {
+          likeIcon {
             id
             url
+            name
+            hash
+            tags
           }
         }
-        type
-        description
+        ... on LikeDislikeQuestion {
+          likeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+          dislikeIcon {
+            id
+            url
+            name
+            hash
+            tags
+          }
+        }
+        ... on ChoiceQuestion {
+          choices {
+            image {
+              url
+            }
+            label
+            code
+          }
+          defaultChoice: default
+        }
+        ... on RegulatorQuestion {
+          labels {
+            image {
+              url
+            }
+            value
+          }
+          default
+          max
+          min
+          stepSize
+        }
+        items {
+          image {
+            url
+          }
+          label
+        }
+      }
+      votes{
+        id
+        creationDate
+        answers{
+          question
+          __typename
+          ...on RegulatorAnswer{
+            question
+            rating
+            normalized
+          } 
+        }
       }
     }
     owners{
@@ -100,11 +165,11 @@ subscription CurrentProjectForController ($contextID: ID!){
     }
   }
 }`;
+*/
 
 
 
 
-/* 
 export const CurrentProjectSubscription: any = gql`
 query gContexts ($contextID: ID!){
   context(contextID: $contextID) {
@@ -165,7 +230,6 @@ query gContexts ($contextID: ID!){
             image {
               url
             }
-            label
             value
           }
           default
@@ -180,6 +244,28 @@ query gContexts ($contextID: ID!){
           label
         }
       }
+      votes{
+        answers{
+          question
+          __typename
+          ...on LikeDislikeAnswer{
+            liked
+          }
+          ...on LikeAnswer{
+            liked
+          }
+          ...on ChoiceAnswer{
+            choiceCode
+          }
+          ...on RegulatorAnswer{
+            rating
+            normalized
+          }
+          ...on RankingAnswer{
+            rankedImages
+          }
+        }
+      }
     }
     activeQuestion {
       id
@@ -190,5 +276,26 @@ query gContexts ($contextID: ID!){
     }
   }
 }`;
-*/
 
+
+
+
+
+/*
+          ...on LikeDislikeAnswer{
+            liked
+          }
+          ...on LikeAnswer{
+            liked
+          }
+          ...on ChoiceAnswer{
+            choiceCode
+          }
+          ...on RegulatorAnswer{
+            rating
+            normalized
+          }
+          ...on RankingAnswer{
+            rankedImages
+          }
+*/

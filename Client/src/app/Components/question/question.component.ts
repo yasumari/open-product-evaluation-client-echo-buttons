@@ -53,6 +53,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
 
       //Sende Antwort der Frage an den Server
+      //TODO die Votes sind this.currentProject.activeSurvey.votes
       this.apollo.mutate({
         fetchPolicy: 'no-cache',
         mutation: favoriteAnswerMutate,
@@ -74,11 +75,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.currentProject = this.dataService.getContext();
       console.log(this.currentProject.activeSurvey);
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-      //TODO rausnehmen
+      //TODO rausnehmen, nur für testdaten drin
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
 
-      console.log(this.currentQuestion.items.length);
       this.sub=this.messageService.getMessage().subscribe( message => {
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
