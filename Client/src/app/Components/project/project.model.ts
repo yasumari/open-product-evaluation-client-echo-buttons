@@ -299,3 +299,34 @@ query gContexts ($contextID: ID!){
             rankedImages
           }
 */
+
+
+//TODO oder Subscription Votes
+/*
+subscription{
+  votes(surveyID: 123){
+  id
+    creationDate
+    context
+            answers{
+          question
+          __typename
+          ...on LikeDislikeAnswer{
+            liked
+          }
+          ...on LikeAnswer{
+            liked
+          }
+          ...on ChoiceAnswer{
+            choiceCode
+          }
+          ...on RegulatorAnswer{
+            rating
+            normalized
+          }
+          ...on RankingAnswer{
+            rankedImages
+          }
+        }
+  }
+}*/
