@@ -35,7 +35,7 @@ mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
     }
     }
   }`;
-/* Subscription geht noch nicht 
+/* Subscription geht noch nicht */
 export const CurrentProjectSubscription: any = gql`
 fragment itemsPart on Item{
   image{
@@ -99,12 +99,12 @@ subscription CurrentProjectForController ($contextID: ID!){
       value
     }
   }
-}`;*/
+}`;
 
 
 
 
-
+/* 
 export const CurrentProjectSubscription: any = gql`
 query gContexts ($contextID: ID!){
   context(contextID: $contextID) {
@@ -190,3 +190,5 @@ query gContexts ($contextID: ID!){
     }
   }
 }`;
+*/
+
