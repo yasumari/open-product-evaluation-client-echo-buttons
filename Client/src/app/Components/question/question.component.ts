@@ -49,9 +49,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
       this.currentAnswer={
         questionID: this.currentQuestion.id,
-        favoriteImage: this.currentQuestion.items[btn_number-1].image.id,
+        deviceID: this.dataService.getDeviceID(), 
+        contextID: this.dataService.getContextID()
       }
 
+      
       //Sende Antwort der Frage an den Server
       //TODO die Votes sind this.currentProject.activeSurvey.votes
       this.apollo.mutate({
@@ -59,7 +61,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
         mutation: favoriteAnswerMutate,
         variables: { 
           questionID: this.currentAnswer.questionID,
-          favoriteImage: this.currentAnswer.favoriteImage},
+          deviceID: this.currentAnswer.deviceID, 
+          contextID: this.currentAnswer.contextID,
+          favoriteImage:this.currentQuestion.items[btn_number-1].image.id},
       }).subscribe((mutationResponse) => 
         console.log("mutation", mutationResponse));
         this.dataService.setAnswerNumber();
