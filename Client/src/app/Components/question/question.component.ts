@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService} from '../../Services/data.service';
 import {favoriteAnswerMutate, likeAnswerMutate, likeDislikeAnswerMutate, rankingAnswerMutate, regulatorAnswerMutate, choiceAnswerMutate} from './question.model';
@@ -22,7 +22,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public n:any;
 
 
- constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private messageService: MessageService) 
+ constructor(private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) 
  {}
 
 
@@ -113,8 +113,13 @@ likeDislikeQuestion(btn_number: number){
 }
 
 rankingQuestionClick(btn_number: number){
-  //TODO Ranking 
+  //TODO Schöner machen 
   //Platz 1 als erstes auswählen?
+
+  const parent: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
+  this.renderer.setStyle(parent, 'background', 'red');
+  this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.ranking.length+1));
+
   this.ranking.push(this.currentQuestion.items[btn_number].image.id);
   console.log(this.ranking);
   if (this.ranking.length==this.currentQuestion.items.length){
@@ -136,7 +141,10 @@ rankingQuestionClick(btn_number: number){
 
    buttonClick(btn_number: number){    
     console.log("Button: " + btn_number);
-    this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
+    //TODO kürzer
+    if (this.currentQuestion.__typename!="LikeQuestion" && this.currentQuestion.__typename!="LikeDislikeQuestion" && this.currentQuestion.__typename!="RegulatorQuestion"){
+      this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
+    }
     this.currentAnswer={
       questionID: this.currentQuestion.id,
       deviceID: this.dataService.getDeviceID(), 

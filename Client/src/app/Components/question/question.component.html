@@ -47,23 +47,60 @@
 </div>
 
 <div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
-	<h1>Choice</h1> </div>
-
+	<h1>Choice</h1> 
+	<h1>{{currentQuestion.value}}</h1>
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+		<button target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" >Design {{i+1}} </button>
+	</div>
+</div>
 
 <div *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
 	<h1>likeDislike</h1>
+	<h1>{{currentQuestion.value}}</h1>
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+	</div>
+	<br>
+	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" > =)  </button> 
+	<button [style]="{'background-image': currentQuestion.dislikeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" >  =( </button> 
 </div>
 
 <div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
 	<h1>likeQuestion</h1>
+	<h1>{{currentQuestion.value}}</h1>
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+	</div>
+	<br>
+	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" > =)  </button> 
 </div>
 
 <div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
 	<h1>Regulator</h1>
-</div>
+	<h1>{{currentQuestion.value}}</h1>
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+	</div>
+	{{currentQuestion.min}}<button target="_blank" class="btn btn-primary" (click)="buttonClick(0)" style="padding: 12px 12px">1</button>
+	<button target="_blank" class="btn btn-primary" (click)="buttonClick(1)" style="padding: 12px 12px">2</button>
+	<button target="_blank" class="btn btn-primary" (click)="buttonClick(2)" style="padding: 12px 12px">3</button>
+	<button target="_blank" class="btn btn-primary" (click)="buttonClick(3)" style="padding: 12px 12px">4</button>{{currentQuestion.max}}
+	</div>
 
 <div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
-	<h1>rankingQuestion</h1>
+	<h1>RankingQuestion</h1>
+	<h1>{{currentQuestion.value}}</h1>
+	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+		<!-- Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
+		<button target="_blank" class="btn btn-primary" [id]="currentQuestion.items[i].image.id" (click)="buttonClick(i)" style="padding: 12px 12px" > Design {{i+1}} </button>
+	</div>
 </div>
 
 	<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 4%; font-size: 16px">
