@@ -19,7 +19,7 @@ mutation($questionID: ID!, $favoriteImage: ID!, $deviceID: ID!, $contextID: ID!)
 
 //LikeDislikeQuestion
 export const likeDislikeAnswerMutate = gql`
-mutation($questionID: ID!, $liked: ID!, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $liked: Boolean!, $deviceID: ID!, $contextID: ID!){
   createAnswer(data: {
     questionID: $questionID,
     deviceID: $deviceID, 
@@ -36,7 +36,7 @@ mutation($questionID: ID!, $liked: ID!, $deviceID: ID!, $contextID: ID!){
 
 //LikeQuestion
 export const likeAnswerMutate = gql`
-mutation($questionID: ID!, $liked: boolean, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $liked: Boolean, $deviceID: ID!, $contextID: ID!){
   createAnswer(data: {
     questionID: $questionID,
     deviceID: $deviceID, 
@@ -53,12 +53,11 @@ mutation($questionID: ID!, $liked: boolean, $deviceID: ID!, $contextID: ID!){
 
 //RegulatorQuestion
 export const regulatorAnswerMutate = gql`
-mutation($questionID: ID!, $rating: Float, $normalized: Float, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $rating: Float!, $deviceID: ID!, $contextID: ID!){
   createAnswer(data: {
     questionID: $questionID,
     deviceID: $deviceID, 
     contextID: $contextID,
-    normalized: $normalized, 
     rating: $rating 
   	}){
       __typename
@@ -71,7 +70,7 @@ mutation($questionID: ID!, $rating: Float, $normalized: Float, $deviceID: ID!, $
 
 //ChoiceQuestion
 export const choiceAnswerMutate = gql`
-mutation($questionID: ID!, $choiceCode: string, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $choiceCode: String!, $deviceID: ID!, $contextID: ID!){
   createAnswer(data: {
     questionID: $questionID,
     deviceID: $deviceID, 
@@ -88,7 +87,7 @@ mutation($questionID: ID!, $choiceCode: string, $deviceID: ID!, $contextID: ID!)
 
 //RankingQuestion
 export const rankingAnswerMutate = gql`
-mutation($questionID: ID!, $deviceID: ID!, $contextID: ID!, $rating: Float){
+mutation($questionID: ID!, $deviceID: ID!, $contextID: ID!, $rating: Float!){
   createAnswer(data: {
      questionID: $questionID,
      deviceID: $deviceID,
