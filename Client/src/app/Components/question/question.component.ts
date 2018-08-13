@@ -18,7 +18,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public currentProject: Context;
   private currentAnswer: Answer;
   private currentQuestion: Question;
- 
+  private ranking=[]; 
   public n:any;
 
 
@@ -79,7 +79,7 @@ choiceQuestionClick(btn_number: number){
 }
 
 regulatorQuestionClick(btn_number: number){
-  /*TODO: normalized Wird im Backend berechnet? */
+  /*TODO: normalized wird im Backend berechnet? */
   var normalized=btn_number/this.currentQuestion.items.length;
   this.apollo.mutate({
   fetchPolicy: 'no-cache',
@@ -113,10 +113,26 @@ likeDislikeQuestion(btn_number: number){
 }
 
 rankingQuestionClick(btn_number: number){
-  //TODO
-  console.log("Ranking noch nicht umgesetzt");  
+  //TODO Ranking 
+  //Platz 1 als erstes auswählen?
+  this.ranking.push(this.currentQuestion.items[btn_number].image.id);
+  console.log(this.ranking);
+  if (this.ranking.length==this.currentQuestion.items.length){
+    this.apollo.mutate({
+      fetchPolicy: 'no-cache',
+      mutation: rankingAnswerMutate,
+      variables: { 
+        questionID: this.currentAnswer.questionID,
+        deviceID: this.currentAnswer.deviceID, 
+        contextID: this.currentAnswer.contextID,
+        rankedImages: this.ranking},
+      }).subscribe((mutationResponse) => 
+      console.log("mutation", mutationResponse)); 
+      this.sub.unsubscribe();
+      this.dataService.setAnswerNumber();
+      this.router.navigate(['/feedback']);
+  }
 }
-
 
    buttonClick(btn_number: number){    
     console.log("Button: " + btn_number);
@@ -161,9 +177,10 @@ rankingQuestionClick(btn_number: number){
   }
 
  public ngOnInit(): void {
+ 
       this.currentProject = this.dataService.getContext();
-      console.log(this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()].__typename);
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      console.log("Art der Frage: " + this.currentQuestion.__typename);
       //TODO rausnehmen, nur für testdaten drin
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";

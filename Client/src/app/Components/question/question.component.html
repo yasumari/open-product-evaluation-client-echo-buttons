@@ -5,6 +5,7 @@
 </head>
 
 <body>
+	<div *ngIf="currentQuestion.__typename=='FavoriteQuestion' ">
 	<div class="row row-pb-sm">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
@@ -43,7 +44,30 @@
 			</div>
 		 </div>
 	</div>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
+	<h1>Choice</h1> </div>
+
+
+<div *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
+	<h1>likeDislike</h1>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
+	<h1>likeQuestion</h1>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
+	<h1>Regulator</h1>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
+	<h1>rankingQuestion</h1>
+</div>
+
 	<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 4%; font-size: 16px">
 		<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:23px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
 	</div>
+
 </body>

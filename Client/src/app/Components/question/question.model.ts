@@ -87,12 +87,12 @@ mutation($questionID: ID!, $choiceCode: String!, $deviceID: ID!, $contextID: ID!
 
 //RankingQuestion
 export const rankingAnswerMutate = gql`
-mutation($questionID: ID!, $deviceID: ID!, $contextID: ID!, $rating: Float!){
+mutation($questionID: ID!, $deviceID: ID!, $contextID: ID!, $rankedImages: [String!]){
   createAnswer(data: {
      questionID: $questionID,
      deviceID: $deviceID,
      contextID: $contextID,
-     rating: $rating
+     rankedImages: $rankedImages
      }){
        __typename
        answer{
