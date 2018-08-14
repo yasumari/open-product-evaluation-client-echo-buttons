@@ -95,6 +95,7 @@
 <div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
 	<h1>RankingQuestion</h1>
 	<h1>{{currentQuestion.value}}</h1>
+	<h2>Lege eine Reihenfolge fest: Platz {{max_items}}</h2>
 	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>

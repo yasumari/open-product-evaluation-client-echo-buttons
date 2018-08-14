@@ -19,6 +19,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private currentAnswer: Answer;
   private currentQuestion: Question;
   private ranking=[]; 
+  private max_items;
   public n:any;
 
 
@@ -118,11 +119,14 @@ rankingQuestionClick(btn_number: number){
 
   const parent: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
   this.renderer.setStyle(parent, 'background', 'red');
-  this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.ranking.length+1));
+  this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.max_items));
+  this.max_items--;
+
 
   this.ranking.push(this.currentQuestion.items[btn_number].image.id);
   console.log(this.ranking);
   if (this.ranking.length==this.currentQuestion.items.length){
+    //TODO Array in die richtige Reihenfolge bringen. also umgekehrte Reihenfolge?
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: rankingAnswerMutate,
@@ -190,6 +194,9 @@ rankingQuestionClick(btn_number: number){
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       console.log("Art der Frage: " + this.currentQuestion.__typename);
       //TODO rausnehmen, nur für testdaten drin
+      if (this.currentQuestion.__typename=="RankingQuestion"){
+        this.max_items= this.currentQuestion.items.length;
+      }
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
 
