@@ -82,6 +82,7 @@ choiceQuestionClick(btn_number: number){
 regulatorQuestionClick(btn_number: number){
   /*TODO: normalized wird im Backend berechnet? */
   var normalized=btn_number/this.currentQuestion.items.length;
+
   this.apollo.mutate({
   fetchPolicy: 'no-cache',
   mutation: regulatorAnswerMutate,
@@ -93,8 +94,10 @@ regulatorQuestionClick(btn_number: number){
   }).subscribe((mutationResponse) => 
   console.log("mutation", mutationResponse)); 
   this.dataService.setAnswerNumber();
-  //TODO noch ein Timer setzen ?
-  this.router.navigate(['/feedback']);
+  //TODO bleibt der Timer drin?
+  setTimeout(() => {
+    this.router.navigate(['/feedback']);
+  }, 4000);
 }
 
 likeDislikeQuestion(btn_number: number){
@@ -109,20 +112,10 @@ likeDislikeQuestion(btn_number: number){
   }).subscribe((mutationResponse) => 
   console.log("mutation", mutationResponse)); 
   this.dataService.setAnswerNumber();
-  //TODO noch ein Timer setzen ?
   this.router.navigate(['/feedback']);
 }
 
 rankingQuestionClick(btn_number: number){
-  //TODO Schöner machen 
-  //Platz 1 als erstes auswählen?
-
-  const parent: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
-  this.renderer.setStyle(parent, 'background', 'red');
-  this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.max_items));
-  this.max_items--;
-
-
   this.ranking.push(this.currentQuestion.items[btn_number].image.id);
   console.log(this.ranking);
   if (this.ranking.length==this.currentQuestion.items.length){
@@ -139,7 +132,9 @@ rankingQuestionClick(btn_number: number){
       console.log("mutation", mutationResponse)); 
       this.sub.unsubscribe();
       this.dataService.setAnswerNumber();
-      this.router.navigate(['/feedback']);
+      setTimeout(() => {
+        this.router.navigate(['/feedback']);
+      }, 4000);
   }
 }
 
@@ -157,6 +152,11 @@ rankingQuestionClick(btn_number: number){
 //Unterscheidung des Fragetypens und damit auch die Antwort
     switch(this.currentQuestion.__typename){
       case 'RankingQuestion':
+        const parent: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
+        this.renderer.setStyle(parent, 'background', 'grey');
+        console.log("Button einfärben: " + btn_number);
+        this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.max_items));
+        this.max_items--;    
         this.rankingQuestionClick(btn_number);
         break;
       case 'LikeDislikeQuestion':
@@ -165,6 +165,14 @@ rankingQuestionClick(btn_number: number){
         break;
       case 'RegulatorQuestion':
         this.sub.unsubscribe();
+          //Einfärben der Buttons bei Auswählen der Schritte
+        var i=0;
+        while(i<(btn_number+1)){
+          console.log("Button einfärben: " + i);
+          const btn_ranking: HTMLElement = document.getElementById("ranking_"+i);
+          this.renderer.setStyle(btn_ranking, 'background', 'red');
+          i++;
+        }
         this.regulatorQuestionClick(btn_number);
         break;
       case 'ChoiceQuestion': 
