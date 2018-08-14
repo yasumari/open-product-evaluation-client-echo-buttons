@@ -60,9 +60,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
         let deviceID=this.dataService.getDeviceID();
-        console.log(deviceID);
-        if (deviceID==undefined || deviceID==null){
-            console.log("versuch");
+        if ( deviceID==null ){
             this.apollo.mutate({
                 fetchPolicy: 'no-cache',
                 mutation: newDeviceMutation,

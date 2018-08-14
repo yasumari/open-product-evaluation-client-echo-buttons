@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService} from '../../Services/data.service';
-import {favoriteAnswerMutate, likeAnswerMutate, likeDislikeAnswerMutate, rankingAnswerMutate, regulatorAnswerMutate, choiceAnswerMutate} from './question.model';
+import { favoriteAnswerMutate, likeAnswerMutate, likeDislikeAnswerMutate, rankingAnswerMutate, regulatorAnswerMutate, choiceAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
 import { MessageService } from '../../Services/message.service';
 import { Context, Answer, Question } from '../../types';
@@ -20,20 +20,14 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private currentQuestion: Question;
   private ranking=[]; 
   private max_items;
-  public n:any;
 
-
- constructor(private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) 
- {}
-
-
-
-/*-------------TODO auslagern-------------------- */
-favoriteQuestionClick(btn_number: number){
+ constructor(private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {}
   //btn_number sagt welches Item im Array gewählt wurde 
   //Button 0,1,2,3
   //       | | | |
   //Items  0,1,2,3
+
+favoriteQuestionClick(btn_number: number){
   this.apollo.mutate({
   fetchPolicy: 'no-cache',
   mutation: favoriteAnswerMutate,
@@ -97,7 +91,7 @@ regulatorQuestionClick(btn_number: number){
   //TODO bleibt der Timer drin?
   setTimeout(() => {
     this.router.navigate(['/feedback']);
-  }, 4000);
+  }, 3000);
 }
 
 likeDislikeQuestion(btn_number: number){
@@ -134,7 +128,7 @@ rankingQuestionClick(btn_number: number){
       this.dataService.setAnswerNumber();
       setTimeout(() => {
         this.router.navigate(['/feedback']);
-      }, 4000);
+      }, 3000);
   }
 }
 
@@ -149,40 +143,43 @@ rankingQuestionClick(btn_number: number){
       deviceID: this.dataService.getDeviceID(), 
       contextID: this.dataService.getContextID()
     }
-//Unterscheidung des Fragetypens und damit auch die Antwort
+//Unterscheidung des Fragetyps und damit auch die Antwort
     switch(this.currentQuestion.__typename){
       case 'RankingQuestion':
         const parent: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
         this.renderer.setStyle(parent, 'background', 'grey');
-        console.log("Button einfärben: " + btn_number);
         this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.max_items));
         this.max_items--;    
         this.rankingQuestionClick(btn_number);
         break;
+
       case 'LikeDislikeQuestion':
         this.sub.unsubscribe();
         this.likeDislikeQuestion(btn_number);
         break;
+
       case 'RegulatorQuestion':
         this.sub.unsubscribe();
-          //Einfärben der Buttons bei Auswählen der Schritte
+          //TODO Schöner gestalten Einfärben der Buttons bei Auswählen der Schritte
         var i=0;
         while(i<(btn_number+1)){
-          console.log("Button einfärben: " + i);
           const btn_ranking: HTMLElement = document.getElementById("ranking_"+i);
           this.renderer.setStyle(btn_ranking, 'background', 'red');
           i++;
         }
         this.regulatorQuestionClick(btn_number);
         break;
+
       case 'ChoiceQuestion': 
         this.sub.unsubscribe();
         this.choiceQuestionClick(btn_number);
         break;
+
       case 'LikeQuestion':
         this.sub.unsubscribe();
         this.likeQuestionClick(btn_number);
         break;
+
       case 'FavoriteQuestion':
         this.sub.unsubscribe();
         this.favoriteQuestionClick(btn_number);

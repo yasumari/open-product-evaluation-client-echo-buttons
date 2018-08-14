@@ -63,8 +63,8 @@
 		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
 	</div>
-	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" > =)  </button> 
-	<button [style]="{'background-image': currentQuestion.dislikeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" >  =( </button> 
+	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)" style="padding: 12px 12px" > =)  </button> 
+	<button [style]="{'background-image': currentQuestion.dislikeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(1)" style="padding: 12px 12px" >  =( </button> 
 </div>
 
 <div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
@@ -74,7 +74,7 @@
 		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
 	</div>
-	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(i)" style="padding: 12px 12px" > =)  </button> 
+	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)" style="padding: 12px 12px" > =)  </button> 
 </div>
 
 <div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
@@ -97,7 +97,7 @@
 	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
-		<!-- Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
+		<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
 		<button target="_blank" class="btn btn-primary" [id]="currentQuestion.items[i].image.id" (click)="buttonClick(i)" style="padding: 12px 12px" > Design {{i+1}} </button>
 	</div>
 </div>
