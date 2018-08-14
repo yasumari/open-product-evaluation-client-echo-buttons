@@ -30,7 +30,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
 /*-------------TODO auslagern-------------------- */
 favoriteQuestionClick(btn_number: number){
-  //TODO btn_number sagt welches Item im Array gewählt wurde 
+  //btn_number sagt welches Item im Array gewählt wurde 
   //Button 0,1,2,3
   //       | | | |
   //Items  0,1,2,3
@@ -119,7 +119,7 @@ rankingQuestionClick(btn_number: number){
   this.ranking.push(this.currentQuestion.items[btn_number].image.id);
   console.log(this.ranking);
   if (this.ranking.length==this.currentQuestion.items.length){
-    //TODO Array in die richtige Reihenfolge bringen. also umgekehrte Reihenfolge?
+    //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: rankingAnswerMutate,
@@ -140,7 +140,7 @@ rankingQuestionClick(btn_number: number){
 
    buttonClick(btn_number: number){    
     console.log("Button: " + btn_number);
-    //TODO kürzer
+    //TODO Welches Bild wird sonst angezeigt?
     if (this.currentQuestion.__typename!="LikeQuestion" && this.currentQuestion.__typename!="LikeDislikeQuestion" && this.currentQuestion.__typename!="RegulatorQuestion"){
       this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
     }
@@ -201,10 +201,11 @@ rankingQuestionClick(btn_number: number){
       this.currentProject = this.dataService.getContext();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       console.log("Art der Frage: " + this.currentQuestion.__typename);
-      //TODO rausnehmen, nur für testdaten drin
+
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.max_items= this.currentQuestion.items.length;
       }
+            //TODO rausnehmen, nur für testdaten drin
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
 

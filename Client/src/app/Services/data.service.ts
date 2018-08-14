@@ -1,10 +1,14 @@
 import { Context, Vote, Device,  } from '../types';
 
+interface myDevice {
+  deviceID: string;
+  deviceToken: string;
+  deviceName: string;
+}
+
 export class DataService {
-  //TODO Device ändern: 
-    private deviceID;
-    private deviceToken;
-    private deviceName;
+  
+    private deviceObj: myDevice;
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
@@ -12,6 +16,7 @@ export class DataService {
     private chosenImage;
     private numberAnswerQuestions=0;
 
+    //FeedbackImage
     setChosenImageUrl(url: string){
       this.chosenImage=url;
     }
@@ -20,6 +25,7 @@ export class DataService {
       return this.chosenImage;
     }
     
+    //Beanwortete Fragen
     setAnswerNumber(){
       this.numberAnswerQuestions++;
     }
@@ -31,9 +37,8 @@ export class DataService {
     setAnswerNumberZero(){
       this.numberAnswerQuestions=0;
     }
-    //TODO Wofür noch Votes?
-    subjectp:Vote[]=[];
 
+    //Welche Frage dran ist
     getPositionQuestion(){
       return this.currentPositionQuestion;
     }
@@ -49,6 +54,7 @@ export class DataService {
         this.subjectProject.next();
     }*/
 
+    //Welcher Kontext
     getContext(): Context {
       return this.subjectProject;
     }
@@ -56,20 +62,15 @@ export class DataService {
       this.subjectProject = project;
     }
 
-    /*sendVote(project: Vote[] ) {
-      this.subjectProject = project;
+    setContextID(id: string){
+      this.contextID=id;
     }
     
-    getVote() {
-      return this.subjectp;
-    }*/
- 
-    setDevice(token: string, id: string, name: string){
-      this.deviceID=id;
-      this.deviceToken=token;
-      this.deviceName=name;
+    getContextID(){
+      return this.contextID;
     }
 
+    //Sockets
     setSocketID(id: string){
       this.socketID=id;
     }
@@ -77,24 +78,26 @@ export class DataService {
     getSocketID(){
       return this.socketID;
     }
-    //TODO: in Device
+
+    //Device Objekt
+    setDevice(token: string, id: string, name: string){
+      this.deviceObj = { 
+        deviceID: id, 
+        deviceToken: token, 
+        deviceName: name 
+      };
+    }
+
     getToken(){
-      return this.deviceToken;
+      return (this.deviceObj==undefined) ? null : this.deviceObj.deviceToken;
     }
 
     getDeviceID(){
-      return this.deviceID;
+      return (this.deviceObj==undefined) ? null : this.deviceObj.deviceID;
     }
 
     getDeviceName(){
-      return this.deviceName
-    }
-    setContextID(id: string){
-      this.contextID=id;
-    }
-    
-    getContextID(){
-      return this.contextID;
+      return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
     }
 
   constructor() { }

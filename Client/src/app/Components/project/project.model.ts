@@ -168,8 +168,6 @@ subscription CurrentProjectForController ($contextID: ID!){
 */
 
 
-//TODO es fehlen noch die anderen QuestionTypes FavoriteQuestion etc. 
-
 export const CurrentProjectSubscription: any = gql`
 query gContexts ($contextID: ID!){
   context(contextID: $contextID) {

@@ -19,7 +19,7 @@ export class EndScreenComponent implements OnInit {
   }
 
   //abmelden setzt nur context auf null
-  //TODO Gerät vollständig entfernen
+  //TODO Wird das benötigt?
   abmelden(): void{
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
@@ -29,7 +29,7 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        //console.log("mutation update DeviceContext", data);
+        console.log("mutation update DeviceContext", data);
       });
   }
 
