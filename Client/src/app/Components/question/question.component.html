@@ -80,12 +80,12 @@
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-								<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
-								<button [style]="{'background-image': currentQuestion.dislikeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(1)">  =( </button>
 							</div>
 						</div>
 					</div>
 				</div>
+			<button style="background-image: currentQuestion.likeIcon.url; margin-top: 50px" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
+			<button style="background-image: currentQuestion.dislikeIcon.url; margin-top: 50px" target="_blank" class="btn btn-primary" (click)="buttonClick(1)">  =( </button>
 		</div>
 	</div>
 </div>
@@ -102,7 +102,7 @@
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-								<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
+								<button style="background-image: currentQuestion.likeIcon.url" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
 							</div>
 						</div>
 					</div>
@@ -127,10 +127,10 @@
 						</div>
 					</div>
 				</div>
-			<button target="_blank" class="btn btn-primary" (click)="buttonClick(0)" id="ranking_0" style="margin-top: 100px">1</button>
-			<button target="_blank" class="btn btn-primary" (click)="buttonClick(1)" id="ranking_1" style="margin-top: 100px">2</button>
-			<button target="_blank" class="btn btn-primary" (click)="buttonClick(2)" id="ranking_2" style="margin-top: 100px">3</button>
-			<button target="_blank" class="btn btn-primary" (click)="buttonClick(3)" id="ranking_3" style="margin-top: 100px">4</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(0)" id="ranking_0" style="margin-top: 50px">1</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(1)" id="ranking_1" style="margin-top: 50px">2</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(2)" id="ranking_2" style="margin-top: 50px">3</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(3)" id="ranking_3" style="margin-top: 50px">4</button>
 		</div>
 	</div>
 </div>
