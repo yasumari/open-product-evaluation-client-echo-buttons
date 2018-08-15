@@ -9,16 +9,17 @@
 	<div class="row row-pb-sm">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (favoriteQuestion) </h3> <!-- Name des Projektes -->
 			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle deinen Favoriten.</h4>
 			<div *ngIf="currentQuestion.items.length==2 || currentQuestion.items.length== 4 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 								<button target="_blank" class="btn btn-primary" (click)="buttonClick(i)">Design {{i+1}} </button>
 							</div>
 						</div>
@@ -47,58 +48,112 @@
 </div>
 
 <div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
-	<h1>Choice</h1>
-	<h1>{{currentQuestion.value}}</h1>
-	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
-		<button target="_blank" class="btn btn-primary" (click)="buttonClick(i)">Design {{i+1}} </button>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (choiceQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Entscheide dich für eins.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button target="_blank" class="btn btn-primary" (click)="buttonClick(i)">Design {{i+1}} </button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
 </div>
 
 <div *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
-	<h1>likeDislike</h1>
-	<h1>{{currentQuestion.value}}</h1>
-	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeDislikeQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle, ob es dir gefällt oder nicht.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
+								<button [style]="{'background-image': currentQuestion.dislikeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(1)">  =( </button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
-	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
-	<button [style]="{'background-image': currentQuestion.dislikeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(1)">  =( </button>
 </div>
 
 <div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
-	<h1>likeQuestion</h1>
-	<h1>{{currentQuestion.value}}</h1>
-	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle das was dir gefällt.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
-	<button [style]="{'background-image': currentQuestion.likeIcon.url}" target="_blank" class="btn btn-primary" (click)="buttonClick(0)"> =)  </button>
 </div>
 
 <div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
-	<h1>Regulator</h1>
-	<h1>{{currentQuestion.value}}</h1>
-	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQeustion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle wie sehr es dir gefällt: 1 = sehr gut, 4 = gar nicht.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(0)" id="ranking_0" style="margin-top: 100px">1</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(1)" id="ranking_1" style="margin-top: 100px">2</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(2)" id="ranking_2" style="margin-top: 100px">3</button>
+			<button target="_blank" class="btn btn-primary" (click)="buttonClick(3)" id="ranking_3" style="margin-top: 100px">4</button>
+		</div>
 	</div>
-	{{currentQuestion.min}}<button target="_blank" class="btn btn-primary" (click)="buttonClick(0)" style="padding: 12px 12px" id="ranking_0">1</button>
-	<button target="_blank" class="btn btn-primary" (click)="buttonClick(1)" id="ranking_1">2</button>
-	<button target="_blank" class="btn btn-primary" (click)="buttonClick(2)" id="ranking_2">3</button>
-	<button target="_blank" class="btn btn-primary" (click)="buttonClick(3)" id="ranking_3">4</button>{{currentQuestion.max}}
-	</div>
+</div>
 
 <div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
-	<h1>RankingQuestion</h1>
-	<h1>{{currentQuestion.value}}</h1>
-	<h2>Lege eine Reihenfolge fest: Platz {{max_items}}</h2>
-	<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-		<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
-		<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
-		<button target="_blank" class="btn btn-primary" [id]="currentQuestion.items[i].image.id" (click)="buttonClick(i)"> Design {{i+1}} </button>
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Lege eine Reihenfolge fest: Wähle Platz {{max_items}}.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+									<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
+								<button target="_blank" class="btn btn-primary" [id]="currentQuestion.items[i].image.id" (click)="buttonClick(i)"> Design {{i+1}} </button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
 	</div>
 </div>
 
