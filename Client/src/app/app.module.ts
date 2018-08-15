@@ -17,7 +17,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
 import { ButtonRegisterComponent } from './Components/button-register/button-register.component';
-
+import { ChartsModule } from 'ng2-charts';
 
  
 @NgModule({
@@ -38,7 +38,9 @@ import { ButtonRegisterComponent } from './Components/button-register/button-reg
     HttpClientModule,
     ApolloModule,
     HttpLinkModule,
-     CONST_ROUTING
+     CONST_ROUTING,
+     ChartsModule,
+   
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

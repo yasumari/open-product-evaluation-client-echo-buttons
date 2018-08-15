@@ -1,11 +1,35 @@
+<script src="node_modules/chart.js/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+<script src="node_modules/chart.js/src/chart.js"></script>
 
 <body>
-  <div class="row row-pb-sm">
+  
+ <div class="row row-pb-sm">
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
   <h1>Vielen Dank für deine Teilnahme!</h1>
+  <h2>An dieser Umfage haben bereits {{currentProject.activeSurvey.votes.length}} Personen teilgenommen</h2>
+  <div style="display: block">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+    </div>
   <!--<button class="btn btn-white" id="button" (click)="abmelden()">Abmelden testen</button>-->
   <!--<button class="btn btn-white" id="button" (click)="deleteDevice()">Device löschen</button>-->
   <button class="btn btn-white" id="button" (click)="goBackToListProjects()" >Zurück zum Anfang</button>
-</div>
-</div>
+
+
+
+
+
+
+ 
+           
+
 </body>

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
 import { CurrentProjectSubscription, updateDevice, newDeviceMutation, queryContextID} from './project.model';
-import { Context } from '../../types';
+import { Context, Vote } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
@@ -16,7 +16,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
   message: any;
   sub: Subscription;
-
+  Teilnehmer : Vote;
   constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
         //Router zum weiterleiten an die nächste Component /project 
     }
@@ -30,7 +30,12 @@ this.apollo.subscribe({
 }).subscribe(({data}) => {
   //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
   this.currentProject = data.context;
-  console.log(this.currentProject.activeSurvey.votes);
+  console.log("reponse votes",this.currentProject.activeSurvey.votes);
+  //this.Teilnehmer=this.currentProject.activeSurvey.votes.length;
+  //console.log("Nombre de reponse  ",this.Teilnehmer);
+  //nombre de reponse pour chaque projet
+  // Votes ist die Antworten für alle personnen aber warum die lentgh ist immer 2 trotz ist antworte mehr als 2mal
+    
   //vorne im Array starten und dann eins hochzählen bei einer Antwort 
   //leere Antworten sind nicht möglich bis September
   this.dataService.sendContext(this.currentProject);
