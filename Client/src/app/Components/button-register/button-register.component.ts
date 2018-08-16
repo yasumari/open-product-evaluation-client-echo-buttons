@@ -10,15 +10,18 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class ButtonRegisterComponent implements OnInit {
 sub: Subscription;
-  constructor(private messageService: MessageService, private router: Router) { this.sub=this.messageService.getMessage().subscribe( message => {
-    console.log("Liste: " + message);
-    this.sub.unsubscribe();
-    this.router.navigate(['/']);
+  constructor(private messageService: MessageService, private router: Router) { 
+    this.sub=this.messageService.getMessage().subscribe( message => {
+      console.log("Liste: " + message);
+      this.router.navigate(['/']);
   })
 }
 
 
   ngOnInit() {
+  }
+  ngOnDestroy(){
+    this.sub.unsubscribe();
   }
 
 }

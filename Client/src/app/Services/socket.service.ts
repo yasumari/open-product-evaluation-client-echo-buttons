@@ -11,9 +11,11 @@ import { Observable } from 'rxjs';
 export class SocketService {
   private url = 'http://localhost:3001';
   private socket;
+  
   connect(){
     this.socket=io(this.url, {forceNew: true});
   }
+
   disconnect(){
     this.socket.close();
     console.log("Sockets disconnected" +  io.Sockets.disconnect);
@@ -28,7 +30,6 @@ export class SocketService {
   })
   return observable;
   }
-
 
   constructor() { }
 }

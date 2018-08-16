@@ -37,7 +37,7 @@ this.apollo.subscribe({
   // Votes ist die Antworten für alle personnen aber warum die lentgh ist immer 2 trotz ist antworte mehr als 2mal
     
   //vorne im Array starten und dann eins hochzählen bei einer Antwort 
-  //leere Antworten sind nicht möglich bis September
+  //leere Antworten sind nicht möglich 
   this.dataService.sendContext(this.currentProject);
   this.dataService.setPositionQuestion(0);
 })
@@ -62,7 +62,6 @@ updateDevice(deviceID: string, contextId: string){
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
       let deviceID =  this.dataService.getDeviceID();
-      let deviceName =  this.dataService.getDeviceName();
       let token=this.dataService.getToken();
       //TODO Name und Nutzer festlegen
       
@@ -73,12 +72,11 @@ updateDevice(deviceID: string, contextId: string){
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
           variables: { 
-            deviceName: "hi",
+            deviceName: this.dataService.getDeviceName(),
           }
         }).subscribe(({data}) => { 
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
           deviceID=data.createDevice.device.id;
-          console.log(deviceID);
           //danach erst weitere Abfragen
           this.apollo.subscribe({
             query: queryContextID

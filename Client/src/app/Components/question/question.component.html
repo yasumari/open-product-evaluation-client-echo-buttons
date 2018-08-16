@@ -2,23 +2,186 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
+
+
+	<style>
+
+
+
+		.buzzer{
+			background-image: -webkit-linear-gradient(top, #f4f1ee, #fff);
+			background-image: linear-gradient(top, #f4f1ee, #fff);
+			border-radius: 50%;
+			box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
+			float:left;
+			height: 70px;
+			margin: 0 30px 30px 0;
+			position: relative;
+			width: 70px;			
+			-webkit-transition: all .1s linear;
+			transition: all .1s linear;
+		}
+
+		.buzzer:after{
+			color:#e9e6e4;
+			content: "";
+			display: block;
+			font-size: 30px;
+			height: 30px;
+			text-decoration: none;
+			text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
+			position: absolute;
+			width: 30px;
+		}
+
+		.one:after{
+			content: "1";
+			left: 21px;
+			top: 16px;
+		}
+		.two:after{
+			content: "2";
+			left: 21px;
+			top: 16px;
+		}
+		.three:after{
+			content: "3";
+			left: 21px;
+			top: 16px;
+		}
+		.four:after{
+			content: "4";
+			left: 21px;
+			top: 16px;
+		}
+
+
+
+		.heart:after{
+			content: "❤";
+			left: 21px;
+			top: 16px;
+		}
+
+		.tick:after{
+			content: "✔";
+			left:23px;
+			top:16px;
+		}
+
+		.cross:after{
+			content: "✖";
+			left: 24px;
+			top: 15px;
+		}
+
+		.buzzer:hover{
+			background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
+			background-image: linear-gradient(top, #fff, #f4f1ee);
+			color:#0088cc;
+		}
+
+		.heart:hover:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+
+		.one:hover:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+		.two:hover:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+		.three:hover:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+		.four:hover:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+
+
+		.tick:hover:after{
+			color:#83d244;
+			text-shadow:0px 0px 6px #83d244;
+		}
+
+		.cross:hover:after{
+			color:#eb2f2f;
+			text-shadow:0px 0px 6px #eb2f2f;
+		}
+
+		
+
+		.buzzer:active{
+			background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
+			background-image: linear-gradient(top, #efedec, #f7f4f4);
+			box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		}
+
+		.buzzer:active:after{
+			color:#dbd2d2;
+			text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
+		}
+
+		.cross:active:after{
+			color:#eb2f2f;
+			text-shadow:0px 0px 6px #eb2f2f;
+		}
+
+		.tick:active:after{
+		color:#83d244;
+			text-shadow:0px 0px 6px #83d244;
+		}
+		.heart:active:after{
+	color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+
+		
+		.one:active:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+		.two:active:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+		.three:active:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+		.four:active:after{
+			color:#f94e66;
+			text-shadow:0px 0px 6px #f94e66;
+		}
+
+
+	
+</style>
+
 </head>
 
 <body>
+	<div *ngIf="currentQuestion.__typename=='FavoriteQuestion' ">
 	<div class="row row-pb-sm">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (favoriteQuestion) </h3> <!-- Name des Projektes -->
 			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle deinen Favoriten.</h4>
 			<div *ngIf="currentQuestion.items.length==2 || currentQuestion.items.length== 4 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h3 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h3>
-								<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)" style="padding: 12px 12px" >Design {{i+1}} </button>
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button target="_blank" class="buzzer" (click)="buttonClick(i)">Design {{i+1}} </button>
 							</div>
 						</div>
 					</div>
@@ -34,8 +197,8 @@
 						<div class="overlay">
 							<div class="copy text-center">
 								<img class="responsivee1" src="./../../../assets/images/{{i+2}}.jpg" alt="Img" >
-								<h5>{{currentQuestion.items[i].label}}</h5>	
-								<button target="_blank" class="btn btn-primary" id="button_left" (click)="buttonClick(i+1)" style="padding: 12px 12px">Design {{i+1}} </button>
+								<h5>{{currentQuestion.items[i].label}}</h5>
+								<button target="_blank" class="buzzer" id="button_left" (click)="buttonClick(i+1)">Design {{i+1}} </button>
 							</div>
 						</div>
 					</div>
@@ -43,7 +206,120 @@
 			</div>
 		 </div>
 	</div>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (choiceQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Entscheide dich für eins.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button target="_blank" class="buzzer" (click)="buttonClick(i)">Design {{i+1}} </button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeDislikeQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle, ob es dir gefällt oder nicht.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			<button style="background-image: currentQuestion.likeIcon.url; margin-top: 50px" target="_blank" class="buzzer tick" (click)="buttonClick(0)"></button>
+			<button style="background-image: currentQuestion.dislikeIcon.url; margin-top: 50px" target="_blank" class="buzzer cross" (click)="buttonClick(1)"></button>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle das was dir gefällt.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button style="background-image: currentQuestion.likeIcon.url" target="_blank" class="buzzer heart" (click)="buttonClick(0)"></button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQeustion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Wähle wie sehr es dir gefällt: 1 = sehr gut, 4 = gar nicht.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			<button target="_blank" class="buzzer one" (click)="buttonClick(0)" id="ranking_0" style="margin-top: 50px"></button>
+			<button target="_blank" class="buzzer two" (click)="buttonClick(1)" id="ranking_1" style="margin-top: 50px"></button>
+			<button target="_blank" class="buzzer three" (click)="buttonClick(2)" id="ranking_2" style="margin-top: 50px"></button>
+			<button target="_blank" class="buzzer four" (click)="buttonClick(3)" id="ranking_3" style="margin-top: 50px"></button>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
+	<div class="row row-pb-sm">
+		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
+			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h4>Lege eine Reihenfolge fest: Wähle Platz {{max_items}}.</h4>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+									<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
+								<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].image.id" (click)="buttonClick(i)"> Design {{i+1}} </button>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+
 	<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 4%; font-size: 16px">
 		<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:23px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
 	</div>
+
 </body>

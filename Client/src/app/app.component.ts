@@ -15,9 +15,7 @@ export class AppComponent implements OnInit, OnDestroy{
   subscription: Subscription;
 
   title = 'app';
-  constructor(private socketService: SocketService, private messageService: MessageService){
-    //this.subscription = this.messageService.getMessage().subscribe(message => { console.log("asdfg" + message) });
-  }
+  constructor(private socketService: SocketService, private messageService: MessageService){}
   ngOnInit(){
     //TODO: Check if socketConnection already exists. 
     this.socketService.connect();

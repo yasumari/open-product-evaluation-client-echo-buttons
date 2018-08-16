@@ -43,7 +43,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
     openSpecificProject(): void{
         let id=(<HTMLInputElement>document.getElementById("specificContextID")).value;
-        //TODO später mal selber erhalten
+        //TODO später mal selber eintragen
         //this.dataService.setContextID(id);
         this.dataService.setContextID(this.testID);
         this.router.navigateByUrl('/project');
@@ -59,10 +59,8 @@ export class ListComponent implements OnInit, OnDestroy {
       
     }
     ngOnInit() {
-        //TODO neues Device immer??
-        //TODO als Promise auslagern  
         let deviceID=this.dataService.getDeviceID();
-        if (deviceID==undefined || deviceID==null){
+        if ( deviceID==null ){
             this.apollo.mutate({
                 fetchPolicy: 'no-cache',
                 mutation: newDeviceMutation,

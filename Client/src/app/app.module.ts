@@ -6,18 +6,19 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import { AppComponent } from './app.component';
+import { CONST_ROUTING } from './app.routing';
 import { ListComponent } from './Components/list/list.component';
 import { QuestionComponent } from './Components/question/question.component';
-import { MenuComponent } from './menu.component';
-import { CONST_ROUTING } from './app.routing';
 import { ProjectComponent } from './Components/project/project.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { EndScreenComponent } from './Components/end-screen/end-screen.component';
+import { ButtonRegisterComponent } from './Components/button-register/button-register.component';
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
-import { ButtonRegisterComponent } from './Components/button-register/button-register.component';
+
 import { ChartsModule } from 'ng2-charts';
+
 
  
 @NgModule({
@@ -25,7 +26,6 @@ import { ChartsModule } from 'ng2-charts';
     AppComponent,
     ListComponent,
     QuestionComponent,
-    MenuComponent,
     ProjectComponent,
     FeedbackComponent,
     EndScreenComponent,
@@ -55,7 +55,7 @@ export class AppModule {
     
         const authMiddleware = new ApolloLink((operation, forward) => {
           let token = this.dataService.getToken();
-          // add the authorization to the headers when token isnt empty
+          // add the authorization to the headers when token isn't empty
           if (token !=null || token != undefined){
           operation.setContext({
             headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)

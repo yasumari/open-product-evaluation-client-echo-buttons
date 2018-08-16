@@ -11,9 +11,9 @@ const MAINMENU_ROUTES: Routes = [
     //full : makes sure the path is absolute 
     { path: '', component: ListComponent, pathMatch: 'full'},
     { path: 'question', component: QuestionComponent, pathMatch: 'full' },
-     { path: 'project', component: ProjectComponent, pathMatch: 'full' },
-     { path: 'feedback', component: FeedbackComponent, pathMatch: 'full' },
-     { path: 'end', component: EndScreenComponent, pathMatch: 'full' },
-     { path: 'button', component:ButtonRegisterComponent, pathMatch: 'full' },
+    { path: 'project', component: ProjectComponent, pathMatch: 'full' },
+    { path: 'feedback', component: FeedbackComponent, pathMatch: 'full' },
+    { path: 'end', component: EndScreenComponent, pathMatch: 'full' },
+    { path: 'button', component:ButtonRegisterComponent, pathMatch: 'full' },
 ];
 export const CONST_ROUTING = RouterModule.forRoot(MAINMENU_ROUTES);

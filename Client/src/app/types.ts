@@ -34,6 +34,7 @@ export type Device={
     id: number;
     value: string;
     description:string; 
+    __typename: string;
     items: Item[];
   }
   export type Owner={

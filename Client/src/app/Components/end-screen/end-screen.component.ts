@@ -23,6 +23,7 @@ export class EndScreenComponent implements OnInit {
   private sub: Subscription;
   private deviceID;
   public currentProject: Context;
+  public currentQuestion: Question;
   constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
   }
   
@@ -37,8 +38,8 @@ export class EndScreenComponent implements OnInit {
   public barChartLegend:boolean = true;
  
   public barChartData:any[] = [
-    {data: [], label: 'Series A'},
-    {data: [], label: 'Series B'}
+    {data: [], label: []}
+    
   ];
  
   // events
@@ -72,7 +73,7 @@ export class EndScreenComponent implements OnInit {
      */
   }
   //abmelden setzt nur context auf null
-  //TODO Gerät vollständig entfernen
+  //TODO Wird das benötigt?
   abmelden(): void{
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
@@ -82,7 +83,7 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        //console.log("mutation update DeviceContext", data);
+        console.log("mutation update DeviceContext", data);
       });
   }
 
@@ -108,13 +109,35 @@ export class EndScreenComponent implements OnInit {
   }
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
-    
-    console.log("Frage  name ",this.currentProject.activeSurvey.questions);
+    let k=this.dataService.getAnswerNumber();
+   // this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+    console.log("Fragen ",this.currentProject.activeSurvey.questions);
+    console.log("antwort ",this.currentProject.activeSurvey.votes);
     //console.log("nombre de reponse ",this.currentProject.activeSurvey.votes.length);
+   // Fragen
     for (let i = 0; i < this.currentProject.activeSurvey.questions.length; i++) {
-      this.barChartLabels[i] = this.currentProject.activeSurvey.questions[i].description;
-      this.barChartData[i].data[i] = this.currentProject.activeSurvey.questions[i].value;
+      this.barChartLabels[i] = this.currentProject.activeSurvey.questions[i].value;
+      // Werte von Antworten jenach Frage  
+      if(this.currentProject.activeSurvey.questions[i].__typename=="RegulatorQuestion")
+      { for (let j = 0; j < 5; j++)
+        {
+          this.barChartData[i].data[j] = this.currentProject.activeSurvey.votes.survey.questions[i];
+        
+          this.barChartData[j].label = j+1;
+          // label in google recherchieren like dislike name der choice ... switch typename
+        }
+      }      
+       else
+       {
+          for (let j = 0; j < 2; j++)
+  
+         this.barChartData[i].data[j] = this.currentProject.activeSurvey.votes.survey.questions[i].id;
+       }
+      
+      
+
     }
+   
     this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("EndScreenMessage: " + message);

@@ -16,22 +16,24 @@ body {
   -o-transition: 0.5s;
   transition: 0.5s;
 }
+
 .responsivee{
 	min-width:250px;
 	width:150px;
 }
+
 img.responsivee{
-	
 	width:50%;
 	min-width:370px;
 	height:auto;
 }
+
 .responsivee1{
 	min-width:220px;
 	width:150px;
 }
+
 img.responsivee1{
-	
 	width:50%;
 	min-width:329px;
 	height:auto;
@@ -41,6 +43,7 @@ img.responsivee1{
   overflow: hidden;
   position: absolute;
 }
+
 .offcanvas #page:after {
   -webkit-transition: 2s;
   -o-transition: 2s;
@@ -55,13 +58,13 @@ img.responsivee1{
   content: "";
 }
 
-
 a {
   color: #17B794;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
 }
+
 a:hover, a:active, a:focus {
   color: #17B794;
   outline: none;
@@ -85,14 +88,15 @@ h2{
   color: grey;
 }
 
+h4 {
+  padding-bottom: 15px;
+  color: grey;
+}
+
 h5{
   margin-top: 10px;
   margin-left: 20px;
 }
-
-
-
-
 
 .project{
   padding-top: 50px;
@@ -102,7 +106,6 @@ h5{
   height: -webkit-fill-available;
   position: relative;
   overflow-x: hidden;
-
 }
 
 .gtco-container {
@@ -135,13 +138,16 @@ h5{
   background: -o-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
   background: -ms-linear-gradient(left, #3dcdbc 0%, #33a1bd 100%);
   background: linear-gradient(to right, #3dcdbc 0%, #33a1bd 100%);
+  background: size(height 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3dcdbc', endColorstr='#33a1bd', GradientType=1 );
 }
+
 #gtco-header p {
   color: #d3f1ed;
   font-size: 20px;
   margin-bottom: 40px !important;
 }
+
 #gtco-header h1 {
   font-size: 50px;
   line-height: 1.2 !important;
@@ -149,6 +155,7 @@ h5{
   color: #d3f1ed;
   font-weight: 100;
 }
+
 #gtco-header .btn {
   color: #34a7bd !important;
   text-shadow: none !important;
@@ -189,6 +196,7 @@ h5{
   color: #fff;
   border: 2px solid #17B794 !important;
 }
+
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
   background: #1acea6 !important;
   border-color: #1acea6 !important;
@@ -198,5 +206,4 @@ h5{
   background: #fff;
   color: #000;
   border: 2px solid #fff;
-  margin: 5px;
 }
