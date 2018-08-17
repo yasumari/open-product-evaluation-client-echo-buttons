@@ -13,8 +13,9 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   private max: number;
   private image:string;
   private timer;
+  private title_nextPage;
   constructor(private dataService: DataService, private router: Router, private messageService: MessageService) { 
-
+    
   }
   nextPage(){
     //Button wurde gedrückt, dann stoppt der Timer
@@ -28,6 +29,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     this.image=this.dataService.getChosenImageUrl();
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
+    (this.dataService.getAnswerNumber() == this.max) ? this.title_nextPage="Das war's!" : this.title_nextPage="Weiter geht's zur nächsten Frage!";
     /*this.sub=this.messageService.getMessage().subscribe( message => {
       console.log("FEEDBACK: " + message);
       this.nextPage();

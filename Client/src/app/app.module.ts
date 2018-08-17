@@ -16,7 +16,7 @@ import { ButtonRegisterComponent } from './Components/button-register/button-reg
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
-
+import { Constants } from './constants';
 
 
  
@@ -48,7 +48,7 @@ export class AppModule {
     httpLink: HttpLink,
     private dataService: DataService
   ) {
-  const http = httpLink.create({uri: 'http://localhost:3000/'});
+  const http = httpLink.create({uri: Constants.SERVER_URL});
     
         const authMiddleware = new ApolloLink((operation, forward) => {
           let token = this.dataService.getToken();

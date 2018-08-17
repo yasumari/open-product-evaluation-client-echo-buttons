@@ -21,21 +21,20 @@ export class ProjectComponent implements OnInit, OnDestroy {
         //Router zum weiterleiten an die nächste Component /project 
     }
 
-    //Umfrage abfragen
-
-getProject(contextID: string){
-this.apollo.subscribe({
-  query: CurrentProjectSubscription,
-  variables: {contextID: contextID},
-}).subscribe(({data}) => {
-  //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
-  this.currentProject = data.context;
-  console.log(this.currentProject.activeSurvey.votes);
-  //vorne im Array starten und dann eins hochzählen bei einer Antwort 
-  //leere Antworten sind nicht möglich 
-  this.dataService.sendContext(this.currentProject);
-  this.dataService.setPositionQuestion(0);
-})
+  //Umfrage abfragen
+  getProject(contextID: string){
+  this.apollo.subscribe({
+    query: CurrentProjectSubscription,
+    variables: {contextID: contextID},
+  }).subscribe(({data}) => {
+    //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
+    this.currentProject = data.context;
+    console.log(this.currentProject.activeSurvey.votes);
+    //vorne im Array starten und dann eins hochzählen bei einer Antwort 
+    //leere Antworten sind nicht möglich 
+    this.dataService.sendContext(this.currentProject);
+    this.dataService.setPositionQuestion(0);
+  })
 }
     
 updateDevice(deviceID: string, contextId: string){
@@ -62,12 +61,12 @@ updateDevice(deviceID: string, contextId: string){
       
       //Wenn es ohne Startseite aufgerufen wird, dann 
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
-      if (token==null || token==undefined){
+      if (token==null || token==undefined || deviceID==null){
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
           variables: { 
-            deviceName: this.dataService.getDeviceName(),
+            deviceName: "Fernseher",
           }
         }).subscribe(({data}) => { 
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);

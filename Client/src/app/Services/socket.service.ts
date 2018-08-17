@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 //import { Subject } from 'rxjs/Subjects';
 import * as io from 'socket.io-client';
 import { Observable } from 'rxjs';
-
+import { Constants } from '../constants'
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class SocketService {
-  private url = 'http://localhost:3001';
+  private url = Constants.SOCKETS_URL;
   private socket;
   
   connect(){
