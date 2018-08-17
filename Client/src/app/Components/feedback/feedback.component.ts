@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service'; 
+import { Constants } from '../../constants';
 
 @Component({
   selector: 'app-feedback',
@@ -37,7 +38,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   this.timer= setTimeout( () => {
         this.nextPage();
-    }, 3500);  
+    }, Constants.TIMER_FEEDBACK);  
   }
 
 

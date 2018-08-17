@@ -17,7 +17,7 @@ import { Constants } from "../../constants";
 
 export class QuestionComponent implements OnInit, OnDestroy {
   sub: Subscription;
-  public currentProject: Context;
+  private currentProject: Context;
   private currentAnswer: Answer;
   private currentQuestion: Question;
   private ranking=[]; 
@@ -46,7 +46,7 @@ favoriteQuestionClick(btn_number: number){
   this.dataService.setAnswerNumber();
   setTimeout(() => {
     this.router.navigate(['/feedback']);
-  }, Constants.PAGE_CHANGE);
+  }, Constants.TIMER_QUESTION);
 }
 
 likeQuestionClick(btn_number: number){
@@ -65,7 +65,7 @@ likeQuestionClick(btn_number: number){
   this.dataService.setAnswerNumber();
   setTimeout(() => {
     this.router.navigate(['/feedback']);
-  }, Constants.PAGE_CHANGE);
+  }, Constants.TIMER_QUESTION);
 }
 
 choiceQuestionClick(btn_number: number){
@@ -84,7 +84,7 @@ choiceQuestionClick(btn_number: number){
   this.dataService.setAnswerNumber();
   setTimeout(() => {
     this.router.navigate(['/feedback']);
-  }, Constants.PAGE_CHANGE);
+  }, Constants.TIMER_QUESTION);
 }
 
 regulatorQuestionClick(btn_number: number){
@@ -105,7 +105,7 @@ regulatorQuestionClick(btn_number: number){
   this.dataService.setAnswerNumber();
   setTimeout(() => {
     this.router.navigate(['/feedback']);
-  }, Constants.PAGE_CHANGE);
+  }, Constants.TIMER_QUESTION);
 }
 
 likeDislikeQuestion(btn_number: number){
@@ -123,7 +123,7 @@ likeDislikeQuestion(btn_number: number){
   this.dataService.setAnswerNumber();
   setTimeout(() => {
     this.router.navigate(['/feedback']);
-  }, Constants.PAGE_CHANGE);
+  }, Constants.TIMER_QUESTION);
 }
 
 rankingQuestionClick(btn_number: number){
@@ -152,7 +152,7 @@ rankingQuestionClick(btn_number: number){
         }
        
         this.router.navigate(['/feedback']);
-      }, Constants.PAGE_CHANGE);
+      }, Constants.TIMER_QUESTION);
   } else {
     this.max_items++;    
   }
@@ -169,43 +169,74 @@ rankingQuestionClick(btn_number: number){
 //Unterscheidung des Fragetyps und damit auch die Antwort
     switch(this.currentQuestion.__typename){
       case 'RankingQuestion':
-        const parent: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
-        this.renderer.setStyle(parent, 'background', 'lightgrey');
-        this.renderer.setProperty(parent, 'innerHTML', 'Platz '+(this.max_items+1));
-        this.renderer.setProperty(parent, 'color', '#34a7bd');
-        this.renderer.setProperty(parent, 'disabled', 'true');
+        const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
+        this.renderer.setStyle(btn_rank, 'background', 'lightgrey');
+        this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz '+(this.max_items+1));
+        this.renderer.setProperty(btn_rank, 'color', '#34a7bd');
+        this.renderer.setProperty(btn_rank, 'disabled', 'true');
         this.rankingQuestionClick(btn_number);
         break;
 
       case 'LikeDislikeQuestion':
         this.sub.unsubscribe();
         this.likeDislikeQuestion(btn_number);
+        let btn_like: HTMLElement = document.getElementById("btn_like");
+        let btn_dislike: HTMLElement = document.getElementById("btn_dislike");
+        this.renderer.setProperty(btn_like, 'disabled', 'true');
+        this.renderer.setProperty(btn_dislike, 'disabled', 'true');
         break;
 
       case 'RegulatorQuestion':
         this.sub.unsubscribe();
           //TODO Schöner gestalten Einfärben der Buttons bei Auswählen der Schritte
-        var i=0;
+        let i=0,j=0;
         while(i<(btn_number+1)){
-          const btn_ranking: HTMLElement = document.getElementById("ranking_"+i);
+          let btn_ranking: HTMLElement = document.getElementById("ranking_"+i);
           this.renderer.setStyle(btn_ranking, 'background', '#34a7bd');
           i++;
+        }
+        //Alle Disablen
+        while(j<4){
+          let btn_reg: HTMLElement=document.getElementById("ranking_"+j);
+          this.renderer.setProperty(btn_reg, 'disabled', 'true');
+          j++;
         }
         this.regulatorQuestionClick(btn_number);
         break;
 
       case 'ChoiceQuestion': 
         this.sub.unsubscribe();
+        i=0;
+        console.log("Length: " + this.currentQuestion.items.length)
+        while(i<this.currentQuestion.items.length){
+          let btn_like1: HTMLElement=document.getElementById(this.currentQuestion.items[i].image.id);
+          this.renderer.setProperty(btn_like1, 'disabled', 'true');
+          i++;
+        }
         this.choiceQuestionClick(btn_number);
         break;
 
       case 'LikeQuestion':
         this.sub.unsubscribe();
+        i=0;
+        console.log("Length: " + this.currentQuestion.items.length)
+        while(i<this.currentQuestion.items.length){
+          let btn_like1: HTMLElement=document.getElementById(this.currentQuestion.items[i].image.id);
+          this.renderer.setProperty(btn_like1, 'disabled', 'true');
+          i++;
+        }
         this.likeQuestionClick(btn_number);
         break;
 
       case 'FavoriteQuestion':
         this.sub.unsubscribe();
+        i=0;
+        console.log("Length: " + this.currentQuestion.items.length)
+        while(i<this.currentQuestion.items.length){
+          let btn_fav: HTMLElement=document.getElementById(this.currentQuestion.items[i].image.id);
+          this.renderer.setProperty(btn_fav, 'disabled', 'true');
+          i++;
+        }
         this.favoriteQuestionClick(btn_number);
         break;
       }
