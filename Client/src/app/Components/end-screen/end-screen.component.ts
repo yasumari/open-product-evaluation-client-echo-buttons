@@ -24,6 +24,8 @@ export class EndScreenComponent implements OnInit {
   private deviceID;
   public currentProject: Context;
   public currentQuestion: Question;
+  public DataAntwort:number=0;
+
   constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
   }
   
@@ -107,18 +109,41 @@ export class EndScreenComponent implements OnInit {
     this.dataService.setAnswerNumberZero();
     this.router.navigate(['/']);
   }
+ public CalculAntwort():void
+  {
+  for (let k=0;k<this.currentProject.activeSurvey.votes.length;k++)
+  { for(let x=0;x<this.currentProject.activeSurvey.votes[k].answers.length;x++)
+    {
+    if(this.currentProject.activeSurvey.votes[k].answers[x].question==this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()].id)
+    this.DataAntwort=this.DataAntwort+1;
+    }
+  }
+ }
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
-    let k=this.dataService.getAnswerNumber();
-   // this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-    console.log("Fragen ",this.currentProject.activeSurvey.questions);
+   let num=this.dataService.getAnswerNumber();
+    // this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+    console.log("Fragen ",this.currentProject.activeSurvey.questions[num]);
     console.log("antwort ",this.currentProject.activeSurvey.votes);
     //console.log("nombre de reponse ",this.currentProject.activeSurvey.votes.length);
    // Fragen
-    for (let i = 0; i < this.currentProject.activeSurvey.questions.length; i++) {
-      this.barChartLabels[i] = this.currentProject.activeSurvey.questions[i].value;
-      // Werte von Antworten jenach Frage  
-      if(this.currentProject.activeSurvey.questions[i].__typename=="RegulatorQuestion")
+ 
+  // for (let i = 0; i < this.currentProject.activeSurvey.questions.length; i++) {
+      // visiualisierung der Frage in Achse X 
+     
+      this.barChartLabels[0] = this.currentProject.activeSurvey.questions[num].value;
+      //Antwort jede Frage Zählen 
+      /*console.log("vote ",this.currentProject.activeSurvey.votes.length);
+      console.log("Answer",this.currentProject.activeSurvey.votes[0].answers.length);
+      console.log("id der question ",this.currentProject.activeSurvey.votes[0].answers[0].question);
+      console.log("id der question ",this.currentProject.activeSurvey.questions[i].id);
+      
+    */
+      // Visualisierung der Wert der Antwort für eine Frage 
+      this.barChartData[0].data[0]=this.CalculAntwort();
+    
+      // Menge von Antworten jenach Frage  
+    /*  if(this.currentProject.activeSurvey.questions[i].__typename=="RegulatorQuestion")
       { for (let j = 0; j < 5; j++)
         {
           this.barChartData[i].data[j] = this.currentProject.activeSurvey.votes.survey.questions[i];
@@ -132,11 +157,18 @@ export class EndScreenComponent implements OnInit {
           for (let j = 0; j < 2; j++)
   
          this.barChartData[i].data[j] = this.currentProject.activeSurvey.votes.survey.questions[i].id;
+          
        }
+     
+       
+       
+         
       
-      
-
-    }
+    } */
+     // Visualisierung der Wert der Antwort für eine Frage 
+    // dataAntwort als array fur jede besonderes antwort der Frage 
+   
+    //}
    
     this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {

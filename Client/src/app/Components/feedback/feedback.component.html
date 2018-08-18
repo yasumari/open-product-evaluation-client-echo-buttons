@@ -1,12 +1,30 @@
+<script src="node_modules/chart.js/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+<script src="node_modules/chart.js/src/chart.js"></script>
 <body>
-<div>
+
   <div class="row row-pb-sm">
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-  		<h1>Weiter geht's zur nächsten Frage!</h1>
-      <p><img class="looper" src="{{image}}" alt="Img" style="width:340px"></p>
+      <h1>Weiter geht's zur nächsten Frage!</h1>
+      <div class="row row-pb-md" >
+        <div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%"  >
+      <p><img class="looper" src="{{image}}" alt="Img" style="width:200px"></p>
       <a class="btn btn-white" id="button" (click)="nextPage()" >Weiter</a>
-
-  	</div>
+        </div>
+    
+        <div class="col-md-4 col-sm-4 col-sm-offset-1 gtco-heading text-center"    >
+    <div style="width:550px">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
   </div>
 </div>
+  </div>
+  </div>
 </body>
