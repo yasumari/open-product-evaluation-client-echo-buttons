@@ -31,8 +31,6 @@ export class ListComponent implements OnInit, OnDestroy {
             } else {
                 this.openProject(this.surveys[1].id);
             }
-            
-            
         })
     }
     
