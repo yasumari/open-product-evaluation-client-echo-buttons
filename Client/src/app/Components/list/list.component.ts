@@ -23,14 +23,9 @@ export class ListComponent implements OnInit, OnDestroy {
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
         //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
         this.sub=this.messageService.getMessage().subscribe( message => {
-            console.log("Liste: " + message);
             this.sub.unsubscribe();
             //1= links und 2 = rechts
-            if (message==1){
-                this.openProject(this.surveys[0].id);
-            } else {
-                this.openProject(this.surveys[1].id);
-            }
+            this.openProject(this.surveys[message].id);
         })
     }
     

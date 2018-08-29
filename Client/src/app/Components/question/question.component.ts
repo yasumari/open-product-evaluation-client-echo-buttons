@@ -30,7 +30,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   //       | | | |
   //Items  0,1,2,3
 
-
 favoriteQuestionClick(btn_number: number){
   this.apollo.mutate({
   fetchPolicy: 'no-cache',
@@ -128,7 +127,6 @@ likeDislikeQuestion(btn_number: number){
 
 rankingQuestionClick(btn_number: number){
   this.ranking.push(this.currentQuestion.items[btn_number].image.id);
-  console.log(this.ranking);
   if (this.ranking.length==this.currentQuestion.items.length){
     //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
     this.apollo.mutate({
@@ -206,8 +204,8 @@ rankingQuestionClick(btn_number: number){
 
       case 'ChoiceQuestion': 
         this.sub.unsubscribe();
+        //TODO while raus in allen
         i=0;
-        console.log("Length: " + this.currentQuestion.items.length)
         while(i<this.currentQuestion.items.length){
           let btn_like1: HTMLElement=document.getElementById(this.currentQuestion.items[i].image.id);
           this.renderer.setProperty(btn_like1, 'disabled', 'true');
@@ -219,7 +217,6 @@ rankingQuestionClick(btn_number: number){
       case 'LikeQuestion':
         this.sub.unsubscribe();
         i=0;
-        console.log("Length: " + this.currentQuestion.items.length)
         while(i<this.currentQuestion.items.length){
           let btn_like1: HTMLElement=document.getElementById(this.currentQuestion.items[i].image.id);
           this.renderer.setProperty(btn_like1, 'disabled', 'true');
@@ -231,7 +228,6 @@ rankingQuestionClick(btn_number: number){
       case 'FavoriteQuestion':
         this.sub.unsubscribe();
         i=0;
-        console.log("Length: " + this.currentQuestion.items.length)
         while(i<this.currentQuestion.items.length){
           let btn_fav: HTMLElement=document.getElementById(this.currentQuestion.items[i].image.id);
           this.renderer.setProperty(btn_fav, 'disabled', 'true');

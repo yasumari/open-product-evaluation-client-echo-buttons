@@ -34,7 +34,6 @@ export class EndScreenComponent implements OnInit {
   }
 
   deleteDevice(): void{
-    console.log("DEVICE ID: " + this.deviceID);
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: deleteDevice,
@@ -43,7 +42,7 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        //console.log("mutation deleteDevice", data.deleteDevice.status);
+        console.log("mutation deleteDevice", data.deleteDevice.status);
       });
   }
 
@@ -56,7 +55,6 @@ export class EndScreenComponent implements OnInit {
   public ngOnInit(): void {
     this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {
-      console.log("EndScreenMessage: " + message);
       this.goBackToListProjects();
     });
   }
