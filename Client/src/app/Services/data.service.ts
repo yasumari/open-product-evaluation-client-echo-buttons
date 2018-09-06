@@ -12,8 +12,10 @@ export class DataService {
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
+    private ArrayBilder:any[]=[];
     private socketID;
     private chosenImage;
+    private chosenImagearray:any[]=[];
     private numberAnswerQuestions=0;
 
     //FeedbackImage
@@ -24,7 +26,14 @@ export class DataService {
     getChosenImageUrl(){
       return this.chosenImage;
     }
-    
+    //endscreenImage
+    setChosenImageUrlarray(url1: string){
+      this.chosenImagearray.push(url1);
+    }
+
+    getChosenImageUrlarray(){
+      return this.chosenImagearray;
+    }
     //Beanwortete Fragen
     setAnswerNumber(){
       this.numberAnswerQuestions++;
@@ -99,6 +108,12 @@ export class DataService {
     getDeviceName(){
       return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
     }
+getArrayBilder(){
+  return this.ArrayBilder;
+}
 
+setArrayBilder(array : any[]){
+  this.ArrayBilder=array;
+}
   constructor() { }
 }

@@ -21,28 +21,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
         //Router zum weiterleiten an die nächste Component /project 
     }
 
-<<<<<<< HEAD
-    //Umfrage abfragen
 
-getProject(contextID: string){
-this.apollo.subscribe({
-  query: CurrentProjectSubscription,
-  variables: {contextID: contextID},
-}).subscribe(({data}) => {
-  //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
-  this.currentProject = data.context;
-  console.log("reponse votes",this.currentProject.activeSurvey.votes);
-  //this.Teilnehmer=this.currentProject.activeSurvey.votes.length;
-  //console.log("Nombre de reponse  ",this.Teilnehmer);
-  //nombre de reponse pour chaque projet
-  // Votes ist die Antworten für alle personnen aber warum die lentgh ist immer 2 trotz ist antworte mehr als 2mal
-    
-  //vorne im Array starten und dann eins hochzählen bei einer Antwort 
-  //leere Antworten sind nicht möglich 
-  this.dataService.sendContext(this.currentProject);
-  this.dataService.setPositionQuestion(0);
-})
-=======
+
   //Umfrage abfragen
   getProject(contextID: string){
   this.apollo.subscribe({
@@ -57,7 +37,7 @@ this.apollo.subscribe({
     this.dataService.sendContext(this.currentProject);
     this.dataService.setPositionQuestion(0);
   })
->>>>>>> 0d437ac8a5351851a0a6164305149989d729b895
+
 }
     
 updateDevice(deviceID: string, contextId: string){

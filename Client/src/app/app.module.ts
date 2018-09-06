@@ -16,12 +16,12 @@ import { ButtonRegisterComponent } from './Components/button-register/button-reg
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
-<<<<<<< HEAD
+
 
 import { ChartsModule } from 'ng2-charts';
-=======
+
 import { Constants } from './constants';
->>>>>>> 0d437ac8a5351851a0a6164305149989d729b895
+
 
 
  

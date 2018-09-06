@@ -243,6 +243,7 @@ query gContexts ($contextID: ID!){
         }
       }
       votes{
+        
         answers{
           question
           __typename
@@ -261,6 +262,9 @@ query gContexts ($contextID: ID!){
           }
           ...on RankingAnswer{
             rankedImages
+          }
+          ...on FavoriteAnswer{
+            favoriteImage
           }
         }
       }

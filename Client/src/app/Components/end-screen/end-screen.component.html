@@ -8,16 +8,16 @@
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
   <h1>Vielen Dank für deine Teilnahme!</h1>
   <h2>An dieser Umfage haben bereits {{currentProject.activeSurvey.votes.length}} Personen teilgenommen</h2>
-  <div style="display: block">
-      <canvas baseChart
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+    <h3>Die beliebste bilder  </h3>
+    <div>
+
+        <img src="{{currentQuestion.items[0].image.url}}" style="width:270px; height:290px" alt="Img">
+      <h4 style="margin-top: 5px">{{currentQuestion.items[0].label}}</h4>
+      
+      
+    <p> mit {{bild[0]}} %</p>
     </div>
+
   </div>
     </div>
   <!--<button class="btn btn-white" id="button" (click)="abmelden()">Abmelden testen</button>-->

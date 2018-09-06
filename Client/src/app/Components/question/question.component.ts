@@ -253,12 +253,12 @@ rankingQuestionClick(btn_number: number){
       this.currentProject = this.dataService.getContext();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       if (this.currentQuestion.__typename=="RankingQuestion"){
-<<<<<<< HEAD
+
         this.max_items= this.currentQuestion.items.length;
         
-=======
+
         this.max_items= 0;
->>>>>>> 0d437ac8a5351851a0a6164305149989d729b895
+
       }
      
             //TODO rausnehmen, nur für testdaten drin
