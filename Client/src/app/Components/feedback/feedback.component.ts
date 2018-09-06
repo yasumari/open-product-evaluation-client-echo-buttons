@@ -242,7 +242,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.ArrayBilder.push(maxi/this.DataAntwort+this.DataAntwort1);
      this.dataService.setArrayBilder(this.ArrayBilder);
      //comment savoir quell image la plus choisie 
-     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[ordre].image.url);
+     if(maxi==this.DataAntwort)
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
+     else
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+    // this.dataService.setChosenImageUrlarray(this.currentQuestion.items[ordre].image.url);
       break;
 
       case 'RegulatorQuestion':
@@ -292,7 +296,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[3].data.push(this.DataAntwort3);
      */
    
-   
+  
     
 
       break;
@@ -320,6 +324,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[0].label.push("Choice ");
      this.barChartData[1].data[1]=this.DataAntwort1;     
      this.barChartData[1].label.push("Choice ");
+    
      
       break;
 
@@ -350,7 +355,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[0].label.push("Like");
      this.barChartData[1].data[1]=this.DataAntwort1;     
      this.barChartData[1].label.push("Like");
-      
+  
        break;
 
       case 'FavoriteQuestion':
@@ -379,6 +384,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       this.barChartData[0].label.push("Favorite");
       this.barChartData[1].data[1]=this.DataAntwort1;     
       this.barChartData[1].label.push("Favorite");
+      
       break;
     }
      

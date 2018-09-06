@@ -12,10 +12,10 @@ export class DataService {
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
-    private ArrayBilder:any[]=[];
+    
     private socketID;
     private chosenImage;
-    private chosenImagearray:any[]=[];
+    private chosenImagearray:string[]=[];
     private numberAnswerQuestions=0;
 
     //FeedbackImage
@@ -30,6 +30,7 @@ export class DataService {
     setChosenImageUrlarray(url1: string){
       this.chosenImagearray.push(url1);
     }
+    
 
     getChosenImageUrlarray(){
       return this.chosenImagearray;

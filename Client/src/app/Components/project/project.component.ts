@@ -31,7 +31,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }).subscribe(({data}) => {
     //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
     this.currentProject = data.context;
-    console.log(this.currentProject.activeSurvey.votes);
     //vorne im Array starten und dann eins hochzählen bei einer Antwort 
     //leere Antworten sind nicht möglich 
     this.dataService.sendContext(this.currentProject);
@@ -90,7 +89,6 @@ updateDevice(deviceID: string, contextId: string){
 
       //Button klick
       this.sub=this.messageService.getMessage().subscribe( message => {
-      console.log("PROJECT: " + message);
       this.sub.unsubscribe();
       this.router.navigateByUrl('/question')}
       )

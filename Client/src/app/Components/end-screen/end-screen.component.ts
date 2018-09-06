@@ -20,6 +20,8 @@ import { Context, Answer, Question } from '../../types';
  
 
 export class EndScreenComponent implements OnInit {
+  private max: number;
+  private image1:string[]=[];
   private sub: Subscription;
   private deviceID;
   public currentProject: Context;
@@ -44,7 +46,6 @@ export class EndScreenComponent implements OnInit {
   }
 
   deleteDevice(): void{
-    console.log("DEVICE ID: " + this.deviceID);
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: deleteDevice,
@@ -53,7 +54,7 @@ export class EndScreenComponent implements OnInit {
         context: null,
       }
     }).subscribe(({data}) => { 
-        //console.log("mutation deleteDevice", data.deleteDevice.status);
+        console.log("mutation deleteDevice", data.deleteDevice.status);
       });
   }
 
@@ -66,15 +67,20 @@ export class EndScreenComponent implements OnInit {
 
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
+    //meiste image gewählt:
+   
     //loop question length
-    this.bild[0]=this.dataService.getArrayBilder()[0];
-    this.currentQuestion.items[0].image.url=this.dataService.getChosenImageUrlarray()[0];
+    ///////////ca c juste pour likedislike 
+    this.image1=this.dataService.getChosenImageUrlarray();
+    //////////////////FAIRE UN TABLEAU DE TT LES MEILLEUR IMAGE DE CHAQUE QUESTION
+    ///////////////PUIS FAIRE UN VRAI TEST 
+    this.max=this.dataService.getContext().activeSurvey.questions.length;
+  
     
     //this.currentQuestion = this.currentProject.activeSurvey.questions[this.bild[0]];
     
     this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {
-      console.log("EndScreenMessage: " + message);
       this.goBackToListProjects();
     });
   }
