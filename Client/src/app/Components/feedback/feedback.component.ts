@@ -151,7 +151,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     switch(this.currentQuestion.__typename){
       case 'RankingQuestion':
    this.barChartLabels[0] =this.currentQuestion.items[0].label ;
-     this.barChartLabels[1] =this.currentQuestion.items[1].label ;
+   this.barChartLabels[1] =this.currentQuestion.items[1].label ;
      
      for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
      {
@@ -201,10 +201,14 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     
    
    
-   
+  
+
   
    let maximum = Math.max(this.DataAntwort,this.DataAntwort1,this.DataAntwortP1,this.DataAntwortP); 
-   
+   if(maximum==this.DataAntwort)
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+     else
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
    
    break;
 
@@ -239,8 +243,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[1].data.push(this.DataAntwort1);
      this.barChartData[1].label.push("Dislike");
      let maxi = Math.max(this.DataAntwort,this.DataAntwort1);
-     this.ArrayBilder.push(maxi/this.DataAntwort+this.DataAntwort1);
-     this.dataService.setArrayBilder(this.ArrayBilder);
+     
      //comment savoir quell image la plus choisie 
      if(maxi==this.DataAntwort)
      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
@@ -295,7 +298,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[2].data.push(this.DataAntwort2);
      this.barChartData[3].data.push(this.DataAntwort3);
      */
-   
+    let maxim = Math.max(this.DataAntwort,this.DataAntwort1);
+    if(maxim==this.DataAntwort)
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
+    else
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
   
     
 
@@ -324,7 +331,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[0].label.push("Choice ");
      this.barChartData[1].data[1]=this.DataAntwort1;     
      this.barChartData[1].label.push("Choice ");
-    
+     let maximm = Math.max(this.DataAntwort,this.DataAntwort1);
+     if(maximm==this.DataAntwort)
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+    else
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+  
      
       break;
 
@@ -355,7 +367,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      this.barChartData[0].label.push("Like");
      this.barChartData[1].data[1]=this.DataAntwort1;     
      this.barChartData[1].label.push("Like");
-  
+     let ma = Math.max(this.DataAntwort,this.DataAntwort1);
+     if(ma==this.DataAntwort)
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+     else
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
+   
        break;
 
       case 'FavoriteQuestion':
@@ -384,10 +401,15 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       this.barChartData[0].label.push("Favorite");
       this.barChartData[1].data[1]=this.DataAntwort1;     
       this.barChartData[1].label.push("Favorite");
+      let m = Math.max(this.DataAntwort,this.DataAntwort1);
+      if(m==this.DataAntwort)
+      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
+      else
+      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
       
       break;
     }
-     
+      console.log("image question ",this.currentQuestion.items[1].image.url);
     this.image=this.dataService.getChosenImageUrl();
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;

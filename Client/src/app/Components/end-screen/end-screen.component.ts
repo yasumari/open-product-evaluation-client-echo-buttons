@@ -20,6 +20,7 @@ import { Context, Answer, Question } from '../../types';
  
 
 export class EndScreenComponent implements OnInit {
+  private i: number;
   private max: number;
   private image1:string[]=[];
   private sub: Subscription;
@@ -27,7 +28,7 @@ export class EndScreenComponent implements OnInit {
   public currentProject: Context;
   public currentQuestion: Question;
   public DataAntwort:number=0;
- public bild :any[] = [];
+ 
   constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
   }
   
@@ -66,14 +67,19 @@ export class EndScreenComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    
     this.currentProject = this.dataService.getContext();
     //meiste image gewählt:
    
     //loop question length
     ///////////ca c juste pour likedislike 
-    this.image1=this.dataService.getChosenImageUrlarray();
-    //////////////////FAIRE UN TABLEAU DE TT LES MEILLEUR IMAGE DE CHAQUE QUESTION
-    ///////////////PUIS FAIRE UN VRAI TEST 
+  
+    for(this.i=0;this.i<this.currentProject.activeSurvey.questions.length;this.i++)
+    this.image1[this.i]=this.dataService.getChosenImageUrlarray(this.i);
+    console.log("image url length",this.image1.length);
+    console.log("image url",this.image1[1]);
+    ///////////////PUIS FAIRE UN VRAI TEST
+    /////////couleur et ameliorer la structure des graffik 
     this.max=this.dataService.getContext().activeSurvey.questions.length;
   
     

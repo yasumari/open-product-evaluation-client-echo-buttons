@@ -32,8 +32,8 @@ export class DataService {
     }
     
 
-    getChosenImageUrlarray(){
-      return this.chosenImagearray;
+    getChosenImageUrlarray(j:number){
+      return this.chosenImagearray[j];
     }
     //Beanwortete Fragen
     setAnswerNumber(){
@@ -109,12 +109,6 @@ export class DataService {
     getDeviceName(){
       return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
     }
-getArrayBilder(){
-  return this.ArrayBilder;
-}
 
-setArrayBilder(array : any[]){
-  this.ArrayBilder=array;
-}
   constructor() { }
 }

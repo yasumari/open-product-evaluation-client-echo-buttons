@@ -7,22 +7,34 @@
  <div class="row row-pb-sm">
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
   <h1>Vielen Dank für deine Teilnahme!</h1>
-  <h2>An dieser Umfage haben bereits {{currentProject.activeSurvey.votes.length}} Personen teilgenommen</h2>
-    <h3>Die beliebste bilder  </h3>
-    <div>
+  <h2>An dieser Umfrage haben bereits {{currentProject.activeSurvey.votes.length}} Personen teilgenommen</h2>
+    <h3>Die beliebsten Bilder  </h3>
+     </div>
+     </div>
+     <div class="row row-pb-md" >
+              <div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of image1 ; let i = index " >
+       
+       <div class="overlay">
+        <div class="copy text-center">
+          <img class="looper" src="{{image1[i]}}" alt="Img" style="width:200px" >
+          
 
-       <p><img class="looper" src="{{image1}}" alt="Img" style="width:200px"></p>
-<!--<h4 style="margin-top: 5px">{{currentQuestion.items[0].label}}</h4>-->
-      
+        </div>
+      </div>
+      </div>
      
     </div>
 
-  </div>
-    </div>
+    
   <!--<button class="btn btn-white" id="button" (click)="abmelden()">Abmelden testen</button>-->
   <!--<button class="btn btn-white" id="button" (click)="deleteDevice()">Device löschen</button>-->
+  <div class="row row-pb-md" >
+      <div class="col-md-8 col-md-offset-2 gtco-heading text-center" style="margin-top : 5.33333%">
+     
   <button class="btn btn-white" id="button" (click)="goBackToListProjects()" >Zurück zum Anfang</button>
 
+</div>
+</div>
 
 
 
