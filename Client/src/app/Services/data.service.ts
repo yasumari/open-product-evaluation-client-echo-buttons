@@ -16,6 +16,7 @@ export class DataService {
     private socketID;
     private chosenImage;
     private chosenImagearray:string[]=[];
+    private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
 
     //FeedbackImage
@@ -30,10 +31,17 @@ export class DataService {
     setChosenImageUrlarray(url1: string){
       this.chosenImagearray.push(url1);
     }
-    
 
-    getChosenImageUrlarray(j:number){
-      return this.chosenImagearray[j];
+    getChosenImageUrlarray(){
+      return this.chosenImagearray;
+    }
+//endscreenImage :Wert von beliebste Frage
+    setMaxAntwortArray(max:any){
+      this.MaxAnwortarray.push(max);
+    } 
+    
+    getMaxAntwortArray(){
+      return this.MaxAnwortarray;
     }
     //Beanwortete Fragen
     setAnswerNumber(){

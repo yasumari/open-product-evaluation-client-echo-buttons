@@ -92,6 +92,7 @@ updateDevice(deviceID: string, contextId: string){
       this.sub.unsubscribe();
       this.router.navigateByUrl('/question')}
       )
+      
   }
   ngOnDestroy(){
     this.sub.unsubscribe();

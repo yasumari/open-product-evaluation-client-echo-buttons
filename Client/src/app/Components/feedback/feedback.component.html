@@ -3,13 +3,13 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 <body>
 
-  <div class="row row-pb-sm">
+  <div class="row row-pb-sm gtco-heading text-center">
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <h1>{{title_nextPage}}</h1>
-      <div class="row row-pb-md" >
-        <div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%"  >
+    
+        <div class="col-md-4 col-sm-4 col-sm-offset-1" style="margin-left:-90px"  >
      
-      <p><img class="looper" src="{{image}}" alt="Img" style="width:200px"></p>
+      <p><img class="looper" src="{{image}}" alt="Img" style="width:250px"></p>
 
       <a class="btn btn-white" id="button" (click)="nextPage()" >Weiter</a>
         </div>
@@ -25,7 +25,7 @@
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)"></canvas>
     </div>
-  </div>
+  
 </div>
   </div>
   </div>

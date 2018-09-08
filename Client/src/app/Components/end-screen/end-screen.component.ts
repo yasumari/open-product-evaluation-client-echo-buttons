@@ -23,6 +23,7 @@ export class EndScreenComponent implements OnInit {
   private i: number;
   private max: number;
   private image1:string[]=[];
+  private value:any[]=[];
   private sub: Subscription;
   private deviceID;
   public currentProject: Context;
@@ -70,12 +71,11 @@ export class EndScreenComponent implements OnInit {
     
     this.currentProject = this.dataService.getContext();
     //meiste image gewählt:
-   
-    //loop question length
-    ///////////ca c juste pour likedislike 
   
-    for(this.i=0;this.i<this.currentProject.activeSurvey.questions.length;this.i++)
-    this.image1[this.i]=this.dataService.getChosenImageUrlarray(this.i);
+   
+    this.image1=this.dataService.getChosenImageUrlarray();
+    this.value=this.dataService.getMaxAntwortArray();
+    
     console.log("image url length",this.image1.length);
     console.log("image url",this.image1[1]);
     ///////////////PUIS FAIRE UN VRAI TEST
@@ -83,7 +83,7 @@ export class EndScreenComponent implements OnInit {
     this.max=this.dataService.getContext().activeSurvey.questions.length;
   
     
-    //this.currentQuestion = this.currentProject.activeSurvey.questions[this.bild[0]];
+   
     
     this.deviceID=this.dataService.getDeviceID();
     this.sub=this.messageService.getMessage().subscribe( message => {

@@ -36,6 +36,12 @@ export type Device={
     description:string; 
     __typename: string;
     items: Item[];
+    choices: Choice[];
+  }
+  export type Choice={
+    code: string;
+    image : Image;
+    label:string;
   }
   export type Owner={
     firstname: string;
@@ -69,5 +75,6 @@ export type Device={
   export type Answer={
     questionID: number,
     contextID: string,
-    deviceID: string
+    deviceID: string,
+    choiceCode:string
   }
