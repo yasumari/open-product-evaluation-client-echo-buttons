@@ -157,17 +157,17 @@ export class FeedbackComponent implements OnInit, OnDestroy {
      for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
      {
      
-        if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="RankingAnswer")
+        if(this.currentProject.activeSurvey.votes[i].answers[x].questionID==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="RankingAnswer")
           {
             for(let y;y<(<any>this.currentQuestion.items).length;y++)
               {   
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].RankingAnswer.rankedImages[0]==this.currentQuestion.items[y].image.id)
+                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0]==this.currentQuestion.items[y].image.id)
                  {this.DataAntwort=this.DataAntwort+1;
-                  let img=this.currentProject.activeSurvey.votes[i].answers[x].RankingAnswer.rankedImages[0];
+                  let img=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0];
                 }
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].RankingAnswer.rankedImages[1].id==this.currentQuestion.items[y].image.id)
+                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[1]==this.currentQuestion.items[y].image.id)
                  { this.DataAntwort1=this.DataAntwort1+1;
-                  let img1=this.currentProject.activeSurvey.votes[i].answers[x].RankingAnswer.rankedImages[0];
+                  let img1=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0];
                 }
                
               }
@@ -205,10 +205,10 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
-      if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="LikeDislikeAnswer")
-        { if(this.currentProject.activeSurvey.votes[i].answers[x].LikeDislikeAnswer.liked==true)
+      if(this.currentProject.activeSurvey.votes[i].answers[x].questionID==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="LikeDislikeAnswer")
+        { if(this.currentProject.activeSurvey.votes[i].answers[x].liked==true)
            {this.DataAntwort=this.DataAntwort+1;}
-          else if(this.currentProject.activeSurvey.votes[i].answers[x].LikeDislikeAnswer.liked==false)
+          else if(this.currentProject.activeSurvey.votes[i].answers[x].liked==false)
           {this.DataAntwort1=this.DataAntwort1+1;}
         
         } 
@@ -240,15 +240,15 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
-      if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="RegulatorAnswer")
+      if(this.currentProject.activeSurvey.votes[i].answers[x].questionID==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="RegulatorAnswer")
       {
-        if(this.currentProject.activeSurvey.votes[i].answers[x].rating=="1") 
+        if(this.currentProject.activeSurvey.votes[i].answers[x].rating==1) 
         this.DataAntwort=this.DataAntwort+1;
-        if(this.currentProject.activeSurvey.votes[i].answers[x].rating=="2")
+        if(this.currentProject.activeSurvey.votes[i].answers[x].rating==2)
         this.DataAntwort1=this.DataAntwort1+1;
-        if(this.currentProject.activeSurvey.votes[i].answers[x].rating=="3")
+        if(this.currentProject.activeSurvey.votes[i].answers[x].rating==3)
         this.DataAntwort2=this.DataAntwort2+1;
-        if(this.currentProject.activeSurvey.votes[i].answers[x].rating=="4")
+        if(this.currentProject.activeSurvey.votes[i].answers[x].rating==4)
         this.DataAntwort3=this.DataAntwort3+1;
         
       }
@@ -285,7 +285,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
-      if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
+      if(this.currentProject.activeSurvey.votes[i].answers[x].questionID==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
         
        if(this.currentProject.activeSurvey.votes[i].answers[x].choiceCode==this.currentQuestion.choices[i].code)
           if(this.currentQuestion.items[0].image.id==this.currentQuestion.choices[i].image.id)
@@ -313,23 +313,23 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       case 'LikeQuestion':
       this.barChartLabels[0] =this.currentQuestion.items[0].label ;
       this.barChartLabels[1] =this.currentQuestion.items[1].label ;
-      
+      /*
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
        
-     if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="LikeAnswer")
+     if(this.currentProject.activeSurvey.votes[i].answers[x].questionID==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="LikeAnswer")
         //IF NE MARCHE PAS !!!!!!!!!!!!!!!
-        if(this.currentProject.activeSurvey.votes[i].answers[x].image[0].id==this.currentQuestion.items[0].image.id && this.currentProject.activeSurvey.votes[i].answers[x].LikeAnswer.liked==true)
+        if(this.currentProject.activeSurvey.votes[i].answers[x].image[0].id==this.currentQuestion.items[0].image.id && this.currentProject.activeSurvey.votes[i].answers[x].liked==true)
            this.DataAntwort=this.DataAntwort+1;
          else   
-         if(this.currentProject.activeSurvey.votes[i].answers[x].image[1].id==this.currentQuestion.items[1].image.id && this.currentProject.activeSurvey.votes[i].answers[x].LikeAnswer.liked==true)
+         if(this.currentProject.activeSurvey.votes[i].answers[x].image[1].id==this.currentQuestion.items[1].image.id && this.currentProject.activeSurvey.votes[i].answers[x].liked==true)
          this.DataAntwort1=this.DataAntwort1+1;
           
        }
      
-     }   
+     }   */
            
      
      this.barChartData[0].data[0]=this.DataAntwort;
@@ -353,7 +353,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
         
-     if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="FavoriteAnswer")
+     if(this.currentProject.activeSurvey.votes[i].answers[x].questionID==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="FavoriteAnswer")
         // favoriteimage für antwort fehlt  
        /* if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteImage==this.currentQuestion.items[0].image.id)
            this.DataAntwort=this.DataAntwort+1;

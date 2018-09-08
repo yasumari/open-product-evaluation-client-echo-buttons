@@ -31,6 +31,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }).subscribe(({data}) => {
     //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
     this.currentProject = data.context;
+
     //vorne im Array starten und dann eins hochzählen bei einer Antwort 
     //leere Antworten sind nicht möglich 
     this.dataService.sendContext(this.currentProject);

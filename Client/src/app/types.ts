@@ -5,7 +5,7 @@ export type Survey = {
   isPublic: boolean,
   creator: Owner,
   images: Image[],
-  votes: Vote;
+  votes: Vote[];
   questions: Question[]
   }
 
@@ -37,11 +37,25 @@ export type Device={
     __typename: string;
     items: Item[];
     choices: Choice[];
+    likeIcon: Image;
+    dislikeIcon: Image;
+    labels: Label[];
+    stepSize: number;
+    min: number;
+    max: number;
+    votes: Vote[];
   }
+
+  export type Label={
+    text: string;
+    image: Image;
+    value: number;
+  }
+
   export type Choice={
     code: string;
-    image : Image;
-    label:string;
+    image:  Image;
+    label: string;
   }
   export type Owner={
     firstname: string;
@@ -64,17 +78,22 @@ export type Device={
   export type Query={
       surveys: Survey[];
       survey: Survey;
-      questions: Question[];
-      votes: Vote;
+      questions: Question[]
   }
+
   export type Vote={
       _id: any;
-      survey: Survey;
+      context: string;
+      answers: Answer[];
   }
 
   export type Answer={
     questionID: number,
-    contextID: string,
-    deviceID: string,
-    choiceCode:string
+    liked: boolean,
+    choiceCode: string,
+    rating: number;
+    normalized: number;
+    rankedImages: string[];
+    favoriteImage: string;
+    __typename: string;
   }

@@ -18,12 +18,12 @@ import { Constants } from "../../constants";
 export class QuestionComponent implements OnInit, OnDestroy {
   sub: Subscription;
   private currentProject: Context;
-  private currentAnswer: Answer;
+  private currentAnswer;
   private currentQuestion: Question;
   private ranking=[]; 
-  private count_items;
-  max_items: number;
+  private count_items; 
 
+  //TODO PLätze IN HTML fehlen
  constructor(private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {
  }
 
@@ -90,7 +90,7 @@ choiceQuestionClick(btn_number: number){
     questionID: this.currentAnswer.questionID,
     deviceID: this.currentAnswer.deviceID, 
     contextID: this.currentAnswer.contextID,
-    choiceCode: "TODO"},
+    choiceCode: this.currentQuestion.choices[btn_number].code},
   }).subscribe((mutationResponse) => 
   console.log("mutation", mutationResponse)); 
   this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
@@ -176,8 +176,7 @@ rankingQuestionClick(btn_number: number){
     this.currentAnswer={
       questionID: this.currentQuestion.id,
       deviceID: this.dataService.getDeviceID(), 
-      contextID: this.dataService.getContextID(),
-      choiceCode:"TODO"
+      contextID: this.dataService.getContextID()
     }
 //Unterscheidung des Fragetyps und damit auch die Antwort
     switch(this.currentQuestion.__typename){
@@ -201,7 +200,6 @@ rankingQuestionClick(btn_number: number){
 
       case 'RegulatorQuestion':
         this.sub.unsubscribe();
-          //TODO Schöner gestalten Einfärben der Buttons bei Auswählen der Schritte
         let j=0;
         //Alle 4 Buttons disablen
         while(j<4){
@@ -237,60 +235,38 @@ rankingQuestionClick(btn_number: number){
       this.currentProject = this.dataService.getContext();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       if (this.currentQuestion.__typename=="RankingQuestion"){
-
-
-       this.max_items= this.currentQuestion.items.length;
-        
-
-        this.max_items= 0;
-
-      }
-     
-            //TODO rausnehmen, nur für testdaten drin
-
         this.count_items= 0;
-      
+      }
+      console.log("Die ganze Frage: ", this.currentQuestion);
+      console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0]);
+      if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeAnswer"){
+        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
+      }
+      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeDislikeAnswer"){
+        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
+      }
+      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="ChoiceAnswer"){
+        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].choiceCode);
+      }
+      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="RegulatorAnswer"){
+        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].rating);
+        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].normalized);
+      }
+      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="RankingAnswer"){
+        console.log("RankingAnswer", this.currentProject.activeSurvey.votes[0].answers[0]);
+      }
+      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="FavoriteAnswer"){
+        console.log("Favorite", this.currentProject.activeSurvey.votes[0].answers[0].favoriteImage);
+      }
+
+
+
+
+
       //TODO rausnehmen, nur für testdaten drin
-console.log("question itemm",this.currentQuestion);
-    
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
-    
-    // testdaten rechnnung Antwort 
- this.currentQuestion.id=1;
-  
- this.currentProject.activeSurvey.votes[0].answers[0].question="1";
-   
-this.currentQuestion.id=2;
 
- this.currentProject.activeSurvey.votes[0].answers[1].question="2"; 
-
- this.currentQuestion.id=3;
- 
- this.currentProject.activeSurvey.votes[1].answers[0].question="3";
- 
-
- this.currentQuestion.id=2;
- 
- this.currentProject.activeSurvey.votes[1].answers[1].question="4";
-// this.currentProject.activeSurvey.votes[1].answers[0].FavoriteAnswer.favoriteImage="4";
- 
- /*this.currentQuestion.id=5;
- this.currentQuestion.__typename="RankingQuestion";
- this.currentProject.activeSurvey.votes[1].answers[2].question="5";
- this.currentProject.activeSurvey.votes[1].answers[2].__typename="RankingAnswer";
- this.currentQuestion.id=6;
- this.currentQuestion.__typename="RegulatorQuestion";
- this.currentProject.activeSurvey.votes[1].answers[3].question="6";
- this.currentProject.activeSurvey.votes[1].answers[3].__typename="RegulatorQuestion";*/
-
-
-    console.log("question datatest",this.currentQuestion);
-
-     /* a5ffeba4-bef7-4817-8ed6-aae88c4c7f2c FavoriteQuestion
-     
-     */
-      
       this.sub=this.messageService.getMessage().subscribe( message => {
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
