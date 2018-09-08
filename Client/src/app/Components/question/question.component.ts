@@ -238,6 +238,7 @@ rankingQuestionClick(btn_number: number){
         this.count_items= 0;
       }
       console.log("Die ganze Frage: ", this.currentQuestion);
+      console.log("Antwort: ", this.currentProject.activeSurvey);
       console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0]);
       if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeAnswer"){
         console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
