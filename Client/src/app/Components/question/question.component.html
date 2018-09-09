@@ -304,7 +304,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h4>Lege eine Reihenfolge fest: Wähle Platz {{(max_items+1)}}.</h4>
+			<h4>Lege eine Reihenfolge fest: Wähle Platz {{(count_items+1)}}.</h4>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">

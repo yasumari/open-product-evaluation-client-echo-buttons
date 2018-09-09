@@ -57,9 +57,9 @@ updateDevice(deviceID: string, contextId: string){
     public ngOnInit(): void {
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
-      let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
+      let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
       let deviceID =  this.dataService.getDeviceID();
-      let token=this.dataService.getToken();
+      let token = this.dataService.getToken();
       //TODO Name und Nutzer festlegen
       
       //Wenn es ohne Startseite aufgerufen wird, dann 

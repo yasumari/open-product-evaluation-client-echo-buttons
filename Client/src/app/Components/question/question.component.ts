@@ -4,16 +4,16 @@ import { DataService} from '../../Services/data.service';
 import { favoriteAnswerMutate, likeAnswerMutate, likeDislikeAnswerMutate, rankingAnswerMutate, regulatorAnswerMutate, choiceAnswerMutate} from './question.model';
 import { Router } from '@angular/router';
 import { MessageService } from '../../Services/message.service';
-import { Context, Answer, Question } from '../../types';
+import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
 import { Constants } from "../../constants";
+import { HttpLinkHandler } from 'apollo-angular-link-http';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css']
 })
-
 
 export class QuestionComponent implements OnInit, OnDestroy {
   sub: Subscription;
@@ -23,20 +23,19 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private ranking=[]; 
   private count_items; 
 
-  //TODO PLätze IN HTML fehlen
  constructor(private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {
  }
 
-  //Progressbar
+  /**
+   * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
+   */
   calculate():string {
     return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
   }
 
-  //btn_number sagt welches Item im Array gewählt wurde 
-  //Button 0,1,2,3
-  //       | | | |
-  //Items  0,1,2,3
-
+  /**
+   * @description Buttons nach Antwort disablen, Alle Buttons haben den Namen currentQuestion.items[].image.id
+   */
   disableAllButtens(){
     for (let btn of this.currentQuestion.items) {
           let _btn: HTMLElement=document.getElementById(btn.image.id);
@@ -44,101 +43,134 @@ export class QuestionComponent implements OnInit, OnDestroy {
         }
   }
 
-favoriteQuestionClick(btn_number: number){
-  this.apollo.mutate({
-  fetchPolicy: 'no-cache',
-  mutation: favoriteAnswerMutate,
-  variables: { 
-    questionID: this.currentAnswer.questionID,
-    deviceID: this.currentAnswer.deviceID, 
-    contextID: this.currentAnswer.contextID,
-    favoriteImage:this.currentQuestion.items[btn_number].image.id},
-  }).subscribe((mutationResponse) => 
-  console.log("mutation", mutationResponse)); 
-  this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-  this.dataService.setAnswerNumber();
-  setTimeout(() => {
-    this.router.navigate(['/feedback']);
-  }, Constants.TIMER_QUESTION);
-}
+/*  Alle Reaktionen auf einen Klick anhand deren Typ. 
+    btn_number sagt welches Item im Array gewählt wurde 
+    Button 0,1,2,3
+           | | | |
+    Items  0,1,2,3
+    Variablen der Mutations sind unterschiedlich: siehe Kommentare der Funktionen
+      Nach allen Antworten wird anhand Timer_Question noch die Seite abgewartet, 
+      um die gedrückten Buttons zu simulieren. Anschließend auf Feedback-Seite*/
 
-likeQuestionClick(btn_number: number){
-  this.apollo.mutate({
-  fetchPolicy: 'no-cache',
-  mutation: likeAnswerMutate,
-  variables: { 
-    questionID: this.currentAnswer.questionID,
-    deviceID: this.currentAnswer.deviceID, 
-    contextID: this.currentAnswer.contextID,
-    liked: true},
-  }).subscribe((mutationResponse) => 
-  console.log("mutation", mutationResponse)); 
-    //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
+    /**
+     * @description FavoriteQuestion, mutation besondere Variable: favoriteImage - ausgewähltes Objekt
+     * @param btn_number : Nummer des Buttons
+     */
+    favoriteQuestionClick(btn_number: number){
+    this.apollo.mutate({
+    fetchPolicy: 'no-cache',
+    mutation: favoriteAnswerMutate,
+    variables: { 
+      questionID: this.currentAnswer.questionID,
+      deviceID: this.currentAnswer.deviceID, 
+      contextID: this.currentAnswer.contextID,
+      favoriteImage:this.currentQuestion.items[btn_number].image.id},
+    }).subscribe((mutationResponse) => 
+    console.log("mutation", mutationResponse)); 
     this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-  this.dataService.setAnswerNumber();
-  setTimeout(() => {
-    this.router.navigate(['/feedback']);
-  }, Constants.TIMER_QUESTION);
-}
+    this.dataService.setAnswerNumber();
+    setTimeout(() => {
+      this.router.navigate(['/feedback']);
+    }, Constants.TIMER_QUESTION);
+  }
 
-choiceQuestionClick(btn_number: number){
-  //TODO ChoiceCode ersetzen mit was?
-  this.apollo.mutate({
-  fetchPolicy: 'no-cache',
-  mutation: choiceAnswerMutate,
-  variables: { 
-    questionID: this.currentAnswer.questionID,
-    deviceID: this.currentAnswer.deviceID, 
-    contextID: this.currentAnswer.contextID,
-    choiceCode: this.currentQuestion.choices[btn_number].code},
-  }).subscribe((mutationResponse) => 
-  console.log("mutation", mutationResponse)); 
-  this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-  this.dataService.setAnswerNumber();
-  setTimeout(() => {
-    this.router.navigate(['/feedback']);
-  }, Constants.TIMER_QUESTION);
-}
+  /**
+   * @description LikeQuestion, mutation besondere Variable: LikeQuestion: liked - Gefallen die Objekte
+   * @param btn_number : Nummer des Buttons
+   */
+  likeQuestionClick(btn_number: number){
+    this.apollo.mutate({
+    fetchPolicy: 'no-cache',
+    mutation: likeAnswerMutate,
+    variables: { 
+      questionID: this.currentAnswer.questionID,
+      deviceID: this.currentAnswer.deviceID, 
+      contextID: this.currentAnswer.contextID,
+      liked: true},
+    }).subscribe((mutationResponse) => 
+    console.log("mutation", mutationResponse)); 
+      //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
+      this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
+    this.dataService.setAnswerNumber();
+    setTimeout(() => {
+      this.router.navigate(['/feedback']);
+    }, Constants.TIMER_QUESTION);
+  }
 
-regulatorQuestionClick(btn_number: number){
-  /*TODO: normalized wird im Backend berechnet? */
-  var normalized=btn_number/this.currentQuestion.items.length;
-  this.apollo.mutate({
-  fetchPolicy: 'no-cache',
-  mutation: regulatorAnswerMutate,
-  variables: { 
-    questionID: this.currentAnswer.questionID,
-    deviceID: this.currentAnswer.deviceID, 
-    contextID: this.currentAnswer.contextID,
-    rating: btn_number},
-  }).subscribe((mutationResponse) => 
-  console.log("mutation", mutationResponse)); 
-  //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
-  this.dataService.setChosenImageUrl(this.currentQuestion.items[0].image.url);
-  this.dataService.setAnswerNumber();
-  setTimeout(() => {
-    this.router.navigate(['/feedback']);
-  }, Constants.TIMER_QUESTION);
-}
+  /**
+   * @description ChoiceQuestion, mutation besondere Variable: ChoiceQuestion: choiceCode - anhand des Codes vom Objekt festgelegt
+   * @param btn_number : Nummer des Buttons
+   */
+  choiceQuestionClick(btn_number: number){
+    this.apollo.mutate({
+    fetchPolicy: 'no-cache',
+    mutation: choiceAnswerMutate,
+    variables: { 
+      questionID: this.currentAnswer.questionID,
+      deviceID: this.currentAnswer.deviceID, 
+      contextID: this.currentAnswer.contextID,
+      choiceCode: this.currentQuestion.choices[btn_number].code},
+    }).subscribe((mutationResponse) => 
+    console.log("mutation", mutationResponse)); 
+    this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
+    this.dataService.setAnswerNumber();
+    setTimeout(() => {
+      this.router.navigate(['/feedback']);
+    }, Constants.TIMER_QUESTION);
+  }
 
-likeDislikeQuestion(btn_number: number){
-  this.apollo.mutate({
-  fetchPolicy: 'no-cache',
-  mutation: likeDislikeAnswerMutate,
-  variables: { 
-    questionID: this.currentAnswer.questionID,
-    deviceID: this.currentAnswer.deviceID, 
-    contextID: this.currentAnswer.contextID,
-    liked: (btn_number == 0 ? true : false) },
-  }).subscribe((mutationResponse) => 
-  console.log("mutation", mutationResponse)); 
-  this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-  this.dataService.setAnswerNumber();
-  setTimeout(() => {
-    this.router.navigate(['/feedback']);
-  }, Constants.TIMER_QUESTION);
-}
+  /**
+   * @description RegulatorQuestion: mutation besondere Variable:rating - Skala 
+   * @param btn_number : Nummer des Buttons
+   */
+  regulatorQuestionClick(btn_number: number){
+    /*TODO: normalized wird im Backend berechnet? */
+    var normalized=btn_number/this.currentQuestion.items.length;
+    this.apollo.mutate({
+    fetchPolicy: 'no-cache',
+    mutation: regulatorAnswerMutate,
+    variables: { 
+      questionID: this.currentAnswer.questionID,
+      deviceID: this.currentAnswer.deviceID, 
+      contextID: this.currentAnswer.contextID,
+      rating: btn_number},
+    }).subscribe((mutationResponse) => 
+    console.log("mutation", mutationResponse)); 
+    //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
+    this.dataService.setChosenImageUrl(this.currentQuestion.items[0].image.url);
+    this.dataService.setAnswerNumber();
+    setTimeout(() => {
+      this.router.navigate(['/feedback']);
+    }, Constants.TIMER_QUESTION);
+  }
 
+  /**
+   * @description DislikeQuestion: mutation besondere Variable:  liked - Gefällt oder gefällt das Objekt nicht
+   * @param btn_number : Nummer des Buttons
+   */
+  likeDislikeQuestion(btn_number: number){
+    this.apollo.mutate({
+    fetchPolicy: 'no-cache',
+    mutation: likeDislikeAnswerMutate,
+    variables: { 
+      questionID: this.currentAnswer.questionID,
+      deviceID: this.currentAnswer.deviceID, 
+      contextID: this.currentAnswer.contextID,
+      liked: (btn_number == 0 ? true : false) },
+    }).subscribe((mutationResponse) => 
+    console.log("mutation", mutationResponse)); 
+    this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
+    this.dataService.setAnswerNumber();
+    setTimeout(() => {
+      this.router.navigate(['/feedback']);
+    }, Constants.TIMER_QUESTION);
+  }
+
+
+   /**
+   * @description RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt 
+   * @param btn_number : Nummer des Buttons
+   */
 rankingQuestionClick(btn_number: number){
   this.ranking.push(this.currentQuestion.items[btn_number].image.id);
   if (this.ranking.length==this.currentQuestion.items.length){
@@ -162,7 +194,6 @@ rankingQuestionClick(btn_number: number){
             this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
           }
         }
-       
         this.router.navigate(['/feedback']);
       }, Constants.TIMER_QUESTION);
   } else {
@@ -170,15 +201,22 @@ rankingQuestionClick(btn_number: number){
   }
 }
 
+  /**
+   * @description Reaktion auf einen gedrückten Buzzer/Button, entscheidet anhand welches 
+   * Fragetypens welche Buttons disabled werden und welche Funktion ausgelöst werden. 
+   * RankingQuestion - rankingQuestionClick
+   * ..
+   * FavoriteQuestion - favoriteQuestionClick
+   * @param btn_number Nummer des gedrückten Buttons
+   */
    buttonClick(btn_number: number){    
-    console.log("Button: " + btn_number);
-
     this.currentAnswer={
       questionID: this.currentQuestion.id,
       deviceID: this.dataService.getDeviceID(), 
       contextID: this.dataService.getContextID()
     }
-//Unterscheidung des Fragetyps und damit auch die Antwort
+
+    //Unterscheidung des Fragetyps und damit auch die Antwort
     switch(this.currentQuestion.__typename){
       case 'RankingQuestion':
         const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
@@ -234,40 +272,40 @@ rankingQuestionClick(btn_number: number){
  public ngOnInit(): void {
       this.currentProject = this.dataService.getContext();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      /*Für die Auskunft, welcher Platz gerade gewählt wird, 
+       muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
-      console.log("Die ganze Frage: ", this.currentQuestion);
-      console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0]);
-      if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeDislikeAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="ChoiceAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].choiceCode);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="RegulatorAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].rating);
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].normalized);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="RankingAnswer"){
-        console.log("RankingAnswer", this.currentProject.activeSurvey.votes[0].answers[0]);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="FavoriteAnswer"){
-        console.log("Favorite", this.currentProject.activeSurvey.votes[0].answers[0].favoriteImage);
-      }
-
-
-
-
 
       //TODO rausnehmen, nur für testdaten drin
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
+    
+          // testdaten rechnnung Antwort 
+      this.currentQuestion.id=1;
+        
+      this.currentProject.activeSurvey.votes[0].answers[0].question=1;
+        
+      this.currentQuestion.id=2;
 
+      this.currentProject.activeSurvey.votes[0].answers[1].question=2; 
+
+      this.currentQuestion.id=3;
+      
+      this.currentProject.activeSurvey.votes[1].answers[0].question=3;
+  
+      this.currentQuestion.id=2;
+      
+      this.currentProject.activeSurvey.votes[1].answers[1].question=4;
+
+
+    console.log("question datatest",this.currentQuestion);
+    console.log("antwort",this.currentProject.activeSurvey.votes);
+
+      //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {
+        
           //TODO noch benötigt?
           if (message!=undefined || message!=null){
             this.buttonClick(parseInt(message));

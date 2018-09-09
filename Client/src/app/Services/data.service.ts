@@ -1,5 +1,6 @@
-import { Context, Vote, Device,  } from '../types';
+import { Context } from '../types';
 
+/* Interface eines Device*/
 interface myDevice {
   deviceID: string;
   deviceToken: string;
@@ -12,14 +13,13 @@ export class DataService {
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
-    
     private socketID;
     private chosenImage;
     private chosenImagearray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
 
-    //FeedbackImage
+    //Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
     setChosenImageUrl(url: string){
       this.chosenImage=url;
     }
@@ -56,7 +56,7 @@ export class DataService {
       this.numberAnswerQuestions=0;
     }
 
-    //Welche Frage dran ist
+    //Aktuelle Position der Frage aus dem Survey
     getPositionQuestion(){
       return this.currentPositionQuestion;
     }
@@ -64,22 +64,26 @@ export class DataService {
     setPositionQuestion(position: number){
       this.currentPositionQuestion=position;
     }
+    //Nach beantworten der Frage, muss die Position erhöht werden, Durchlauf aller Fragen möglich
     updatePositionQuestion(){
-      this.currentPositionQuestion+=1;
+      this.currentPositionQuestion++;
     }  
       
     /*clearContext() {
         this.subjectProject.next();
     }*/
 
-    //Welcher Kontext
+    //Welcher Kontext wurde ausgewählt
     getContext(): Context {
       return this.subjectProject;
     }
+
     sendContext(project: Context ) {
+      this.contextID=project.id;
       this.subjectProject = project;
     }
 
+    /*ContextID, die auf der Startseite ausgewählt wurde, */ 
     setContextID(id: string){
       this.contextID=id;
     }
@@ -88,7 +92,7 @@ export class DataService {
       return this.contextID;
     }
 
-    //Sockets
+    //Socket-Kommunikation
     setSocketID(id: string){
       this.socketID=id;
     }
@@ -97,7 +101,7 @@ export class DataService {
       return this.socketID;
     }
 
-    //Device Objekt
+    //Device
     setDevice(token: string, id: string, name: string){
       this.deviceObj = { 
         deviceID: id, 
