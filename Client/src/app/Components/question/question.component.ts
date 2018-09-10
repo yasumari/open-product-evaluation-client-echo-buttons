@@ -7,7 +7,6 @@ import { MessageService } from '../../Services/message.service';
 import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
 import { Constants } from "../../constants";
-import { HttpLinkHandler } from 'apollo-angular-link-http';
 
 @Component({
   selector: 'app-question',

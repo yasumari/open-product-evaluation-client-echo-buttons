@@ -8,7 +8,6 @@ interface myDevice {
 }
 
 export class DataService {
-  
     private deviceObj: myDevice;
     private subjectProject: Context;
     private currentPositionQuestion=0;
@@ -19,7 +18,10 @@ export class DataService {
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
 
-    //Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
+    /**
+     * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
+     * @param url 
+     */
     setChosenImageUrl(url: string){
       this.chosenImage=url;
     }
@@ -56,14 +58,19 @@ export class DataService {
       this.numberAnswerQuestions=0;
     }
 
-    //Aktuelle Position der Frage aus dem Survey
-    getPositionQuestion(){
-      return this.currentPositionQuestion;
-    }
   
+
+  /**
+   * @description Aktuelle Position der Frage aus dem Survey
+   * @param position: Position der Fragen im Array
+   */
     setPositionQuestion(position: number){
       this.currentPositionQuestion=position;
     }
+    getPositionQuestion(){
+      return this.currentPositionQuestion;
+    }
+
     //Nach beantworten der Frage, muss die Position erhöht werden, Durchlauf aller Fragen möglich
     updatePositionQuestion(){
       this.currentPositionQuestion++;
@@ -74,16 +81,23 @@ export class DataService {
     }*/
 
     //Welcher Kontext wurde ausgewählt
-    getContext(): Context {
-      return this.subjectProject;
-    }
 
+/**
+ * @description Projekt damit die anderen Komponenten darauf zugreifen können
+ * @param project 
+ */
     sendContext(project: Context ) {
       this.contextID=project.id;
       this.subjectProject = project;
     }
+    getContext(): Context {
+      return this.subjectProject;
+    }
 
-    /*ContextID, die auf der Startseite ausgewählt wurde, */ 
+    /**
+     * @description ContextID, die auf der Startseite ausgewählt wurde
+     * @param id 
+     */
     setContextID(id: string){
       this.contextID=id;
     }
@@ -93,15 +107,20 @@ export class DataService {
     }
 
     //Socket-Kommunikation
-    setSocketID(id: string){
+    /*setSocketID(id: string){
       this.socketID=id;
     }
 
     getSocketID(){
       return this.socketID;
-    }
+    }*/
 
-    //Device
+    /**
+     * Device speichern für Mutations
+     * @param token 
+     * @param id 
+     * @param name 
+     */
     setDevice(token: string, id: string, name: string){
       this.deviceObj = { 
         deviceID: id, 

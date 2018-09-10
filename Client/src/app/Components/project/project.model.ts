@@ -1,6 +1,8 @@
 import gql from 'graphql-tag';
 
-
+/**
+ * @description Server: alle KontextIDs abfragen
+ */
 export const queryContextID: any = gql`
 query{
   contexts{
@@ -8,6 +10,10 @@ query{
   }
 }
 `;
+
+/**
+ * @description Server: ein neues Device anlegen
+ */
 export const newDeviceMutation: any = gql`
 mutation addNewDevice ($deviceName: String!){
 	createDevice(data: {
@@ -22,6 +28,9 @@ mutation addNewDevice ($deviceName: String!){
   } 
 }`;
 
+/**
+ * @description Server: ein Device mit der KontextID aktualisieren
+ */
 export const updateDevice: any = gql`
 mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
   updateDevice(data: 
@@ -167,7 +176,9 @@ subscription CurrentProjectForController ($contextID: ID!){
 }`;
 */
 
-
+/**
+ * @description Server: Query: das Projekt mittels der KontextID abfragen
+ */
 export const CurrentProjectSubscription: any = gql`
 query gContexts ($contextID: ID!){
   context(contextID: $contextID) {

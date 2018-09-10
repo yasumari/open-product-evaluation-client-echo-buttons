@@ -1,5 +1,8 @@
 import gql from 'graphql-tag';
 
+/**
+ * @description Neues Gerät hinzufügen
+ */
 export const newDeviceMutation: any = gql`
 mutation addNewDevice ($deviceName: String!){
 	createDevice(data: {
@@ -14,6 +17,9 @@ mutation addNewDevice ($deviceName: String!){
   } 
 }`;
 
+/**
+ * @description alle Projekte abfragen
+ */
 export const queryAllSurveys: any=gql`
 query{
   contexts{

@@ -4,8 +4,7 @@ import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service'; 
 import { Subscription } from 'rxjs/Subscription';
 import { ChartsModule } from 'ng2-charts';
-import { Context, Answer, Question } from '../../types';
-
+import { Context, Question } from '../../types';
 import { Constants } from '../../constants';
 
 
@@ -139,9 +138,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   private title_nextPage;
 
 
-  constructor(private dataService: DataService, private router: Router, private messageService: MessageService) { 
-    
-  }
+  constructor(private dataService: DataService, private router: Router, private messageService: MessageService) {}
   nextPage(){
     //Button wurde gedrückt, dann stoppt der Timer
     clearTimeout(this.timer);

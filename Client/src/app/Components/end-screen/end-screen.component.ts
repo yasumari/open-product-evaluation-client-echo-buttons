@@ -6,7 +6,7 @@ import { MessageService} from '../../Services/message.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
-import { Context, Answer, Question } from '../../types';
+import { Context, Question } from '../../types';
 
 
 
@@ -18,7 +18,6 @@ import { Context, Answer, Question } from '../../types';
 })
 
  
-
 export class EndScreenComponent implements OnInit {
   private i: number;
   private max: number;
@@ -30,10 +29,12 @@ export class EndScreenComponent implements OnInit {
   public currentQuestion: Question;
   public DataAntwort:number=0;
  
-  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
-  }
+  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {}
   
   
+  /**
+   * @description KontextID des aktuellen Geräts auf null setzen
+   */
   abmelden(): void{
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
@@ -47,6 +48,9 @@ export class EndScreenComponent implements OnInit {
       });
   }
 
+  /**
+   * @description Das Gerät beim Server löschen (für Umfrage z.B. Smartphones)
+   */
   deleteDevice(): void{
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
@@ -60,6 +64,9 @@ export class EndScreenComponent implements OnInit {
       });
   }
 
+  /**
+   * @description zurück zur Startseite
+   */
   goBackToListProjects(){
     this.sub.unsubscribe();
     this.dataService.setPositionQuestion(0);
@@ -72,7 +79,6 @@ export class EndScreenComponent implements OnInit {
     this.currentProject = this.dataService.getContext();
     //meiste image gewählt:
   
-   
     this.image1=this.dataService.getChosenImageUrlarray();
     this.value=this.dataService.getMaxAntwortArray();
     
@@ -86,6 +92,8 @@ export class EndScreenComponent implements OnInit {
    
     
     this.deviceID=this.dataService.getDeviceID();
+
+    //Buzzer gedrückt, dann zurück zur Startseite
     this.sub=this.messageService.getMessage().subscribe( message => {
       this.goBackToListProjects();
     });
