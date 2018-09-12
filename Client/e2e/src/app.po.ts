@@ -15,10 +15,6 @@ export class AppPage {
     return $(appPage + ' h1').getText();
   }
 
-  getElementByClass(className){
-    return $(className);
-  }
-
   getCards(){
     return $$('app-list .card-title');
   }
