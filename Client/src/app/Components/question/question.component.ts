@@ -281,11 +281,11 @@ rankingQuestionClick(btn_number: number){
       this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
       this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
     
-          // testdaten rechnnung Antwort 
+      // testdaten rechnnung Antwort 
       this.currentQuestion.id=1;
         
       this.currentProject.activeSurvey.votes[0].answers[0].question=1;
-        
+      console.log("",this.currentProject.activeSurvey.votes);
       this.currentQuestion.id=2;
 
       this.currentProject.activeSurvey.votes[0].answers[1].question=2; 

@@ -17,6 +17,9 @@ describe('workspace-project App', () => {
     expect(page.getButtonById('button').getText()).toEqual('ÖFFNEN');
   })
 
+  /** Testfall 1
+   * @description Startseite zeigt alle Projekte
+   */
   it('should display two projects', () => {
     page.navigateTo();
     expect(page.getCards().then(function(elements){
@@ -35,7 +38,7 @@ describe('workspace-project App', () => {
     expect(page.getButtonStart().getText()).toEqual('START');
   })
   
-  /**
+  /** Testfall 2
    * @description Wählt das erste Projekt
    */
   it('should choose first project, route to first project', () => {
@@ -46,7 +49,7 @@ describe('workspace-project App', () => {
     expect(page.getButtonStart().getText()).toEqual('START');
   })
 
-  /**
+  /** Testfall 3
    * @description Startet eine Projektumfrage. 
    */
   it('should start a Project', () => {
@@ -57,7 +60,9 @@ describe('workspace-project App', () => {
     expect(page.getParagraphText('app-question')).toEqual('Hello World');
   })
 
-
+  /** Testfall 4
+   * @description Bei einer Frage müssen die benötigten Buttons gezeigt werden
+   */
   it('Projektumfrage: Sind alle Buttons da', () => {
     //muss vorher auf Projekt-Seite, da dort Daten geladen werden
     page.navigateToPage('/project');
@@ -97,7 +102,11 @@ describe('workspace-project App', () => {
     });
   })
 
-  it('Projektumfrage: Ersten Button click, andere Buttons disabled', () => {
+/** Testfall 5
+ * @description Nachdem eine Antwort ausgewählt wurde, 
+ * sind die anderen Buttons disabled (Ausnahme: RankingQuestions)
+ */
+  it('Projektumfrage: Choose one answer, buttons are disabled', () => {
     //muss vorher auf Projekt-Seite, da dort Daten geladen werden
     page.navigateToPage('/project');
     browser.sleep(200);
@@ -144,6 +153,9 @@ describe('workspace-project App', () => {
     });
   })
 
+  /** Testfall 6
+   * @description Beim Beantworten einer Umfrage, gelangt man zur Feedback-Seite
+   */
   it('Projektumfrage: Eine Antwort auswählen und zur Feedback-Seite', () => {
     //muss vorher auf Projekt-Seite, da dort Daten geladen werden
     browser.waitForAngularEnabled(false);
@@ -196,6 +208,7 @@ describe('workspace-project App', () => {
     });
   })
 
+  
 
 });
 

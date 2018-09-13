@@ -24,7 +24,6 @@
             ],
             "styles": [
                 "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-                "src/styles.css",
                 "src/css/animate.css",
                 "src/css/bootstrap.css",
                 "src/css/flexslider.css",
@@ -91,9 +90,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [
-              "src/styles.css"
-            ],
             "scripts": [],
             "assets": [
               "src/favicon.ico",
