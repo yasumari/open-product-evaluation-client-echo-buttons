@@ -180,8 +180,8 @@ h5{
   -ms-border-radius: 0px;
   border-radius: 0px;
   letter-spacing: 2px;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
+  -webkit-transition: all .1s linear;
+  transition: all .1s linear;
   transition: 0.5s;
   padding: 20px 30px;
   text-transform: uppercase;
