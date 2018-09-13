@@ -1,6 +1,21 @@
 import gql from 'graphql-tag';
 
 //Mutation Answer FavoriteQuesion
+export const favoriteAnswerMutateTests = gql`
+mutation($questionID: ID!, $favoriteImage: ID!){
+  createAnswer(data: {
+    questionID: $questionID,
+    favoriteImage: $favoriteImage
+  	}){
+      __typename
+    	answer{
+        __typename
+    		question
+      }
+  	}
+}`;
+
+//Mutation Answer FavoriteQuesion
 export const favoriteAnswerMutate = gql`
 mutation($questionID: ID!, $favoriteImage: ID!, $deviceID: ID!, $contextID: ID!){
   createAnswer(data: {

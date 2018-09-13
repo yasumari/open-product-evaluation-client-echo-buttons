@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Renderer2} from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService} from '../../Services/data.service';
-import { favoriteAnswerMutate, likeAnswerMutate, likeDislikeAnswerMutate, rankingAnswerMutate, regulatorAnswerMutate, choiceAnswerMutate} from './question.model';
+import { favoriteAnswerMutate, likeAnswerMutate, likeDislikeAnswerMutate, rankingAnswerMutate, regulatorAnswerMutate, choiceAnswerMutate, favoriteAnswerMutateTests} from './question.model';
 import { Router } from '@angular/router';
 import { MessageService } from '../../Services/message.service';
 import { Context, Question } from '../../types';
@@ -58,11 +58,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
     favoriteQuestionClick(btn_number: number){
     this.apollo.mutate({
     fetchPolicy: 'no-cache',
-    mutation: favoriteAnswerMutate,
+    //mutation: favoriteAnswerMutate
+    mutation: favoriteAnswerMutateTests,
     variables: { 
       questionID: this.currentAnswer.questionID,
-      deviceID: this.currentAnswer.deviceID, 
-      contextID: this.currentAnswer.contextID,
+      //deviceID: this.currentAnswer.deviceID, 
+      //contextID: this.currentAnswer.contextID,
       favoriteImage:this.currentQuestion.items[btn_number].image.id},
     }).subscribe((mutationResponse) => 
     console.log("mutation", mutationResponse)); 

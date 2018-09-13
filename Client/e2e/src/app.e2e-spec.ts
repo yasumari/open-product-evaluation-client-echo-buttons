@@ -12,11 +12,6 @@ describe('workspace-project App', () => {
     expect(page.getParagraphText("app-list")).toEqual('Projekte');
   });
 
-  it('should display the first start button', () => {
-    page.navigateTo();
-    expect(page.getButtonById('button').getText()).toEqual('ÖFFNEN');
-  })
-
   it('should display two projects', () => {
     page.navigateTo();
     expect(page.getCards().then(function(elements){
@@ -24,15 +19,6 @@ describe('workspace-project App', () => {
       elements[1].isPresent();
     }));
     expect(page.getButtonById('button').getText()).toEqual('ÖFFNEN');
-  })
-
-  /**
-   * @description Öffnen-Button der Startseite
-   */
-  it('should route to a project by Button Öffnen', () => {
-    page.navigateTo();
-    page.getButtonById('button').click();
-    expect(page.getButtonStart().getText()).toEqual('START');
   })
   
   /**
@@ -43,6 +29,7 @@ describe('workspace-project App', () => {
     page.getCards().then(function(elements){
       elements[0].click();
     });
+    browser.sleep(200);
     expect(page.getButtonStart().getText()).toEqual('START');
   })
 
@@ -54,7 +41,7 @@ describe('workspace-project App', () => {
     browser.sleep(200);
     page.getButtonStart().click();
     browser.sleep(200);
-    expect(page.getParagraphText('app-question')).toEqual('Hello World');
+    expect(page.getParagraphText('app-question')).toEqual('Wo würden Sie sich eher anmelden');
   })
 
 
@@ -68,8 +55,9 @@ describe('workspace-project App', () => {
     page.getHeadlineQuestion().getText().then(function(text) {
       console.log(text);
       type=text;
-      if (type=="Hello World (favoriteQuestion)"){
-        expect(page.getButton(0).isPresent()).toBeTruthy();
+      //if (type=="Hello World (favoriteQuestion)"){
+      if (type=="Untersuchung zum Verhalten von Informatikern in Hochschulen (favoriteQuestion)"){  
+      expect(page.getButton(0).isPresent()).toBeTruthy();
       expect(page.getButton(1).isPresent()).toBeTruthy();
   
       } else if (type=="Hello World (choiceQuestion)"){
@@ -107,7 +95,8 @@ describe('workspace-project App', () => {
     page.getHeadlineQuestion().getText().then(function(text) {
       console.log(text);
       type=text;
-      if (type=="Hello World (favoriteQuestion)"){
+      //if (type=="Hello World (favoriteQuestion)"){
+      if (type=="Untersuchung zum Verhalten von Informatikern in Hochschulen (favoriteQuestion)"){
         browser.sleep(2000);
         page.getButton(1).click();
         expect(page.getButton(0).isEnabled()).toBeFalsy();
@@ -155,7 +144,8 @@ describe('workspace-project App', () => {
     page.getHeadlineQuestion().getText().then(function(text) {
       console.log(text);
       type=text;
-      if (type=="Hello World (favoriteQuestion)"){
+      //if (type=="Hello World (favoriteQuestion)"){
+        if (type=="Untersuchung zum Verhalten von Informatikern in Hochschulen (favoriteQuestion)"){
         console.log("Favorite");
         page.getButton(1).click();
         browser.sleep(4000);
