@@ -11,17 +11,8 @@ describe('workspace-project App', () => {
     page.navigateTo();
     expect(page.getParagraphText("app-list")).toEqual('Projekte');
   });
-
-  it('should display two projects', () => {
-    page.navigateTo();
-    expect(page.getCards().then(function(elements){
-      elements[0].isPresent();
-      elements[1].isPresent();
-    }));
-    expect(page.getButtonById('button').getText()).toEqual('ÖFFNEN');
-  })
   
-  /**
+  /** Testfall 2
    * @description Wählt das erste Projekt
    */
   it('should choose first project, route to first project', () => {
@@ -33,7 +24,7 @@ describe('workspace-project App', () => {
     expect(page.getButtonStart().getText()).toEqual('START');
   })
 
-  /**
+  /** Testfall 3
    * @description Startet eine Projektumfrage. 
    */
   it('should start a Project', () => {
@@ -44,7 +35,9 @@ describe('workspace-project App', () => {
     expect(page.getParagraphText('app-question')).toEqual('Wo würden Sie sich eher anmelden');
   })
 
-
+  /** Testfall 4
+   * @description Bei einer Frage müssen die benötigten Buttons gezeigt werden
+   */
   it('Projektumfrage: Sind alle Buttons da', () => {
     //muss vorher auf Projekt-Seite, da dort Daten geladen werden
     page.navigateToPage('/project');
@@ -85,7 +78,11 @@ describe('workspace-project App', () => {
     });
   })
 
-  it('Projektumfrage: Ersten Button click, andere Buttons disabled', () => {
+/** Testfall 5
+ * @description Nachdem eine Antwort ausgewählt wurde, 
+ * sind die anderen Buttons disabled (Ausnahme: RankingQuestions)
+ */
+  it('Projektumfrage: Choose one answer, buttons are disabled', () => {
     //muss vorher auf Projekt-Seite, da dort Daten geladen werden
     page.navigateToPage('/project');
     browser.sleep(200);
@@ -133,6 +130,9 @@ describe('workspace-project App', () => {
     });
   })
 
+  /** Testfall 6
+   * @description Beim Beantworten einer Umfrage, gelangt man zur Feedback-Seite
+   */
   it('Projektumfrage: Eine Antwort auswählen und zur Feedback-Seite', () => {
     //muss vorher auf Projekt-Seite, da dort Daten geladen werden
     browser.waitForAngularEnabled(false);
@@ -186,6 +186,53 @@ describe('workspace-project App', () => {
     });
   })
 
+  it('im Feedback richtiges Bild anzeigen', () => {
+
+  })
+
+  it('im Feedback richtiges Diagramm anzeigen', () => {
+    
+  })
+
+  it('Fortschrittsbalken muss sich pro Frage erhöhen', () => {
+    
+  })
+  /**
+   * Testfall Y
+   * @description Nach Beantworten aller Fragen, kommt man zum Ende
+   */
+  it('Alle 4 Fragen des Tests beantworten, dann am Ende', () => {
+    browser.waitForAngularEnabled(false);
+    page.navigateToPage('/project');
+    browser.sleep(200);
+    page.getButtonStart().click();
+    browser.sleep(500);
+    //Bekannt, dass es eine Favorite-Frage ist. 
+    page.getButton(0).click();
+    browser.sleep(3000);
+    page.getButtonById('button').click();
+    browser.sleep(3000);
+
+    page.getButton(0).click();
+    browser.sleep(3000);
+    page.getButtonById('button').click();
+    browser.sleep(3000);
+
+
+    page.getButton(0).click();
+    browser.sleep(3000);
+    page.getButtonById('button').click();
+    browser.sleep(3000);
+
+    page.getButton(0).click();
+    browser.sleep(3000);  
+    expect(page.getParagraphText('app-feedback')).toEqual("Das war's!");
+  
+    page.getButtonById('button').click();
+    browser.sleep(2000);
+    expect(page.getParagraphText('app-end-screen')).toEqual("Vielen Dank für deine Teilnahme!");
+  })
+  
 
 });
 

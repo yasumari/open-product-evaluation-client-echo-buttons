@@ -383,6 +383,7 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
 
        break;
       case 'FavoriteQuestion':
+      console.log("FavoriteQuestionFeedback");
       for(let i=0;i<this.currentQuestion.items.length;i++) 
       this.barChartLabels[i] =this.currentQuestion.items[i].label ;
       

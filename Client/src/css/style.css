@@ -180,15 +180,16 @@ h5{
   -ms-border-radius: 0px;
   border-radius: 0px;
   letter-spacing: 2px;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
+  -webkit-transition: all .1s linear;
+  transition: all .1s linear;
   transition: 0.5s;
   padding: 20px 30px;
   text-transform: uppercase;
   text-shadow: none !important;
-  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 32px 64px 0 rgba(0,0,0,0.2);
+  border-radius: 10px;
 }
 
 .btn-primary {
@@ -206,4 +207,9 @@ h5{
   background: #fff;
   color: #000;
   border: 2px solid #fff;
+}
+
+.btn-white:active {
+    box-shadow: 0 5px 5px rgba(0,0,0,0.2);
+    transform: translateY(4px);
 }
