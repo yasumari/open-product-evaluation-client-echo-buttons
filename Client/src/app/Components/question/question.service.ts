@@ -10,6 +10,7 @@ export class QuestionService {
 
     answer(type:string, answerQuestion: any, apollo: Apollo): void {
         const strategy = this.strategies.find((strategy) => {
+            console.log(strategy);
             return strategy.support(type);
         });
         strategy.answer(apollo, answerQuestion);

@@ -1,22 +1,25 @@
 import { QuestionStrategy } from "./QuestionStrategy";
 import { Apollo } from "apollo-angular";
-import { likeAnswerMutate } from "../Components/question/question.model";
+import { regulatorAnswerMutate } from "../Components/question/question.model";
 
-export class likeStrategy extends QuestionStrategy {
+export class regulatorStrategy extends QuestionStrategy {
     answer(apollo: Apollo, answerQuestion:any){
-        console.log("Hallo aus der LIKE strategy");
+        console.log("Hallo aus der Rating strategy");
         apollo.mutate({
             fetchPolicy: 'no-cache',
-            mutation: likeAnswerMutate,
+            mutation: regulatorAnswerMutate,
             variables: { 
               questionID: answerQuestion.questionID,
               deviceID: answerQuestion.deviceID, 
               contextID: answerQuestion.contextID,
-              liked: true},
+              rating: answerQuestion.btn},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
     }
     support(questiontype:string){
-        return (questiontype=="LikeQuestion") ? true : false;
+        
+        if (questiontype=="RatingQuestion"){
+            return true;
+        }
     }
 }

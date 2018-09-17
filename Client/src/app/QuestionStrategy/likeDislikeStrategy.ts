@@ -1,14 +1,23 @@
 import { QuestionStrategy } from "./QuestionStrategy";
+import { Apollo } from "apollo-angular";
+import { likeDislikeAnswerMutate } from "../Components/question/question.model";
 
 export class likeDislikeStrategy extends QuestionStrategy {
     
-    answer(answerQuestion: any){
+    answer(apollo: Apollo,answerQuestion: any){
         console.log("HALLO AUS DER LIKEDISLIKE STRATEGY");
+        apollo.mutate({
+            fetchPolicy: 'no-cache',
+            mutation: likeDislikeAnswerMutate,
+            variables: { 
+              questionID: answerQuestion.questionID,
+              deviceID: answerQuestion.deviceID, 
+              contextID: answerQuestion.contextID,
+              liked: answerQuestion.liked },
+            }).subscribe((mutationResponse) => 
+            console.log("mutation", mutationResponse)); 
     }
     support(questiontype:string){
-        console.log("JA supported");
-        if (questiontype=="LikeDislikeQuestion"){
-            return true;
-        }
+        return (questiontype=="LikeDislikeQuestion") ? true : false;
     }
 }

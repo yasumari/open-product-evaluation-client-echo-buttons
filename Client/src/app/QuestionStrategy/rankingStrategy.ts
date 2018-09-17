@@ -1,22 +1,25 @@
 import { QuestionStrategy } from "./QuestionStrategy";
 import { Apollo } from "apollo-angular";
-import { likeAnswerMutate } from "../Components/question/question.model";
+import { rankingAnswerMutate } from "../Components/question/question.model";
 
-export class likeStrategy extends QuestionStrategy {
+export class rankingStrategy extends QuestionStrategy {
     answer(apollo: Apollo, answerQuestion:any){
-        console.log("Hallo aus der LIKE strategy");
+        console.log("Hallo aus der Ranking strategy");
         apollo.mutate({
             fetchPolicy: 'no-cache',
-            mutation: likeAnswerMutate,
+            mutation: rankingAnswerMutate,
             variables: { 
               questionID: answerQuestion.questionID,
               deviceID: answerQuestion.deviceID, 
               contextID: answerQuestion.contextID,
-              liked: true},
+              rankedImages: answerQuestion.ranking},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
+        
     }
     support(questiontype:string){
-        return (questiontype=="LikeQuestion") ? true : false;
+        if (questiontype=="RankingQuestion"){
+            return true;
+        }
     }
 }

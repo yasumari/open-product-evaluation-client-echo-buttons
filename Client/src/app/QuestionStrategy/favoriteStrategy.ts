@@ -18,8 +18,6 @@ export class favoriteStrategy extends QuestionStrategy {
     }
 
     support(questiontype:string){
-        if (questiontype=="FavoriteQuestion"){
-            return true;
-        }
+        return (questiontype=="FavoriteQuestion") ? true : false;
     }
 }

@@ -27,6 +27,8 @@ import { likeDislikeStrategy } from './QuestionStrategy/likeDislikeStrategy';
 import { favoriteStrategy } from './QuestionStrategy/favoriteStrategy';
 import { likeStrategy } from './QuestionStrategy/likeStrategy';
 import { choiceStrategy } from './QuestionStrategy/choiceStrategy';
+import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
+import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
 
 export function questionServiceFactory(apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
   return new QuestionService(apollo, types);
@@ -36,10 +38,13 @@ const STRATEGY_PROVIDER: FactoryProvider = {
   provide: QuestionService,
   useFactory: questionServiceFactory,
   deps: [
-      likeStrategy,
       favoriteStrategy,
+      favoriteStrategy,
+      likeStrategy,
       choiceStrategy,
-      likeDislikeStrategy
+      likeDislikeStrategy,
+      regulatorStrategy,
+      rankingStrategy
   ]
 };
  
@@ -65,10 +70,12 @@ const STRATEGY_PROVIDER: FactoryProvider = {
   ],
   providers: [
     DataService, 
-    likeStrategy,
     likeDislikeStrategy,
     favoriteStrategy,
     choiceStrategy, 
+    likeStrategy,
+    regulatorStrategy,
+    rankingStrategy,
     STRATEGY_PROVIDER],
   bootstrap: [AppComponent]
 })
