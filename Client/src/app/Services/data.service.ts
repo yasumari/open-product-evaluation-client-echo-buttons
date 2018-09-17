@@ -17,6 +17,7 @@ export class DataService {
     private chosenImagearray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
+    private countRanking=0;
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -139,6 +140,22 @@ export class DataService {
 
     getDeviceName(){
       return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
+    }
+
+/**
+ * @description Speziell für Ranking, um die Platz zu verteilen, 
+ * beschriften und abzugleichen, wann alle Items in eine Reihenfolge gebracht wurde
+ */
+    getCountRanking(){
+      return this.countRanking;
+    }
+
+    resetCountRanking(){
+      this.countRanking=0;
+    }
+
+    updateCountRanking(){
+      this.countRanking++;
     }
 
   constructor() { }

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, FactoryProvider } from '@angular/core';
+import { NgModule, FactoryProvider, Renderer2 } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
@@ -30,17 +30,22 @@ import { choiceStrategy } from './QuestionStrategy/choiceStrategy';
 import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
 import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
 
-export function questionServiceFactory(apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
-  return new QuestionService(apollo, types);
+export function questionServiceFactory(renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
+  return new QuestionService(renderer, dataService, apollo, types);
 }
 
 const STRATEGY_PROVIDER: FactoryProvider = {
   provide: QuestionService,
   useFactory: questionServiceFactory,
   deps: [
-      favoriteStrategy,
-      favoriteStrategy,
       likeStrategy,
+      favoriteStrategy,
+      choiceStrategy,
+      likeDislikeStrategy,
+      regulatorStrategy,
+      rankingStrategy,
+      likeStrategy,
+      favoriteStrategy,
       choiceStrategy,
       likeDislikeStrategy,
       regulatorStrategy,

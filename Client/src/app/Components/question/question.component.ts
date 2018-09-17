@@ -31,16 +31,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
   }
 
-  /**
-   * @description Buttons nach Antwort disablen, Alle Buttons haben den Namen currentQuestion.items[].image.id
-   */
-  disableAllButtens(){
-    for (let btn of this.currentQuestion.items) {
-          let _btn: HTMLElement=document.getElementById(btn.image.id);
-          this.renderer.setProperty(_btn, 'disabled', 'true');
-        }
-  }
-
 
   /**
    * @description Reaktion auf einen gedrückten Buzzer/Button, entscheidet anhand welches 
@@ -49,9 +39,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     Button 0,1,2,3
            | | | |
     Items  0,1,2,3
-      Variablen der Mutations sind unterschiedlich: siehe Kommentare der Funktionen
-      Nach allen Antworten wird anhand Timer_Question noch die Seite abgewartet, 
-      um die gedrückten Buttons zu simulieren. Anschließend auf Feedback-Seite
    * @param btn_number Nummer des gedrückten Buttons
    */
    buttonClick(btn_number: number){    
@@ -61,117 +48,43 @@ export class QuestionComponent implements OnInit, OnDestroy {
       contextID: this.dataService.getContextID()
     }
 
-    switch(this.currentQuestion.__typename){
-      case 'RankingQuestion':
-        const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
+    if (this.currentQuestion.__typename=="RankingQuestion"){
+      const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
         this.renderer.setStyle(btn_rank, 'background', 'lightgrey');
-        this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz '+(this.count_items+1));
         this.renderer.setProperty(btn_rank, 'color', '#34a7bd');
         this.renderer.setProperty(btn_rank, 'disabled', 'true');
-        //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt 
-        this.ranking.push(this.currentQuestion.items[btn_number].image.id);
-        if (this.ranking.length==this.currentQuestion.items.length){
-          //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
-            this.currentAnswer.ranking=this.ranking;
-            this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
-            this.sub.unsubscribe();
-            this.dataService.setAnswerNumber();
-            setTimeout(() => {
-              //Im Feedback Platz 1 anzeigen
-              for (var i=0; i<this.currentQuestion.items.length; i++){
-                if (this.ranking[0]==this.currentQuestion.items[i].image.id){
-                  this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
-                }
-              }
-              this.router.navigate(['/feedback']);
-            }, Constants.TIMER_QUESTION);
-        } else {
-          this.count_items++;    
-        }
-        break;
-
-      case 'LikeDislikeQuestion':
-        this.sub.unsubscribe();
-        //DislikeQuestion: mutation besondere Variable:  liked - Gefällt oder gefällt das Objekt nicht
-        this.currentAnswer.liked=(btn_number == 0 ? true : false);
-        this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
-        this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-        this.dataService.setAnswerNumber();
-        setTimeout(() => {
-          this.router.navigate(['/feedback']);
-        }, Constants.TIMER_QUESTION);
-
-        let btn_like: HTMLElement = document.getElementById("btn_like");
-        let btn_dislike: HTMLElement = document.getElementById("btn_dislike");
-        this.renderer.setProperty(btn_like, 'disabled', 'true');
-        this.renderer.setProperty(btn_dislike, 'disabled', 'true');
-        break;
-
-      case 'RegulatorQuestion':
-        this.sub.unsubscribe();
-        let j=0;
-        //Alle 4 Buttons disablen
-        while(j<4){
-          let btn_reg: HTMLElement=document.getElementById("ranking_"+j);
-          this.renderer.setProperty(btn_reg, 'disabled', 'true');
-          j++;
-        }
-        //RegulatorQuestion: mutation besondere Variable:rating - Skala 
-        this.currentAnswer.rating=btn_number;
-        var normalized=btn_number/this.currentQuestion.items.length;
-    
-    //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
-    this.dataService.setChosenImageUrl(this.currentQuestion.items[0].image.url);
-    this.dataService.setAnswerNumber();
-    setTimeout(() => {
-      this.router.navigate(['/feedback']);
-    }, Constants.TIMER_QUESTION);
-    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
-        break;
-
-      case 'ChoiceQuestion': 
-        this.sub.unsubscribe();
-        this.disableAllButtens();
-        //ChoiceQuestion: choiceCode - anhand des Codes vom Objekt festgelegt
-        this.currentAnswer.choiceCode=this.currentQuestion.choices[btn_number].code;
-        this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
-        this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-        this.dataService.setAnswerNumber();
-        setTimeout(() => {
-          this.router.navigate(['/feedback']);
-        }, Constants.TIMER_QUESTION);
-        break;
-
-      case 'LikeQuestion':
-        this.sub.unsubscribe();
-        this.disableAllButtens();
-        //TODO geht auch like= false? dann button weiter benötigt?
-        this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
-
-        //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
-        this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-        this.dataService.setAnswerNumber();
-        setTimeout(() => {
-          this.router.navigate(['/feedback']);
-        }, Constants.TIMER_QUESTION);
-        break;
-
-      case 'FavoriteQuestion':
-        this.sub.unsubscribe();
-        this.disableAllButtens();
-        //spezifisch für Favorite-> favoriteImage
-        this.currentAnswer.favoriteImage=this.currentQuestion.items[btn_number].image.id;
-        //FragetypStrategie
-        this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
-        this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
-        this.dataService.setAnswerNumber();
-        setTimeout(() => {
-          this.router.navigate(['/feedback']);
-        }, Constants.TIMER_QUESTION);
-        break;
+        this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz '+(this.count_items+1));
+        
+      //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt 
+      this.ranking.push(this.currentQuestion.items[btn_number].image.id);
+      if (this.ranking.length==this.currentQuestion.items.length){
+        //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
+          this.currentAnswer.ranking=this.ranking;
+          this.dataService.setAnswerNumber();
+          //Im Feedback Platz 1 anzeigen
+          for (var i=0; i<this.currentQuestion.items.length; i++){
+            if (this.ranking[0]==this.currentQuestion.items[i].image.id){
+              this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
+            }
+          }
+          this.questionStrategy(btn_number)
+      } else {
+        this.count_items++;    
       }
+    } else {
+      this.questionStrategy(btn_number);
     }
+  }
 
+  questionStrategy(btn_number: number){
+      //Nach allen Antworten wird anhand Timer_Question noch die Seite abgewartet, 
+      //um die gedrückten Buttons zu simulieren. Anschließend auf Feedback-Seite
+      this.sub.unsubscribe();
+      setTimeout(() => {
+        this.router.navigate(['/feedback']);
+      }, Constants.TIMER_QUESTION);
+      this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService);
+  }
 
  public ngOnInit(): void {
       this.currentProject = this.dataService.getContext();
