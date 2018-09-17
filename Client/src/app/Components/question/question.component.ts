@@ -7,6 +7,7 @@ import { MessageService } from '../../Services/message.service';
 import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
 import { Constants } from "../../constants";
+import { QuestionService } from "./question.service";
 
 @Component({
   selector: 'app-question',
@@ -22,8 +23,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private ranking=[]; 
   private count_items; 
 
- constructor(private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {
- }
+ constructor(private questionService: QuestionService, private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {}
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -56,16 +56,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
      * @param btn_number : Nummer des Buttons
      */
     favoriteQuestionClick(btn_number: number){
-    this.apollo.mutate({
-    fetchPolicy: 'no-cache',
-    mutation: favoriteAnswerMutate,
-    variables: { 
-      questionID: this.currentAnswer.questionID,
-      deviceID: this.currentAnswer.deviceID, 
-      contextID: this.currentAnswer.contextID,
-      favoriteImage:this.currentQuestion.items[btn_number].image.id},
-    }).subscribe((mutationResponse) => 
-    console.log("mutation", mutationResponse)); 
+
+    this.currentAnswer.favoriteImage=this.currentQuestion.items[btn_number].image.id;
+    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
     this.dataService.setChosenImageUrl(this.currentQuestion.items[btn_number].image.url);
     this.dataService.setAnswerNumber();
     setTimeout(() => {
@@ -78,6 +71,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
    * @param btn_number : Nummer des Buttons
    */
   likeQuestionClick(btn_number: number){
+    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
     this.apollo.mutate({
     fetchPolicy: 'no-cache',
     mutation: likeAnswerMutate,
@@ -101,6 +95,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
    * @param btn_number : Nummer des Buttons
    */
   choiceQuestionClick(btn_number: number){
+    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
     this.apollo.mutate({
     fetchPolicy: 'no-cache',
     mutation: choiceAnswerMutate,
@@ -148,6 +143,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
    * @param btn_number : Nummer des Buttons
    */
   likeDislikeQuestion(btn_number: number){
+    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, this.apollo);
     this.apollo.mutate({
     fetchPolicy: 'no-cache',
     mutation: likeDislikeAnswerMutate,
