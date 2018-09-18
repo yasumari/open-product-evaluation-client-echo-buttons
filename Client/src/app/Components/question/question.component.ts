@@ -94,41 +94,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
-<<<<<<< HEAD
-      console.log("Die ganze Frage: ", this.currentQuestion);
-      console.log("Antwort: ", this.currentProject.activeSurvey);
-      console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0]);
-      if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="LikeDislikeAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].liked);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="ChoiceAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].choiceCode);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="RegulatorAnswer"){
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].rating);
-        console.log("DaTA. answers[0]", this.currentProject.activeSurvey.votes[0].answers[0].normalized);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="RankingAnswer"){
-        console.log("RankingAnswer", this.currentProject.activeSurvey.votes[0].answers[0]);
-      }
-      else if(this.currentProject.activeSurvey.votes[0].answers[0].__typename=="FavoriteAnswer"){
-        console.log("Favorite", this.currentProject.activeSurvey.votes[0].answers[0].favoriteImage);
-      }
-=======
->>>>>>> master
-
-      //TODO rausnehmen, nur für testdaten drin
-      this.currentQuestion.items[0].image.url="../../../assets/images/checklist-1295319_1280.png";
-      this.currentQuestion.items[1].image.url="../../../assets/images/checklist-2023731_1280.png";
-    
       // testdaten rechnnung Antwort 
       this.currentQuestion.id=1;
         
       this.currentProject.activeSurvey.votes[0].answers[0].question=1;
-      console.log("",this.currentProject.activeSurvey.votes);
       this.currentQuestion.id=2;
 
       this.currentProject.activeSurvey.votes[0].answers[1].question=2; 
@@ -143,7 +112,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
 
     console.log("question datatest",this.currentQuestion);
-    console.log("antwort",this.currentProject.activeSurvey.votes);
+
+    console.log("URL: " + this.currentQuestion.choices[0].label);
 
       //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {

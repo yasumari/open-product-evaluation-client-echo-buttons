@@ -218,12 +218,13 @@
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4>Entscheide dich für eins.</h4>
 				<div class="row row-pb-md" >
-					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.choices ; let i = index " [attr.data-index]="i" >
+						<h1>{{i}}</h1>
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-								<button target="_blank" class="buzzer" name="button{{i}}" (click)="buttonClick(i)" id="{{currentQuestion.items[i].image.id}}">Design {{i+1}} </button>
+								<img src="{{currentQuestion.choices[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.choices[i].label}}</h5>
+								<button target="_blank" class="buzzer" name="button{{i}}" (click)="buttonClick(i)" id="{{currentQuestion.choices[i].code}}">Design {{i+1}} </button>
 							</div>
 						</div>
 					</div>

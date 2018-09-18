@@ -314,8 +314,8 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
     
       case 'ChoiceQuestion': 
       
-      for(let i=0;i<this.currentQuestion.items.length;i++) 
-      this.barChartLabels[i] =this.currentQuestion.items[i].label ;
+      for(let i=0;i<this.currentQuestion.choices.length;i++) 
+      this.barChartLabels[i] =this.currentQuestion.choices[i].label ;
     
       this.barChartLegend = false;
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
@@ -325,9 +325,9 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
         
        if(this.currentProject.activeSurvey.votes[i].answers[x].choiceCode==this.currentQuestion.choices[i].code)
-          if(this.currentQuestion.items[0].image.id==this.currentQuestion.choices[i].image.id)
+          if(this.currentQuestion.choices[0].image.id==this.currentQuestion.choices[i].image.id)
           this.DataAntwort=this.DataAntwort+1;
-          else  if(this.currentQuestion.items[1].image.id==this.currentQuestion.choices[i].image.id)
+          else  if(this.currentQuestion.choices[1].image.id==this.currentQuestion.choices[i].image.id)
           this.DataAntwort1=this.DataAntwort1+1;
       }
     
@@ -342,9 +342,9 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
     
      let maximm = Math.max(this.DataAntwort,this.DataAntwort1);
      if(maximm==this.DataAntwort)
-    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.choices[0].image.url);
     else
-    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.choices[1].image.url);
     this.dataService.setMaxAntwortArray(maximm);
      
       break;

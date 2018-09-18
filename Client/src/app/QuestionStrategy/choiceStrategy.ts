@@ -10,8 +10,8 @@ export class choiceStrategy extends QuestionStrategy {
     answer(apollo: Apollo, answerQuestion: any, btn_number: Number, renderer: Renderer2, dataService:DataService){
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
         console.log("Hallo aus der CHOICE strategy");
-        for (let btn of currentQuestion.items) {
-            let _btn: HTMLElement=document.getElementById(btn.image.id);
+        for (let btn of currentQuestion.choices) {
+            let _btn: HTMLElement=document.getElementById(btn.code);
             renderer.setProperty(_btn, 'disabled', 'true');
           }
 
@@ -20,12 +20,10 @@ export class choiceStrategy extends QuestionStrategy {
             mutation: choiceAnswerMutate,
             variables: { 
               questionID: answerQuestion.questionID,
-              deviceID: answerQuestion.deviceID, 
-              contextID: answerQuestion.contextID,
               choiceCode: currentQuestion.choices[""+btn_number].code},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
-            dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
+            dataService.setChosenImageUrl(currentQuestion.choices[""+btn_number].image.url);
             dataService.setAnswerNumber();
         }
     support(questiontype:string){

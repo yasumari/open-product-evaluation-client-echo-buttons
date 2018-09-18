@@ -70,11 +70,9 @@ mutation($questionID: ID!, $rating: Float!, $deviceID: ID!, $contextID: ID!){
 
 //Mutation Answer ChoiceQuestion
 export const choiceAnswerMutate = gql`
-mutation($questionID: ID!, $choiceCode: String!, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $choiceCode: String!){
   createAnswer(data: {
-    questionID: $questionID,
-    deviceID: $deviceID, 
-    contextID: $contextID,
+    questionID: $questionID
     choiceCode: $choiceCode
   	}){
       __typename
