@@ -1,11 +1,17 @@
 <script src="node_modules/chart.js/Chart.min.js"></script>
 <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
-<script src="node_modules/chart.js/src/chart.js"></script>
+<script src="node_modules/chart.js/src/chart.js"> </script>
+<div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
+<script src="node_modules/chart.js/src/chart.js">
+Chart.defaults.global.legend.display = false;
+</script>
+</div>
+
 <body>
 
   <div class="row row-pb-sm gtco-heading text-center">
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-<h1>{{title_nextPage}}</h1>
+    <h1>{{title_nextPage}}</h1>
     
         <div class="col-md-4 col-sm-4 col-sm-offset-1" style="margin-left:-90px"  >
      
@@ -16,9 +22,12 @@
     
         <div class="col-md-4 col-sm-4 col-sm-offset-1 gtco-heading text-center"    >
     <div style="width:550px">
+     
       <canvas baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"
+              [colors]="chartColors"
+              
               [options]="barChartOptions"
               [legend]="barChartLegend"
               [chartType]="barChartType"

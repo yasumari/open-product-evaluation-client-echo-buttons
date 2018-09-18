@@ -17,13 +17,15 @@ export class ProjectComponent implements OnInit, OnDestroy {
   message: any;
   sub: Subscription;
   Teilnehmer : Vote;
-  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {
-        //Router zum weiterleiten an die nächste Component /project 
-    }
 
+  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { }
 
 
   //Umfrage abfragen
+  /**
+   * @description Server-Anfrage für Daten eines Projekts
+   * @param contextID ID des Kontextes, deren Daten geladen werden sollen
+   */
   getProject(contextID: string){
   this.apollo.subscribe({
     query: CurrentProjectSubscription,
@@ -33,13 +35,18 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.currentProject = data.context;
 
     //vorne im Array starten und dann eins hochzählen bei einer Antwort 
-    //leere Antworten sind nicht möglich 
+    //TODO: leere Antworten sind nicht möglich --> vllt. doch bei Like Question?
+    /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
     this.dataService.sendContext(this.currentProject);
+    /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
     this.dataService.setPositionQuestion(0);
   })
-
 }
-    
+/**
+ * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
+ * @param deviceID 
+ * @param contextId 
+ */
 updateDevice(deviceID: string, contextId: string){
     //Device contextID übergeben mit updateDevice()
       this.apollo.mutate({
@@ -57,9 +64,9 @@ updateDevice(deviceID: string, contextId: string){
     public ngOnInit(): void {
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
-      let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : 1);
+      let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
       let deviceID =  this.dataService.getDeviceID();
-      let token=this.dataService.getToken();
+      let token = this.dataService.getToken();
       //TODO Name und Nutzer festlegen
       
       //Wenn es ohne Startseite aufgerufen wird, dann 
@@ -88,10 +95,10 @@ updateDevice(deviceID: string, contextId: string){
         this.updateDevice(deviceID, contextid);
       }
 
-      //Button klick
+      //BUZZER: Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {
-      this.sub.unsubscribe();
-      this.router.navigateByUrl('/question')}
+        this.sub.unsubscribe();
+        this.router.navigateByUrl('/question')}
       )
       
   }

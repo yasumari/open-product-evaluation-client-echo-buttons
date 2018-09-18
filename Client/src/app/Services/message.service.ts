@@ -9,6 +9,10 @@ import { Subject } from 'rxjs/Subject';
 export class MessageService {
     private subject = new Subject<string>();
  
+    /**
+     * Message subscriben
+     * @param message übermittelte Nachricht von der Socket-Kommunikation
+     */
     sendMessage(message: string) {
         this.subject.next(message);
     }

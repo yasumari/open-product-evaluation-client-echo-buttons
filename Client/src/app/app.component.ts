@@ -19,8 +19,12 @@ export class AppComponent implements OnInit, OnDestroy{
   ngOnInit(){
     //TODO: Check if socketConnection already exists. 
     this.socketService.connect();
+    /**
+     * Socket Connection, eingehende Nachricht an MessageService übergeben, 
+     * subscription der einzelnen Komponenten
+     */
     this.socketService.getMessages().subscribe((message: string) => {
-    this.messageService.sendMessage(message);
+      this.messageService.sendMessage(message);
   })
    
   }

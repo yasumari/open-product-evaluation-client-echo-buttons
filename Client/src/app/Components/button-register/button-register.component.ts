@@ -17,7 +17,6 @@ sub: Subscription;
   })
 }
 
-
   ngOnInit() {
   }
   ngOnDestroy(){

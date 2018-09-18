@@ -1,5 +1,6 @@
-import { Context, Vote, Device,  } from '../types';
+import { Context } from '../types';
 
+/* Interface eines Device*/
 interface myDevice {
   deviceID: string;
   deviceToken: string;
@@ -7,19 +8,21 @@ interface myDevice {
 }
 
 export class DataService {
-  
     private deviceObj: myDevice;
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
-    
     private socketID;
     private chosenImage;
     private chosenImagearray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
+    private countRanking=0;
 
-    //FeedbackImage
+    /**
+     * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
+     * @param url 
+     */
     setChosenImageUrl(url: string){
       this.chosenImage=url;
     }
@@ -56,30 +59,46 @@ export class DataService {
       this.numberAnswerQuestions=0;
     }
 
-    //Welche Frage dran ist
-    getPositionQuestion(){
-      return this.currentPositionQuestion;
-    }
   
+
+  /**
+   * @description Aktuelle Position der Frage aus dem Survey
+   * @param position: Position der Fragen im Array
+   */
     setPositionQuestion(position: number){
       this.currentPositionQuestion=position;
     }
+    getPositionQuestion(){
+      return this.currentPositionQuestion;
+    }
+
+    //Nach beantworten der Frage, muss die Position erhöht werden, Durchlauf aller Fragen möglich
     updatePositionQuestion(){
-      this.currentPositionQuestion+=1;
+      this.currentPositionQuestion++;
     }  
       
     /*clearContext() {
         this.subjectProject.next();
     }*/
 
-    //Welcher Kontext
+    //Welcher Kontext wurde ausgewählt
+
+/**
+ * @description Projekt damit die anderen Komponenten darauf zugreifen können
+ * @param project 
+ */
+    sendContext(project: Context ) {
+      this.contextID=project.id;
+      this.subjectProject = project;
+    }
     getContext(): Context {
       return this.subjectProject;
     }
-    sendContext(project: Context ) {
-      this.subjectProject = project;
-    }
 
+    /**
+     * @description ContextID, die auf der Startseite ausgewählt wurde
+     * @param id 
+     */
     setContextID(id: string){
       this.contextID=id;
     }
@@ -88,16 +107,21 @@ export class DataService {
       return this.contextID;
     }
 
-    //Sockets
-    setSocketID(id: string){
+    //Socket-Kommunikation
+    /*setSocketID(id: string){
       this.socketID=id;
     }
 
     getSocketID(){
       return this.socketID;
-    }
+    }*/
 
-    //Device Objekt
+    /**
+     * Device speichern für Mutations
+     * @param token 
+     * @param id 
+     * @param name 
+     */
     setDevice(token: string, id: string, name: string){
       this.deviceObj = { 
         deviceID: id, 
@@ -116,6 +140,22 @@ export class DataService {
 
     getDeviceName(){
       return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
+    }
+
+/**
+ * @description Speziell für Ranking, um die Platz zu verteilen, 
+ * beschriften und abzugleichen, wann alle Items in eine Reihenfolge gebracht wurde
+ */
+    getCountRanking(){
+      return this.countRanking;
+    }
+
+    resetCountRanking(){
+      this.countRanking=0;
+    }
+
+    updateCountRanking(){
+      this.countRanking++;
     }
 
   constructor() { }

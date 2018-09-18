@@ -88,12 +88,12 @@ export type Device={
   }
 
   export type Answer={
-    questionID: number,
+    question: number,
     liked: boolean,
     choiceCode: string,
     rating: number;
     normalized: number;
     rankedImages: string[];
     favoriteImage: string;
-    __typename: string;
+    __typename:string;
   }
