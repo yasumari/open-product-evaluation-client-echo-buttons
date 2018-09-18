@@ -113,8 +113,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
     console.log("question datatest",this.currentQuestion);
 
-    console.log("URL: " + this.currentQuestion.choices[0].label);
-
       //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {
         

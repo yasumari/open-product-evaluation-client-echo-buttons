@@ -375,10 +375,13 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
      this.barChartData[0].data[0]=this.DataAntwort;
     
      this.barChartData[0].label.push(" ❤ ");
-    
-     for(let i=0;i<this.currentQuestion.items.length;i++) 
-     { this.dataService.setChosenImageUrlarray(this.currentQuestion.items[i].image.url);
-     this.dataService.setMaxAntwortArray(this.DataAntwort);}
+     //TODO: Kann auch kein Item angezeigt werden?
+    if (this.currentQuestion.items!=null){
+      for(let i=0;i<this.currentQuestion.items.length;i++) 
+      { this.dataService.setChosenImageUrlarray(this.currentQuestion.items[i].image.url);
+      this.dataService.setMaxAntwortArray(this.DataAntwort);}
+    }
+     
     
 
        break;

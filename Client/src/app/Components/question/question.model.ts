@@ -36,11 +36,9 @@ mutation($questionID: ID!, $liked: Boolean!, $deviceID: ID!, $contextID: ID!){
 
 //Mutation Answer LikeQuestion
 export const likeAnswerMutate = gql`
-mutation($questionID: ID!, $liked: Boolean, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $liked: Boolean){
   createAnswer(data: {
     questionID: $questionID,
-    deviceID: $deviceID, 
-    contextID: $contextID,
     liked: $liked
   	}){
       __typename
