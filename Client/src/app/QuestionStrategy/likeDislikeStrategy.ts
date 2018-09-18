@@ -20,13 +20,13 @@ export class likeDislikeStrategy extends QuestionStrategy {
             mutation: likeDislikeAnswerMutate,
             variables: { 
               questionID: answerQuestion.questionID,
-              deviceID: answerQuestion.deviceID, 
-              contextID: answerQuestion.contextID,
               liked: (btn_number == 0 ? true : false) },
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
 
-            dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
+            if (currentQuestion.items!=null){
+                dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
+            }
             dataService.setAnswerNumber();
     }
     support(questiontype:string){

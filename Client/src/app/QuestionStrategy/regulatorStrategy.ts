@@ -19,10 +19,10 @@ export class regulatorStrategy extends QuestionStrategy {
         //var normalized=btn_number/currentQuestion.items.length;
     
         //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
-        dataService.setChosenImageUrl(currentQuestion.items[0].image.url);
+        if (currentQuestion.items!=null){
+            dataService.setChosenImageUrl(currentQuestion.items[0].image.url);
+        }
         dataService.setAnswerNumber();
-
-
         apollo.mutate({
             fetchPolicy: 'no-cache',
             mutation: regulatorAnswerMutate,

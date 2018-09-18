@@ -2,11 +2,9 @@ import gql from 'graphql-tag';
 
 //Mutation Answer FavoriteQuesion
 export const favoriteAnswerMutate = gql`
-mutation($questionID: ID!, $favoriteImage: ID!, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $favoriteImage: ID!){
   createAnswer(data: {
     questionID: $questionID,
-    deviceID: $deviceID, 
-    contextID: $contextID
     favoriteImage: $favoriteImage
   	}){
       __typename
@@ -19,11 +17,9 @@ mutation($questionID: ID!, $favoriteImage: ID!, $deviceID: ID!, $contextID: ID!)
 
 //Mutation Answer LikeDislikeQuestion
 export const likeDislikeAnswerMutate = gql`
-mutation($questionID: ID!, $liked: Boolean!, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $liked: Boolean!){
   createAnswer(data: {
     questionID: $questionID,
-    deviceID: $deviceID, 
-    contextID: $contextID,
     liked: $liked
   	}){
       __typename
@@ -51,11 +47,9 @@ mutation($questionID: ID!, $liked: Boolean){
 
 //Mutation Answer RegulatorQuestion
 export const regulatorAnswerMutate = gql`
-mutation($questionID: ID!, $rating: Float!, $deviceID: ID!, $contextID: ID!){
+mutation($questionID: ID!, $rating: Float!){
   createAnswer(data: {
     questionID: $questionID,
-    deviceID: $deviceID, 
-    contextID: $contextID,
     rating: $rating 
   	}){
       __typename
@@ -83,11 +77,9 @@ mutation($questionID: ID!, $choiceCode: String!){
 
 //Mutation Answer RankingQuestion
 export const rankingAnswerMutate = gql`
-mutation($questionID: ID!, $deviceID: ID!, $contextID: ID!, $rankedImages: [String!]){
+mutation($questionID: ID!, $rankedImages: [String!]){
   createAnswer(data: {
      questionID: $questionID,
-     deviceID: $deviceID,
-     contextID: $contextID,
      rankedImages: $rankedImages
      }){
        __typename

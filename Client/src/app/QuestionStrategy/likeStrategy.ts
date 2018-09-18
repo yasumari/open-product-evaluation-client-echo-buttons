@@ -10,7 +10,10 @@ export class likeStrategy extends QuestionStrategy {
         let _btn: HTMLElement=document.getElementById(currentQuestion.likeIcon.id);
         renderer.setProperty(_btn, 'disabled', 'true');
         //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
-        dataService.setChosenImageUrl(currentQuestion.likeIcon.url);
+        if (currentQuestion.items!=null){
+            dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
+        }
+        
         dataService.setAnswerNumber();
 
         console.log("Hallo aus der LIKE strategy");

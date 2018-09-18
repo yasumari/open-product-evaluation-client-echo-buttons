@@ -222,7 +222,9 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
    break;
 
       case 'LikeDislikeQuestion':
-      this.barChartLabels[0] =this.currentQuestion.items[0].label ;
+      if(this.currentQuestion.items!=null){
+        this.barChartLabels[0] =this.currentQuestion.items[0].label ;
+      
     
     
      for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
@@ -252,9 +254,11 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
     
      //Visualisieren das Bilder als belibeste Bild, wenn der Anzahl der Antwort Like  höher als dislike Antwort ist
      if(maxi==this.DataAntwort)
-     { this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url); 
-     this.dataService.setMaxAntwortArray(this.DataAntwort);
+     { 
+       this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url); 
+        this.dataService.setMaxAntwortArray(this.DataAntwort);
     }
+  }
       break;
 
       case 'RegulatorQuestion':
@@ -302,8 +306,12 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
     
     
    // visualisirung der Bilder am ende 
-   for(let i=0;i<this.currentQuestion.items.length;i++) 
+   if (this.currentQuestion.items!=null){
+    for(let i=0;i<this.currentQuestion.items.length;i++) {
     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[i].image.url);
+    }
+   }
+   
    
     //anzahl der Anwort für  jedes Bild 
     this.dataService.setMaxAntwortArray(this.DataAntwort);
@@ -382,8 +390,6 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       this.dataService.setMaxAntwortArray(this.DataAntwort);}
     }
      
-    
-
        break;
       case 'FavoriteQuestion':
       console.log("FavoriteQuestionFeedback");
