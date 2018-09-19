@@ -42,21 +42,21 @@ export class QuestionComponent implements OnInit, OnDestroy {
    * @param btn_number Nummer des gedrückten Buttons
    */
    buttonClick(btn_number: number){    
+     console.log("BUTTON GEDRÜCKT: " + btn_number);
     this.currentAnswer={
-      questionID: this.currentQuestion.id,
-      deviceID: this.dataService.getDeviceID(), 
-      contextID: this.dataService.getContextID()
+      questionID: this.currentQuestion.id
     }
 
     if (this.currentQuestion.__typename=="RankingQuestion"){
-      const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].image.id);
+      const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].id);
         this.renderer.setStyle(btn_rank, 'background', 'lightgrey');
         this.renderer.setProperty(btn_rank, 'color', '#34a7bd');
         this.renderer.setProperty(btn_rank, 'disabled', 'true');
         this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz '+(this.count_items+1));
         
       //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt 
-      this.ranking.push(this.currentQuestion.items[btn_number].image.id);
+      // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
+      this.ranking.unshift(this.currentQuestion.items[btn_number].id);
       if (this.ranking.length==this.currentQuestion.items.length){
         //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
           this.currentAnswer.ranking=this.ranking;

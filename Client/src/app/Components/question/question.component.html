@@ -184,7 +184,7 @@
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].image.id}}">Design {{i+1}} </button>
+								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">Design {{i+1}} </button>
 							</div>
 						</div>
 					</div>
@@ -271,6 +271,7 @@
 					</div>
 				</div>
 				<button style="background-image: currentQuestion.likeIcon.url" name="button0" target="_blank" class="buzzer heart" id="{{currentQuestion.likeIcon.id}}" (click)="buttonClick(0)"></button>
+				<button name="button1" target="_blank" class="buzzer" (click)="buttonClick(1)">weiter</button>
 		</div>
 	</div>
 </div>
@@ -312,7 +313,7 @@
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 									<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
-								<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].image.id" name="button{{i}}" (click)="buttonClick(i)"> Design {{i+1}} </button>
+								<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> Design {{i+1}} </button>
 							</div>
 						</div>
 					</div>

@@ -26,8 +26,8 @@ export class choiceStrategy extends QuestionStrategy {
             dataService.setChosenImageUrl(currentQuestion.choices[""+btn_number].image.url);
             dataService.setAnswerNumber();
         }
+
     support(questiontype:string){
         return (questiontype=="ChoiceQuestion") ? true : false;
-       
     }
 }

@@ -14,8 +14,6 @@ export class rankingStrategy extends QuestionStrategy {
             mutation: rankingAnswerMutate,
             variables: { 
               questionID: answerQuestion.questionID,
-              deviceID: answerQuestion.deviceID, 
-              contextID: answerQuestion.contextID,
               rankedItems: answerQuestion.ranking},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 

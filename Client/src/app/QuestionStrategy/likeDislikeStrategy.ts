@@ -4,6 +4,9 @@ import { likeDislikeAnswerMutate } from "../Components/question/question.model";
 import { Renderer2 } from "@angular/core";
 import { DataService } from "../Services/data.service";
 
+/**
+ * geprüft
+ */
 export class likeDislikeStrategy extends QuestionStrategy {
     
     answer(apollo: Apollo,answerQuestion: any, btn_number: Number, renderer: Renderer2, dataService:DataService){

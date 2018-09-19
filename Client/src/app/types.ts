@@ -50,6 +50,7 @@ export type Device={
   }
 
   export type Item={
+    id: string;
     label: string; 
     image: Image;
   }
