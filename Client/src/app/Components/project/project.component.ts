@@ -20,6 +20,17 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { }
 
+  private contextid:string;
+  private deviceID: string;
+
+  /**
+   * @description wird vom Button "Starten" ausgelöst, damit wird das Device mit der ContextID geupdatet
+   * Weiterleitung an Question
+   */
+  startSurvey(){
+    this.updateDevice(this.deviceID, this.contextid);
+    this.router.navigateByUrl('/question');
+  }
 
   //Umfrage abfragen
   /**
@@ -66,14 +77,14 @@ updateDevice(deviceID: string, contextId: string){
     public ngOnInit(): void {
       //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
-      let contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
-      let deviceID =  this.dataService.getDeviceID();
+      this.contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
+      this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
       //TODO Name und Nutzer festlegen
       
       //Wenn es ohne Startseite aufgerufen wird, dann 
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
-      if (token==null || token==undefined || deviceID==null){
+      if (token==null || token==undefined || this.deviceID==null){
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
@@ -82,19 +93,17 @@ updateDevice(deviceID: string, contextId: string){
           }
         }).subscribe(({data}) => { 
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
-          deviceID=data.createDevice.device.id;
+          this.deviceID=data.createDevice.device.id;
           //danach erst weitere Abfragen
           this.apollo.subscribe({
             query: queryContextID
           }).subscribe((data)=>{
-            this.updateDevice(deviceID, data.data.contexts[0].id);
             this.getProject(data.data.contexts[0].id);
           })
           
         });
       }else{
-        this.getProject(contextid);
-        this.updateDevice(deviceID, contextid);
+        this.getProject(this.contextid);
       }
 
       //BUZZER: Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
