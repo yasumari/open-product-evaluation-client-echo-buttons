@@ -27,10 +27,6 @@ query{
     activeSurvey{
       id
       description
-      creator{
-        lastName
-        firstName
-      }
       title
     }
   }

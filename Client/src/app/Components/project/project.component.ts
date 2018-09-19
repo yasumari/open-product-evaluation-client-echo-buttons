@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
-import { CurrentProjectSubscription, updateDevice, newDeviceMutation, queryContextID} from './project.model';
+import { currentProjectData, updateDevice, newDeviceMutation, queryContextID} from './project.model';
 import { Context, Vote } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
@@ -28,14 +28,16 @@ export class ProjectComponent implements OnInit, OnDestroy {
    */
   getProject(contextID: string){
   this.apollo.subscribe({
-    query: CurrentProjectSubscription,
+    query: currentProjectData,
     variables: {contextID: contextID},
   }).subscribe(({data}) => {
-    //TODO brauche ich die activeQuestion abzufragen? noch nicht, aber später bei subscriptions
+
+    console.log(data);
     this.currentProject = data.context;
 
     //vorne im Array starten und dann eins hochzählen bei einer Antwort 
     //TODO: leere Antworten sind nicht möglich --> vllt. doch bei Like Question?
+
     /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
     this.dataService.sendContext(this.currentProject);
     /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/

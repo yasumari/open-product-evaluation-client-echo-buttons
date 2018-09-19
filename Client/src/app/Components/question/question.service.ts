@@ -11,7 +11,7 @@ export class QuestionService {
 
     answer(type:string, answerQuestion: any, buttonNumber: number, apollo: Apollo, renderer: Renderer2, dataservice:DataService): void {
         const strategy = this.strategies.find((strategy) => {
-            console.log(strategy);
+            //console.log(strategy);
             return strategy.support(type);
         });
         strategy.answer(apollo, answerQuestion, buttonNumber, renderer, dataservice);

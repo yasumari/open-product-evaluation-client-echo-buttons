@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { Context, Question } from '../../types';
+import { Constants } from '../../constants';
 
 
 
@@ -97,5 +98,9 @@ export class EndScreenComponent implements OnInit {
     this.sub=this.messageService.getMessage().subscribe( message => {
       this.goBackToListProjects();
     });
+
+    setTimeout( () => {
+      this.router.navigateByUrl('/');
+  }, Constants.TIMER_END);  
   }
   }

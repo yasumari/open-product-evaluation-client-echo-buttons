@@ -16,7 +16,7 @@ export class rankingStrategy extends QuestionStrategy {
               questionID: answerQuestion.questionID,
               deviceID: answerQuestion.deviceID, 
               contextID: answerQuestion.contextID,
-              rankedImages: answerQuestion.ranking},
+              rankedItems: answerQuestion.ranking},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
         

@@ -20,7 +20,7 @@ export class choiceStrategy extends QuestionStrategy {
             mutation: choiceAnswerMutate,
             variables: { 
               questionID: answerQuestion.questionID,
-              choiceCode: currentQuestion.choices[""+btn_number].code},
+              choice: currentQuestion.choices[""+btn_number].id},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
             dataService.setChosenImageUrl(currentQuestion.choices[""+btn_number].image.url);

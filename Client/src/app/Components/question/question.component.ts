@@ -28,7 +28,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
    */
   calculate():string {
-    return (this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length)+"%";
+    return (Math.round(this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length))+"%";
   }
 
 
@@ -94,6 +94,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
+      console.log(this.currentQuestion);
       // testdaten rechnnung Antwort 
       this.currentQuestion.id=1;
         
@@ -110,8 +111,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
       
       this.currentProject.activeSurvey.votes[1].answers[1].question=4;
 
-
-    console.log("question datatest",this.currentQuestion);
 
       //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {

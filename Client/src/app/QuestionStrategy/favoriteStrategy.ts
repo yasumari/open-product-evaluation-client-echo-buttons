@@ -20,7 +20,7 @@ export class favoriteStrategy extends QuestionStrategy {
               questionID: answerQuestion.questionID,
               deviceID: answerQuestion.deviceID, 
               contextID: answerQuestion.contextID,
-              favoriteImage: currentQuestion.items[""+btn_number].image.id},
+              favoriteItem: currentQuestion.items[""+btn_number].id},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
             dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);

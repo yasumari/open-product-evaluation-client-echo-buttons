@@ -2,10 +2,10 @@ import gql from 'graphql-tag';
 
 //Mutation Answer FavoriteQuesion
 export const favoriteAnswerMutate = gql`
-mutation($questionID: ID!, $favoriteImage: ID!){
+mutation($questionID: ID!, $favoriteItem: ID!){
   createAnswer(data: {
     questionID: $questionID,
-    favoriteImage: $favoriteImage
+    favoriteItem: $favoriteItem
   	}){
       __typename
     	answer{
@@ -62,10 +62,10 @@ mutation($questionID: ID!, $rating: Float!){
 
 //Mutation Answer ChoiceQuestion
 export const choiceAnswerMutate = gql`
-mutation($questionID: ID!, $choiceCode: String!){
+mutation($questionID: ID!, $choice: ID!){
   createAnswer(data: {
     questionID: $questionID
-    choiceCode: $choiceCode
+    choice: $choice
   	}){
       __typename
     	answer{
@@ -77,10 +77,10 @@ mutation($questionID: ID!, $choiceCode: String!){
 
 //Mutation Answer RankingQuestion
 export const rankingAnswerMutate = gql`
-mutation($questionID: ID!, $rankedImages: [String!]){
+mutation($questionID: ID!, $rankedItems: [ID!]){
   createAnswer(data: {
      questionID: $questionID,
-     rankedImages: $rankedImages
+     rankedItems: $rankedItems
      }){
        __typename
        answer{

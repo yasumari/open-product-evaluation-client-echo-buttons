@@ -16,29 +16,18 @@ import { MessageService } from '../../Services/message.service';
 
 export class ListComponent implements OnInit, OnDestroy {
     surveys: Observable<Context>;
-    testID;
     sub: Subscription;
 
     constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
         //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
         this.sub=this.messageService.getMessage().subscribe( message => {
             this.sub.unsubscribe();
-            //TODO kann doch gar nicht funktionieren später
             this.openProject(this.surveys[message].id);
         })
     }
     
-
     openProject(contextID : string): void{
         this.dataService.setContextID(contextID);
-        this.router.navigateByUrl('/project');
-    }
-
-    openSpecificProject(): void{
-        let id=(<HTMLInputElement>document.getElementById("specificContextID")).value;
-        //TODO später mal selber eintragen
-        //this.dataService.setContextID(id);
-        this.dataService.setContextID(this.testID);
         this.router.navigateByUrl('/project');
     }
 
@@ -46,8 +35,6 @@ export class ListComponent implements OnInit, OnDestroy {
         this.apollo.subscribe({
             query: queryAllSurveys
         }).subscribe(({data})=> {
-            //TODO testID nur zum TESTEN 
-            this.testID=data.contexts[0].id;
             this.surveys=data.contexts;
         })
     }
@@ -61,9 +48,10 @@ export class ListComponent implements OnInit, OnDestroy {
                 fetchPolicy: 'no-cache',
                 mutation: newDeviceMutation,
                 variables: { 
-                deviceName: "Fernseher",
+                deviceName: "SmartBoard",
                 }
             }).subscribe(({data}) => { 
+                console.log(data);
                 this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
                 this.getProjects();
             });

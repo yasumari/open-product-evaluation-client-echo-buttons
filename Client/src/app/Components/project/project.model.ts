@@ -44,150 +44,20 @@ mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
     }
     }
   }`;
-/* Subscription geht noch nicht 
-export const CurrentProjectSubscription: any = gql`
-fragment itemsPart on Item{
-  image{
-          url
-         id
-        }
-}
-
-subscription CurrentProjectForController ($contextID: ID!){
-  context(contextID: $contextID){
-    name
-    id
-    lastUpdate
-    creationDate 
-    activeQuestion{
-      id
-      description
-      value
-      type
-      __typename
-      items{
-        ...itemsPart
-      }
-    }
-    activeSurvey{
-      id
-      title
-      description
-      isPublic
-      creator{
-        firstName
-        lastName
-      }
-      images{
-        url
-      	id
-      }
-      questions {
-        id
-        description
-        value
-        items {
-          image {
-            url
-            id
-          }
-          label
-        }
-        ... on LikeQuestion {
-          likeIcon {
-            id
-            url
-            name
-            hash
-            tags
-          }
-        }
-        ... on LikeDislikeQuestion {
-          likeIcon {
-            id
-            url
-            name
-            hash
-            tags
-          }
-          dislikeIcon {
-            id
-            url
-            name
-            hash
-            tags
-          }
-        }
-        ... on ChoiceQuestion {
-          choices {
-            image {
-              url
-            }
-            label
-            code
-          }
-          defaultChoice: default
-        }
-        ... on RegulatorQuestion {
-          labels {
-            image {
-              url
-            }
-            value
-          }
-          default
-          max
-          min
-          stepSize
-        }
-        items {
-          image {
-            url
-          }
-          label
-        }
-      }
-      votes{
-        id
-        creationDate
-        answers{
-          question
-          __typename
-          ...on RegulatorAnswer{
-            question
-            rating
-            normalized
-          } 
-        }
-      }
-    }
-    owners{
-      firstName
-      lastName
-    }
-    devices{
-      id
-    }
-    states{
-      key
-      value
-    }
-  }
-}`;
-*/
 
 /**
  * @description Server: Query: das Projekt mittels der KontextID abfragen
  */
-export const CurrentProjectSubscription: any = gql`
+export const currentProjectData: any = gql`
 query gContexts ($contextID: ID!){
   context(contextID: $contextID) {
-    owners{id}
     id
     name
     activeSurvey {
+      id
       description
       title
+      types
       questions {
         id
         description
@@ -203,36 +73,27 @@ query gContexts ($contextID: ID!){
           likeIcon {
             id
             url
-            name
-            hash
-            tags
           }
         }
         ... on LikeDislikeQuestion {
           likeIcon {
             id
             url
-            name
-            hash
-            tags
           }
           dislikeIcon {
             id
             url
-            name
-            hash
-            tags
           }
         }
         ... on ChoiceQuestion {
           choices {
+            id
             image {
               url
             }
             label
             code
           }
-          defaultChoice: default
         }
         ... on RegulatorQuestion {
           labels {
@@ -247,6 +108,7 @@ query gContexts ($contextID: ID!){
           stepSize
         }
         items {
+          id
           image {
             url
           }
@@ -254,7 +116,6 @@ query gContexts ($contextID: ID!){
         }
       }
       votes{
-        
         answers{
           question
           __typename
@@ -265,81 +126,22 @@ query gContexts ($contextID: ID!){
             liked
           }
           ...on ChoiceAnswer{
-            choiceCode
+            choice
           }
           ...on RegulatorAnswer{
             rating
             normalized
           }
           ...on RankingAnswer{
-            rankedImages
+            rankedItems
           }
           ...on FavoriteAnswer{
-            favoriteImage
+            favoriteItem
           }
         }
       }
-    }
-    activeQuestion {
-      id
-    }
-    states {
-      key
-      value
     }
   }
 }`;
 
 
-
-
-
-/*
-          ...on LikeDislikeAnswer{
-            liked
-          }
-          ...on LikeAnswer{
-            liked
-          }
-          ...on ChoiceAnswer{
-            choiceCode
-          }
-          ...on RegulatorAnswer{
-            rating
-            normalized
-          }
-          ...on RankingAnswer{
-            rankedImages
-          }
-*/
-
-
-//TODO oder Subscription Votes
-/*
-subscription{
-  votes(surveyID: 123){
-  id
-    creationDate
-    context
-            answers{
-          question
-          __typename
-          ...on LikeDislikeAnswer{
-            liked
-          }
-          ...on LikeAnswer{
-            liked
-          }
-          ...on ChoiceAnswer{
-            choiceCode
-          }
-          ...on RegulatorAnswer{
-            rating
-            normalized
-          }
-          ...on RankingAnswer{
-            rankedImages
-          }
-        }
-  }
-}*/

@@ -178,12 +178,12 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
           {
            
                 
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0]==this.currentQuestion.items[y].image.id)
+                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[0]==this.currentQuestion.items[y].image.id)
                  {
                    this.DataAntwort=this.DataAntwort+1;
                  // let img=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0];
                 }
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[1]==this.currentQuestion.items[y].image.id)
+                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[1]==this.currentQuestion.items[y].image.id)
                  { this.DataAntwort1=this.DataAntwort1+1;
                 //  let img1=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[1];
                 }
@@ -332,7 +332,7 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       {
       if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
         
-       if(this.currentProject.activeSurvey.votes[i].answers[x].choiceCode==this.currentQuestion.choices[i].code)
+       if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[i].code)
           if(this.currentQuestion.choices[0].image.id==this.currentQuestion.choices[i].image.id)
           this.DataAntwort=this.DataAntwort+1;
           else  if(this.currentQuestion.choices[1].image.id==this.currentQuestion.choices[i].image.id)
@@ -404,10 +404,10 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
         
      if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="FavoriteAnswer")
         
-        if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteImage==this.currentQuestion.items[0].image.id)
+        if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[0].image.id)
            this.DataAntwort=this.DataAntwort+1;
          else   
-         if(this.currentProject.activeSurvey.votes[i].answers[x].favoriteImage==this.currentQuestion.items[1].image.id)
+         if(this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[1].image.id)
          this.DataAntwort1=this.DataAntwort1+1;
       
     

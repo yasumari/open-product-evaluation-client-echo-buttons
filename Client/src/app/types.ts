@@ -1,24 +1,17 @@
 export type Survey = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   isPublic: boolean,
-  creator: Owner,
-  images: Image[],
   votes: Vote[];
+  types: string[];
   questions: Question[]
   }
 
   export type Context={
     name: string;
     id: string;
-    lastUpdate: Date;
-    creationDate: Date;
-    activeQuestion: Question,
-    activeSurvey: Survey,
-    owners: Owner[],
-    devices: Device[],
-    states: State[]
+    activeSurvey: Survey
   }
 export type Device={
   name: string;
@@ -26,10 +19,6 @@ export type Device={
   id: string;
 }
 
-  export type State={
-    key: string;
-    value: string;
-  }
   export type Question ={
     id: number;
     value: string;
@@ -47,7 +36,8 @@ export type Device={
   }
 
   export type Label={
-    text: string;
+    id: string;
+    label: string;
     image: Image;
     value: number;
   }
@@ -56,12 +46,9 @@ export type Device={
     code: string;
     image:  Image;
     label: string;
+    id: string;
   }
-  export type Owner={
-    firstname: string;
-    lastname: string;
-    email: string
-  }
+
   export type Item={
     label: string; 
     image: Image;
@@ -70,15 +57,7 @@ export type Device={
   export type Image={
     id: string;
     name: string;
-    type: string; 
-    hash: string;
-    tags: string;
     url: string;
-  }
-  export type Query={
-      surveys: Survey[];
-      survey: Survey;
-      questions: Question[]
   }
 
   export type Vote={
@@ -90,10 +69,10 @@ export type Device={
   export type Answer={
     question: number,
     liked: boolean,
-    choiceCode: string,
+    choice: string,
     rating: number;
     normalized: number;
-    rankedImages: string[];
-    favoriteImage: string;
+    rankedItems: string[];
+    favoriteItem: string;
     __typename:string;
   }
