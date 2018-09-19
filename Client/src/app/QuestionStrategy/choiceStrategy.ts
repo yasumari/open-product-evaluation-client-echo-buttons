@@ -11,7 +11,7 @@ export class choiceStrategy extends QuestionStrategy {
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
         console.log("Hallo aus der CHOICE strategy");
         for (let btn of currentQuestion.choices) {
-            let _btn: HTMLElement=document.getElementById(btn.code);
+            let _btn: HTMLElement=document.getElementById(btn.id);
             renderer.setProperty(_btn, 'disabled', 'true');
           }
 
