@@ -83,10 +83,7 @@ export class EndScreenComponent implements OnInit {
     this.image1=this.dataService.getChosenImageUrlarray();
     this.value=this.dataService.getMaxAntwortArray();
     
-    console.log("image url length",this.image1.length);
-    console.log("image url",this.image1[1]);
-    ///////////////PUIS FAIRE UN VRAI TEST
-    /////////couleur et ameliorer la structure des graffik 
+    
     this.max=this.dataService.getContext().activeSurvey.questions.length;
   
     
@@ -99,8 +96,8 @@ export class EndScreenComponent implements OnInit {
       this.goBackToListProjects();
     });
 
-    setTimeout( () => {
+   /* setTimeout( () => {
       this.router.navigateByUrl('/');
-  }, Constants.TIMER_END);  
+  }, Constants.TIMER_END);  */
   }
   }

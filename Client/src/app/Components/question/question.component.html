@@ -177,34 +177,52 @@
 			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4>Wähle deinen Favoriten.</h4>
-			<div *ngIf="currentQuestion.items.length==2 || currentQuestion.items.length== 4 ">  <!-- Aktuelle Frage des Projektes -->
+			<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:275px; height:275px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
+								<button style="width:69px; height:42px" target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
 							</div>
 						</div>
 					</div>
+				
 				</div>
 			</div>
-			<div *ngIf="currentQuestion.items.length==3 ">
-	 			<div class="row row-pb-md" >
-					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -0.66667%" *ngFor="let item of currentQuestion.items ; let i = index " >
-		<!--
-			<div style="display: flex; justify-content: flex-start;align-items: stretch;align-content: flex-start;" >
-				<div  style="width: 50%;" *ngFor="let item of currentQuestion.items ; let i = index " >
--->
+			
+			<div *ngIf="currentQuestion.items.length==4 ">  <!-- Aktuelle Frage des Projektes -->
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -8.46667%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img class="responsivee1" src="./../../../assets/images/{{i+2}}.jpg" alt="Img" >
-								<h5>{{currentQuestion.items[i].label}}</h5>
-								<button target="_blank" class="buzzer" name="button{{i}}" (click)="buttonClick(i+1)"> {{i+1}} </button>
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:200px; height:240px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button  style="width:70px; height:45px" target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
 							</div>
 						</div>
 					</div>
+					
+				
+				</div>
+			</div>
+			
+		<div *ngIf="currentQuestion.items.length==3 ">
+	 			<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -2.46667%" *ngFor="let item of currentQuestion.items ; let i = index" >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img  src="{{currentQuestion.items[i].image.url}}"  style="width:235px; height:265px" alt="Img" >
+								<h5>{{currentQuestion.items[0].label}}</h5>
+								<button  style="width:70px; height:45px" target="_blank" class="buzzer" name="button{{0}}" (click)="buttonClick(0+1)"> {{1+1}} </button>
+							</div>
+						</div>
+					</div>
+						
+					
+
+						
 				</div>
 			</div>
 		 </div>
@@ -314,18 +332,61 @@
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4>Lege eine Reihenfolge fest: Wähle Platz {{(count_items+1)}}.</h4>
-				<div class="row row-pb-md" >
-					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-						<div class="overlay">
-							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-									<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
-								<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
+
+				<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
+					<div class="row row-pb-md" >
+						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+							<div class="overlay">
+								<div class="copy text-center">
+									<img src="{{currentQuestion.items[i].image.url}}" style="width:275px; height:238px" alt="Img">
+									<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+									
+									<button style="width:69px; height:42px"target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
+									
+								</div>
 							</div>
 						</div>
+					
 					</div>
 				</div>
+				
+				<div *ngIf="currentQuestion.items.length==4 ">  <!-- Aktuelle Frage des Projektes -->
+					<div class="row row-pb-md" >
+						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -8.46667%" *ngFor="let item of currentQuestion.items ; let i = index " >
+							<div class="overlay">
+								<div class="copy text-center">
+									<img src="{{currentQuestion.items[i].image.url}}" style="width:200px; height:240px" alt="Img">
+									<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+									
+									<button style="width:70px; height:45px" target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
+								</div>
+							</div>
+						</div>
+						
+					
+					</div>
+				</div>
+				
+			<div *ngIf="currentQuestion.items.length==3 ">
+					 <div class="row row-pb-md" >
+						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -2.46667%" *ngFor="let item of currentQuestion.items ; let i = index" >
+							<div class="overlay">
+								<div class="copy text-center">
+									<img  src="{{currentQuestion.items[i].image.url}}"  style="width:235px; height:239px" alt="Img" >
+									<h5>{{currentQuestion.items[0].label}}</h5>
+									
+									<button style="width:70px; height:45px" target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
+								</div>
+							</div>
+						</div>
+							
+						
+	
+							
+					</div>
+				</div>
+
+
 		</div>
 	</div>
 </div>

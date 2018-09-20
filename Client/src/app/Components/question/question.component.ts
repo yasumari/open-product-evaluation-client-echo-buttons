@@ -94,23 +94,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
-      console.log(this.currentQuestion);
-      // testdaten rechnnung Antwort 
-      this.currentQuestion.id=1;
-        
-      this.currentProject.activeSurvey.votes[0].answers[0].question=1;
-      this.currentQuestion.id=2;
-
-      this.currentProject.activeSurvey.votes[0].answers[1].question=2; 
-
-      this.currentQuestion.id=3;
+      console.log("Question ",this.currentQuestion);
+      console.log("database question",this.currentProject.activeSurvey.votes);
+     
       
-      this.currentProject.activeSurvey.votes[1].answers[0].question=3;
-  
-      this.currentQuestion.id=2;
-      
-      this.currentProject.activeSurvey.votes[1].answers[1].question=4;
-
 
       //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {

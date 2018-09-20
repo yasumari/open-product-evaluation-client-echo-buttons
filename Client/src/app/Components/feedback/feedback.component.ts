@@ -160,14 +160,17 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     switch(this.currentQuestion.__typename){
       case 'RankingQuestion':
       //push titel der X axe 
+      if(this.currentQuestion.items!=null){
       for(let i=0;i<this.currentQuestion.items.length;i++)
-   this.barChartLabels[i] =this.currentQuestion.items[i].label ;
+   this.barChartLabels[i] =this.currentQuestion.items[i].label ;}
    this.barChartData = [
     {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []},
     
   ];  
 let max=0;let img =this.currentQuestion.items[0].image.id;
-     for(let y=0;y<this.currentQuestion.items.length;y++)
+console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
+    console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
+    for(let y=0;y<(<any>this.currentQuestion.items).length;y++)
      {
      for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
      {
@@ -178,24 +181,23 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
           {
            
                 
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[0]==this.currentQuestion.items[y].image.id)
+                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[0]==this.currentQuestion.items[y].id)
                  {
                    this.DataAntwort=this.DataAntwort+1;
                  // let img=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0];
                 }
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[1]==this.currentQuestion.items[y].image.id)
+                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[1]==this.currentQuestion.items[y].id)
                  { this.DataAntwort1=this.DataAntwort1+1;
                 //  let img1=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[1];
                 }
-             
-
-              
+               
+               
           }
       }
    
       }  
+    }
     
-    }  
    //push titel für jeder Saülen  
    
    this.barChartData[0].label.push("Platz 1");
@@ -214,18 +216,19 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
    
      
 //die Platz 1 wird immer die belibste Bild in diesen Fall gezeigt 
-
+if(this.currentQuestion.items!=null) {
      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.id); 
 
-     this.dataService.setMaxAntwortArray(this.DataAntwort);
+     this.dataService.setMaxAntwortArray(this.DataAntwort);}
    
    break;
 
       case 'LikeDislikeQuestion':
       if(this.currentQuestion.items!=null){
         this.barChartLabels[0] =this.currentQuestion.items[0].label ;
-      
-    
+      }
+        console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
+        console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
     
      for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
       {
@@ -253,6 +256,7 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
      let maxi = Math.max(this.DataAntwort,this.DataAntwort1);
     
      //Visualisieren das Bilder als belibeste Bild, wenn der Anzahl der Antwort Like  höher als dislike Antwort ist
+     if(this.currentQuestion.items!=null){
      if(maxi==this.DataAntwort)
      { 
        this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url); 
@@ -267,7 +271,8 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       this.barChartLabels[1] ="2" ;
       this.barChartLabels[2] ="3" ;
       this.barChartLabels[3] ="4" ;
-     
+      console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
+      console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
@@ -321,7 +326,8 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       break;
     
       case 'ChoiceQuestion': 
-      
+      console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
+    console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
       for(let i=0;i<this.currentQuestion.choices.length;i++) 
       this.barChartLabels[i] =this.currentQuestion.choices[i].label ;
     
@@ -332,10 +338,10 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       {
       if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
         
-       if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[i].code)
-          if(this.currentQuestion.choices[0].image.id==this.currentQuestion.choices[i].image.id)
+       if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices["0"].id)
+     // if(this.currentQuestion.choices[0].id==this.currentQuestion.choices[i].id)
           this.DataAntwort=this.DataAntwort+1;
-          else  if(this.currentQuestion.choices[1].image.id==this.currentQuestion.choices[i].image.id)
+          else // if(this.currentQuestion.choices[1].id==this.currentQuestion.choices[i].id)
           this.DataAntwort1=this.DataAntwort1+1;
       }
     
@@ -349,20 +355,22 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
     this.barChartData[1].label.push(" ❤ ");    
     
      let maximm = Math.max(this.DataAntwort,this.DataAntwort1);
+     if(this.currentQuestion.items!=null){
      if(maximm==this.DataAntwort)
     this.dataService.setChosenImageUrlarray(this.currentQuestion.choices[0].image.url);
     else
     this.dataService.setChosenImageUrlarray(this.currentQuestion.choices[1].image.url);
-    this.dataService.setMaxAntwortArray(maximm);
+    this.dataService.setMaxAntwortArray(maximm);}
      
       break;
 
       case 'LikeQuestion':
       this.barChartLabels[0] =this.currentQuestion.value ;
-    
       
+    console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
+    console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
-      {
+      { 
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
        
@@ -375,15 +383,14 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
      
      }   
      this.barChartData = [
-      {data: [], label: []},
-      
-    ];  
+    {data: [], label: []}];  
            
      //Anzahl der Antwort like für die ganze bilder 
      this.barChartData[0].data[0]=this.DataAntwort;
     
      this.barChartData[0].label.push(" ❤ ");
      //TODO: Kann auch kein Item angezeigt werden?
+     //es wird in Endscreen alles bilder für diese Frage gezeigt wird weil alle gleichzeitig als like gewählt sind
     if (this.currentQuestion.items!=null){
       for(let i=0;i<this.currentQuestion.items.length;i++) 
       { this.dataService.setChosenImageUrlarray(this.currentQuestion.items[i].image.url);
@@ -395,7 +402,8 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       console.log("FavoriteQuestionFeedback");
       for(let i=0;i<this.currentQuestion.items.length;i++) 
       this.barChartLabels[i] =this.currentQuestion.items[i].label ;
-      
+      console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
+      console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
       this.barChartLegend = false;
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
       {
@@ -404,10 +412,10 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
         
      if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="FavoriteAnswer")
         
-        if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[0].image.id)
+        if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[0].id)
            this.DataAntwort=this.DataAntwort+1;
          else   
-         if(this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[1].image.id)
+         if(this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[1].id)
          this.DataAntwort1=this.DataAntwort1+1;
       
     
@@ -419,15 +427,18 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       this.barChartData[1].data[1]=this.DataAntwort1;     
       this.barChartData[1].label.push(" ❤ ");
       let m = Math.max(this.DataAntwort,this.DataAntwort1);
+      if (this.currentQuestion.items!=null){
       if(m==this.DataAntwort)
       this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
       else
       this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
-      this.dataService.setMaxAntwortArray(m);
+      this.dataService.setMaxAntwortArray(m);}
       break;
     }
       //console.log("image question ",this.currentQuestion.items[1].image.url);
-    this.image=this.dataService.getChosenImageUrl();
+    
+   
+      this.image=this.dataService.getChosenImageUrl();
    
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
