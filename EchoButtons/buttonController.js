@@ -106,7 +106,7 @@ io.on('connection', (socket)=>{
 				var isPressed=false;
 				//console.log('> receiving ('+buffer.length+' bytes):', buffer);
 					
-				isPressed = buffer[buffer.length-2] == 0xce;
+				isPressed = buffer[buffer.length-2] == 0xc3;
 				if(isPressed){
 					console.log(' >> button 2 is pressed');
 					socket.emit('message', {
@@ -130,7 +130,7 @@ io.on('connection', (socket)=>{
 				var isPressed=false;
 				//console.log('> receiving ('+buffer.length+' bytes):', buffer);
 				
-				isPressed = buffer[buffer.length-2] == 0xce;		
+				isPressed = buffer[buffer.length-2] == 0xba;		
 				if(isPressed){
 					console.log(' >> button 3 is pressed');
 					socket.emit('message', {
