@@ -247,8 +247,10 @@
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%">
 						<div class="overlay">
 							<div class="copy text-center">
-								<label *ngFor="let choice of currentQuestion.choices ; let x = index">
-								<input type="radio" name="name" [value]="choice.code" (click)="buttonClick(x)" id="{{choice.id}}"/><label for="{{choice.id}}"> {{choice.label}}</label>
+								<label style="font-weight: inherit;" *ngFor="let choice of currentQuestion.choices ; let x = index">
+								<input type="radio" name="name" [value]="choice.code" (click)="buttonClick(x)" id="{{choice.id}}"/>
+								<img src="{{choice.image.url}}" style="width: 20px; margin-left: 5px"/>
+								<label style="font-weight: inherit;" for="{{choice.id}}"> {{choice.label}}</label>
 						</label>
 					</div>
 					</div>
@@ -274,8 +276,8 @@
 						</div>
 					</div>
 				</div>
-			<button style="background-image: currentQuestion.likeIcon.url; margin-top: 50px" name="button0" target="_blank" class="buzzer tick" id="btn_like"(click)="buttonClick(0)"></button>
-			<button style="background-image: currentQuestion.dislikeIcon.url; margin-top: 50px" name="button1" target="_blank" class="buzzer cross" id="btn_dislike"(click)="buttonClick(1)"></button>
+			<button style="margin-top: 50px" name="button0" target="_blank" class="buzzer tick" id="btn_like"(click)="buttonClick(0)"></button>
+			<button style="margin-top: 50px" name="button1" target="_blank" class="buzzer cross" id="btn_dislike"(click)="buttonClick(1)"></button>
 		</div>
 	</div>
 </div>
@@ -307,7 +309,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h4>Wähle wie sehr es dir gefällt: 1 = sehr gut, 4 = gar nicht.</h4>
+			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
@@ -318,10 +320,35 @@
 						</div>
 					</div>
 				</div>
-			<button target="_blank" class="buzzer one" (click)="buttonClick(0)" id="ranking_0" name="button0" style="margin-top: 50px"></button>
-			<button target="_blank" class="buzzer two" (click)="buttonClick(1)" id="ranking_1" name="button1" style="margin-top: 50px"></button>
-			<button target="_blank" class="buzzer three" (click)="buttonClick(2)" id="ranking_2" name="button2" style="margin-top: 50px"></button>
-			<button target="_blank" class="buzzer four" (click)="buttonClick(3)" id="ranking_3" name="button3" style="margin-top: 50px"></button>
+			
+			<div style="display: inline-block">
+					<p style="margin-left:-30px">
+							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+							{{min}}</p>
+				<button target="_blank" class="buzzer one" (click)="buttonClick(0)" id="ranking_0" name="button0"></button>
+			</div>
+			<div style="display: inline-block" *ngIf="valueBtn1!=null">
+					<p style="margin-left:-30px">
+							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+						{{valueBtn1}}</p>
+					<button target="_blank" class="buzzer two" (click)="buttonClick(1)" id="ranking_1" name="button1"></button>
+					
+			</div>
+			<div style="display: inline-block" *ngIf="valueBtn2!=null">
+					<p style="margin-left:-30px">
+							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+						{{valueBtn2}}</p>
+					<button target="_blank" class="buzzer three" (click)="buttonClick(2)" id="ranking_2" name="button2"></button>
+					
+			</div>
+			<div style="display: inline-block">
+					<p style="margin-left:-30px">
+							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+						{{max}}
+					</p>
+					<button target="_blank" class="buzzer four" (click)="buttonClick(3)" id="ranking_3" name="button3"></button>
+					
+			</div>
 		</div>
 	</div>
 </div>
@@ -332,34 +359,13 @@
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4>Lege eine Reihenfolge fest: Wähle Platz {{(count_items+1)}}.</h4>
-
-				<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
-					<div class="row row-pb-md" >
-						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-							<div class="overlay">
-								<div class="copy text-center">
-									<img src="{{currentQuestion.items[i].image.url}}" style="width:275px; height:238px" alt="Img">
-									<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-									
-									<button style="width:69px; height:42px"target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
-									
-								</div>
-							</div>
-						</div>
-					
-					</div>
-				</div>
-				
-				<div *ngIf="currentQuestion.items.length==4 ">  <!-- Aktuelle Frage des Projektes -->
-					<div class="row row-pb-md" >
-						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -8.46667%" *ngFor="let item of currentQuestion.items ; let i = index " >
-							<div class="overlay">
-								<div class="copy text-center">
-									<img src="{{currentQuestion.items[i].image.url}}" style="width:200px; height:240px" alt="Img">
-									<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-									
-									<button style="width:70px; height:45px" target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
-								</div>
+				<div class="row row-pb-md" >
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
+								<img src="{{currentQuestion.items[i].image.url}}" style="width:200px; height:240px" alt="Img">
+								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
+								<button style="width:70px; height:45px" target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
 							</div>
 						</div>
 						

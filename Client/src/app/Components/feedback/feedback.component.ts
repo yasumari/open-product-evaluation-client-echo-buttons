@@ -345,7 +345,7 @@ if(this.currentQuestion.items!=null) {
           this.DataAntwort1=this.DataAntwort1+1;
       }
     
-    }   
+      }   
     
     //anzahl der gewählte Bider für jeder Bilder (for bilder )
     
