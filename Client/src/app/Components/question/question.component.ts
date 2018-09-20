@@ -113,6 +113,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       /*Für die Auskunft, welcher Platz gerade gewählt wird, 
        muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
+       console.log(this.currentQuestion);
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
@@ -120,8 +121,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       if (this.currentQuestion.__typename=="RegulatorQuestion"){
         this.min=this.currentQuestion.min;
         this.max=this.currentQuestion.max;
-        //this.step=this.currentQuestion.stepSize;
-        this.step=5;
+        this.step=this.currentQuestion.stepSize;
         let dif=(this.max-this.min);
         let range=dif/3;
         let i=this.min;
@@ -136,8 +136,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
         this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
       }
-      console.log(this.currentQuestion);
 
+      console.log(this.currentQuestion);
+      console.log(this.currentProject.activeSurvey.votes);
       //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {
         

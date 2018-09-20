@@ -166,7 +166,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []},
     
   ];  
-let max=0;let img =this.currentQuestion.items[0].image.id;
+let max=0;let img =this.currentQuestion.items[0].image.id;/*
      for(let y=0;y<this.currentQuestion.items.length;y++)
      {
      for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
@@ -195,7 +195,7 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
    
       }  
     
-    }  
+     }  */
    //push titel für jeder Saülen  
    
    this.barChartData[0].label.push("Platz 1");
@@ -325,21 +325,20 @@ let max=0;let img =this.currentQuestion.items[0].image.id;
       for(let i=0;i<this.currentQuestion.choices.length;i++) 
       this.barChartLabels[i] =this.currentQuestion.choices[i].label ;
     
-      this.barChartLegend = false;
+      this.barChartLegend = false;/*
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
       if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
-        
-       if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[i].code)
+       if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[i].id)
           if(this.currentQuestion.choices[0].image.id==this.currentQuestion.choices[i].image.id)
           this.DataAntwort=this.DataAntwort+1;
           else  if(this.currentQuestion.choices[1].image.id==this.currentQuestion.choices[i].image.id)
           this.DataAntwort1=this.DataAntwort1+1;
       }
     
-    }   
+      }   */
     
     //anzahl der gewählte Bider für jeder Bilder (for bilder )
     
