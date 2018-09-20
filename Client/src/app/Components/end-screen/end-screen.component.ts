@@ -96,8 +96,8 @@ export class EndScreenComponent implements OnInit {
       this.goBackToListProjects();
     });
 
-   /* setTimeout( () => {
+   setTimeout( () => {
       this.router.navigateByUrl('/');
-  }, Constants.TIMER_END);  */
+  }, Constants.TIMER_END);  
   }
   }

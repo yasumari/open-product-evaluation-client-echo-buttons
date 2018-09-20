@@ -149,6 +149,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    
     this.currentProject = this.dataService.getContext();
     let k;
     
@@ -162,34 +163,34 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       //push titel der X axe 
       if(this.currentQuestion.items!=null){
       for(let i=0;i<this.currentQuestion.items.length;i++)
-   this.barChartLabels[i] =this.currentQuestion.items[i].label ;}
+   this.barChartLabels[i] =this.currentQuestion.items[i].label ;
+  }
    this.barChartData = [
-    {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []},
-    
-  ];  
+    {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []}];  
 let max=0;let img =this.currentQuestion.items[0].image.id;
 console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
     console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
+   
     for(let y=0;y<(<any>this.currentQuestion.items).length;y++)
      {
      for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
      {
      for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
      {
-     
+      
         if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="RankingAnswer")
           {
            
+               
+               // if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[0]==this.currentQuestion.items[y].id)
+                 
+                  this.DataAntwort=this.DataAntwort+1;
                 
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[0]==this.currentQuestion.items[y].id)
-                 {
-                   this.DataAntwort=this.DataAntwort+1;
-                 // let img=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[0];
-                }
-                 if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[1]==this.currentQuestion.items[y].id)
-                 { this.DataAntwort1=this.DataAntwort1+1;
-                //  let img1=this.currentProject.activeSurvey.votes[i].answers[x].rankedImages[1];
-                }
+               
+                
+                // if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[1]==this.currentQuestion.items[y].id)
+                  this.DataAntwort1=this.DataAntwort1+1;
+                
                
                
           }
