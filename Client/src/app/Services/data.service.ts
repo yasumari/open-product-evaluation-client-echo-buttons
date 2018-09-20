@@ -18,6 +18,7 @@ export class DataService {
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
     private countRanking=0;
+    private regulatorValues=[];
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -158,5 +159,15 @@ export class DataService {
       this.countRanking++;
     }
 
+    /**
+     * 
+     */
+    setRegulatorsValue(regulators: Number[]){
+      this.regulatorValues=regulators;
+    }
+
+     getRegulatorsValue(){
+      return this.regulatorValues;
+     }
   constructor() { }
 }

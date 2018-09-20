@@ -21,6 +21,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private currentQuestion: Question;
   private ranking=[]; 
   private count_items; 
+  private min;
+  private max;
+  private step;
+  private valueBtn1;
+  private valueBtn2;
 
  constructor(private questionService: QuestionService, private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {}
 
@@ -31,7 +36,24 @@ export class QuestionComponent implements OnInit, OnDestroy {
     return (Math.round(this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length))+"%";
   }
 
-
+  searchButtonValues(diff, possibleNumbers): Number{
+    if (possibleNumbers.includes(this.min+diff)){
+      if ((this.min+diff)==this.max){
+        return null
+      }
+      return (this.min+diff);
+    } else {
+      for (let i of possibleNumbers) {
+        if (i>(this.min+diff)){
+          if (i>=this.max){
+            return null
+          }
+          return i;
+        }
+     }
+    }
+    return null;
+  }
   /**
    * @description Reaktion auf einen gedrückten Buzzer/Button, entscheidet anhand welches 
    * Fragetypens welche Buttons disabled werden und welche Funktion ausgelöst werden.  StrategyPattern, questionService.answer()
@@ -94,23 +116,27 @@ export class QuestionComponent implements OnInit, OnDestroy {
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
+
+      if (this.currentQuestion.__typename=="RegulatorQuestion"){
+        this.min=this.currentQuestion.min;
+        this.max=this.currentQuestion.max;
+        //this.step=this.currentQuestion.stepSize;
+        this.step=5;
+        let dif=(this.max-this.min);
+        let range=dif/3;
+        let i=this.min;
+        let possibleNumbers=[];
+        //Alle Möglichen Bewertungen
+        while (i<=this.max){
+          possibleNumbers.push(i);
+          i+=this.step;
+        }
+        this.valueBtn1=this.searchButtonValues(range, possibleNumbers);
+        this.valueBtn2=this.searchButtonValues((range+range), possibleNumbers);
+
+        this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
+      }
       console.log(this.currentQuestion);
-      // testdaten rechnnung Antwort 
-      this.currentQuestion.id=1;
-        
-      this.currentProject.activeSurvey.votes[0].answers[0].question=1;
-      this.currentQuestion.id=2;
-
-      this.currentProject.activeSurvey.votes[0].answers[1].question=2; 
-
-      this.currentQuestion.id=3;
-      
-      this.currentProject.activeSurvey.votes[1].answers[0].question=3;
-  
-      this.currentQuestion.id=2;
-      
-      this.currentProject.activeSurvey.votes[1].answers[1].question=4;
-
 
       //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {

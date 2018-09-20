@@ -289,7 +289,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h4>Wähle wie sehr es dir gefällt: 1 = sehr gut, 4 = gar nicht.</h4>
+			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
@@ -300,10 +300,26 @@
 						</div>
 					</div>
 				</div>
-			<button target="_blank" class="buzzer one" (click)="buttonClick(0)" id="ranking_0" name="button0" style="margin-top: 50px"></button>
-			<button target="_blank" class="buzzer two" (click)="buttonClick(1)" id="ranking_1" name="button1" style="margin-top: 50px"></button>
-			<button target="_blank" class="buzzer three" (click)="buttonClick(2)" id="ranking_2" name="button2" style="margin-top: 50px"></button>
-			<button target="_blank" class="buzzer four" (click)="buttonClick(3)" id="ranking_3" name="button3" style="margin-top: 50px"></button>
+			
+			<div style="display: inline-block">
+					<p style="margin-left:-30px">{{min}}</p>
+				<button target="_blank" class="buzzer one" (click)="buttonClick(0)" id="ranking_0" name="button0"></button>
+			</div>
+			<div style="display: inline-block" *ngIf="valueBtn1!=null">
+					<p style="margin-left:-30px">{{valueBtn1}}</p>
+					<button target="_blank" class="buzzer two" (click)="buttonClick(1)" id="ranking_1" name="button1"></button>
+					
+			</div>
+			<div style="display: inline-block" *ngIf="valueBtn2!=null">
+					<p style="margin-left:-30px">{{valueBtn2}}</p>
+					<button target="_blank" class="buzzer three" (click)="buttonClick(2)" id="ranking_2" name="button2"></button>
+					
+			</div>
+			<div style="display: inline-block">
+					<p style="margin-left:-30px">{{max}}</p>
+					<button target="_blank" class="buzzer four" (click)="buttonClick(3)" id="ranking_3" name="button3"></button>
+					
+			</div>
 		</div>
 	</div>
 </div>
@@ -320,7 +336,6 @@
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-									<!-- TODO?? Button disable wenn ausgewählt wurde, oder die Zahl reinschreiben-->
 								<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
 							</div>
 						</div>
