@@ -102,9 +102,7 @@ export class EndScreenComponent implements OnInit {
     this.sub=this.messageService.getMessage().subscribe( message => {
       this.goBackToListProjects();
     });
-
-  //Constants.TIMER_END);  
-
+    
   this.timer= setTimeout( () => {
     this.goBackToListProjects();
 }, Constants.TIMER_END);  

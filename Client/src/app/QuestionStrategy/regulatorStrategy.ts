@@ -6,7 +6,6 @@ import { DataService } from "../Services/data.service";
 
 export class regulatorStrategy extends QuestionStrategy {
     answer(apollo: Apollo, answerQuestion:any, btn_number: Number, renderer:Renderer2, dataService:DataService){
-        console.log("Hallo aus der Regulator strategy");
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
         let j=0;
         //Alle 4 Buttons disablen

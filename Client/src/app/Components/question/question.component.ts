@@ -64,7 +64,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
    * @param btn_number Nummer des gedrückten Buttons
    */
    buttonClick(btn_number: number){    
-     console.log("BUTTON GEDRÜCKT: " + btn_number);
     this.currentAnswer={
       questionID: this.currentQuestion.id
     }
@@ -113,17 +112,19 @@ export class QuestionComponent implements OnInit, OnDestroy {
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       /*Für die Auskunft, welcher Platz gerade gewählt wird, 
        muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
-       console.log(this.currentQuestion);
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
 
       if (this.currentQuestion.__typename=="RegulatorQuestion"){
+        /**
+         * @description Besonders für Regulator müssen die Zahlenwerte berechnet werden, 
+         * da die Buzzer nur 4 Werte darstellen können
+         */
         this.min=this.currentQuestion.min;
         this.max=this.currentQuestion.max;
         this.step=this.currentQuestion.stepSize;
-        let dif=(this.max-this.min);
-        let range=dif/3;
+        let range=(this.max-this.min)/3;
         let i=this.min;
         let possibleNumbers=[];
         //Alle Möglichen Bewertungen
