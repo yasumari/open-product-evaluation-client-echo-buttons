@@ -115,12 +115,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
       if (this.currentQuestion.__typename=="RankingQuestion"){
         this.count_items= 0;
       }
-<<<<<<< HEAD
-      console.log("Question ",this.currentQuestion);
-      console.log("database question",this.currentProject.activeSurvey.votes);
-     
-      
-=======
 
       if (this.currentQuestion.__typename=="RegulatorQuestion"){
         /**
@@ -143,7 +137,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
         this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
       }
->>>>>>> bugfixes
 
       console.log(this.currentQuestion);
       console.log(this.currentProject.activeSurvey.votes);
