@@ -27,7 +27,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private valueBtn1;
   private valueBtn2;
 
- constructor(private questionService: QuestionService, private apollo: Apollo, private renderer: Renderer2, private dataService: DataService, private router: Router, private messageService: MessageService) {}
+ constructor(
+   private questionService: QuestionService, 
+   private apollo: Apollo, 
+   private renderer: Renderer2, 
+   private dataService: DataService, 
+   private router: Router, 
+   private messageService: MessageService) {}
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -36,7 +42,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     return (Math.round(this.dataService.getAnswerNumber()*100/this.currentProject.activeSurvey.questions.length))+"%";
   }
 
-  searchButtonValues(diff, possibleNumbers): Number{
+  regulatorButtonValues(diff, possibleNumbers): Number{
     if (possibleNumbers.includes(this.min+diff)){
       if ((this.min+diff)==this.max){
         return null
@@ -132,8 +138,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
           possibleNumbers.push(i);
           i+=this.step;
         }
-        this.valueBtn1=this.searchButtonValues(range, possibleNumbers);
-        this.valueBtn2=this.searchButtonValues((range+range), possibleNumbers);
+        this.valueBtn1=this.regulatorButtonValues(range, possibleNumbers);
+        this.valueBtn2=this.regulatorButtonValues((range+range), possibleNumbers);
 
         this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
       }

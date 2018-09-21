@@ -19,7 +19,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
   sub: Subscription;
   Teilnehmer : Vote;
 
-  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { }
+  constructor(
+    private apollo: Apollo, 
+    private router: Router, 
+    private dataService: DataService, 
+    private messageService: MessageService) { }
 
   private contextid:string;
   private deviceID: string;
@@ -47,9 +51,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
     console.log(data);
     this.currentProject = data.context;
 
-    //vorne im Array starten und dann eins hochzählen bei einer Antwort 
-    //TODO: leere Antworten sind nicht möglich --> vllt. doch bei Like Question?
-
     /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
     this.dataService.sendContext(this.currentProject);
     /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
@@ -76,12 +77,11 @@ updateDevice(deviceID: string, contextId: string){
 }
 
     public ngOnInit(): void {
-      //TODO: Kommt bisher von Startseite, was passiert, wenn schon spezifische ContextID kennt, dann das nehmen
+      
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       this.contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
       this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
-      //TODO Name und Nutzer festlegen
       
       //Wenn es ohne Startseite aufgerufen wird, dann 
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät

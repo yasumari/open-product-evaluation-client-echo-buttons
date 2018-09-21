@@ -19,7 +19,12 @@ export class ListComponent implements OnInit, OnDestroy {
     surveys: Observable<Context>;
     sub: Subscription;
 
-    constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) { 
+    constructor(
+        private apollo: Apollo, 
+        private router: Router, 
+        private dataService: DataService, 
+        private messageService: MessageService) { 
+            
         //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
         this.sub=this.messageService.getMessage().subscribe( message => {
             this.sub.unsubscribe();

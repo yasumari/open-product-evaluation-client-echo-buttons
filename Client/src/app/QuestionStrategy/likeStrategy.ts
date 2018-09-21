@@ -17,8 +17,6 @@ export class likeStrategy extends QuestionStrategy {
         }
         
         dataService.setAnswerNumber();
-
-        console.log("Hallo aus der LIKE strategy");
         apollo.mutate({
             fetchPolicy: 'no-cache',
             mutation: likeAnswerMutate,

@@ -14,7 +14,7 @@ import { Constants } from '../../constants';
   styleUrls: ['./feedback.component.css']
 })
 export class FeedbackComponent implements OnInit, OnDestroy {
-   private sub: Subscription;
+  private sub: Subscription;
   private max: number;
   private image:string;
   private timer;

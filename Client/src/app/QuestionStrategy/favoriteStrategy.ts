@@ -12,7 +12,6 @@ import { DataService } from "../Services/data.service";
 export class favoriteStrategy extends QuestionStrategy {
      answer(apollo: Apollo, answerQuestion: any, btn_number: Number, renderer: Renderer2, dataService:DataService){
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
-        console.log("Hallo aus der FAVORITE strategy");
         for (let btn of currentQuestion.items) {
             let _btn: HTMLElement=document.getElementById(btn.id);
             renderer.setProperty(_btn, 'disabled', 'true');

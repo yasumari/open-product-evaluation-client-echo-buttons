@@ -6,7 +6,6 @@ import { DataService } from "../Services/data.service";
 
 export class rankingStrategy extends QuestionStrategy {
     answer(apollo: Apollo, answerQuestion:any, btn_number: Number, renderer: Renderer2, dataService:DataService){
-        console.log("Hallo aus der Ranking strategy");
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
     
         apollo.mutate({

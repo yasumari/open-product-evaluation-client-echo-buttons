@@ -28,7 +28,7 @@ mutation deleteDeviceMutation ($deviceID: ID!){
  * @description Server: ein Device mit der KontextID aktualisieren
  */
 export const updateDevice: any = gql`
-mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
+mutation updateDeviceMutation ($deviceID: ID!, $context: ID){
   updateDevice(data: 
     {
       context: $context

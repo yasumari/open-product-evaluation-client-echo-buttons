@@ -30,8 +30,13 @@ export class EndScreenComponent implements OnInit {
   public currentQuestion: Question;
   public DataAntwort:number=0;
  
-  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {}
-  private timer;
+  constructor(
+    private apollo: Apollo, 
+    private router: Router, 
+    private dataService: DataService, 
+    private messageService: MessageService) {}
+  
+    private timer;
   
   /**
    * @description KontextID des aktuellen Geräts auf null setzen
@@ -73,7 +78,6 @@ export class EndScreenComponent implements OnInit {
     this.sub.unsubscribe();
     this.dataService.setPositionQuestion(0);
     this.dataService.setAnswerNumberZero();
-    console.log("hier drin");
     clearTimeout(this.timer);
     this.abmelden();
     this.router.navigate(['/']);

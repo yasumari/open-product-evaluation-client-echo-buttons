@@ -90,6 +90,7 @@ export class AppModule {
     httpLink: HttpLink,
     private dataService: DataService
   ) {
+    
   const http = httpLink.create({uri: Constants.SERVER_URL});
     
         const authMiddleware = new ApolloLink((operation, forward) => {

@@ -12,7 +12,6 @@ export class likeDislikeStrategy extends QuestionStrategy {
     answer(apollo: Apollo,answerQuestion: any, btn_number: Number, renderer: Renderer2, dataService:DataService){
         //DislikeQuestion: mutation besondere Variable:  liked - Gefällt oder gefällt das Objekt nicht
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
-        console.log("HALLO AUS DER LIKEDISLIKE STRATEGY");
         let btn_like: HTMLElement = document.getElementById("btn_like");
         let btn_dislike: HTMLElement = document.getElementById("btn_dislike");
         renderer.setProperty(btn_like, 'disabled', 'true');

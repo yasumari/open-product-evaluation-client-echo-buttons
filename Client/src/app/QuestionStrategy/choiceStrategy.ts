@@ -9,7 +9,6 @@ import { DataService } from "../Services/data.service";
 export class choiceStrategy extends QuestionStrategy {
     answer(apollo: Apollo, answerQuestion: any, btn_number: Number, renderer: Renderer2, dataService:DataService){
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
-        console.log("Hallo aus der CHOICE strategy");
         for (let btn of currentQuestion.choices) {
             let _btn: HTMLElement=document.getElementById(btn.id);
             renderer.setProperty(_btn, 'disabled', 'true');
