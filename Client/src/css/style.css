@@ -5,6 +5,8 @@ body {
   line-height: 1.7;
   color: #777;
   background: #fff;
+  /* height: 2160px;
+  width: 3840px; */
 }
 
 #page {
@@ -207,6 +209,7 @@ h5{
   background: #fff;
   color: #000;
   border: 2px solid #fff;
+  margin: 5px;
 }
 
 .btn-white:active {
