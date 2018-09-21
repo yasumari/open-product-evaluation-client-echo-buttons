@@ -103,6 +103,7 @@ export class AppModule {
     const wsLink = new WebSocketLink({
       uri: "ws://localhost:3000",
       options: {
+        //lazy, erst bei der ersten Subscription gestartet
         lazy: true,
         reconnect: true,
         connectionParams: () => ({

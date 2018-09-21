@@ -8,9 +8,6 @@ import { newDeviceMutation } from './../../GraphQL/Device.gql';
 import { queryAllSurveys } from './../../GraphQL/Context.gql';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
-import { AppModule } from '../../app.module';
-
-
 
 @Component({
   selector: 'app-list',

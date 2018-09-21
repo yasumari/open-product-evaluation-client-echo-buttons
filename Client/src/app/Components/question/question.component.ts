@@ -24,22 +24,6 @@ query shortContexts ($contextID: ID!){
 }
 `;
 
-const COMMENTS_SUBSCRIPTION = gql`
-subscription subContext($cID: ID!) {
-  contextUpdate(contextID: $cID) {
-    event
-    changedAttributes
-    context {
-      id
-      name
-      activeSurvey {
-        id
-      }
-    }
-  }
-}
-`;
-
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -70,41 +54,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
    private router: Router, 
    private messageService: MessageService) {
 
-    this.commentsQuery = apollo.watchQuery({
-      query: COMMENT_QUERY,
-      variables: {
-        contextID: "7df600774ceaa14488143c9d7877fd71662f4750c7c1c77aede7aa684d7c16f1" 
-      }
-    });
-
-    this.comments = this.commentsQuery.valueChanges;
-
    }
 
 
-   subscribeToNewComments() {
-     console.log("SUBSCRIPTIONS");
-    this.commentsQuery.subscribeToMore({
-      document: COMMENTS_SUBSCRIPTION,
-      variables: {
-        cID: "7df600774ceaa14488143c9d7877fd71662f4750c7c1c77aede7aa684d7c16f1"
-      },
-      updateQuery: (prev, {subscriptionData}) => {
-        if (!subscriptionData.data) {
-          return prev;
-        }
-        console.log(subscriptionData);
-        const newFeedItem = subscriptionData.data.commentAdded;
-
-        return {
-          ...prev,
-          entry: {
-            comments: [newFeedItem, ...prev.entry.comments]
-          }
-        };
-      }
-    });
-  }
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -218,7 +170,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
       console.log(this.currentQuestion);
     
-      this.subscribeToNewComments();
+      
 
         //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {
