@@ -12,38 +12,109 @@ query{
 `;
 
 /**
- * @description Server: ein neues Device anlegen
+ * @description alle Projekte abfragen
  */
-export const newDeviceMutation: any = gql`
-mutation addNewDevice ($deviceName: String!){
-	createDevice(data: {
-  	name: $deviceName
-  }){
-    device{
+export const queryAllSurveys: any=gql`
+query{
+  contexts{
+    id
+    activeSurvey{
       id
-      name
-      creationDate
+      description
+      title
     }
-    token
-  } 
+  }
 }`;
 
-/**
- * @description Server: ein Device mit der KontextID aktualisieren
- */
-export const updateDevice: any = gql`
-mutation updateDeviceMutation ($deviceID: ID!, $context: ID!){
-  updateDevice(data: 
-    {
-      context: $context
-    }, deviceID: $deviceID){
-    device {
-      name
-      id
-      creationDate
-    }
-    }
-  }`;
+//Mutation Answer FavoriteQuesion
+export const favoriteAnswerMutate = gql`
+mutation($questionID: ID!, $favoriteItem: ID!){
+  createAnswer(data: {
+    questionID: $questionID,
+    favoriteItem: $favoriteItem
+  	}){
+      __typename
+    	answer{
+        __typename
+    		question
+      }
+  	}
+}`;
+
+//Mutation Answer LikeDislikeQuestion
+export const likeDislikeAnswerMutate = gql`
+mutation($questionID: ID!, $liked: Boolean!){
+  createAnswer(data: {
+    questionID: $questionID,
+    liked: $liked
+  	}){
+      __typename
+    	answer{
+        __typename
+    		question
+      }
+  	}
+}`;
+
+//Mutation Answer LikeQuestion
+export const likeAnswerMutate = gql`
+mutation($questionID: ID!, $liked: Boolean){
+  createAnswer(data: {
+    questionID: $questionID,
+    liked: $liked
+  	}){
+      __typename
+    	answer{
+        __typename
+    		question
+      }
+  	}
+}`;
+
+//Mutation Answer RegulatorQuestion
+export const regulatorAnswerMutate = gql`
+mutation($questionID: ID!, $rating: Float!){
+  createAnswer(data: {
+    questionID: $questionID,
+    rating: $rating 
+  	}){
+      __typename
+    	answer{
+        __typename
+    		question
+      }
+  	}
+}`;
+
+//Mutation Answer ChoiceQuestion
+export const choiceAnswerMutate = gql`
+mutation($questionID: ID!, $choice: ID!){
+  createAnswer(data: {
+    questionID: $questionID
+    choice: $choice
+  	}){
+      __typename
+    	answer{
+        __typename
+    		question
+      }
+  	}
+}`;
+
+//Mutation Answer RankingQuestion
+export const rankingAnswerMutate = gql`
+mutation($questionID: ID!, $rankedItems: [ID!]){
+  createAnswer(data: {
+     questionID: $questionID,
+     rankedItems: $rankedItems
+     }){
+       __typename
+       answer{
+         __typename
+         question
+       }
+     }
+ }`;
 
 /**
  * @description Server: Query: das Projekt mittels der KontextID abfragen
@@ -143,5 +214,3 @@ query gContexts ($contextID: ID!){
     }
   }
 }`;
-
-

@@ -1,6 +1,6 @@
 import { QuestionStrategy } from "./QuestionStrategy";
 import { Apollo } from "apollo-angular";
-import { regulatorAnswerMutate } from "../Components/question/question.model";
+import { regulatorAnswerMutate } from "../GraphQL/Context.gql";
 import { Renderer2 } from "@angular/core";
 import { DataService } from "../Services/data.service";
 

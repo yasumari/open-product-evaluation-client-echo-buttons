@@ -1,6 +1,6 @@
 import { QuestionStrategy } from "./QuestionStrategy";
 import { Apollo } from "apollo-angular";
-import { choiceAnswerMutate } from "../Components/question/question.model";
+import { choiceAnswerMutate } from "../GraphQL/Context.gql";
 import { Renderer2 } from "@angular/core";
 import { DataService } from "../Services/data.service";
 

@@ -1,5 +1,5 @@
 import { QuestionStrategy } from "./QuestionStrategy";
-import { favoriteAnswerMutate } from "../Components/question/question.model";
+import { favoriteAnswerMutate } from "../GraphQL/Context.gql";
 import { Apollo } from "apollo-angular";
 import { Renderer2 } from "@angular/core";
 import { DataService } from "../Services/data.service";

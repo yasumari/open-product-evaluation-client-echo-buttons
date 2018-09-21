@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
-import { currentProjectData, updateDevice, newDeviceMutation, queryContextID} from './project.model';
+import {  updateDevice, newDeviceMutation} from './../../GraphQL/Device.gql';
+import { currentProjectData, queryContextID} from './../../GraphQL/Context.gql'
 import { Context, Vote } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';

@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 import { Context } from '../../types'
-import { newDeviceMutation, queryAllSurveys } from './list.model';
+import { newDeviceMutation } from './../../GraphQL/Device.gql';
+import { queryAllSurveys } from './../../GraphQL/Context.gql';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
 
