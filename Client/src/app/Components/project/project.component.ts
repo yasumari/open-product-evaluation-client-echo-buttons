@@ -32,6 +32,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/question');
   }
 
+  backToList(){
+    this.router.navigate(['/']);
+  }
+
   //Umfrage abfragen
   /**
    * @description Server-Anfrage für Daten eines Projekts
