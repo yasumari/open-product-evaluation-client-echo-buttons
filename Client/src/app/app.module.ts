@@ -16,7 +16,9 @@ import { ButtonRegisterComponent } from './Components/button-register/button-reg
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
 import { ApolloLink, concat } from 'apollo-link';
-
+import { split } from 'apollo-link';
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 
 import { ChartsModule } from 'ng2-charts';
 
@@ -29,6 +31,10 @@ import { likeStrategy } from './QuestionStrategy/likeStrategy';
 import { choiceStrategy } from './QuestionStrategy/choiceStrategy';
 import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
 import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
+import { SubscriptionClient } from 'subscriptions-transport-ws';
+import { get } from 'http';
+
+  
 
 export function questionServiceFactory(renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
   return new QuestionService(renderer, dataService, apollo, types);
@@ -85,27 +91,59 @@ const STRATEGY_PROVIDER: FactoryProvider = {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  public subscriptionClient: SubscriptionClient = null;
+
+
   constructor(
     apollo: Apollo,
     httpLink: HttpLink,
     private dataService: DataService
   ) {
-    
-  const http = httpLink.create({uri: Constants.SERVER_URL});
-    
-        const authMiddleware = new ApolloLink((operation, forward) => {
-          let token = this.dataService.getToken();
-          // add the authorization to the headers when token isn't empty
-          if (token !=null || token != undefined){
+
+    const wsLink = new WebSocketLink({
+      uri: "ws://localhost:3000",
+      options: {
+        onError: (error) => {
+          console.log(error);
+          // error.message has to match what the server returns.
+          if (error.message === 'Invalid authentication' ) {
+            this.subscriptionClient.close();
+          }
+        },
+        lazy: true,
+        reconnect: true,
+        connectionParams: () => ({
+          Authorization: "Bearer " + this.dataService.getToken(),
+        }),
+      },
+    })
+
+   
+
+      const http = httpLink.create({uri: Constants.SERVER_URL});
+      const authMiddleware = new ApolloLink((operation, forward) => {
+        let token = this.dataService.getToken();
+        // add the authorization to the headers when token isn't empty
+        if (token !=null || token != undefined){
           operation.setContext({
             headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
           });
         }
-
           return forward(operation);
         });
+    
+        const link2 = split(
+          // split based on operation type
+          ({ query }) => {
+            let definition = getMainDefinition(query);
+            return definition.kind === 'OperationDefinition' && definition.operation === 'subscription';
+          },
+          wsLink,
+          concat(authMiddleware, http),
+        );
+
     apollo.create({
-      link:concat(authMiddleware, http),
+      link: link2,
       cache: new InMemoryCache()
     });
   }

@@ -27,7 +27,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   private contextid:string;
   private deviceID: string;
-
+    
   /**
    * @description wird vom Button "Starten" ausgelöst, damit wird das Device mit der ContextID geupdatet
    * Weiterleitung an Question

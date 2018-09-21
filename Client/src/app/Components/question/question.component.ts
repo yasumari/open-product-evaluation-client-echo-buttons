@@ -7,6 +7,38 @@ import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
 import { Constants } from "../../constants";
 import { QuestionService } from "./question.service";
+import { QueryRef } from 'apollo-angular';
+import { Observable } from 'rxjs';
+import gql from 'graphql-tag';
+
+const COMMENT_QUERY = gql`
+query shortContexts ($contextID: ID!){
+  context(contextID: $contextID) {
+    id
+    name
+    activeSurvey {
+      id
+      description
+    }
+  }
+}
+`;
+
+const COMMENTS_SUBSCRIPTION = gql`
+subscription subContext($cID: ID!) {
+  contextUpdate(contextID: $cID) {
+    event
+    changedAttributes
+    context {
+      id
+      name
+      activeSurvey {
+        id
+      }
+    }
+  }
+}
+`;
 
 @Component({
   selector: 'app-question',
@@ -26,6 +58,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private step;
   private valueBtn1;
   private valueBtn2;
+  commentsQuery: QueryRef<any>;
+  comments: Observable<any>;
+  params: any;
 
  constructor(
    private questionService: QuestionService, 
@@ -33,7 +68,43 @@ export class QuestionComponent implements OnInit, OnDestroy {
    private renderer: Renderer2, 
    private dataService: DataService, 
    private router: Router, 
-   private messageService: MessageService) {}
+   private messageService: MessageService) {
+
+    this.commentsQuery = apollo.watchQuery({
+      query: COMMENT_QUERY,
+      variables: {
+        contextID: "7df600774ceaa14488143c9d7877fd71662f4750c7c1c77aede7aa684d7c16f1" 
+      }
+    });
+
+    this.comments = this.commentsQuery.valueChanges;
+
+   }
+
+
+   subscribeToNewComments() {
+     console.log("SUBSCRIPTIONS");
+    this.commentsQuery.subscribeToMore({
+      document: COMMENTS_SUBSCRIPTION,
+      variables: {
+        cID: "7df600774ceaa14488143c9d7877fd71662f4750c7c1c77aede7aa684d7c16f1"
+      },
+      updateQuery: (prev, {subscriptionData}) => {
+        if (!subscriptionData.data) {
+          return prev;
+        }
+        console.log(subscriptionData);
+        const newFeedItem = subscriptionData.data.commentAdded;
+
+        return {
+          ...prev,
+          entry: {
+            comments: [newFeedItem, ...prev.entry.comments]
+          }
+        };
+      }
+    });
+  }
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -114,6 +185,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
  public ngOnInit(): void {
+
       this.currentProject = this.dataService.getContext();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
       /*Für die Auskunft, welcher Platz gerade gewählt wird, 
@@ -145,8 +217,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
 
       console.log(this.currentQuestion);
-      console.log(this.currentProject.activeSurvey.votes);
-      //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
+    
+      this.subscribeToNewComments();
+
+        //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.sub=this.messageService.getMessage().subscribe( message => {
         
           //TODO noch benötigt?

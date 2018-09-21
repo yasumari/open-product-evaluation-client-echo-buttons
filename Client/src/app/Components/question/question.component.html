@@ -207,8 +207,8 @@
 	<div class="row row-pb-sm" tag="ChoiceQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (choiceQuestion) </h3> <!-- Name des Projektes -->
-			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h1 *ngIf="currentQuestion.value!=null">{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
