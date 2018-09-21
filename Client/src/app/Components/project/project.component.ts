@@ -50,7 +50,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
     console.log(data);
     this.currentProject = data.context;
 
-    //vorne im Array starten und dann eins hochzählen bei einer Antwort 
+    //vorne im Array starten und dann eins hochzählen bei einer Antwort
     //TODO: leere Antworten sind nicht möglich --> vllt. doch bei Like Question?
 
     /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
@@ -61,8 +61,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
 }
 /**
  * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
- * @param deviceID 
- * @param contextId 
+ * @param deviceID
+ * @param contextId
  */
 updateDevice(deviceID: string, contextId: string){
     //Device contextID übergeben mit updateDevice()
@@ -85,17 +85,17 @@ updateDevice(deviceID: string, contextId: string){
       this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
       //TODO Name und Nutzer festlegen
-      
-      //Wenn es ohne Startseite aufgerufen wird, dann 
+
+      //Wenn es ohne Startseite aufgerufen wird, dann
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
       if (token==null || token==undefined || this.deviceID==null){
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
-          variables: { 
+          variables: {
             deviceName: "Fernseher",
           }
-        }).subscribe(({data}) => { 
+        }).subscribe(({data}) => {
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
           this.deviceID=data.createDevice.device.id;
           //danach erst weitere Abfragen
@@ -104,7 +104,7 @@ updateDevice(deviceID: string, contextId: string){
           }).subscribe((data)=>{
             this.getProject(data.data.contexts[0].id);
           })
-          
+
         });
       }else{
         this.getProject(this.contextid);
@@ -115,7 +115,7 @@ updateDevice(deviceID: string, contextId: string){
         this.sub.unsubscribe();
         this.router.navigateByUrl('/question')}
       )
-      
+
   }
   ngOnDestroy(){
     this.sub.unsubscribe();
