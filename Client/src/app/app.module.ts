@@ -103,13 +103,6 @@ export class AppModule {
     const wsLink = new WebSocketLink({
       uri: "ws://localhost:3000",
       options: {
-        onError: (error) => {
-          console.log(error);
-          // error.message has to match what the server returns.
-          if (error.message === 'Invalid authentication' ) {
-            this.subscriptionClient.close();
-          }
-        },
         lazy: true,
         reconnect: true,
         connectionParams: () => ({
