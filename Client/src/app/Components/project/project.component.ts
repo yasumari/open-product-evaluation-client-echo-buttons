@@ -37,6 +37,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/question');
   }
 
+  backToList(){
+    this.router.navigate(['/']);
+  }
+
   //Umfrage abfragen
   /**
    * @description Server-Anfrage für Daten eines Projekts
@@ -59,8 +63,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
 }
 /**
  * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
- * @param deviceID 
- * @param contextId 
+ * @param deviceID
+ * @param contextId
  */
 updateDevice(deviceID: string, contextId: string){
     //Device contextID übergeben mit updateDevice()
@@ -89,10 +93,10 @@ updateDevice(deviceID: string, contextId: string){
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
           mutation: newDeviceMutation,
-          variables: { 
+          variables: {
             deviceName: "Fernseher",
           }
-        }).subscribe(({data}) => { 
+        }).subscribe(({data}) => {
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
           this.deviceID=data.createDevice.device.id;
           //danach erst weitere Abfragen
@@ -101,7 +105,7 @@ updateDevice(deviceID: string, contextId: string){
           }).subscribe((data)=>{
             this.getProject(data.data.contexts[0].id);
           })
-          
+
         });
       }else{
         this.getProject(this.contextid);
@@ -112,7 +116,7 @@ updateDevice(deviceID: string, contextId: string){
         this.sub.unsubscribe();
         this.router.navigateByUrl('/question')}
       )
-      
+
   }
   ngOnDestroy(){
     this.sub.unsubscribe();
