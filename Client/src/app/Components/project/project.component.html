@@ -7,7 +7,7 @@
         <p>{{currentProject.activeSurvey.description}}</p> <!-- Beschreibung des Projektes -->
         <!--><p>von {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p> <!-- Autor des Projektes -->
         <p><a class="btn btn-white" (click)="startSurvey()" >Start</a>
-           <a class="btn btn-white" (click)="goBackToListProjects()">Zurück</a></p>
+           <a class="btn btn-white" routerLink="/" routerLinkActive="active">Zurück</a></p>
         <!--><p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>
         <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/>     !!!QR-CODE!!! </p><-->
       </div>
