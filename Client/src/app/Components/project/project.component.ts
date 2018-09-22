@@ -70,6 +70,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
        cID: contextID
      },
      updateQuery: (prev, {subscriptionData}) => {
+       console.log("UPDATE: " + subscriptionData.data);
        if (!subscriptionData.data) {
          return prev;
        }
