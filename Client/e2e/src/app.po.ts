@@ -16,7 +16,7 @@ export class AppPage {
   }
 
   getCards(){
-    return $$('app-list .card-title');
+    return $$('app-list .card');
   }
 
   getButtonStart(){
@@ -31,6 +31,10 @@ export class AppPage {
     return $$('app-question img');
   }
 
+  getInputByName(stringname){
+    return element(by.name(stringname));
+  }
+
   getButton(num){
     return element(by.name("button"+num));
   }
@@ -41,6 +45,10 @@ export class AppPage {
 
   getHeadlineQuestion(){
     return element(by.css('h3'));
+  }
+
+  getQuestionDiv(name){
+    return element(by.name(name));
   }
 
 }

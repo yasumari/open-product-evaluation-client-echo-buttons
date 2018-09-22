@@ -23,17 +23,19 @@ h1{
   font-weight: 100;
 }
 
+h3{
+  font-size: 20px;
+}
+
 h6{
   margin-top: 10px;
 }
 
 .tile{
   display: flex;
-  /*flex-flow: row wrap; */
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
-  /*align-items: center;*/
 }
 
 .card {
@@ -42,9 +44,12 @@ h6{
     cursor: pointer;
     justify-content: center;
     border-radius: 10px;
-    padding: 15px;
+    padding: 30px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
+    width: 100%;
+    height: 180px;
+    margin-top: 10px;
 }
 
 .card:hover {
@@ -60,7 +65,7 @@ h6{
   color: #34a7bd;
 }
 
-#button {
+/* #button {
   color: #34a7bd;
 }
 
@@ -72,3 +77,4 @@ h6{
   font-size: 15px;
   font-family: "Raleway";
 }
+*/

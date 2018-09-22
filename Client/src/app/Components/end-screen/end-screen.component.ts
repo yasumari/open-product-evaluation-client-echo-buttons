@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import {DataService } from '../../Services/data.service';
-import { updateDevice, deleteDevice} from './end-screen.model';
+import { updateDevice, deleteDevice} from './../../GraphQL/Device.gql';
 import { MessageService} from '../../Services/message.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ChartsModule } from 'ng2-charts';
 import { Context, Question } from '../../types';
+import { Constants } from '../../constants';
 
 
 
@@ -29,13 +30,19 @@ export class EndScreenComponent implements OnInit {
   public currentQuestion: Question;
   public DataAntwort:number=0;
  
-  constructor(private apollo: Apollo, private router: Router, private dataService: DataService, private messageService: MessageService) {}
+  constructor(
+    private apollo: Apollo, 
+    private router: Router, 
+    private dataService: DataService, 
+    private messageService: MessageService) {}
   
+    private timer;
   
   /**
    * @description KontextID des aktuellen Geräts auf null setzen
    */
   abmelden(): void{
+    console.log("Abmelden");
     this.apollo.mutate({
       fetchPolicy: 'no-cache',
       mutation: updateDevice,
@@ -71,6 +78,8 @@ export class EndScreenComponent implements OnInit {
     this.sub.unsubscribe();
     this.dataService.setPositionQuestion(0);
     this.dataService.setAnswerNumberZero();
+    clearTimeout(this.timer);
+    this.abmelden();
     this.router.navigate(['/']);
   }
 
@@ -82,10 +91,7 @@ export class EndScreenComponent implements OnInit {
     this.image1=this.dataService.getChosenImageUrlarray();
     this.value=this.dataService.getMaxAntwortArray();
     
-    console.log("image url length",this.image1.length);
-    console.log("image url",this.image1[1]);
-    ///////////////PUIS FAIRE UN VRAI TEST
-    /////////couleur et ameliorer la structure des graffik 
+    
     this.max=this.dataService.getContext().activeSurvey.questions.length;
   
     
@@ -97,5 +103,9 @@ export class EndScreenComponent implements OnInit {
     this.sub=this.messageService.getMessage().subscribe( message => {
       this.goBackToListProjects();
     });
+    
+  this.timer= setTimeout( () => {
+    this.goBackToListProjects();
+}, Constants.TIMER_END);  
   }
   }

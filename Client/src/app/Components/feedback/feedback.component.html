@@ -1,11 +1,11 @@
 <script src="node_modules/chart.js/Chart.min.js"></script>
 <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
 <script src="node_modules/chart.js/src/chart.js"> </script>
-<div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
+
 <script src="node_modules/chart.js/src/chart.js">
-Chart.defaults.global.legend.display = false;
+
 </script>
-</div>
+
 
 <body>
 
@@ -15,7 +15,7 @@ Chart.defaults.global.legend.display = false;
     
         <div class="col-md-4 col-sm-4 col-sm-offset-1" style="margin-left:-90px"  >
      
-      <p><img class="looper" src="{{image}}" alt="Img" style="width:250px"></p>
+      <p *ngIf="image!=null"><img class="looper" src="{{image}}" alt="Img" style="width:250px"></p>
 
       <a class="btn btn-white" id="button" (click)="nextPage()" >Weiter</a>
         </div>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, FactoryProvider, Renderer2 } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
@@ -21,9 +21,37 @@ import { ApolloLink, concat } from 'apollo-link';
 import { ChartsModule } from 'ng2-charts';
 
 import { Constants } from './constants';
+import { QuestionService } from './Components/question/question.service';
+import { QuestionStrategy } from './QuestionStrategy/QuestionStrategy';
+import { likeDislikeStrategy } from './QuestionStrategy/likeDislikeStrategy';
+import { favoriteStrategy } from './QuestionStrategy/favoriteStrategy';
+import { likeStrategy } from './QuestionStrategy/likeStrategy';
+import { choiceStrategy } from './QuestionStrategy/choiceStrategy';
+import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
+import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
 
+export function questionServiceFactory(renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
+  return new QuestionService(renderer, dataService, apollo, types);
+}
 
-
+const STRATEGY_PROVIDER: FactoryProvider = {
+  provide: QuestionService,
+  useFactory: questionServiceFactory,
+  deps: [
+      likeStrategy,
+      favoriteStrategy,
+      choiceStrategy,
+      likeDislikeStrategy,
+      regulatorStrategy,
+      rankingStrategy,
+      likeStrategy,
+      favoriteStrategy,
+      choiceStrategy,
+      likeDislikeStrategy,
+      regulatorStrategy,
+      rankingStrategy
+  ]
+};
  
 @NgModule({
   declarations: [
@@ -44,9 +72,16 @@ import { Constants } from './constants';
     HttpLinkModule,
      CONST_ROUTING,
      ChartsModule,
-   
   ],
-  providers: [DataService],
+  providers: [
+    DataService, 
+    likeDislikeStrategy,
+    favoriteStrategy,
+    choiceStrategy, 
+    likeStrategy,
+    regulatorStrategy,
+    rankingStrategy,
+    STRATEGY_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -55,6 +90,7 @@ export class AppModule {
     httpLink: HttpLink,
     private dataService: DataService
   ) {
+    
   const http = httpLink.create({uri: Constants.SERVER_URL});
     
         const authMiddleware = new ApolloLink((operation, forward) => {
@@ -70,7 +106,15 @@ export class AppModule {
         });
     apollo.create({
       link:concat(authMiddleware, http),
+      //Vermeidung der Fehlermeldung über fehlenden FragmentMatcher
       cache: new InMemoryCache()
+      /*cache: new InMemoryCache({
+        dataIdFromObject: obj => obj.id,
+        addTypename: false,
+        fragmentMatcher: {
+          match: ({ id }, typeCond, context) => !!context.store.get(id)
+        }
+      }),*/
     });
   }
 }

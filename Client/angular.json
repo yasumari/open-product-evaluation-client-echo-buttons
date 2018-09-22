@@ -32,7 +32,8 @@
                 "src/css/owl.carousel.min.css",
                 "src/css/owl.theme.default.min.css",
                 "src/css/style.css",
-                "src/css/themify-icons.css"
+                "src/css/themify-icons.css",
+                "src/css/buzzers.css"
             ],
             "scripts": [
               "src/js/respond.min.js",

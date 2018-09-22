@@ -17,6 +17,8 @@ export class DataService {
     private chosenImagearray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
+    private countRanking=0;
+    private regulatorValues=[];
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -141,5 +143,31 @@ export class DataService {
       return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
     }
 
+/**
+ * @description Speziell für Ranking, um die Platz zu verteilen, 
+ * beschriften und abzugleichen, wann alle Items in eine Reihenfolge gebracht wurde
+ */
+    getCountRanking(){
+      return this.countRanking;
+    }
+
+    resetCountRanking(){
+      this.countRanking=0;
+    }
+
+    updateCountRanking(){
+      this.countRanking++;
+    }
+
+    /**
+     * 
+     */
+    setRegulatorsValue(regulators: Number[]){
+      this.regulatorValues=regulators;
+    }
+
+     getRegulatorsValue(){
+      return this.regulatorValues;
+     }
   constructor() { }
 }
