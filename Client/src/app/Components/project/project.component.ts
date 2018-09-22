@@ -17,13 +17,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
   message: any;
   sub: Subscription;
-  Teilnehmer : Vote;
 
   constructor(
-    private apollo: Apollo, 
-    private router: Router, 
-    private dataService: DataService, 
-    private messageService: MessageService) { }
+  private apollo: Apollo, 
+  private router: Router, 
+  private dataService: DataService, 
+  private messageService: MessageService) { }
 
   private contextid:string;
   private deviceID: string;
@@ -37,48 +36,49 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/question');
   }
 
+    /**
+   * @description Zurück zur Startseite
+   */
   backToList(){
     this.router.navigate(['/']);
   }
 
-  //Umfrage abfragen
   /**
    * @description Server-Anfrage für Daten eines Projekts
    * @param contextID ID des Kontextes, deren Daten geladen werden sollen
    */
   getProject(contextID: string){
-  this.apollo.subscribe({
-    query: currentProjectData,
-    variables: {contextID: contextID},
-  }).subscribe(({data}) => {
+    this.apollo.subscribe({
+      query: currentProjectData,
+      variables: {contextID: contextID},
+    }).subscribe(({data}) => {
+      console.log(data);
+      this.currentProject = data.context;
 
-    console.log(data);
-    this.currentProject = data.context;
-
-    /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
-    this.dataService.sendContext(this.currentProject);
-    /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
-    this.dataService.setPositionQuestion(0);
-  })
-}
-/**
- * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
- * @param deviceID
- * @param contextId
- */
-updateDevice(deviceID: string, contextId: string){
-    //Device contextID übergeben mit updateDevice()
-      this.apollo.mutate({
-        fetchPolicy: 'no-cache',
-        mutation: updateDevice,
-        variables: {
-          deviceID: deviceID,
-          context: contextId
-        }
-      }).subscribe(({data}) => {
-          console.log("mutation update Device", data);
-      });
-}
+      /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
+      this.dataService.sendContext(this.currentProject);
+      /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
+      this.dataService.setPositionQuestion(0);
+    })
+  }
+  /**
+   * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
+   * @param deviceID
+   * @param contextId
+   */
+  updateDevice(deviceID: string, contextId: string){
+      //Device contextID übergeben mit updateDevice()
+        this.apollo.mutate({
+          fetchPolicy: 'no-cache',
+          mutation: updateDevice,
+          variables: {
+            deviceID: deviceID,
+            context: contextId
+          }
+        }).subscribe(({data}) => {
+            console.log("mutation update Device", data);
+        });
+  }
 
     public ngOnInit(): void {
       
@@ -105,7 +105,6 @@ updateDevice(deviceID: string, contextId: string){
           }).subscribe((data)=>{
             this.getProject(data.data.contexts[0].id);
           })
-
         });
       }else{
         this.getProject(this.contextid);

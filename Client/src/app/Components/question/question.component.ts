@@ -26,6 +26,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private step;
   private valueBtn1;
   private valueBtn2;
+  private valueBtn3;
 
  constructor(
    private questionService: QuestionService, 
@@ -138,10 +139,33 @@ export class QuestionComponent implements OnInit, OnDestroy {
           possibleNumbers.push(i);
           i+=this.step;
         }
-        this.valueBtn1=this.regulatorButtonValues(range, possibleNumbers);
-        this.valueBtn2=this.regulatorButtonValues((range+range), possibleNumbers);
+        let value=this.regulatorButtonValues(range, possibleNumbers);
+        let value2=this.regulatorButtonValues((range+range), possibleNumbers);
 
-        this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
+
+        /**
+         * immer die Button von min - max sichtbar
+         * wenn button1=min, dann button2=max, daher die Abfragen
+         * Vorher waren button1=min und button4=max, und die dazwischen wurden geprüft mit null
+         */
+        if (value==null && value2==null)  {
+          this.valueBtn1=this.max;
+          this.valueBtn2=null;
+          this.valueBtn3=null;
+          this.dataService.setRegulatorsValue([this.min, this.max, null, null]);
+        }
+        else if (value!=null && value2==null) {
+          this.valueBtn1=value;
+          this.valueBtn2=this.max;
+          this.valueBtn3=null;
+          this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.max, null]);
+        }
+        else {
+          this.valueBtn1=value;
+          this.valueBtn2=value2;
+          this.valueBtn3=this.max;
+          this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
+        }
       }
 
       console.log(this.currentQuestion);
