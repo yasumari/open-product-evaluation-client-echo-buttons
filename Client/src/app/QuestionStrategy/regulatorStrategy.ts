@@ -19,9 +19,11 @@ export class regulatorStrategy extends QuestionStrategy {
           j++;
         }
         //RegulatorQuestion: mutation besondere Variable:rating - Skala 
-        //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
+        //TODO welches Bild soll bei einer Regulator Frage im Feedback sein? -> jetzt zeigt es nur das erste Bild
         if (currentQuestion.items!=null){
             dataService.setChosenImageUrl(currentQuestion.items[0].image.url);
+        } else {
+            dataService.setChosenImageUrl(null);
         }
         dataService.setAnswerNumber();
         

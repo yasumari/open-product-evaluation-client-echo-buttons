@@ -24,7 +24,12 @@ export class favoriteStrategy extends QuestionStrategy {
               favoriteItem: currentQuestion.items[""+btn_number].id},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
-            dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
+            if (currentQuestion.items!=null && currentQuestion.items[""+btn_number].image.url!=null){
+                console.log("BILD AUSGEWÄHLT: " +currentQuestion.items[""+btn_number].image.url)
+                dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
+            } else {
+                dataService.setChosenImageUrl(null);
+            }
             dataService.setAnswerNumber();
     }
 

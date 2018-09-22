@@ -13,7 +13,7 @@
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (favoriteQuestion) </h3> <!-- Name des Projektes -->
 			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
@@ -64,30 +64,24 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (choiceQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.item[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h5 style="margin-top: 5px">{{currentQuestion.item[i].label}}</h5>
+								<div *ngIf="item!=null">
+								<img src="{{item.image.url}}" style="width:270px; height:290px" alt="Img">
+								<h5 style="margin-top: 5px">{{item.label}}</h5>
 							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%">
-						<div class="overlay">
-							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
-								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 							</div>
 						</div>
 					</div>
 				</div>
-			<label style="font-weight: inherit; margin-right: 30px;" *ngFor="let choice of currentQuestion.choices ; let x = index">
-			<input type="radio" name="name" [value]="choice.code" (click)="buttonClick(x)" id="{{choice.id}}"/>
-			<img src="{{choice.image.url}}" style="width: 20px; margin-left: 5px; margin-right: 5px;"/>
-			<label style="font-weight: inherit;" for="{{choice.id}}"> {{choice.label}}</label>
-			</label>
+				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
+				<input type="radio" name="name" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"/>
+				<img src="{{currentQuestion.choices[y].image.url}}" style="width: 20px; margin-left: 5px; margin-right: 5px;"/>
+				<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
+				</label>
 		</div>
 	</div>
 </div>
@@ -97,7 +91,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeDislikeQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
@@ -119,7 +113,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
@@ -141,7 +135,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
@@ -191,7 +185,7 @@
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
-			<h5>{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
+			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle Platz {{(count_items+1)}}.</h4>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >

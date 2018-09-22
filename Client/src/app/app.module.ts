@@ -106,7 +106,15 @@ export class AppModule {
         });
     apollo.create({
       link:concat(authMiddleware, http),
+      //Vermeidung der Fehlermeldung über fehlenden FragmentMatcher
       cache: new InMemoryCache()
+      /*cache: new InMemoryCache({
+        dataIdFromObject: obj => obj.id,
+        addTypename: false,
+        fragmentMatcher: {
+          match: ({ id }, typeCond, context) => !!context.store.get(id)
+        }
+      }),*/
     });
   }
 }
