@@ -69,8 +69,8 @@
     }
 
     .buzzer:hover{
-      background-image: -webkit-linear-gradient(to bottom, #fff, #f4f1ee);
-      background-image: linear-gradient(to bottom, #fff, #f4f1ee);
+      background-image: -webkit-linear-gradient(to bottom, #45ccbc, #3aa0bb);
+      background-image: linear-gradient(to bottom, #45ccbc, #3aa0bb);
       color:#0088cc;
     }
 
@@ -79,25 +79,25 @@
       text-shadow:0px 0px 6px #f94e66;
     }
     .weiter:hover:after{
-      color:#f94e66;
-      text-shadow:0px 0px 6px #f94e66;
+      color:#ffffff;
+      text-shadow:0px 0px 6px #ffffff;
     }
 
     .one:hover:after{
-      color:#f94e66;
-      text-shadow:0px 0px 6px #f94e66;
+      color:#ffffff;
+      text-shadow:0px 0px 6px #ffffff;
     }
     .two:hover:after{
-      color:#f94e66;
-      text-shadow:0px 0px 6px #f94e66;
+      color:#ffffff;
+      text-shadow:0px 0px 6px #ffffff;
     }
     .three:hover:after{
-      color:#f94e66;
-      text-shadow:0px 0px 6px #f94e66;
+      color:#ffffff;
+      text-shadow:0px 0px 6px #ffffff;
     }
     .four:hover:after{
-      color:#f94e66;
-      text-shadow:0px 0px 6px #f94e66;
+      color:#ffffff;
+      text-shadow:0px 0px 6px #ffffff;
     }
 
     .tick:hover:after{
