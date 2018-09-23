@@ -14,9 +14,6 @@ export class SubscriptionsService {
   constructor(private messageService: MessageService, private router: Router, private apollo: Apollo) {
   }
 
-  hi(name: string){
-    console.log(name);
-  }
   subscribeContext(contextID: String){
     this.apollo.subscribe({
       query: subscribeContext,
@@ -27,8 +24,8 @@ export class SubscriptionsService {
         console.log("Irgendwas wurde geupdatet", data);
         //TODO Fälle Abfragen, wo es egal ist, sonst zurück zum Anfang
       }
+    
     });
-    this.hi("adsfg");
 }
 
 }
