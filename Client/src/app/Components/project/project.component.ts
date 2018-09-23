@@ -7,8 +7,7 @@ import { Context, Vote } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import gql from 'graphql-tag';
-import { Observable } from 'rxjs';
+import { SubscriptionsService} from '../../Services/subscriptions.service';
 
 @Component({
   selector: 'app-project',
@@ -26,24 +25,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     private apollo: Apollo, 
     private router: Router, 
     private dataService: DataService, 
-    private messageService: MessageService) { }
-
-
-  
-  subscribeToNewComments(contextID: string) {
-    this.apollo.subscribe({
-      query: subscribeContext,
-      variables: {cID: contextID}
-    }).subscribe({
-      next (data) {
-        // Notify your application with the new arrived data
-        console.log(data);
-        console.log("Irgendwas wurde geupdatet");
-        this.router.navigateByUrl("/");
-
-      }
-    });
-  }
+    private messageService: MessageService, 
+    private subscriptionsService: SubscriptionsService) { }
   
 
   /**
@@ -65,27 +48,26 @@ export class ProjectComponent implements OnInit, OnDestroy {
    * @param contextID ID des Kontextes, deren Daten geladen werden sollen
    */
   getProject(contextID: string){
+    this.apollo.subscribe({
+      query: currentProjectData,
+      variables: {contextID: contextID},
+    }).subscribe(({data}) => {
 
-  this.apollo.subscribe({
-    query: currentProjectData,
-    variables: {contextID: contextID},
-  }).subscribe(({data}) => {
+      console.log(data);
+      this.currentProject = data.context;
 
-    console.log(data);
-    this.currentProject = data.context;
-
-    /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
-    this.dataService.sendContext(this.currentProject);
-    /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
-    this.dataService.setPositionQuestion(0);
-  })
-}
-/**
- * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
- * @param deviceID
- * @param contextId
- */
-updateDevice(deviceID: string, contextId: string){
+      /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
+      this.dataService.sendContext(this.currentProject);
+      /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
+      this.dataService.setPositionQuestion(0);
+    })
+  }
+  /**
+   * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
+   * @param deviceID
+   * @param contextId
+   */
+  updateDevice(deviceID: string, contextId: string){
     //Device contextID übergeben mit updateDevice()
       this.apollo.mutate({
         fetchPolicy: 'no-cache',
@@ -96,9 +78,10 @@ updateDevice(deviceID: string, contextId: string){
         }
       }).subscribe(({data}) => {
           console.log("mutation update Device", data);
-          this.subscribeToNewComments(contextId);
+          //ContextSubscriben, erst wenn das Device dem Kontext zugeordnet wurde, ist Subscription möglich
+          this.subscriptionsService.subscribeContext(this.contextid);
       });
-}
+  }
 
     public ngOnInit(): void {
       

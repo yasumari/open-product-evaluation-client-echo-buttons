@@ -15,6 +15,8 @@ import { EndScreenComponent } from './Components/end-screen/end-screen.component
 import { ButtonRegisterComponent } from './Components/button-register/button-register.component';
 import { HttpHeaders } from '@angular/common/http';
 import { DataService } from './Services/data.service';
+import { MessageService } from './Services/message.service';
+import { SubscriptionsService } from './Services/subscriptions.service';
 import { ApolloLink, concat } from 'apollo-link';
 import { split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
@@ -80,6 +82,8 @@ const STRATEGY_PROVIDER: FactoryProvider = {
   ],
   providers: [
     DataService, 
+    MessageService,
+    SubscriptionsService,
     likeDislikeStrategy,
     favoriteStrategy,
     choiceStrategy, 

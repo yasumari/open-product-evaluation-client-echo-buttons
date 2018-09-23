@@ -31,7 +31,8 @@ query shortContexts ($contextID: ID!){
 })
 
 export class QuestionComponent implements OnInit, OnDestroy {
-  sub: Subscription;
+  subSockets: Subscription;
+  subContext: Subscription;
   private currentProject: Context;
   private currentAnswer;
   private currentQuestion: Question;
@@ -53,7 +54,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
    private dataService: DataService, 
    private router: Router, 
    private messageService: MessageService) {
-
    }
 
 
@@ -129,7 +129,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   questionStrategy(btn_number: number){
       //Nach allen Antworten wird anhand Timer_Question noch die Seite abgewartet, 
       //um die gedrückten Buttons zu simulieren. Anschließend auf Feedback-Seite
-      this.sub.unsubscribe();
+      this.subSockets.unsubscribe();
       setTimeout(() => {
         this.router.navigate(['/feedback']);
       }, Constants.TIMER_QUESTION);
@@ -137,9 +137,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
   }
 
  public ngOnInit(): void {
-
       this.currentProject = this.dataService.getContext();
       this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+      console.log(this.currentQuestion);
       /*Für die Auskunft, welcher Platz gerade gewählt wird, 
        muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
       if (this.currentQuestion.__typename=="RankingQuestion"){
@@ -168,23 +168,25 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
       }
 
-      console.log(this.currentQuestion);
-    
-      
-
         //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
-      this.sub=this.messageService.getMessage().subscribe( message => {
-        
-          //TODO noch benötigt?
+      this.subSockets=this.messageService.getMessage().subscribe( message => {
           if (message!=undefined || message!=null){
             this.buttonClick(parseInt(message));
           } else {
             console.log("Button ungültig Nachricht");
           }
       })
+      this.subContext=this.messageService.getMessage().subscribe( message => {
+        if (message=="hi"){
+          console.log("UPDATE REINGEKOMMEN");
+          this.router.navigateByUrl("/");
+        } else {
+          console.log("Button ungültig Nachricht");
+        }
+    })
     }
     
     ngOnDestroy(){
-        this.sub.unsubscribe();
+        this.subSockets.unsubscribe();
     }
 }
