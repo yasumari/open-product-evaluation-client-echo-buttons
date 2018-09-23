@@ -6,24 +6,21 @@
 </head>
 
 <body>
+	<!-- (favoriteQuestion) -->
 	<div *ngIf="currentQuestion.__typename=='FavoriteQuestion' ">
 	<div class="row row-pb-sm" tag="FavoriteQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (favoriteQuestion) </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<!--TODO: Wo ist der Unterschied zwischen Question.value und Question.description-->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
-					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
-						<div class="overlay">
-							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:275px; height:275px" alt="Img">
+					<div class="col-md-4 col-sm-4 col-sm-offset-1 " *ngFor="let item of currentQuestion.items ; let i = index " >
+								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -59,10 +56,11 @@
 	</div>
 </div>
 
+<!-- (choiceQuestion) -->
 <div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
 	<div class="row row-pb-sm" tag="ChoiceQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (choiceQuestion) </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
@@ -86,10 +84,11 @@
 	</div>
 </div>
 
+<!-- (likeDislikeQuestion) -->
 <div *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
 	<div class="row row-pb-sm" tag="LikeDislikeQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeDislikeQuestion) </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
@@ -102,16 +101,17 @@
 						</div>
 					</div>
 				</div>
-			<button style="margin-top: 50px" name="button0" target="_blank" class="buzzer tick" id="btn_like"(click)="buttonClick(0)"></button>
-			<button style="margin-top: 50px" name="button1" target="_blank" class="buzzer cross" id="btn_dislike"(click)="buttonClick(1)"></button>
+			<button name="button0" target="_blank" class="buzzer tick" id="btn_like"(click)="buttonClick(0)"></button>
+			<button name="button1" target="_blank" class="buzzer cross" id="btn_dislike"(click)="buttonClick(1)"></button>
 		</div>
 	</div>
 </div>
 
+<!-- (likeQuestion) -->
 <div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
 	<div class="row row-pb-sm" tag="LikeQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeQuestion) </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 				<div class="row row-pb-md" >
@@ -130,10 +130,11 @@
 	</div>
 </div>
 
+<!-- (regulatorQuestion) -->
 <div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
 	<div class="row row-pb-sm" tag="RegulatorQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQuestion) </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
@@ -180,10 +181,11 @@
 	</div>
 </div>
 
+<!-- (rankingQuestion) -->
 <div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
 	<div class="row row-pb-sm" tag="RankingQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
+			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle Platz {{(count_items+1)}}.</h4>
@@ -216,9 +218,7 @@
 		</div>
 	</div>
 </div>
-
 	<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 4%; font-size: 16px">
 		<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:23px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
 	</div>
-
 </body>
