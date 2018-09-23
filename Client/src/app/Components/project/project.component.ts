@@ -2,42 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo, QueryRef } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
 import { updateDevice, newDeviceMutation} from './../../GraphQL/Device.gql';
-import { currentProjectData, queryContextID} from './../../GraphQL/Context.gql'
+import { currentProjectData, queryContextID, subscribeContext } from './../../GraphQL/Context.gql'
 import { Context, Vote } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import gql from 'graphql-tag';
-
-
-const COMMENT_QUERY = gql`
-query shortContexts ($contextID: ID!){
-  context(contextID: $contextID) {
-    id
-    name
-    activeSurvey {
-      id
-      description
-    }
-  }
-}
-`;
-
-const COMMENTS_SUBSCRIPTION = gql`
-subscription subContext($cID: ID!) {
-  contextUpdate(contextID: $cID) {
-    event
-    changedAttributes
-    context {
-      id
-      name
-      activeSurvey {
-        id
-      }
-    }
-  }
-}
-`;
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-project',
@@ -49,10 +20,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
   message: any;
   sub: Subscription;
   Teilnehmer : Vote;
-  private surveyQuery: QueryRef<any>;
   private contextid:string;
   private deviceID: string;
-
   constructor(
     private apollo: Apollo, 
     private router: Router, 
@@ -61,32 +30,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
 
   
-
   subscribeToNewComments(contextID: string) {
-    
-   this.surveyQuery.subscribeToMore({
-     document: COMMENTS_SUBSCRIPTION,
-     variables: {
-       cID: contextID
-     },
-     updateQuery: (prev, {subscriptionData}) => {
-       console.log("UPDATE: " + subscriptionData.data);
-       if (!subscriptionData.data) {
-         return prev;
-       }
-       console.log(subscriptionData);
-       const newFeedItem = subscriptionData.data.commentAdded;
+    this.apollo.subscribe({
+      query: subscribeContext,
+      variables: {cID: contextID}
+    }).subscribe({
+      next (data) {
+        // Notify your application with the new arrived data
+        console.log(data);
+        console.log("Irgendwas wurde geupdatet");
+        this.router.navigateByUrl("/");
 
-       return {
-         ...prev,
-         entry: {
-           comments: [newFeedItem, ...prev.entry.comments]
-         }
-       };
-     }
-   });
- }
-
+      }
+    });
+  }
+  
 
   /**
    * @description wird vom Button "Starten" ausgelöst, damit wird das Device mit der ContextID geupdatet
@@ -107,14 +65,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
    * @param contextID ID des Kontextes, deren Daten geladen werden sollen
    */
   getProject(contextID: string){
-    //Für Subscription
-    this.surveyQuery = this.apollo.watchQuery({
-      query: currentProjectData,
-      variables: {
-        contextID: contextID
-      }
-    });
-
 
   this.apollo.subscribe({
     query: currentProjectData,

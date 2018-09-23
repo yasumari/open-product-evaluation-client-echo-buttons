@@ -32,7 +32,6 @@ import { choiceStrategy } from './QuestionStrategy/choiceStrategy';
 import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
 import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
-import { get } from 'http';
 
   
 

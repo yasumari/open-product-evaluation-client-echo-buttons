@@ -116,6 +116,26 @@ mutation($questionID: ID!, $rankedItems: [ID!]){
      }
  }`;
 
+ /**
+  * @description Subscribe einen Context
+  * Wenn Context geändert wird, dann wieder zurück zum Anfang
+  */
+export const subscribeContext: any = gql`
+      subscription subContext($cID: ID!) {
+        contextUpdate(contextID: $cID) {
+          event
+          changedAttributes
+          context {
+            id
+            name
+            activeSurvey {
+              id
+            }
+          }
+        }
+      }`
+
+
 /**
  * @description Server: Query: das Projekt mittels der KontextID abfragen
  */
