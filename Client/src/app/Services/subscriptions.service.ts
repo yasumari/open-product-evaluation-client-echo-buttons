@@ -15,7 +15,7 @@ export class SubscriptionsService {
   }
 
   hi(name: string){
-    console.log("muuuh");
+    console.log(name);
   }
   subscribeContext(contextID: String){
     this.apollo.subscribe({
@@ -25,12 +25,10 @@ export class SubscriptionsService {
       next (data) {
         // Notify your application with the new arrived data
         console.log("Irgendwas wurde geupdatet", data);
-        this.hi;
-        this.hi();
-        this.hi("asfdrgt");
         //TODO Fälle Abfragen, wo es egal ist, sonst zurück zum Anfang
       }
     });
+    this.hi("adsfg");
 }
 
 }

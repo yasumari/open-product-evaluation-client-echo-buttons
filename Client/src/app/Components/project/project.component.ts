@@ -38,11 +38,13 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/question');
   }
 
+    /**
+   * @description Zurück zur Startseite
+   */
   backToList(){
     this.router.navigate(['/']);
   }
 
-  //Umfrage abfragen
   /**
    * @description Server-Anfrage für Daten eines Projekts
    * @param contextID ID des Kontextes, deren Daten geladen werden sollen
@@ -52,7 +54,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
       query: currentProjectData,
       variables: {contextID: contextID},
     }).subscribe(({data}) => {
-
       console.log(data);
       this.currentProject = data.context;
 
@@ -108,7 +109,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
           }).subscribe((data)=>{
             this.getProject(data.data.contexts[0].id);
           })
-
         });
       }else{
         this.getProject(this.contextid);

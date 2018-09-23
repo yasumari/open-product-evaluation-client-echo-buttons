@@ -3,9 +3,11 @@ import { Apollo } from "apollo-angular";
 import { regulatorAnswerMutate } from "../GraphQL/Context.gql";
 import { Renderer2 } from "@angular/core";
 import { DataService } from "../Services/data.service";
+import { Router } from "@angular/router";
+import { Constants } from "../constants";
 
 export class regulatorStrategy extends QuestionStrategy {
-    answer(apollo: Apollo, answerQuestion:any, btn_number: Number, renderer:Renderer2, dataService:DataService){
+    answer(router: Router, apollo: Apollo, answerQuestion:any, btn_number: Number, renderer:Renderer2, dataService:DataService){
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
         let j=0;
         //Alle 4 Buttons disablen
@@ -19,11 +21,13 @@ export class regulatorStrategy extends QuestionStrategy {
           j++;
         }
         //RegulatorQuestion: mutation besondere Variable:rating - Skala 
-        //TODO welches Bild soll bei einer Regulator Frage im Feedback sein?
+        //TODO welches Bild soll bei einer Regulator Frage im Feedback sein? -> jetzt zeigt es nur das erste Bild
         if (currentQuestion.items!=null){
             dataService.setChosenImageUrl(currentQuestion.items[0].image.url);
+        } else {
+            dataService.setChosenImageUrl(null);
         }
-        dataService.setAnswerNumber();
+       
         
         //aus der BTN_nummer den Wert für rating finden
         let regulator=dataService.getRegulatorsValue();
@@ -38,6 +42,10 @@ export class regulatorStrategy extends QuestionStrategy {
               rating: regulator[""+btn_number]},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
+            dataService.setAnswerNumber();
+            setTimeout(() => {
+                router.navigate(['/feedback']);
+              }, Constants.TIMER_QUESTION);
     }
     support(questiontype:string){
         return (questiontype=="RegulatorQuestion") ? true : false;

@@ -149,7 +149,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    
     this.currentProject = this.dataService.getContext();
     let k;
     
@@ -218,7 +217,7 @@ console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.
      
 //die Platz 1 wird immer die belibste Bild in diesen Fall gezeigt 
 if(this.currentQuestion.items!=null) {
-     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.id); 
+     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url); 
 
      this.dataService.setMaxAntwortArray(this.DataAntwort);}
    
@@ -260,8 +259,8 @@ if(this.currentQuestion.items!=null) {
      if(this.currentQuestion.items!=null){
      if(maxi==this.DataAntwort)
      { 
-       this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url); 
-        this.dataService.setMaxAntwortArray(this.DataAntwort);
+      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url); 
+      this.dataService.setMaxAntwortArray(this.DataAntwort);
     }
   }
       break;
@@ -311,7 +310,7 @@ if(this.currentQuestion.items!=null) {
      this.barChartData[3].label.push("Regulator 4");
     
     
-   // visualisirung der Bilder am ende 
+   // visualisirung aller Bilder am ende 
    if (this.currentQuestion.items!=null){
     for(let i=0;i<this.currentQuestion.items.length;i++) {
     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[i].image.url);
@@ -358,9 +357,9 @@ if(this.currentQuestion.items!=null) {
      let maximm = Math.max(this.DataAntwort,this.DataAntwort1);
      if(this.currentQuestion.items!=null){
      if(maximm==this.DataAntwort)
-    this.dataService.setChosenImageUrlarray(this.currentQuestion.choices[0].image.url);
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
     else
-    this.dataService.setChosenImageUrlarray(this.currentQuestion.choices[1].image.url);
+    this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
     this.dataService.setMaxAntwortArray(maximm);}
      
       break;
@@ -400,7 +399,6 @@ if(this.currentQuestion.items!=null) {
      
        break;
       case 'FavoriteQuestion':
-      console.log("FavoriteQuestionFeedback");
       for(let i=0;i<this.currentQuestion.items.length;i++) 
       this.barChartLabels[i] =this.currentQuestion.items[i].label ;
       console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
@@ -429,23 +427,25 @@ if(this.currentQuestion.items!=null) {
       this.barChartData[1].label.push(" ❤ ");
       let m = Math.max(this.DataAntwort,this.DataAntwort1);
       if (this.currentQuestion.items!=null){
-      if(m==this.DataAntwort)
-      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
-      else
-      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
-      this.dataService.setMaxAntwortArray(m);}
+      if(m==this.DataAntwort){
+        this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
+      }
+      else {
+        this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
+        this.dataService.setMaxAntwortArray(m);}
+      }
       break;
+      
     }
       //console.log("image question ",this.currentQuestion.items[1].image.url);
     
-   
-      this.image=this.dataService.getChosenImageUrl();
+    let url= this.dataService.getChosenImageUrl()
+    this.image=(url!=null) ? url : null;
    
     //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
     (this.dataService.getAnswerNumber() == this.max) ? this.title_nextPage="Das war's!" : this.title_nextPage="Weiter geht's zur nächsten Frage!";
     this.sub=this.messageService.getMessage().subscribe( message => {
-      console.log("FEEDBACK: " + message);
       this.nextPage();
     });
 
