@@ -18,9 +18,13 @@
 			<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 " *ngFor="let item of currentQuestion.items ; let i = index " >
+						<div class="overlay">
+							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -30,7 +34,7 @@
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -8.46667%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:200px; height:240px" alt="Img">
+								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
 							</div>
@@ -44,9 +48,9 @@
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -2.46667%" *ngFor="let item of currentQuestion.items ; let i = index" >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img  src="{{currentQuestion.items[i].image.url}}"  style="width:235px; height:265px" alt="Img" >
+								<img  src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img" >
 								<h5>{{currentQuestion.items[0].label}}</h5>
-								<button  style="width:70px; height:45px" target="_blank" class="buzzer zahl" name="button{{0}}" (click)="buttonClick(0+1)"> {{1+1}} </button>
+								<button target="_blank" class="buzzer zahl" name="button{{0}}" (click)="buttonClick(0+1)"> {{1+1}} </button>
 							</div>
 						</div>
 					</div>
@@ -68,18 +72,20 @@
 						<div class="overlay">
 							<div class="copy text-center">
 								<div *ngIf="item!=null">
-								<img src="{{item.image.url}}" style="width:270px; height:290px" alt="Img">
+								<img src="{{item.image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{item.label}}</h5>
 							</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
+				<!-- <label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
 				<input type="radio" name="name" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"/>
 				<img src="{{currentQuestion.choices[y].image.url}}" style="width: 20px; margin-left: 5px; margin-right: 5px;"/>
 				<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
-				</label>
+				</label>-->
+				<!-- TODO: FUNKTION!!! -->
+				<button *ngFor="let choice of currentQuestion.choices ; let y = index " target="_blank" class="buzzer" (click)="buttonClick(y)" name="buttonA"></button>
 		</div>
 	</div>
 </div>
@@ -95,7 +101,7 @@
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 							</div>
 						</div>
@@ -118,7 +124,7 @@
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 							</div>
 						</div>
@@ -142,7 +148,7 @@
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:270px; height:290px" alt="Img">
+								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 							</div>
 						</div>
@@ -191,12 +197,12 @@
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle Platz {{(count_items+1)}}.</h4>
-			<button (click)="buttonClick(3)">testest</button>
+			<!-- <button (click)="buttonClick(3)">testest</button> -->
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
 							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" style="width:200px; height:240px" alt="Img">
+								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
 								<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
 							</div>
@@ -209,7 +215,7 @@
 						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -2.46667%" *ngFor="let item of currentQuestion.items ; let i = index" >
 							<div class="overlay">
 								<div class="copy text-center">
-									<img  src="{{currentQuestion.items[i].image.url}}"  style="width:235px; height:239px" alt="Img" >
+									<img  src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img" >
 									<h5>{{currentQuestion.items[0].label}}</h5>
 									<button target="_blank" class="buzzer zahl" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
 								</div>
