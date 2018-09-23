@@ -149,32 +149,34 @@
 					</div>
 				</div>
 
+				<p><img src="assets/images/ratingbar.png" alt="Selfhtml" style="width: 400px; margin-left: -20px; margin-top: 10px;"/></p>
+
 			<div style="display: inline-block">
-					<p style="margin-left:-30px">
+					<!-- <p style="margin-left:-30px">
 							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
-							{{min}}</p>
-				<button target="_blank" class="buzzer zahl" (click)="buttonClick(0)" id="ranking_0" name="button0">1</button>
+							{{min}}</p> -->
+				<button target="_blank" class="buzzer zahl" (click)="buttonClick(0)" id="ranking_0" name="button0">{{min}}</button>
 			</div>
 			<div style="display: inline-block" *ngIf="valueBtn1!=null">
-					<p style="margin-left:-30px">
+					<!-- <p style="margin-left:-30px">
 							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
-						{{valueBtn1}}</p>
-					<button target="_blank" class="buzzer zahl" (click)="buttonClick(1)" id="ranking_1" name="button1">2</button>
+						{{valueBtn1}}</p> -->
+					<button target="_blank" class="buzzer zahl" (click)="buttonClick(1)" id="ranking_1" name="button1">{{valueBtn1}}</button>
 
 			</div>
 			<div style="display: inline-block" *ngIf="valueBtn2!=null">
-					<p style="margin-left:-30px">
+					<!-- <p style="margin-left:-30px">
 							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
-						{{valueBtn2}}</p>
-					<button target="_blank" class="buzzer zahl" (click)="buttonClick(2)" id="ranking_2" name="button2">3</button>
+						{{valueBtn2}}</p> -->
+					<button target="_blank" class="buzzer zahl" (click)="buttonClick(2)" id="ranking_2" name="button2">{{valueBtn2}}</button>
 
 			</div>
 			<div style="display: inline-block" *ngIf="valueBtn3!=null">
-					<p style="margin-left:-30px">
+					<!-- <p style="margin-left:-30px">
 							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
 						{{max}}
-					</p>
-					<button target="_blank" class="buzzer zahl" (click)="buttonClick(3)" id="ranking_3" name="button3">4</button>
+					</p> -->
+					<button target="_blank" class="buzzer zahl" (click)="buttonClick(3)" id="ranking_3" name="button3">{{max}}</button>
 
 			</div>
 		</div>
