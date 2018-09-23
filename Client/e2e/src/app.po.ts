@@ -31,6 +31,9 @@ export class AppPage {
     return $$('app-question img');
   }
 
+  getImagesFeedback(){
+    return $$('app-feedback img');
+  }
   getInputByName(stringname){
     return element(by.name(stringname));
   }
@@ -39,6 +42,9 @@ export class AppPage {
     return element(by.name("button"+num));
   }
 
+  getProgressBar(){
+    return element(by.className("progress-bar"));
+  }
   getHeadlineFeedback(){
     return element(by.css('h1'));
   }
