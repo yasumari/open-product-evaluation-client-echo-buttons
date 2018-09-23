@@ -124,7 +124,7 @@
 						</div>
 					</div>
 				</div>
-				<button style="background-image: currentQuestion.likeIcon.url" name="button0" target="_blank" class="buzzer heart" id="{{currentQuestion.likeIcon.id}}" (click)="buttonClick(0)"></button>
+				<button name="button0" target="_blank" class="buzzer heart" id="{{currentQuestion.likeIcon.id}}" (click)="buttonClick(0)"></button>
 				<button name="button1" target="_blank" class="buzzer weiter" (click)="buttonClick(1)"></button>
 			</div>
 	</div>
@@ -187,6 +187,7 @@
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle Platz {{(count_items+1)}}.</h4>
+			<button (click)="buttonClick(3)">testest</button>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">

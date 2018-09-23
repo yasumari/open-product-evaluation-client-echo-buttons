@@ -29,9 +29,10 @@ import { likeStrategy } from './QuestionStrategy/likeStrategy';
 import { choiceStrategy } from './QuestionStrategy/choiceStrategy';
 import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
 import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
+import { Router } from '@angular/router';
 
-export function questionServiceFactory(renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
-  return new QuestionService(renderer, dataService, apollo, types);
+export function questionServiceFactory(router: Router, renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
+  return new QuestionService(router, renderer, dataService, apollo, types);
 }
 
 const STRATEGY_PROVIDER: FactoryProvider = {
