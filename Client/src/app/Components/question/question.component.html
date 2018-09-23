@@ -6,7 +6,7 @@
 </head>
 
 <body>
-	<div *ngIf="currentQuestion.__typename=='FavoriteQuestion' ">
+	<div name="FavoriteQuestion" *ngIf="currentQuestion.__typename=='FavoriteQuestion' ">
 	<div class="row row-pb-sm" tag="FavoriteQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 <!-- col-md-3 col-sm-3 col-xs-3 col-lg-3 col-sm-offset-2 f�r 4 bilder unten oben  // oder col-md-2 col-sm-2 col-xs-2 col-lg-2 col-sm-offset-1 f�r 4bilder-->
@@ -59,7 +59,7 @@
 	</div>
 </div>
 
-<div *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
+<div name="ChoiceQuestion" *ngIf="currentQuestion.__typename=='ChoiceQuestion' ">
 	<div class="row row-pb-sm" tag="ChoiceQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (choiceQuestion) </h3> <!-- Name des Projektes -->
@@ -78,7 +78,7 @@
 					</div>
 				</div>
 				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
-				<input type="radio" name="name" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"/>
+				<input type="radio" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"/>
 				<img src="{{currentQuestion.choices[y].image.url}}" style="width: 20px; margin-left: 5px; margin-right: 5px;"/>
 				<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
 				</label>
@@ -86,7 +86,7 @@
 	</div>
 </div>
 
-<div *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
+<div name="LikeDislikeQuestion" *ngIf="currentQuestion.__typename=='LikeDislikeQuestion' ">
 	<div class="row row-pb-sm" tag="LikeDislikeQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeDislikeQuestion) </h3> <!-- Name des Projektes -->
@@ -108,7 +108,7 @@
 	</div>
 </div>
 
-<div *ngIf="currentQuestion.__typename=='LikeQuestion' ">
+<div name="LikeQuestion" *ngIf="currentQuestion.__typename=='LikeQuestion' ">
 	<div class="row row-pb-sm" tag="LikeQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (likeQuestion) </h3> <!-- Name des Projektes -->
@@ -130,7 +130,7 @@
 	</div>
 </div>
 
-<div *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
+<div name="RegulatorQuestion" *ngIf="currentQuestion.__typename=='RegulatorQuestion' ">
 	<div class="row row-pb-sm" tag="RegulatorQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (regulatorQuestion) </h3> <!-- Name des Projektes -->
@@ -180,7 +180,7 @@
 	</div>
 </div>
 
-<div *ngIf="currentQuestion.__typename=='RankingQuestion' ">
+<div name="RankingQuestion" *ngIf="currentQuestion.__typename=='RankingQuestion' ">
 	<div class="row row-pb-sm" tag="RankingQuestion">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
 			<h3 style="margin-top: 20px" >{{currentProject.activeSurvey.title}} (rankingQuestion) </h3> <!-- Name des Projektes -->
@@ -205,7 +205,7 @@
 						<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: -2.46667%" *ngFor="let item of currentQuestion.items ; let i = index" >
 							<div class="overlay">
 								<div class="copy text-center">
-									<img  src="{{currentQuestion.items[i].image.url}}"  style="width:235px; height:239px" alt="Img" >
+									<img src="{{currentQuestion.items[i].image.url}}"  style="width:235px; height:239px" alt="Img" >
 									<h5>{{currentQuestion.items[0].label}}</h5>
 									<button target="_blank" class="buzzer" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"> {{i+1}} </button>
 								</div>

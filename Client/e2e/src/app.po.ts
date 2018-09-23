@@ -16,7 +16,7 @@ export class AppPage {
   }
 
   getCards(){
-    return $$('app-list .card-title');
+    return $$('app-list .card');
   }
 
   getButtonStart(){
@@ -31,16 +31,30 @@ export class AppPage {
     return $$('app-question img');
   }
 
+  getImagesFeedback(){
+    return $$('app-feedback img');
+  }
+  getInputByName(stringname){
+    return element(by.name(stringname));
+  }
+
   getButton(num){
     return element(by.name("button"+num));
   }
 
+  getProgressBar(){
+    return element(by.className("progress-bar"));
+  }
   getHeadlineFeedback(){
     return element(by.css('h1'));
   }
 
   getHeadlineQuestion(){
     return element(by.css('h3'));
+  }
+
+  getQuestionDiv(name){
+    return element(by.name(name));
   }
 
 }
