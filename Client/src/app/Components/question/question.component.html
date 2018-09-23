@@ -150,27 +150,27 @@
 
 			<div style="display: inline-block">
 					<p style="margin-left:-30px">
-							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+							<!--<img src="{{currentQuestion.labels.image.url}}" style="width: 20px"/>-->
 							{{min}}</p>
 				<button target="_blank" class="buzzer one" (click)="buttonClick(0)" id="ranking_0" name="button0"></button>
 			</div>
 			<div style="display: inline-block" *ngIf="valueBtn1!=null">
 					<p style="margin-left:-30px">
-							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+							<!--<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>-->
 						{{valueBtn1}}</p>
 					<button target="_blank" class="buzzer two" (click)="buttonClick(1)" id="ranking_1" name="button1"></button>
 
 			</div>
 			<div style="display: inline-block" *ngIf="valueBtn2!=null">
 					<p style="margin-left:-30px">
-							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+							<!--<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>-->
 						{{valueBtn2}}</p>
 					<button target="_blank" class="buzzer three" (click)="buttonClick(2)" id="ranking_2" name="button2"></button>
 
 			</div>
 			<div style="display: inline-block" *ngIf="valueBtn3!=null">
 					<p style="margin-left:-30px">
-							<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>
+							<!--<img src="http://localhost:3000/static/images/default/likeIcon.png" style="width: 20px"/>-->
 						{{max}}
 					</p>
 					<button target="_blank" class="buzzer four" (click)="buttonClick(3)" id="ranking_3" name="button3"></button>
@@ -187,7 +187,6 @@
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<h4>Wähle Platz {{(count_items+1)}}.</h4>
-			<button (click)="buttonClick(3)">testest</button>
 				<div class="row row-pb-md" >
 					<div class="col-md-4 col-sm-4 col-sm-offset-1 "  style="margin-left: 10.33333%" *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
