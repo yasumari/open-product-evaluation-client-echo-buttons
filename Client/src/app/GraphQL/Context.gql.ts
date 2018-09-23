@@ -16,7 +16,7 @@ query{
  */
 export const queryAllSurveys: any=gql`
 query{
-  contexts{
+  contexts(types: [LIKE, LIKEDISLIKE, FAVORITE, REGULATOR, RANKING, CHOICE]) {
     id
     activeSurvey{
       id
