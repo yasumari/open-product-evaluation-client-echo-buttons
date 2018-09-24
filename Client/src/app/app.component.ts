@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SocketService } from './Services/socket.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from './Services/message.service';
-import { SubscriptionsService } from './Services/subscriptions.service';
+
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy{
   title = 'app';
   constructor(private socketService: SocketService, private messageService: MessageService){}
   
+
   ngOnInit(){
 
     this.socketService.connect();

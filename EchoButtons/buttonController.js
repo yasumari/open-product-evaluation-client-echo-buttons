@@ -20,10 +20,10 @@ const btSerial2 = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 const btSerial3 = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 const btSerial4 = new (require('bluetooth-serial-port')).BluetoothSerialPort();
 
-const address= '4C-EF-C0-EE-96-FB';
-const address2 = '00-71-47-76-66-0C';
-const address3  = '50-DC-E7-DF-20-0B';
-const address4= '50-DC-E7-4D-F1-E6';
+const address3= '4C-EF-C0-EE-96-FB';
+const address4 = '00-71-47-76-66-0C';
+const address  = '50-DC-E7-DF-20-0B';
+const address2= '50-DC-E7-4D-F1-E6';
 
 function closeAllBtnConnection() {
 	btSerial.close();

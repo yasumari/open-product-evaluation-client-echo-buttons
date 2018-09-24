@@ -1,31 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { subscribeContext } from './../GraphQL/Context.gql';
-import { MessageService } from './message.service';
+import { subscribeContext } from '../GraphQL/Context.gql';
 import { Router } from '@angular/router';
-import { observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SubscriptionsService {
+  private subject = new Subject<string>();
 
-  constructor(private messageService: MessageService, private router: Router, private apollo: Apollo) {
+  constructor(private apollo: Apollo, private router: Router) {
   }
-
-  subscribeContext(contextID: String){
-    this.apollo.subscribe({
-      query: subscribeContext,
-      variables: {cID: contextID}
-    }).subscribe({
-      next (data) {
-        // Notify your application with the new arrived data
-        console.log("Irgendwas wurde geupdatet", data);
-        //TODO Fälle Abfragen, wo es egal ist, sonst zurück zum Anfang
-      }
-    
-    });
+ 
+  sendMessageSubscription(message: string) {
+    console.log("MESSAGE: " + message);
+    this.subject.next(message);
 }
+
+
+getMessageSubscription(): Observable<any> {
+    return this.subject.asObservable();
+}
+
+   subscribeContext(contextID: String){
+     var survey=this.apollo.subscribe({
+       query: subscribeContext,
+       variables: {cID: contextID}
+     })
+     survey.subscribe( (hi) => {
+       console.log(hi);
+       this.sendMessageSubscription("HII");
+     });
+ }
+
 
 }

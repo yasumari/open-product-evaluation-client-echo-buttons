@@ -5,10 +5,9 @@ import { Router } from '@angular/router';
 import { MessageService } from '../../Services/message.service';
 import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
-import { Constants } from "../../constants";
 import { QuestionService } from "./question.service";
-import { QueryRef } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { SubscriptionsService} from "./../../Services/subscriptions.service";
+
 import gql from 'graphql-tag';
 
 const COMMENT_QUERY = gql`
@@ -51,7 +50,13 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private dataService: DataService,
     private router: Router,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private subscriptionsService: SubscriptionsService) { 
+      
+      this.subscriptionsService.getMessageSubscription().subscribe( message => {
+        console.log("MESSAGE: " + message);
+      })
+    }
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -115,6 +120,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
             }
           }
           this.subSockets.unsubscribe();
+          this.subContext.unsubscribe();
           this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
         } else {
           this.count_items++;
@@ -123,6 +129,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       
     } else {
       this.subSockets.unsubscribe();
+      this.subContext.unsubscribe();
       this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
     }
   }
@@ -133,7 +140,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
     /*Für die Auskunft, welcher Platz gerade gewählt wird, 
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
-    if (this.currentQuestion.__typename == "RankingQuestion") {
+
+     if (this.currentQuestion.__typename == "RankingQuestion") {
       this.count_items = 0;
     }
 
@@ -183,25 +191,20 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
         //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
       this.subSockets=this.messageService.getMessage().subscribe( message => {
+        console.log("MESSAGE: " + message);
           if (message!=undefined || message!=null){
             this.buttonClick(parseInt(message));
           } else {
             console.log("Button ungültig Nachricht");
           }
       })
-      this.subContext=this.messageService.getMessage().subscribe( message => {
-        if (message=="hi"){
-          console.log("UPDATE REINGEKOMMEN");
-          this.router.navigateByUrl("/");
-        } else {
-          console.log("Button ungültig Nachricht");
-        }
-    })
+    
     }
   }
     
 
   ngOnDestroy() {
     this.subSockets.unsubscribe();
+    this.subContext.unsubscribe();
   }
 }

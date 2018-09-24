@@ -85,12 +85,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
     public ngOnInit(): void {
-      
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       this.contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
       this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
-      
       //Wenn es ohne Startseite aufgerufen wird, dann 
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
       if (token==null || token==undefined || this.deviceID==null){
