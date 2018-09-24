@@ -16,24 +16,30 @@ export class SubscriptionsService {
   }
  
   sendMessageSubscription(message: string) {
-    console.log("MESSAGE: " + message);
     this.subject.next(message);
 }
 
-
-getMessageSubscription(): Observable<any> {
-    return this.subject.asObservable();
-}
+    getMessageSubscription(): Observable<any> {
+        return this.subject.asObservable();
+    }
 
    subscribeContext(contextID: String){
      var survey=this.apollo.subscribe({
        query: subscribeContext,
        variables: {cID: contextID}
      })
-     survey.subscribe( (hi) => {
-       console.log(hi);
-       this.sendMessageSubscription("HII");
-     });
+     survey.subscribe( (data) => {
+       console.log(data);
+       //nur benachrichten, wenn es sich um das activeSurvey handelt. 
+       if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){
+          console.log("ActiveSurvey wurde geändert");
+          this.sendMessageSubscription("ActiveSurvey");
+       } else {
+         console.log("Device wird nicht von Änderungen beeinflusst");
+         this.sendMessageSubscription("TEST");
+       }
+      
+    });
  }
 
 

@@ -127,15 +127,12 @@ export const subscribeContext: any = gql`
           changedAttributes
           context {
             id
-            name
             activeSurvey {
               id
             }
           }
         }
       }`
-
-
 /**
  * @description Server: Query: das Projekt mittels der KontextID abfragen
  */

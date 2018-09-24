@@ -6,22 +6,8 @@ import { MessageService } from '../../Services/message.service';
 import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
 import { QuestionService } from "./question.service";
-import { SubscriptionsService} from "./../../Services/subscriptions.service";
-
-import gql from 'graphql-tag';
-
-const COMMENT_QUERY = gql`
-query shortContexts ($contextID: ID!){
-  context(contextID: $contextID) {
-    id
-    name
-    activeSurvey {
-      id
-      description
-    }
-  }
-}
-`;
+import { SubscriptionsService } from "./../../Services/subscriptions.service";
+import { updateDevice } from './../../GraphQL/Device.gql';
 
 @Component({
   selector: 'app-question',
@@ -51,12 +37,36 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private router: Router,
     private messageService: MessageService,
-    private subscriptionsService: SubscriptionsService) { 
-      
-      this.subscriptionsService.getMessageSubscription().subscribe( message => {
-        console.log("MESSAGE: " + message);
-      })
-    }
+    private subscriptionsService: SubscriptionsService) {
+
+    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
+    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
+        console.log("Abmelden");
+        this.apollo.mutate({
+          fetchPolicy: 'no-cache',
+          mutation: updateDevice,
+          variables: {
+            deviceID:this.dataService.getDeviceID(),
+            context: null,
+          }
+        }).subscribe(({data}) => { 
+            console.log("mutation update DeviceContext", data);
+            this.subContext.unsubscribe();
+            this.subSockets.unsubscribe();
+            //Zurück zum Anfang
+            this.router.navigateByUrl("/");
+          });
+    })
+    //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
+    this.subSockets = this.messageService.getMessage().subscribe(message => {
+      console.log("MESSAGE: " + message);
+      if (message != undefined || message != null) {
+        this.buttonClick(parseInt(message));
+      } else {
+        console.log("Button ungültig Nachricht");
+      }
+    })
+  }
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -97,7 +107,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       questionID: this.currentQuestion.id
     }
     if (this.currentQuestion.__typename == "RankingQuestion") {
-      if (btn_number>=this.currentQuestion.items.length){
+      if (btn_number >= this.currentQuestion.items.length) {
         console.log("Button hat kein zugehöriges Bild");
       } else {
         const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].id);
@@ -105,17 +115,17 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.renderer.setProperty(btn_rank, 'color', '#34a7bd');
         this.renderer.setProperty(btn_rank, 'disabled', 'true');
         this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz ' + (this.count_items + 1));
-  
+
         //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt 
         // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
         this.ranking.unshift(this.currentQuestion.items[btn_number].id);
         if (this.ranking.length == this.currentQuestion.items.length) {
           //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
           this.currentAnswer.ranking = this.ranking;
-          
+
           //Im Feedback Platz 1 anzeigen
           for (var i = 0; i < this.currentQuestion.items.length; i++) {
-            if (this.ranking[this.ranking.length-1] == this.currentQuestion.items[i].id) {
+            if (this.ranking[this.ranking.length - 1] == this.currentQuestion.items[i].id) {
               this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
             }
           }
@@ -126,7 +136,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.count_items++;
         }
       }
-      
+
     } else {
       this.subSockets.unsubscribe();
       this.subContext.unsubscribe();
@@ -141,7 +151,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     /*Für die Auskunft, welcher Platz gerade gewählt wird, 
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
 
-     if (this.currentQuestion.__typename == "RankingQuestion") {
+    if (this.currentQuestion.__typename == "RankingQuestion") {
       this.count_items = 0;
     }
 
@@ -189,19 +199,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
       }
 
-        //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
-      this.subSockets=this.messageService.getMessage().subscribe( message => {
-        console.log("MESSAGE: " + message);
-          if (message!=undefined || message!=null){
-            this.buttonClick(parseInt(message));
-          } else {
-            console.log("Button ungültig Nachricht");
-          }
-      })
-    
     }
   }
-    
+
 
   ngOnDestroy() {
     this.subSockets.unsubscribe();

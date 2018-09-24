@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Apollo, QueryRef } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
 import { updateDevice, newDeviceMutation} from './../../GraphQL/Device.gql';
 import { currentProjectData, queryContextID, subscribeContext } from './../../GraphQL/Context.gql'
