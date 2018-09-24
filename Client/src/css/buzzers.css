@@ -13,20 +13,7 @@
     transition: all .1s linear;
 }
 
-.button0
-{
-	background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
-	background-image: linear-gradient(to bottom, #118714, #87e259);
-	border-radius: 50%;
-	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
-    float: center;
-    height: 70px;
-    margin: 0 30px 30px 0;
-    position: relative;
-    width: 70px;
-    -webkit-transition: all .1s linear;
-    transition: all .1s linear;
-}
+
 
 .button1
 {
@@ -45,8 +32,8 @@
 
 .button2
 {
-	background-image: -webkit-linear-gradient(to bottom, #fe9800, #fed500);
-    background-image: linear-gradient(to bottom, #fe9800, #fed500);
+	background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
+	background-image: linear-gradient(to bottom, #118714, #87e259);
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
@@ -60,10 +47,10 @@
 
 .button3
 {
-	background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
-	background-image: linear-gradient(to bottom, #118714, #87e259);
-	border-radius: 50%;
-	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
+	background-image: -webkit-linear-gradient(to bottom, #fe9800, #fed500);
+    background-image: linear-gradient(to bottom, #fe9800, #fed500);
+    border-radius: 50%;
+    box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
     height: 70px;
     margin: 0 30px 30px 0;
@@ -105,10 +92,10 @@
 
 .weiter
 {
-	background-image: -webkit-linear-gradient(to bottom, #fe9800, #fed500);
-    background-image: linear-gradient(to bottom, #fe9800, #fed500);
-    border-radius: 50%;
-    box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
+	background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
+	background-image: linear-gradient(to bottom, #118714, #87e259);
+	border-radius: 50%;
+	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
     height: 70px;
     margin: 0 30px 30px 0;
@@ -176,12 +163,7 @@
 		top: 19px;
 	}
 
-	.button0:after
-	{
-		content: "0";
-		left: 19px;
-		top: 12px;
-	}
+
 	.button1:after
 	{
 		content: "1";
@@ -249,11 +231,6 @@
 		color:#0088cc;
 	}
 
-	.button0:hover:after
-	{
-		color:#83d244;
-		text-shadow:0px 0px 6px #83d244;
-	}
 	.button1:hover:after
 	{
 		color:#f94e66;
@@ -261,13 +238,13 @@
 	}
 	.button2:hover:after
 	{
-		color:#fe9800;
-		text-shadow:0px 0px 6px #fe9800;
+		color:#83d244;
+		text-shadow:0px 0px 6px #83d244;
 	}
 	.button3:hover:after
 	{
-		color:#83d244;
-		text-shadow:0px 0px 6px #83d244;
+		color:#fe9800;
+		text-shadow:0px 0px 6px #fe9800;
 	}
 	.button4:hover:after
 	{
@@ -283,8 +260,8 @@
 
 	.weiter:hover:after
 	{
-		color:#fe9800;
-		text-shadow:0px 0px 6px #fe9800;
+		color:#83d244;
+		text-shadow:0px 0px 6px #83d244;
 	}
 
 
@@ -311,12 +288,7 @@
 		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
-	.button0:active
-	{
-		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
-		background-image: linear-gradient(to bottom, #118714, #87e259);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
-	}
+
 	.button1:active
 	{
 		background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
@@ -325,14 +297,14 @@
 	}
 	.button2:active
 	{
-		background-image: -webkit-linear-gradient(to bottom,  #fe9800, #fed500);
-		background-image: linear-gradient(to bottom, #fe9800, #fed500);
+		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
+		background-image: linear-gradient(to bottom, #118714, #87e259);
 		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 	.button3:active
 	{
-		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
-		background-image: linear-gradient(to bottom, #118714, #87e259);
+		background-image: -webkit-linear-gradient(to bottom,  #fe9800, #fed500);
+		background-image: linear-gradient(to bottom, #fe9800, #fed500);
 		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 	.button4:active
@@ -352,8 +324,8 @@
 
 	.weiter:active
 	{
-		background-image: -webkit-linear-gradient(to bottom,  #fe9800, #fed500);
-		background-image: linear-gradient(to bottom, #fe9800, #fed500);
+		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
+		background-image: linear-gradient(to bottom, #118714, #87e259);
 		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
