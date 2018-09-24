@@ -17,12 +17,12 @@
 			<h5 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h5> <!-- Beschreibung der Frage -->
 			<div *ngIf="currentQuestion.items.length==2 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
-					<div class="col-md-4 col-sm-4 col-sm-offset-1 " *ngFor="let item of currentQuestion.items ; let i = index " >
+					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 						<div class="overlay">
-							<div class="copy text-center">
+							<div class="copy text-center" style="margin-left: 55px;">
 								<img src="{{currentQuestion.items[i].image.url}}" style="height: 210px" alt="Img">
 								<h5 style="margin-top: 5px">{{currentQuestion.items[i].label}}</h5>
-								<button target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
+								<button style="margin: 0px;" target="_blank" class="buzzer" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}">{{i+1}} </button>
 							</div>
 						</div>
 					</div>
