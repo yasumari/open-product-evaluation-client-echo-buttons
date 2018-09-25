@@ -45,3 +45,7 @@ img{
    75% {transform:perspective(300px) rotateY(270deg)}
    100% {transform:perspective(300px) rotateY(360deg)}
 }
+
+.btn{
+  color: #34a7bd;
+}
