@@ -166,25 +166,25 @@
 
 	.button1:after
 	{
-		content: "1";
+		content: "";
 		left: 19px;
 		top: 12px;
 	}
 	.button2:after
 	{
-		content: "2";
+		content: "";
 		left: 19px;
 		top: 12px;
 	}
 	.button3:after
 	{
-		content: "3";
+		content: "";
 		left: 19px;
 		top: 12px;
 	}
 	.button4:after
 	{
-		content: "4";
+		content: "";
 		left: 19px;
 		top: 12px;
 	}
