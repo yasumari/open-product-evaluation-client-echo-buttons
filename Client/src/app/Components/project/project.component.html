@@ -1,19 +1,16 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität -->
 </head>
 
 <body id="gtco-header">
   <div class="row row-pb-sm">
     <div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-      <!-- ngIF abwarten bis was drin ist dann laden -->
-      <div class="project" *ngIf="currentProject">
-        <h1 style="font-size: 40px;">{{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
-        <h4>{{currentProject.activeSurvey.description}}</h4> <!-- Beschreibung des Projektes -->
-        <!--><p>von {{currentProject.activeSurvey.creator.firstName}} {{currentProject.activeSurvey.creator.lastName}}</p> <!-- Autor des Projektes -->
-        <p><a class="btn btn-white" (click)="startSurvey()" >Start</a>
-           <a class="btn btn-white" (click)="backToList()">Zurück</a></p>
-        <!--><p class="text-center" style="font-size: 15px"> or scan this QR code to start rating the Project with your smartphone</p>
-        <p class="text-center"><img src="../assets/images/qr.png" width="80" height="80"/>     !!!QR-CODE!!! </p><-->
+      <div class="project" *ngIf="currentProject"> <!-- ngIF abwarten bis was drin ist dann laden -->
+        <h1 style="padding-bottom: 30px;">{{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
+        <h4 style="font-size: 30px; color: white; padding-top: 30px;">{{currentProject.activeSurvey.description}}</h4> <!-- Beschreibung des Projektes -->
+        <p style="padding-top: 45px;"><a class="btn btn-white" (click)="startSurvey()" >Start</a>
+                                      <a class="btn btn-white" (click)="backToList()">Zurück</a>
+        </p>
       </div>
     </div>
   </div>
