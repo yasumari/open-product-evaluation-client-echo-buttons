@@ -14,7 +14,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h5>{{currentQuestion.items[i].label}}</h5>
+								<h4>{{currentQuestion.items[i].label}}</h4>
 								<button style="margin: 0px;" target="_blank" class="buzzer button{{i+1}}" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}"></button>
 							</div>
 					</div>
@@ -34,14 +34,14 @@
 							<div class="copy text-center">
 								<div *ngIf="item!=null">
 								<img src="{{item.image.url}}" alt="Img">
-								<h5>{{item.label}}</h5>
+								<h4>{{item.label}}</h4>
 							</div>
 						</div>
 					</div>
 				</div>
 				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
 				<button target="_blank" class="buzzer button{{y+1}}" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"></button>
-				<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
+				<label style="margin-left: -20px; font-size: 24px; font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
 				</label>
 		</div>
 	</div>
@@ -57,7 +57,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h5>{{currentQuestion.items[i].label}}</h5>
+								<h4>{{currentQuestion.items[i].label}}</h4>
 							</div>
 					</div>
 				</div>
@@ -77,7 +77,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h5>{{currentQuestion.items[i].label}}</h5>
+								<h4>{{currentQuestion.items[i].label}}</h4>
 							</div>
 					</div>
 				</div>
@@ -93,12 +93,12 @@
 			<h3>{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
-			<h5>Wähle auf einer Skala von {{min}} bis {{max}}</h5>
+			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
 				<div class="row row-pb-md" >
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h5>{{currentQuestion.items[i].label}}</h5>
+								<h4>{{currentQuestion.items[i].label}}</h4>
 							</div>
 					</div>
 				</div>
@@ -134,7 +134,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h5>{{currentQuestion.items[i].label}}</h5>
+								<h4>{{currentQuestion.items[i].label}}</h4>
 								<button target="_blank" class="buzzer button{{i+1}}" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"></button>
 							</div>
 					</div>
@@ -143,6 +143,6 @@
 	</div>
 </div>
 	<div class="progress" style="position: fixed; bottom: 0; width: 100%; margin-bottom: 0px; height: 4%; font-size: 16px">
-		<div class="progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:23px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
+		<div class="font-size: 30px; progress-bar progress-bar-striped active" [style.width]="calculate()"   style="min-width:23px; background-color: #17B794; color: white; background-size: auto" >{{calculate()}}</div>
 	</div>
 </body>
