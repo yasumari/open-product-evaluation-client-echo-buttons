@@ -1,8 +1,6 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
-
-
 </head>
 
 <body>
@@ -26,7 +24,7 @@
 						</div>
 					</div>
 				</div>
-			
+
 
 			<div *ngIf="currentQuestion.items.length==11 ">  <!-- Aktuelle Frage des Projektes -->
 				<div class="row row-pb-md" >
@@ -80,9 +78,9 @@
 				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
 				<button target="_blank" class="buzzer button{{y+1}}" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"></button>
 				<!--<img src="{{currentQuestion.choices[y].image.url}}" style="width: 20px; margin-left: 5px; margin-right: 5px;"/> -->
-				<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label> 
+				<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
 				</label>
-				
+
 		</div>
 	</div>
 </div>
@@ -102,7 +100,7 @@
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div>
 
 				<button name="button1" target="_blank" class="buzzer cross" id="btn_dislike"(click)="buttonClick(1)"></button>
 
