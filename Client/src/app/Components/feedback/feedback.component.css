@@ -1,8 +1,5 @@
 body {
-  padding-top: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
+  padding: 50px;
   background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
   font-family: "Raleway", Arial, sans-serif;
   height: -webkit-fill-available;
@@ -13,10 +10,11 @@ body {
 h1{
   color: white;
   font-family: "Raleway", Arial, sans-serif;
-  margin: 0 0 20px 0;
-  font-size: 36px;
+  font-size: 60px;
   line-height: 1.2 !important;
   font-weight: 100;
+  padding-top: 30px;
+  padding-bottom: 100px;
 }
 
 p{
@@ -27,8 +25,11 @@ p{
   animation-timing-function: linear;
 }
 
+img{
+  width:350px;
+}
+
 #button {
-  color: #34a7bd;
   margin-top: 50px;
 }
 
