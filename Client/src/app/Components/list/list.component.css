@@ -18,17 +18,20 @@ h1{
   color: white;
   font-family: "Raleway", Arial, sans-serif;
   margin: 0 0 20px 0;
-  font-size: 50px;
+  font-size: 60px;
   line-height: 1.2 !important;
   font-weight: 100;
+  padding-top: 30px;
 }
 
 h3{
-  font-size: 20px;
+  font-size: 30px;
 }
 
-h6{
-  margin-top: 10px;
+h4{
+  font-size: 30px;
+  color: white;
+  padding-top: 30px;
 }
 
 .tile{
@@ -36,6 +39,7 @@ h6{
   justify-content: flex-start;
   align-items: stretch;
   align-content: flex-start;
+  padding-top: 50px;
 }
 
 .card {
@@ -48,7 +52,8 @@ h6{
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
     width: 100%;
-    height: 180px;
+    height: 100%;
+    min-height: 180px;
     margin-top: 10px;
 }
 
@@ -64,17 +69,3 @@ h6{
 .card-title:hover {
   color: #34a7bd;
 }
-
-/* #button {
-  color: #34a7bd;
-}
-
-#specificContextID {
-  border: none;
-  padding-left: 5px;
-  margin-top: 50px;
-  margin-bottom: 1px;
-  font-size: 15px;
-  font-family: "Raleway";
-}
-*/

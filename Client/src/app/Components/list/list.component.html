@@ -1,29 +1,22 @@
 <head>
-<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität _-->
 </head>
+
 <body>
 	<div class="row row-pb-sm">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-<h1>Projekte</h1>
-<h4>Wähle ein Projekt aus, das du evaluieren möchtest.</h4>
-<div class="tile">
-<div style="width: 50%;" *ngFor="let survey of surveys">
-  <div class="card" (click)="openProject(survey.id)">
-    <div class="card-body" id="{{survey.id}}">
-      <h3 class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
-     <!-- Noch nicht vorhanden -->
-      <!--><h6 class="card-subtitle mb-2 text-muted">von {{survey.activeSurvey.creator.firstName + survey.activeSurvey.creator.lastName}}</h6> <!-- Autor des Projektes -->
-    </div>
-  </div>
-</div>
-</div>
-<!--
-<div>
-  <p><input name="searchid" type="text" id="specificContextID" placeholder="ID-Suche"></p>
-  <button class="btn btn-white" id="button" (click)="openSpecificProject()">öffnen</button>
-</div>
--->
-</div>
-</div>
+			<h1>Projekte</h1>
+			<h4>Wähle ein Projekt aus, das du evaluieren möchtest.</h4>
+			<div class="tile">
+				<div style="width: 50%;" *ngFor="let survey of surveys">
+  				<div class="card" (click)="openProject(survey.id)">
+    				<div class="card-body" id="{{survey.id}}">
+      			<h3 class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
+    				</div>
+  				</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
