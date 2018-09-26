@@ -23,6 +23,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 import { ChartsModule } from 'ng2-charts';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { Constants } from './constants';
 import { QuestionService } from './Components/question/question.service';
@@ -35,6 +36,8 @@ import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
 import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { Router } from '@angular/router';
+import { OverlaySurveyComponent } from './Components/overlay-survey/overlay-survey.component';
+
   
 
 export function questionServiceFactory(router: Router, renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
@@ -61,6 +64,7 @@ const STRATEGY_PROVIDER: FactoryProvider = {
 };
  
 @NgModule({
+  exports: [OverlayModule],
   declarations: [
     AppComponent,
     ListComponent,
@@ -68,8 +72,11 @@ const STRATEGY_PROVIDER: FactoryProvider = {
     ProjectComponent,
     FeedbackComponent,
     EndScreenComponent,
-    ButtonRegisterComponent
-    
+    ButtonRegisterComponent,
+    OverlaySurveyComponent
+  ],
+  entryComponents: [
+    OverlaySurveyComponent,
   ],
 
   imports: [
@@ -79,6 +86,7 @@ const STRATEGY_PROVIDER: FactoryProvider = {
     HttpLinkModule,
      CONST_ROUTING,
      ChartsModule,
+     OverlayModule
   ],
   providers: [
     DataService, 
@@ -90,7 +98,8 @@ const STRATEGY_PROVIDER: FactoryProvider = {
     likeStrategy,
     regulatorStrategy,
     rankingStrategy,
-    STRATEGY_PROVIDER],
+    STRATEGY_PROVIDER,
+  OverlayModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

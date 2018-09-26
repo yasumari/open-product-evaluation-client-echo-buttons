@@ -8,11 +8,18 @@ import { Subscription } from 'rxjs/Subscription';
 import { QuestionService } from "./question.service";
 import { SubscriptionsService } from "./../../Services/subscriptions.service";
 import { updateDevice } from './../../GraphQL/Device.gql';
+import { Overlay, OverlayContainer, GlobalPositionStrategy } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { OverlaySurveyComponent } from '../overlay-survey/overlay-survey.component';
 
 @Component({
+  providers: [
+    { provide: OverlayContainer }
+  ],
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  styleUrls: ['./question.component.css'],
+  entryComponents: [ OverlaySurveyComponent ]
 })
 
 export class QuestionComponent implements OnInit, OnDestroy {
@@ -37,10 +44,12 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private router: Router,
     private messageService: MessageService,
-    private subscriptionsService: SubscriptionsService) {
+    private subscriptionsService: SubscriptionsService,
+    private overlay: Overlay) {
 
     //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
     this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
+      //Vorher noch benachrichtigen, dass es zum Anfang geht
         console.log("Abmelden");
         this.apollo.mutate({
           fetchPolicy: 'no-cache',
@@ -51,10 +60,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
           }
         }).subscribe(({data}) => { 
             console.log("mutation update DeviceContext", data);
-            this.subContext.unsubscribe();
-            this.subSockets.unsubscribe();
             //Zurück zum Anfang
-            this.router.navigateByUrl("/");
+            //this.router.navigateByUrl("/");
           });
     })
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
@@ -68,6 +75,16 @@ export class QuestionComponent implements OnInit, OnDestroy {
     })
   }
 
+  openOverlay(){
+    /*const positionStrategy = this.overlay.position()
+      .global()
+      .centerHorizontally()
+      .centerVertically();*/
+    let overlayRef = this.overlay.create({height: '5000px', width: '1200px',});
+    const filePreviewPortal = new ComponentPortal(OverlaySurveyComponent);
+    // Attach ComponentPortal to PortalHost
+    overlayRef.attach(filePreviewPortal);
+  }
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
    */
@@ -129,8 +146,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
               this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
             }
           }
-          this.subSockets.unsubscribe();
-          this.subContext.unsubscribe();
           this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
         } else {
           this.count_items++;
@@ -138,8 +153,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
 
     } else {
-      this.subSockets.unsubscribe();
-      this.subContext.unsubscribe();
       this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
     }
   }
@@ -204,7 +217,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy() {
-    this.subSockets.unsubscribe();
     this.subContext.unsubscribe();
+    this.subContext=undefined;
+    this.subSockets.unsubscribe();
+    this.subSockets=undefined;
   }
 }

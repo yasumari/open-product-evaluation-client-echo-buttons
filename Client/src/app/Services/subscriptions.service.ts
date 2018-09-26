@@ -11,7 +11,7 @@ import { Subject } from 'rxjs/Subject';
 
 export class SubscriptionsService {
   private subject = new Subject<string>();
-
+  private survey;
   constructor(private apollo: Apollo, private router: Router) {
   }
  
@@ -23,22 +23,29 @@ export class SubscriptionsService {
         return this.subject.asObservable();
     }
 
+    unSubscribe(){
+      this.subject.next();
+      this.subject.complete();
+    }
+
    subscribeContext(contextID: String){
-     var survey=this.apollo.subscribe({
+      this.survey=this.apollo.subscribe({
        query: subscribeContext,
        variables: {cID: contextID}
      })
-     survey.subscribe( (data) => {
+     this.survey.subscribe( (data) => {
        console.log(data);
        //nur benachrichten, wenn es sich um das activeSurvey handelt. 
        if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){
           console.log("ActiveSurvey wurde geändert");
           this.sendMessageSubscription("ActiveSurvey");
+          //Sobald eine Änderung für das Survey 
+          this.unSubscribe();
        } else {
-         console.log("Device wird nicht von Änderungen beeinflusst");
-         this.sendMessageSubscription("TEST");
+          console.log("Device wird nicht von Änderungen beeinflusst");
+          this.sendMessageSubscription("TEST");
+          this.unSubscribe();
        }
-      
     });
  }
 
