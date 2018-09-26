@@ -8,8 +8,8 @@
       <div class="project" *ngIf="currentProject"> <!-- ngIF abwarten bis was drin ist dann laden -->
         <h1 style="padding-bottom: 30px;">{{currentProject.activeSurvey.title}}</h1> <!-- Name des Projektes -->
         <h4 style="font-size: 30px; color: white; padding-top: 30px;">{{currentProject.activeSurvey.description}}</h4> <!-- Beschreibung des Projektes -->
-        <p style="padding-top: 45px;"><a class="btn btn-white" (click)="startSurvey()" >Start</a>
-                                      <a class="btn btn-white" (click)="backToList()">Zurück</a>
+        <p style="padding-top: 45px;"><a class="btn btn-white" (click)="startSurvey()" style="width: 130px;">Start</a>
+                                      <a class="btn btn-white" (click)="backToList()" style="width: 130px;">Zurück</a>
         </p>
       </div>
     </div>

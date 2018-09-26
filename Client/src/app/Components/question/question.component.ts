@@ -24,9 +24,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private min;
   private max;
   private step;
-  private valueBtn1;
-  private valueBtn2;
-  private valueBtn3;
+  private valueBTN = [];
 
   constructor(
     private questionService: QuestionService,
@@ -146,25 +144,25 @@ export class QuestionComponent implements OnInit, OnDestroy {
        * Vorher waren button1=min und button4=max, und die dazwischen wurden geprüft mit null
        */
       if (value == null && value2 == null) {
-        this.valueBtn1 = this.max;
-        this.valueBtn2 = null;
-        this.valueBtn3 = null;
-        this.dataService.setRegulatorsValue([this.min, this.max, null, null]);
+        this.valueBTN.push(this.min);
+        this.valueBTN.push(this.max);
+        this.dataService.setRegulatorsValue(this.valueBTN);
       }
       else if (value != null && value2 == null) {
-        this.valueBtn1 = value;
-        this.valueBtn2 = this.max;
-        this.valueBtn3 = null;
-        this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.max, null]);
+        this.valueBTN.push(this.min);
+        this.valueBTN.push(value)
+        this.valueBTN.push(this.max);
+        this.dataService.setRegulatorsValue(this.valueBTN);
       }
       else {
-        this.valueBtn1 = value;
-        this.valueBtn2 = value2;
-        this.valueBtn3 = this.max;
-        this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
+        this.valueBTN.push(this.min);
+        this.valueBTN.push(value)
+        this.valueBTN.push(value2)
+        this.valueBTN.push(this.max);
+        this.dataService.setRegulatorsValue(this.valueBTN);
       }
     }
-
+    
     console.log(this.currentQuestion);
     console.log(this.currentProject.activeSurvey.votes);
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
