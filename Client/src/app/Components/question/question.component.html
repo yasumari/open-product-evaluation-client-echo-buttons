@@ -14,7 +14,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h4>{{currentQuestion.items[i].label}}</h4>
+								<h5>{{currentQuestion.items[i].label}}</h5>
 								<button style="margin: 0px;" target="_blank" class="buzzer button{{i+1}}" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}"></button>
 							</div>
 					</div>
@@ -35,14 +35,14 @@
 								<div *ngIf="item!=null">
 								<img src="{{item.image.url}}" alt="Img">
 								<h5>{{item.label}}</h5>
-								<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
-								<button target="_blank" class="buzzer button{{y+1}}" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"></button>
-								<label style="font-weight: inherit; margin-left: -40px; margin-right: 50px;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
-								</label>
 							</div>
 						</div>
 					</div>
 				</div>
+				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
+					<button target="_blank" class="buzzer button{{y+1}}" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"></button>
+					<label style="font-weight: inherit; margin-left: -40px; margin-right: 50px;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
+				</label>
 		</div>
 	</div>
 </div>
@@ -58,7 +58,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h4>{{currentQuestion.items[i].label}}</h4>
+								<h5>{{currentQuestion.items[i].label}}</h5>
 							</div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h4>{{currentQuestion.items[i].label}}</h4>
+								<h5>{{currentQuestion.items[i].label}}</h5>
 							</div>
 					</div>
 				</div>
@@ -99,33 +99,33 @@
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h4>{{currentQuestion.items[i].label}}</h4>
+								<h5>{{currentQuestion.items[i].label}}</h5>
 							</div>
 					</div>
 				</div>
 				<div *ngIf="valueBTN.length==2">
-					<p><img src="assets/images/ratingbar2.png" alt="Selfhtml" style="width: 163px; height: 50px; margin-left: -30px; margin-top: 10px;"/></p>
+					<p><img src="assets/images/ratingbar2.png" alt="Selfhtml" style="width: 223px; height: 50px; margin-left: -30px; margin-top: 10px;"/></p>
 				</div>
 				<div *ngIf="valueBTN.length==3">
-					<p><img src="assets/images/ratingbar3.png" alt="Selfhtml" style="width: 263px; height: 50px; margin-left: -30px; margin-top: 10px;"/></p>
+					<p><img src="assets/images/ratingbar3.png" alt="Selfhtml" style="width: 323px; height: 50px; margin-left: -30px; margin-top: 10px;"/></p>
 				</div>
 				<div *ngIf="valueBTN.length==4">
-					<p><img src="assets/images/ratingbar4.png" alt="Selfhtml" style="width: 360px; height: auto; margin-left: -30px; margin-top: 10px;"/></p>
+					<p><img src="assets/images/ratingbar4.png" alt="Selfhtml" style="width: 420px; height: auto; margin-left: -40px; margin-top: 10px;"/></p>
 				</div>
 				<div style="display: inline-block">
-					<p style="margin-left:-30px">{{valueBTN[0]}}</p>
+					<p style="margin-left:-40px">{{valueBTN[0]}}</p>
 					<button target="_blank" class="buzzer button1" (click)="buttonClick(0)" id="ranking_0" name="button0"></button>
 				</div>
 				<div style="display: inline-block" *ngIf="valueBTN[1]!=null">
-					<p style="margin-left:-30px">{{valueBTN[1]}}</p>
+					<p style="margin-left:-40px">{{valueBTN[1]}}</p>
 					<button target="_blank" class="buzzer button2" (click)="buttonClick(1)" id="ranking_1" name="button1"></button>
 				</div>
 				<div style="display: inline-block" *ngIf="valueBTN[2]!=null">
-					<p style="margin-left:-30px">{{valueBTN[2]}}</p>
+					<p style="margin-left:-40px">{{valueBTN[2]}}</p>
 					<button target="_blank" class="buzzer button3" (click)="buttonClick(2)" id="ranking_2" name="button2"></button>
 				</div>
 				<div style="display: inline-block" *ngIf="valueBTN[3]!=null">
-					<p style="margin-left:-30px">{{valueBTN[3]}}</p>
+					<p style="margin-left:-40px">{{valueBTN[3]}}</p>
 					<button target="_blank" class="buzzer button4" (click)="buttonClick(3)" id="ranking_3" name="button3"></button>
 				</div>
 		</div>
