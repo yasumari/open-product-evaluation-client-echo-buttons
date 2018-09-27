@@ -10,13 +10,13 @@
 			<h3>{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
-				<div class="row row-pb-md">
+				<div class="row row-pb-md justify-content-around">
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
-							<div class="copy text-center">
-								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
-								<h5>{{currentQuestion.items[i].label}}</h5>
-								<button style="margin: 0px;" target="_blank" class="buzzer button{{i+1}}" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}"></button>
-							</div>
+						<div class="copy text-center">
+							<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
+							<h5>{{currentQuestion.items[i].label}}</h5>
+							<button style="margin: 0;" target="_blank" class="buzzer button{{i+1}}" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}"></button>
+						</div>
 					</div>
 				</div>
 		</div>
@@ -29,7 +29,7 @@
 			<h3>{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
-				<div class="row row-pb-md" >
+				<div class="row row-pb-md  justify-content-around">
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<div *ngIf="item!=null">
@@ -54,7 +54,7 @@
 			<h3>{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
-				<div class="row row-pb-md" >
+				<div class="row row-pb-md justify-content-around">
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
@@ -74,12 +74,12 @@
 			<h3>{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
-				<div class="row row-pb-md" >
+				<div class="row row-pb-md justify-content-around" >
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
 								<h5>{{currentQuestion.items[i].label}}</h5>
-							</div>
+						</div>
 					</div>
 				</div>
 				<button name="button0" target="_blank" class="buzzer heart" id="{{currentQuestion.likeIcon.id}}" (click)="buttonClick(0)"></button>
@@ -95,7 +95,7 @@
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
 			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
-				<div class="row row-pb-md" >
+				<div class="row row-pb-md justify-content-around">
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
@@ -139,7 +139,7 @@
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
 			<h4>Wähle Platz {{(count_items+1)}}.</h4>
-				<div class="row row-pb-md">
+				<div class="row row-pb-md justify-content-around">
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
 								<img src="{{currentQuestion.items[i].image.url}}" alt="Img">
