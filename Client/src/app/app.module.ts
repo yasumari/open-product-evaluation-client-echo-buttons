@@ -23,7 +23,8 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
 import { ChartsModule } from 'ng2-charts';
-import { OverlayModule } from '@angular/cdk/overlay';
+import {MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { Constants } from './constants';
 import { QuestionService } from './Components/question/question.service';
@@ -36,8 +37,7 @@ import { regulatorStrategy } from './QuestionStrategy/regulatorStrategy';
 import { rankingStrategy } from './QuestionStrategy/rankingStrategy';
 import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { Router } from '@angular/router';
-import { OverlaySurveyComponent } from './Components/overlay-survey/overlay-survey.component';
-
+import { DialogComponent } from './Components/dialog/dialog.component';
   
 
 export function questionServiceFactory(router: Router, renderer: Renderer2, dataService: DataService, apollo:Apollo, ...types: Array<QuestionStrategy>): QuestionService {
@@ -64,7 +64,7 @@ const STRATEGY_PROVIDER: FactoryProvider = {
 };
  
 @NgModule({
-  exports: [OverlayModule],
+  entryComponents: [DialogComponent],
   declarations: [
     AppComponent,
     ListComponent,
@@ -73,10 +73,7 @@ const STRATEGY_PROVIDER: FactoryProvider = {
     FeedbackComponent,
     EndScreenComponent,
     ButtonRegisterComponent,
-    OverlaySurveyComponent
-  ],
-  entryComponents: [
-    OverlaySurveyComponent,
+    DialogComponent
   ],
 
   imports: [
@@ -86,7 +83,8 @@ const STRATEGY_PROVIDER: FactoryProvider = {
     HttpLinkModule,
      CONST_ROUTING,
      ChartsModule,
-     OverlayModule
+     MatDialogModule,
+     BrowserAnimationsModule
   ],
   providers: [
     DataService, 
@@ -98,8 +96,7 @@ const STRATEGY_PROVIDER: FactoryProvider = {
     likeStrategy,
     regulatorStrategy,
     rankingStrategy,
-    STRATEGY_PROVIDER,
-  OverlayModule],
+    STRATEGY_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule {

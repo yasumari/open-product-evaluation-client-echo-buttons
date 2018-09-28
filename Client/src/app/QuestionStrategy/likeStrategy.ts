@@ -16,7 +16,6 @@ export class likeStrategy extends QuestionStrategy {
             renderer.setProperty(_btn, 'disabled', 'true');
             //TODO welches Bild soll bei einer Like Frage im Feedback sein?
             if (currentQuestion.items!=null){
-                console.log("BILD AUSGEWÄHLT: " +currentQuestion.items[""+btn_number].image.url)
                 dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
             } else {
                 dataService.setChosenImageUrl(null);

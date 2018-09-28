@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
 import { Subscription } from 'rxjs/Subscription';
-import { ChartsModule } from 'ng2-charts';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 import { Context, Question } from '../../types';
 import { Constants } from '../../constants';
 import { SubscriptionsService } from '../../Services/subscriptions.service';
@@ -137,31 +138,12 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
   ];
 
-  constructor(private apollo: Apollo, private dataService: DataService, private router: Router, private messageService: MessageService, private subscriptionsService: SubscriptionsService) { 
-    //ButtonSubscriptions der Nachrichten, Button wählt die nächste Seite aus, egal welcher Button gedrückt wurde
-    this.sub = this.messageService.getMessage().subscribe(message => {
-      //console.log(message);
-      this.nextPage();
-    });
-
-    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
-    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
-      console.log("Abmelden, denn " + message);
-      this.apollo.mutate({
-        fetchPolicy: 'no-cache',
-        mutation: updateDevice,
-        variables: {
-          deviceID:this.dataService.getDeviceID(),
-          context: null,
-        }
-      }).subscribe(({data}) => { 
-          console.log("mutation update DeviceContext", data);
-          this.subContext.unsubscribe();
-          this.sub.unsubscribe();
-          //Zurück zum Anfang
-          this.router.navigateByUrl("/");
-        });
-  })
+  constructor(private apollo: Apollo, 
+    private dataService: DataService, 
+    private router: Router, 
+    private messageService: MessageService, 
+    private subscriptionsService: SubscriptionsService, 
+    private dialog: MatDialog) { 
   }
   nextPage() {
     //Button wurde gedrückt, dann stoppt der Timer
@@ -173,6 +155,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    
     this.currentProject = this.dataService.getContext();
     let k;
 
@@ -458,6 +442,36 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     this.timer = setTimeout(() => {
       this.nextPage();
     }, Constants.TIMER_FEEDBACK);
+
+    //ButtonSubscriptions der Nachrichten, Button wählt die nächste Seite aus, egal welcher Button gedrückt wurde
+    this.sub = this.messageService.getMessage().subscribe(message => {
+      //console.log(message);
+      this.nextPage();
+    });
+
+    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
+    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
+      console.log("Abmelden, denn " + message);
+      this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+        mutation: updateDevice,
+        variables: {
+          deviceID:this.dataService.getDeviceID(),
+          context: null,
+        }
+      }).subscribe(({data}) => { 
+        console.log("mutation update DeviceContext", data);
+        //close Dialog nach paar Sekungen und dann zurück zum Anfang
+        let dialogRef=this.dialog.open(DialogComponent, {
+          minHeight: '20%',
+          minWidth: '40%'
+        });
+        setTimeout(() => {
+          dialogRef.close();
+          this.router.navigateByUrl("/");
+        }, Constants.TIMER_DIALOG);
+      });
+  })
   }
 
 

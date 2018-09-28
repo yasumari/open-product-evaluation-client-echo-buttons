@@ -1,8 +1,5 @@
 body{
-  padding-top: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
+  padding: 50px;
   background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
   font-family: "Raleway", Arial, sans-serif;
   height: -webkit-fill-available;
@@ -13,20 +10,30 @@ body{
 h1{
   color: white;
   font-family: "Raleway", Arial, sans-serif;
-  font-size: 36px;
+  font-size: 60px;
   line-height: 1.2 !important;
   font-weight: 100;
-  padding-bottom: 10px;
+  padding-top: 30px;
 }
 
 h2{
-  font-size: 18px;
-  padding-top: 0px;
+  font-size: 30px;
   color: white;
+  padding-top: 30px;
 }
 
 h3{
-  font-size: 18px;
+  font-size: 30px;
+  color: black;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+h4{
+  font-size: 16px;
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 40px;
   color: grey;
 }
 

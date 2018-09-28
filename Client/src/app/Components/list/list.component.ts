@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -8,6 +8,7 @@ import { newDeviceMutation } from './../../GraphQL/Device.gql';
 import { queryAllSurveys } from './../../GraphQL/Context.gql';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-list',
@@ -23,15 +24,15 @@ export class ListComponent implements OnInit, OnDestroy {
         private apollo: Apollo, 
         private router: Router, 
         private dataService: DataService, 
-        private messageService: MessageService) {             
-        //Wenn app.Component einen button-click gemerkt hat, dann zum nächsten Screen
+        private messageService: MessageService) {
+            
+        //Wenn app.Component einen button-click erhält, dann zum nächsten Screen
         this.sub=this.messageService.getMessage().subscribe( message => {
             this.sub.unsubscribe();
             this.openProject(this.surveys[message].id);
         })
     }
 
-    
     openProject(contextID : string): void{
         this.dataService.setContextID(contextID);
         this.router.navigateByUrl('/project');

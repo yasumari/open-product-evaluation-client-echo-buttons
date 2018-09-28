@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { subscribeContext } from '../GraphQL/Context.gql';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +12,20 @@ import { Subject } from 'rxjs/Subject';
 export class SubscriptionsService {
   private subject = new Subject<string>();
   private survey;
-  constructor(private apollo: Apollo, private router: Router) {
-  }
+  private subscription;
+  constructor(private apollo: Apollo) {}
  
   sendMessageSubscription(message: string) {
+    console.log("MESSAGE wird gesendet: " + message);
     this.subject.next(message);
 }
 
     getMessageSubscription(): Observable<any> {
-        return this.subject.asObservable();
+      return this.subject.asObservable();
     }
 
-    unSubscribe(){
-      this.subject.next();
-      this.subject.complete();
+    unsub(){
+      this.subscription.unsubscribe();
     }
 
    subscribeContext(contextID: String){
@@ -33,20 +33,24 @@ export class SubscriptionsService {
        query: subscribeContext,
        variables: {cID: contextID}
      })
-     this.survey.subscribe( (data) => {
-       console.log(data);
+     this.subscription=this.survey.subscribe( (data) => {
+       console.log("SUBSCRIPTION: ", data);
        //nur benachrichten, wenn es sich um das activeSurvey handelt. 
        if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){
           console.log("ActiveSurvey wurde geändert");
           this.sendMessageSubscription("ActiveSurvey");
+          this.unsub();
           //Sobald eine Änderung für das Survey 
-          this.unSubscribe();
-       } else {
+       } else if (data.data.contextUpdate.changedAttributes.includes("name")){
+        console.log("Name wurde geändert");
+        this.sendMessageSubscription("Name");
+        this.unsub();
+        //Sobald eine Änderung für das Survey 
+     } 
+       else {
           console.log("Device wird nicht von Änderungen beeinflusst");
-          this.sendMessageSubscription("TEST");
-          this.unSubscribe();
        }
-    });
+    })
  }
 
 

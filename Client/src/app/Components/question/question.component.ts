@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
 import { Router } from '@angular/router';
@@ -8,18 +8,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { QuestionService } from "./question.service";
 import { SubscriptionsService } from "./../../Services/subscriptions.service";
 import { updateDevice } from './../../GraphQL/Device.gql';
-import { Overlay, OverlayContainer, GlobalPositionStrategy } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { OverlaySurveyComponent } from '../overlay-survey/overlay-survey.component';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Constants } from '../../constants';
 
 @Component({
-  providers: [
-    { provide: OverlayContainer }
-  ],
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css'],
-  entryComponents: [ OverlaySurveyComponent ]
+  styleUrls: ['./question.component.css']
 })
 
 export class QuestionComponent implements OnInit, OnDestroy {
@@ -33,9 +29,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private min;
   private max;
   private step;
-  private valueBtn1;
-  private valueBtn2;
-  private valueBtn3;
+  private valueBTN = [];
 
   constructor(
     private questionService: QuestionService,
@@ -44,47 +38,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private router: Router,
     private messageService: MessageService,
-    private subscriptionsService: SubscriptionsService,
-    private overlay: Overlay) {
-
-    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
-    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
-      //Vorher noch benachrichtigen, dass es zum Anfang geht
-        console.log("Abmelden");
-        this.apollo.mutate({
-          fetchPolicy: 'no-cache',
-          mutation: updateDevice,
-          variables: {
-            deviceID:this.dataService.getDeviceID(),
-            context: null,
-          }
-        }).subscribe(({data}) => { 
-            console.log("mutation update DeviceContext", data);
-            //Zurück zum Anfang
-            //this.router.navigateByUrl("/");
-          });
-    })
-    //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
-    this.subSockets = this.messageService.getMessage().subscribe(message => {
-      console.log("MESSAGE: " + message);
-      if (message != undefined || message != null) {
-        this.buttonClick(parseInt(message));
-      } else {
-        console.log("Button ungültig Nachricht");
-      }
-    })
+    private subscriptionsService: SubscriptionsService, 
+    private dialog: MatDialog) {
   }
 
-  openOverlay(){
-    /*const positionStrategy = this.overlay.position()
-      .global()
-      .centerHorizontally()
-      .centerVertically();*/
-    let overlayRef = this.overlay.create({height: '5000px', width: '1200px',});
-    const filePreviewPortal = new ComponentPortal(OverlaySurveyComponent);
-    // Attach ComponentPortal to PortalHost
-    overlayRef.attach(filePreviewPortal);
-  }
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
    */
@@ -137,7 +94,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
         // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
         this.ranking.unshift(this.currentQuestion.items[btn_number].id);
         if (this.ranking.length == this.currentQuestion.items.length) {
-          //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
+          
           this.currentAnswer.ranking = this.ranking;
 
           //Im Feedback Platz 1 anzeigen
@@ -194,27 +151,62 @@ export class QuestionComponent implements OnInit, OnDestroy {
        * Vorher waren button1=min und button4=max, und die dazwischen wurden geprüft mit null
        */
       if (value == null && value2 == null) {
-        this.valueBtn1 = this.max;
-        this.valueBtn2 = null;
-        this.valueBtn3 = null;
-        this.dataService.setRegulatorsValue([this.min, this.max, null, null]);
+        this.valueBTN.push(this.min);
+        this.valueBTN.push(this.max);
+        this.dataService.setRegulatorsValue(this.valueBTN);
       }
       else if (value != null && value2 == null) {
-        this.valueBtn1 = value;
-        this.valueBtn2 = this.max;
-        this.valueBtn3 = null;
-        this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.max, null]);
+        this.valueBTN.push(this.min);
+        this.valueBTN.push(value)
+        this.valueBTN.push(this.max);
+        this.dataService.setRegulatorsValue(this.valueBTN);
       }
       else {
-        this.valueBtn1 = value;
-        this.valueBtn2 = value2;
-        this.valueBtn3 = this.max;
-        this.dataService.setRegulatorsValue([this.min, this.valueBtn1, this.valueBtn2, this.max]);
+        this.valueBTN.push(this.min);
+        this.valueBTN.push(value)
+        this.valueBTN.push(value2)
+        this.valueBTN.push(this.max);
+        this.dataService.setRegulatorsValue(this.valueBTN);
       }
-
     }
-  }
+    
+    console.log(this.currentQuestion);
+    console.log(this.currentProject.activeSurvey.votes);
+    //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
+    this.subSockets = this.messageService.getMessage().subscribe(message => {
+      if (message != undefined || message != null) {
+        this.buttonClick(parseInt(message));
+      } else {
+        console.log("Button ungültig Nachricht");
+      }
+    })
 
+    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
+    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
+      console.log("Message: " + message);
+      //Vorher noch benachrichtigen, dass es zum Anfang geht
+        console.log("Abmelden");
+        this.apollo.mutate({
+          fetchPolicy: 'no-cache',
+          mutation: updateDevice,
+          variables: {
+            deviceID: this.dataService.getDeviceID(),
+            context: null,
+          }
+        }).subscribe(({data}) => { 
+            console.log("mutation update DeviceContext", data);
+            //close Dialog nach paar Sekungen und dann zurück zum Anfang
+            let dialogRef=this.dialog.open(DialogComponent, {
+              minHeight: '20%',
+              minWidth: '40%'
+            });
+            setTimeout(() => {
+              dialogRef.close();
+              this.router.navigateByUrl("/");
+            }, Constants.TIMER_DIALOG);
+          });
+    })
+  }
 
   ngOnDestroy() {
     this.subContext.unsubscribe();
