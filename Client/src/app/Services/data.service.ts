@@ -15,6 +15,8 @@ export class DataService {
     private socketID;
     private chosenImage;
     private chosenImagearray:string[]=[];
+    private chosenQuestion;
+    private chosenQuestionarray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
     private countRanking=0;
@@ -27,18 +29,32 @@ export class DataService {
     setChosenImageUrl(url: string){
       this.chosenImage=url;
     }
-
+ 
     getChosenImageUrl(){
       return this.chosenImage;
     }
-    //endscreenImage
-    setChosenImageUrlarray(url1: string){
-      this.chosenImagearray.push(url1);
-    }
-
-    getChosenImageUrlarray(){
+   //endscreenImage
+    setChosenImageUrlarray(q1: string){
+      this.chosenImagearray.push(q1);
+    } 
+     getChosenImageUrlarray(){
       return this.chosenImagearray;
     }
+    resetChosenImageUrlarray(){
+      this.chosenImagearray.length=0;
+    }
+    //endscreenquestion
+    getChosenQuestionarray(){
+      return this.chosenQuestionarray;
+    }
+    
+    setChosenQuestionarray(q: string){
+      this.chosenQuestionarray.push(q);
+    }
+    resetChosenQuestionarray(){
+      this.chosenQuestionarray.length=0;
+    }
+  
 //endscreenImage :Wert von beliebste Frage
     setMaxAntwortArray(max:any){
       this.MaxAnwortarray.push(max);
@@ -47,6 +63,10 @@ export class DataService {
     getMaxAntwortArray(){
       return this.MaxAnwortarray;
     }
+    resetMaxAntwortArray(){
+      this.MaxAnwortarray.length=0;
+    }
+  
     //Beanwortete Fragen
     setAnswerNumber(){
       this.numberAnswerQuestions++;

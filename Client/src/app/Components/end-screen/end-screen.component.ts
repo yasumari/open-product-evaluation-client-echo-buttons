@@ -23,6 +23,7 @@ export class EndScreenComponent implements OnInit {
   private i: number;
   private max: number;
   private image1:string[]=[];
+  private Question:string[]=[];
   private value:any[]=[];
   private sub: Subscription;
   private deviceID;
@@ -89,12 +90,15 @@ export class EndScreenComponent implements OnInit {
     //meiste image gewählt:
   
     this.image1=this.dataService.getChosenImageUrlarray();
+   console.log("arrayendScreen img",this.image1);
+   this.Question=this.dataService.getChosenQuestionarray();
+   console.log("arrayendScreen q",this.Question);
     this.value=this.dataService.getMaxAntwortArray();
-    
+    console.log("arrayendScreen Antwort",this.value);
     
     this.max=this.dataService.getContext().activeSurvey.questions.length;
   
-    
+    console.log("antwort ",this.Question.length);
    
     
     this.deviceID=this.dataService.getDeviceID();
@@ -104,8 +108,17 @@ export class EndScreenComponent implements OnInit {
       this.goBackToListProjects();
     });
     
-  this.timer= setTimeout( () => {
+    /* this.timer= setTimeout( () => {
     this.goBackToListProjects();
-}, Constants.TIMER_END);  
+}, Constants.TIMER_END); */ 
+  }
+  ngOnDestroy(){//Array leeren
+    this.dataService.resetChosenImageUrlarray();
+  this.dataService.resetChosenQuestionarray();
+  this.dataService.resetMaxAntwortArray();
+   
   }
   }
+ 
+  
+  
