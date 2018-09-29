@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
-import {  updateDevice, newDeviceMutation} from './../../GraphQL/Device.gql';
-import { currentProjectData, queryContextID} from './../../GraphQL/Context.gql'
+import { updateDevice, newDeviceMutation} from './../../GraphQL/Device.gql';
+import { currentProjectData, queryContextID, subscribeContext } from './../../GraphQL/Context.gql'
 import { Context, Vote } from '../../types';
 import { MessageService } from '../../Services/message.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { SubscriptionsService} from '../../Services/subscriptions.service';
 
 @Component({
   selector: 'app-project',
@@ -17,15 +18,16 @@ export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
   message: any;
   sub: Subscription;
-
-  constructor(
-  private apollo: Apollo, 
-  private router: Router, 
-  private dataService: DataService, 
-  private messageService: MessageService) { }
-
+  Teilnehmer : Vote;
   private contextid:string;
   private deviceID: string;
+  constructor(
+    private apollo: Apollo, 
+    private router: Router, 
+    private dataService: DataService, 
+    private messageService: MessageService, 
+    private subscriptionsService: SubscriptionsService) { }
+  
 
   /**
    * @description wird vom Button "Starten" ausgelöst, damit wird das Device mit der ContextID geupdatet
@@ -67,26 +69,26 @@ export class ProjectComponent implements OnInit, OnDestroy {
    * @param contextId
    */
   updateDevice(deviceID: string, contextId: string){
-      //Device contextID übergeben mit updateDevice()
-        this.apollo.mutate({
-          fetchPolicy: 'no-cache',
-          mutation: updateDevice,
-          variables: {
-            deviceID: deviceID,
-            context: contextId
-          }
-        }).subscribe(({data}) => {
-            console.log("mutation update Device", data);
-        });
+    //Device contextID übergeben mit updateDevice()
+      this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+        mutation: updateDevice,
+        variables: {
+          deviceID: deviceID,
+          context: contextId
+        }
+      }).subscribe(({data}) => {
+          console.log("mutation update Device", data);
+          //ContextSubscriben, erst wenn das Device dem Kontext zugeordnet wurde, ist Subscription möglich
+          this.subscriptionsService.subscribeContext(this.contextid);
+      });
   }
 
     public ngOnInit(): void {
-      
       //Ist das Device noch nicht vorhanden? dann Registriere es (Für die späteren Surveys, wenn die Liste nicht mehr benötigt wird)
       this.contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
       this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
-      
       //Wenn es ohne Startseite aufgerufen wird, dann 
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
       if (token==null || token==undefined || this.deviceID==null){

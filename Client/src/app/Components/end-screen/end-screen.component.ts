@@ -5,7 +5,7 @@ import { updateDevice, deleteDevice} from './../../GraphQL/Device.gql';
 import { MessageService} from '../../Services/message.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { ChartsModule } from 'ng2-charts';
+import { SubscriptionsService } from '../../Services/subscriptions.service';
 import { Context, Question } from '../../types';
 import { Constants } from '../../constants';
 
@@ -35,7 +35,8 @@ export class EndScreenComponent implements OnInit {
     private apollo: Apollo, 
     private router: Router, 
     private dataService: DataService, 
-    private messageService: MessageService) {}
+    private messageService: MessageService,
+    private subscriptionsService: SubscriptionsService) {}
   
     private timer;
   
@@ -75,8 +76,9 @@ export class EndScreenComponent implements OnInit {
   /**
    * @description zurück zur Startseite
    */
-  goBackToListProjects(){
+  goBackToListProjects(): void{
     this.sub.unsubscribe();
+    this.subscriptionsService.unsub();
     this.dataService.setPositionQuestion(0);
     this.dataService.setAnswerNumberZero();
     clearTimeout(this.timer);

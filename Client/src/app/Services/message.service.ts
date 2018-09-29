@@ -8,10 +8,11 @@ import { Subject } from 'rxjs/Subject';
 
 export class MessageService {
     private subject = new Subject<string>();
- 
+    
+    constructor(){}
     /**
      * Message subscriben
-     * @param message übermittelte Nachricht von der Socket-Kommunikation
+     * @param message übermittelte Nachricht von der Socket-Kommunikation und Subscription-Kommunikation
      */
     sendMessage(message: string) {
         this.subject.next(message);
@@ -24,4 +25,6 @@ export class MessageService {
     getMessage(): Observable<any> {
         return this.subject.asObservable();
     }
+
+
 }

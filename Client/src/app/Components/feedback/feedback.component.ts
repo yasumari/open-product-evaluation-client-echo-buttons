@@ -3,10 +3,13 @@ import { Router } from '@angular/router';
 import { DataService } from '../../Services/data.service';
 import { MessageService } from '../../Services/message.service';
 import { Subscription } from 'rxjs/Subscription';
-import { ChartsModule } from 'ng2-charts';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 import { Context, Question } from '../../types';
 import { Constants } from '../../constants';
-
+import { SubscriptionsService } from '../../Services/subscriptions.service';
+import { Apollo } from 'apollo-angular';
+import { updateDevice } from './../../GraphQL/Device.gql'
 
 @Component({
   selector: 'app-feedback',
@@ -15,34 +18,36 @@ import { Constants } from '../../constants';
 })
 export class FeedbackComponent implements OnInit, OnDestroy {
   private sub: Subscription;
+  subContext: Subscription;
+  private title_nextPage;
   private max: number;
-  private image:string;
+  private image: string;
   private timer;
 
   public currentProject: Context;
   public currentQuestion: Question;
 
-  public DataAntwort:number=0;
-  public DataAntwort1:number=0;
-  public DataAntwort2:number=0;
-  public DataAntwort3:number=0;
-  public DataAntwortP:number=0;
-  public DataAntwortP1:number=0;
+  public DataAntwort: number = 0;
+  public DataAntwort1: number = 0;
+  public DataAntwort2: number = 0;
+  public DataAntwort3: number = 0;
+  public DataAntwortP: number = 0;
+  public DataAntwortP1: number = 0;
 
-  public barChartOptions:any = {
+  public barChartOptions: any = {
     scales: {
       yAxes: [{
-          ticks: {
-              min: 0,
-              beginAtZero: true
-          }
+        ticks: {
+          min: 0,
+          beginAtZero: true
+        }
       }]
-  },
+    },
     size: {
       width: 5,
       left: 5,
-      rigth:5
-   },
+      rigth: 5
+    },
     responsive: true,
     title: {
       text: '',
@@ -52,13 +57,11 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       display: true
     }
   };
+  public barChartLabels: string[] = [];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+  public ArrayBilder: any[] = [];
 
-  public barChartLabels:string[] = [];
-
-  public barChartType:string = 'bar';
-  public barChartLegend:boolean = true;
-  public ArrayBilder:any []=[];
-  
   public chartColors: Array<any> = [
     { // first color
       fontColor:'#fafafa',
@@ -190,58 +193,59 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       pointHoverBorderColor: 'rgb(90,132,135)'
     }
   ];
-  public barChartData:any[] = [
-    {data: [], label: [],
+  public barChartData: any[] = [
+    {
+      data: [], label: [],
       borderWidth: 2,
       hoverBorderWidth: 0,
-      scaleOverride:true,
-      scaleSteps:1,
-      scaleStartValue:0,
-      scaleStepWidth:5,
-      
-      
+      scaleOverride: true,
+      scaleSteps: 1,
+      scaleStartValue: 0,
+      scaleStepWidth: 5
 
 
-    },{data: [], label: [],
-    borderWidth: 2,
-    hoverBorderWidth: 0,
-    scaleOverride:true,
-    scaleSteps:1,
-    scaleStartValue:0,
-    scaleStepWidth:5 ,
 
-    options: {
-      scales: {
+    }, {
+      data: [], label: [],
+      borderWidth: 2,
+      hoverBorderWidth: 0,
+      scaleOverride: true,
+      scaleSteps: 1,
+      scaleStartValue: 0,
+      scaleStepWidth: 5,
+
+      options: {
+        scales: {
           yAxes: [{
-              ticks: {
-                  min: 0,
-                  beginAtZero: true
-              }
+            ticks: {
+              min: 0,
+              beginAtZero: true
+            }
           }]
+        }
       }
-  }
 
     }
 
   ];
 
-
-
-  private title_nextPage;
-
-
-  constructor(private dataService: DataService, private router: Router, private messageService: MessageService) {}
-  nextPage(){
+  constructor(private apollo: Apollo, 
+    private dataService: DataService, 
+    private router: Router, 
+    private messageService: MessageService, 
+    private subscriptionsService: SubscriptionsService, 
+    private dialog: MatDialog) { 
+  }
+  nextPage() {
     //Button wurde gedrückt, dann stoppt der Timer
     clearTimeout(this.timer);
     this.sub.unsubscribe();
+    this.subContext.unsubscribe();
     //Prüfe ob zum Ende oder zur nächsten Frage
     (this.dataService.getAnswerNumber() == this.max) ? this.router.navigate(['/end']) : this.router.navigate(['/question']);
   }
 
-
-  ngOnInit() {
-    this.currentProject = this.dataService.getContext();
+  ngOnInit() {this.currentProject = this.dataService.getContext();
     let k;
 
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()-1];
@@ -590,7 +594,6 @@ if(this.currentQuestion.items!=null) {
     }} 
 
     //anzahl der gewählte Bider für jeder Bilder (for bilder )
-
     
     if(this.currentQuestion.items!=null)
    {
@@ -944,21 +947,49 @@ if(this.currentQuestion.items!=null) {
 
     let url= this.dataService.getChosenImageUrl();
     this.image=(url!=null) ? url : null;
-
-    //TODO WIRD HIER AUCH mit dem Button gedrückt?
     this.max=this.dataService.getContext().activeSurvey.questions.length;
     (this.dataService.getAnswerNumber() == this.max) ? this.title_nextPage="Das war's!" : this.title_nextPage="Weiter geht's zur nächsten Frage!";
-    this.sub=this.messageService.getMessage().subscribe( message => {
+    //ButtonSubscriptions der Nachrichten, Button wählt die nächste Seite aus, egal welcher Button gedrückt wurde
+    this.sub = this.messageService.getMessage().subscribe(message => {
+      //console.log(message);
       this.nextPage();
     });
 
-  this.timer= setTimeout( () => {
-        this.nextPage();
-    }, Constants.TIMER_FEEDBACK);
+    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
+    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
+      console.log("Abmelden, denn " + message);
+      this.apollo.mutate({
+        fetchPolicy: 'no-cache',
+        mutation: updateDevice,
+        variables: {
+          deviceID:this.dataService.getDeviceID(),
+          context: null,
+        }
+      }).subscribe(({data}) => { 
+        console.log("mutation update DeviceContext", data);
+        //Position der Fragen auf 0 setzen
+        this.dataService.setPositionQuestion(0);
+        this.dataService.setAnswerNumberZero();
+        //close Dialog nach paar Sekungen und dann zurück zum Anfang
+        let dialogRef=this.dialog.open(DialogComponent, {
+          minHeight: '20%',
+          minWidth: '40%'
+        });
+        setTimeout(() => {
+          dialogRef.close();
+          this.router.navigateByUrl("/");
+        }, Constants.TIMER_DIALOG);
+      });
+  })
 
+  this.timer= setTimeout( () => {
+    this.nextPage();
+}, Constants.TIMER_FEEDBACK);
   }
 
 
 
-  ngOnDestroy(){}
+  ngOnDestroy() { 
+
+  }
 }

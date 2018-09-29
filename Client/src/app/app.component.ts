@@ -3,6 +3,7 @@ import { SocketService } from './Services/socket.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from './Services/message.service';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +17,10 @@ export class AppComponent implements OnInit, OnDestroy{
 
   title = 'app';
   constructor(private socketService: SocketService, private messageService: MessageService){}
+  
+
   ngOnInit(){
-    //TODO: Check if socketConnection already exists. 
+
     this.socketService.connect();
     /**
      * Socket Connection, eingehende Nachricht an MessageService übergeben, 
