@@ -110,9 +110,9 @@ export class EndScreenComponent implements OnInit {
       this.goBackToListProjects();
     });
     
-    /* this.timer= setTimeout( () => {
+    this.timer= setTimeout( () => {
     this.goBackToListProjects();
-}, Constants.TIMER_END); */ 
+}, Constants.TIMER_END);  
   }
   ngOnDestroy(){//Array leeren
     this.dataService.resetChosenImageUrlarray();

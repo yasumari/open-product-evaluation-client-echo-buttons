@@ -25,6 +25,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { ChartsModule } from 'ng2-charts';
 import {MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from "@angular/material/icon";
 
 import { Constants } from './constants';
 import { QuestionService } from './Components/question/question.service';
@@ -84,7 +85,8 @@ const STRATEGY_PROVIDER: FactoryProvider = {
      CONST_ROUTING,
      ChartsModule,
      MatDialogModule,
-     BrowserAnimationsModule
+     BrowserAnimationsModule,
+     MatIconModule
   ],
   providers: [
     DataService, 
