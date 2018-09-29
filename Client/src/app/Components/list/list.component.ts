@@ -26,11 +26,7 @@ export class ListComponent implements OnInit, OnDestroy {
         private dataService: DataService, 
         private messageService: MessageService) {
             
-        //Wenn app.Component einen button-click erhält, dann zum nächsten Screen
-        this.sub=this.messageService.getMessage().subscribe( message => {
-            this.sub.unsubscribe();
-            this.openProject(this.surveys[message].id);
-        })
+        
     }
 
     openProject(contextID : string): void{
@@ -48,6 +44,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        //Wenn app.Component einen button-click erhält, dann zum nächsten Screen
+        this.sub=this.messageService.getMessage().subscribe( message => {
+            this.sub.unsubscribe();
+            this.openProject(this.surveys[message].id);
+        })
         let deviceID=this.dataService.getDeviceID();
         //Wenn das Gerät noch nicht vorhanden ist, muss es neu angelegt werden
         if ( deviceID==null ){
