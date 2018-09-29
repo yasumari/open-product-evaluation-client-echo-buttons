@@ -36,6 +36,8 @@ export class SubscriptionsService {
         console.log("ActiveSurvey wurde gelöscht");
         this.sendMessageSubscription("activeSurvey");
         this.unsub();
+       } else if (data.data.contextUpdate.changedAttributes==null){
+         console.log("Attribut ist null, keine Änderung");
        }
        //nur benachrichten, wenn es sich um das activeSurvey handelt. 
        else if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){

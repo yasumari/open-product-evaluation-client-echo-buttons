@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from "@angular/material";
-import { Constants } from '../../constants';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dialog',

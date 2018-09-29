@@ -39,9 +39,9 @@
 						</div>
 					</div>
 				</div>
-				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px;" >
+				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px; display: inline-grid;" >
 					<button target="_blank" class="buzzer button{{y+1}}" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"></button>
-					<label style="font-weight: inherit; margin-left: -10px; margin-right: 50px;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
+					<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
 				</label>
 		</div>
 	</div>
@@ -113,19 +113,19 @@
 					<p><img src="assets/images/ratingbar4.png" alt="Selfhtml" style="max-width: 675px; height: auto; margin-top: 10px; margin-bottom: 10px;"/></p>
 				</div>
 				<div style="display: inline-block">
-					<p>{{valueBTN[0]}}</p>
+					<p style="font-size:25px">{{valueBTN[0]}}</p>
 					<button target="_blank" class="buzzer button1" (click)="buttonClick(0)" id="ranking_0" name="button0"></button>
 				</div>
 				<div style="display: inline-block" *ngIf="valueBTN[1]!=null">
-					<p>{{valueBTN[1]}}</p>
+					<p style="font-size:25px">{{valueBTN[1]}}</p>
 					<button target="_blank" class="buzzer button2" (click)="buttonClick(1)" id="ranking_1" name="button1"></button>
 				</div>
 				<div style="display: inline-block" *ngIf="valueBTN[2]!=null">
-					<p>{{valueBTN[2]}}</p>
+					<p style="font-size:25px">{{valueBTN[2]}}</p>
 					<button target="_blank" class="buzzer button3" (click)="buttonClick(2)" id="ranking_2" name="button2"></button>
 				</div>
 				<div style="display: inline-block" *ngIf="valueBTN[3]!=null">
-					<p>{{valueBTN[3]}}</p>
+					<p style="font-size:25px">{{valueBTN[3]}}</p>
 					<button target="_blank" class="buzzer button4" (click)="buttonClick(3)" id="ranking_3" name="button3"></button>
 				</div>
 		</div>

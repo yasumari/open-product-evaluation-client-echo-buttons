@@ -203,10 +203,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
               minHeight: '20%',
               minWidth: '40%'
             });
-            /*setTimeout(() => {
+            setTimeout(() => {
               dialogRef.close();
               this.router.navigateByUrl("/");
-            }, Constants.TIMER_DIALOG);*/
+            }, Constants.TIMER_DIALOG);
           });
     })
   }
