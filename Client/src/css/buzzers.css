@@ -5,10 +5,10 @@
     border-radius: 50%;
     box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 120px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -22,10 +22,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -37,10 +37,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -52,10 +52,10 @@
     border-radius: 50%;
     box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -67,10 +67,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px ;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -82,10 +82,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -97,10 +97,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -115,10 +115,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -131,10 +131,10 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 70px;
-    margin: 0 50px 30px 0;
+    height: 100px;
+    margin: 30px;
     position: relative;
-    width: 70px;
+    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -148,12 +148,12 @@
 		color:#e9e6e4;
 		content: "";
 		display: block;
-		font-size: 30px;
-		height: 30px;
+		font-size: 60px;
+		height: 100px;
 		text-decoration: none;
 		text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
 		position: absolute;
-		width: 30px;
+		width: 150px;
 	}
 
 	.buzzer:after
@@ -192,31 +192,30 @@
 	.weiter:after
 	{
 		content: "⇨";
-		left: 19px;
-		top: 12px;
+		left: 0px;
+		top: -5px;
 
 	}
 
 	.heart:after
 	{
 		content: "❤";
-		left: 19px;
-		top: 12px;
-  }
-
+		left: 0px;
+		top: 0px;
+	}
 
 	.tick:after
 	{
 		content: "✔";
-		left: 19px;
-		top: 12px;
+		left: 0px;
+		top: -5px;
 	}
 
 	.cross:after
 	{
 		content: "✖";
-		left: 19px;
-		top: 12px;
+		left: 0px;
+		top: -5px;
 	}
 
 
@@ -286,7 +285,7 @@
 	{
 		background-image: -webkit-linear-gradient(to bottom, #efedec, #f7f4f4);
 		background-image: linear-gradient(to bottom, #efedec, #f7f4f4);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
 
@@ -294,32 +293,32 @@
 	{
 		background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
 		background-image: linear-gradient(to bottom, #eb0e1c, #ee626b);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 	.button2:active
 	{
 		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
 		background-image: linear-gradient(to bottom, #118714, #87e259);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 	.button3:active
 	{
 		background-image: -webkit-linear-gradient(to bottom,  #fe9800, #fed500);
 		background-image: linear-gradient(to bottom, #fe9800, #fed500);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 	.button4:active
 	{
 		background-image: -webkit-linear-gradient(to bottom, #3aa0bb, #1e90ff);
 		background-image: linear-gradient(to bottom, #3aa0bb, #1e90ff);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
 	.heart:active
 	{
 		background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
 		background-image: linear-gradient(to bottom, #eb0e1c, #ee626b);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
 
@@ -327,21 +326,21 @@
 	{
 		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
 		background-image: linear-gradient(to bottom, #118714, #87e259);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
 	.tick:active
 	{
 		background-image: -webkit-linear-gradient(to bottom, #118714, #87e259);
 		background-image: linear-gradient(to bottom, #118714, #87e259);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
 	.cross:active
 	{
 		background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
 		background-image: linear-gradient(to bottom, #eb0e1c, #ee626b);
-		box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+		box-shadow: 0 5px 5px 0 rgba(0,0,0,.2), inset 0px -3px 1px 1px rgba(204,198,197,.5);
 	}
 
 	.buzzer:active:after
@@ -349,197 +348,3 @@
 		color:#dbd2d2;
 		text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
 	}
-
-
-
-/*
-.buzzer{
-      background-image: -webkit-linear-gradient(to bottom,  #45ccbc, #3aa0bb);
-      background-image: linear-gradient(to bottom,  #45ccbc, #3aa0bb);
-      border-radius: 50%;
-      box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
-      float: center;
-      height: 70px;
-      margin: 0 30px 30px 0;
-      position: relative;
-      width: 70px;
-      -webkit-transition: all .1s linear;
-      transition: all .1s linear;
-    }
-
- .heart{
- 	background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
-	background-image: linear-gradient(to bottom, #eb0e1c, #ff7783);
- border-radius: 50%;
-      box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
-      float: center;
-      height: 70px;
-      margin: 0 30px 30px 0;
-      position: relative;
-      width: 70px;
-      -webkit-transition: all .1s linear;
-      transition: all .1s linear;
-		}
-
-
-    .buzzer:after{
-      color:#e9e6e4;
-      content: "";
-      display: block;
-      font-size: 30px;
-      height: 30px;
-      text-decoration: none;
-      text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
-      position: absolute;
-      width: 30px;
-    }
-
-
-    .weiter:after{
-      content: "⇨";
-      left: 21px;
-      top: 16px;
-    }
-
-    .zahl:after{
-      content: "";
-      left: 21px;
-      top: 16px;
-    }
-
-    .one:after{
-      content: "1";
-      left: 21px;
-      top: 16px;
-    }
-    .two:after{
-      content: "2";
-      left: 21px;
-      top: 16px;
-    }
-    .three:after{
-      content: "3";
-      left: 21px;
-      top: 16px;
-    }
-    .four:after{
-      content: "4";
-      left: 21px;
-      top: 16px;
-    }
-
-    .heart:after{
-      content: "❤";
-      left: 21px;
-      top: 16px;
-    }
-    .tick:after{
-      content: "✔";
-      left:23px;
-      top:16px;
-    }
-    .cross:after{
-      content: "✖";
-      left: 24px;
-      top: 15px;
-    }
-
-    .buzzer:hover{
-    	background-image: -webkit-linear-gradient(top, #fff, #f4f1ee);
-		background-image: linear-gradient(top, #fff, #f4f1ee);
-		color:#0088cc;
-		}
-
-
-	.heart:hover:after{
-			color:#f94e66;
-			text-shadow:0px 0px 6px #f94e66;
-		}
-
-    .weiter:hover:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .zahl:hover:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-
-    .one:hover:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .two:hover:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .three:hover:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .four:hover:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-
-    .tick:hover:after{
-      color:#83d244;
-      text-shadow:0px 0px 6px #83d244;
-    }
-    .cross:hover:after{
-      color:#eb2f2f;
-      text-shadow:0px 0px 6px #eb2f2f;
-    }
-
-    .buzzer:active{
-      background-image: -webkit-linear-gradient(to bottom, #45ccbc, #3aa0bb);
-      background-image: linear-gradient(to bottom,#45ccbc, #3aa0bb);
-      box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
-    }
-
-    		.heart:active{
-			background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
-		background-image: linear-gradient(to bottom, #eb0e1c, #ee626b);
-			box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
-		}
-
-    .buzzer:active:after{
-      color:#ffffff;
-      text-shadow: 0px -1px 1px #ffffff, 0px 1px 1px white;
-    }
-
-    .cross:active:after{
-      color:#eb2f2f;
-      text-shadow:0px 0px 6px #eb2f2f;
-    }
-    .tick:active:after{
-      color:#83d244;
-      text-shadow:0px 0px 6px #83d244;
-    }
-     .weiter:active:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-
-    .zahl:active:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-
-    .one:active:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .two:active:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .three:active:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-    .four:active:after{
-      color:#ffffff;
-      text-shadow:0px 0px 6px #ffffff;
-    }
-*/

@@ -38,7 +38,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private dataService: DataService,
     private router: Router,
     private messageService: MessageService,
-    private subscriptionsService: SubscriptionsService, 
+    private subscriptionsService: SubscriptionsService,
     private dialog: MatDialog) {
   }
 
@@ -68,9 +68,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
     return null;
   }
   /**
-   * @description Reaktion auf einen gedrückten Buzzer/Button, entscheidet anhand welches 
+   * @description Reaktion auf einen gedrückten Buzzer/Button, entscheidet anhand welches
    * Fragetypens welche Buttons disabled werden und welche Funktion ausgelöst werden.  StrategyPattern, questionService.answer()
-   * btn_number sagt welches Item im Array gewählt wurde 
+   * btn_number sagt welches Item im Array gewählt wurde
     Button 0,1,2,3
            | | | |
     Items  0,1,2,3
@@ -90,11 +90,11 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.renderer.setProperty(btn_rank, 'disabled', 'true');
         this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz ' + (this.count_items + 1));
 
-        //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt 
+        //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt
         // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
         this.ranking.unshift(this.currentQuestion.items[btn_number].id);
         if (this.ranking.length == this.currentQuestion.items.length) {
-          
+
           this.currentAnswer.ranking = this.ranking;
 
           //Im Feedback Platz 1 anzeigen
@@ -118,7 +118,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-    /*Für die Auskunft, welcher Platz gerade gewählt wird, 
+    /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
 
     if (this.currentQuestion.__typename == "RankingQuestion") {
@@ -127,7 +127,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
     if (this.currentQuestion.__typename == "RegulatorQuestion") {
       /**
-       * @description Besonders für Regulator müssen die Zahlenwerte berechnet werden, 
+       * @description Besonders für Regulator müssen die Zahlenwerte berechnet werden,
        * da die Buzzer nur 4 Werte darstellen können
        */
       this.min = this.currentQuestion.min;
@@ -169,7 +169,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.dataService.setRegulatorsValue(this.valueBTN);
       }
     }
-    
+
     console.log(this.currentQuestion);
     console.log(this.currentProject.activeSurvey.votes);
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
@@ -193,7 +193,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
             deviceID: this.dataService.getDeviceID(),
             context: null,
           }
-        }).subscribe(({data}) => { 
+        }).subscribe(({data}) => {
             console.log("mutation update DeviceContext", data);
             //Position der Umfrage wieder zum Anfang setzen
             this.dataService.setPositionQuestion(0);

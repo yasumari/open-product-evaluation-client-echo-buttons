@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 100px;
   background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
   font-family: "Raleway", Arial, sans-serif;
   height: -webkit-fill-available;
@@ -50,11 +50,13 @@ img{
 .btn{
   color: #34a7bd;
 }
+
 .highcharts-axis-labels{
   color: white;
   font-family: "Raleway", Arial, sans-serif;
   font-size: 60px;
 }
+
 canvas.labels
 {
   color: white;
