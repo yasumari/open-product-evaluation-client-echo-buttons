@@ -1,5 +1,5 @@
 body{
-  padding: 50px;
+  padding: 100px;
   background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
   font-family: "Raleway", Arial, sans-serif;
   height: -webkit-fill-available;
@@ -34,7 +34,7 @@ h4{
   margin: 0px;
   padding-top: 10px;
   padding-bottom: 40px;
-  color: grey;
+  color: white;
 }
 
 #button {

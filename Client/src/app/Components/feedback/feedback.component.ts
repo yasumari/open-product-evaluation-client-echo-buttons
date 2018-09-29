@@ -48,7 +48,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       text: '',
       fontColor: "white",
       fontSize: 50,
-      fontfamily: "Raleway",
+      fontFamily: "Raleway",
       display: true
     }
   };
@@ -58,7 +58,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   public barChartType:string = 'bar';
   public barChartLegend:boolean = true;
   public ArrayBilder:any []=[];
-  
+
   public chartColors: Array<any> = [
     { // first color
       fontColor:'#fafafa',
@@ -198,8 +198,8 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       scaleSteps:1,
       scaleStartValue:0,
       scaleStepWidth:5,
-      
-      
+
+
 
 
     },{data: [], label: [],
@@ -256,7 +256,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       for(let i=0;i<this.currentQuestion.items.length;i++)
    this.barChartLabels[i] =this.currentQuestion.items[i].label ;
   }
-  
+
 let max=0;
 console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
     console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
@@ -290,16 +290,16 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
                   this.DataAntwort1=this.DataAntwort1+1;
                   if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[2]==this.currentQuestion.items[y].id)
                   this.DataAntwort2=this.DataAntwort2+1;
-                
+
             }
-           
+
             if(this.currentQuestion.items.length==2)
             { if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[0]==this.currentQuestion.items[y].id)
                   this.DataAntwort=this.DataAntwort+1;
                   if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems[1]==this.currentQuestion.items[y].id)
                   this.DataAntwort1=this.DataAntwort1+1;
-               
-                
+
+
             }
           }
 
@@ -308,7 +308,7 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
 
       }
     }
-    
+
    //push titel für jeder Saülen
    if(this.currentQuestion.items!=null)
    {
@@ -316,9 +316,9 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
    {
     this.barChartData = [
       {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []}
-     
-    
-    ]; 
+
+
+    ];
     this.barChartData[0].data[0]=this.DataAntwort;
 
     this.barChartData[1].data[0]=this.DataAntwort1;
@@ -328,9 +328,9 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
    this.barChartData[1].label.push("Platz 2");
    this.barChartData[2].label.push("Platz 1");
    this.barChartData[3].label.push("Platz 2");
-   
-   
-   
+
+
+
   }
     if(this.currentQuestion.items.length==3)
     {
@@ -358,7 +358,7 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
     this.barChartData[6].data[2]=this.DataAntwort+2;
     this.barChartData[7].data[2]=this.DataAntwort1+5;
     this.barChartData[8].data[2]=this.DataAntwort2+1;
-  
+
 
     }
     if(this.currentQuestion.items.length==4)
@@ -368,7 +368,7 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
         {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []},
         {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []},
         {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []}
-      
+
       ];this.barChartLegend=false;
       this.barChartData[0].label.push("Platz 1");
     this.barChartData[1].label.push("Platz 2");
@@ -404,15 +404,15 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
     this.barChartData[13].data[3]=this.DataAntwort1+5;
     this.barChartData[14].data[3]=this.DataAntwort2+4;
     this.barChartData[15].data[3]=this.DataAntwort3+4;
-  
+
 
 this.barChartLegend=false;
     }}
    //push data (Anzahl jeder Antwort) in der Grafik Y axe
    //this.barChartLegend=false;
-    
 
-    
+
+
 
 //die Platz 1 wird immer die belibste Bild in diesen Fall gezeigt
 if(this.currentQuestion.items!=null) {
@@ -426,9 +426,9 @@ if(this.currentQuestion.items!=null) {
    break;
 
       case 'LikeDislikeQuestion':
-    
+
         //this.barChartLabels[0] =" " ;
-      
+
         console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
         console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
 
@@ -449,11 +449,11 @@ if(this.currentQuestion.items!=null) {
     }
           //anzahl like und dislike einer Bild
      this.barChartData[0].data.push(this.DataAntwort);
-  
+
      this.barChartData[0].label.push("✔ Like ");
-    
+
      this.barChartData[1].data.push(this.DataAntwort1);
-     
+
      this.barChartData[1].label.push("✖ Dislike ");
     //der Höchste Anzahl der Antwort für diese Frage
      let maxi = Math.max(this.DataAntwort,this.DataAntwort1);
@@ -519,7 +519,7 @@ if(this.currentQuestion.items!=null) {
 
 
    // visualisirung aller Bilder am ende
-   
+
    if (this.currentQuestion.items!=null){
     console.log("regolator");
     this.dataService.setChosenQuestionarray(this.currentQuestion.value)
@@ -539,18 +539,18 @@ if(this.currentQuestion.items!=null) {
       console.log("taille de tt les question ",this.currentProject.activeSurvey.votes.length);
     console.log("taille du premier tableau de la  question ",this.currentProject.activeSurvey.votes[0].answers.length);
     if (this.currentQuestion.items!=null){
-     
+
       for(let i=0;i<this.currentQuestion.choices.length;i++)
       this.barChartLabels[i] =this.currentQuestion.choices[i].label ;
     }
       this.barChartLegend = false;
-       
+
       for(let i=0;i<(<any>this.currentProject.activeSurvey.votes).length;i++)
       {
       for(let x=0;x<this.currentProject.activeSurvey.votes[i].answers.length;x++)
       {
       if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="ChoiceAnswer")
-      
+
       {mi=i;xi=x;
       if(this.currentProject.activeSurvey.votes[i].answers[x].choice!=null)
                   {
@@ -566,41 +566,41 @@ if(this.currentQuestion.items!=null) {
                         this.DataAntwort3=this.DataAntwort3+1;
                   }
                   if(this.currentQuestion.items.length==3)
-                  { 
+                  {
                     if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[0].id)
                         this.DataAntwort=this.DataAntwort+1;
                         if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[1].id)
                         this.DataAntwort1=this.DataAntwort1+1;
                         if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[2].id)
                         this.DataAntwort2=this.DataAntwort2+1;
-                        
+
                   }
                   if(this.currentQuestion.items.length==2)
                   { if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[0].id)
                         this.DataAntwort=this.DataAntwort+1;
                         if(this.currentProject.activeSurvey.votes[i].answers[x].choice==this.currentQuestion.choices[1].id)
                         this.DataAntwort1=this.DataAntwort1+1;
-                       
-                        
+
+
                   }
                 }
-    
+
 
       }
-    }} 
+    }}
 
     //anzahl der gewählte Bider für jeder Bilder (for bilder )
 
-    
+
     if(this.currentQuestion.items!=null)
    {
    if(this.currentQuestion.items.length==2)
    {
     this.barChartData = [
       {data: [], label: []},{data: [], label: []}
-     
-    
-    ]; 
+
+
+    ];
     this.barChartData[0].data[0]=this.DataAntwort;
     this.barChartData[0].label.push(" ❤ ");
     this.barChartData[1].data[1]=this.DataAntwort1;
@@ -621,15 +621,15 @@ if(this.currentQuestion.items!=null) {
    this.dataService.setMaxAntwortArray(maximm);
    console.log("data ",maximm);
   }
-   
+
   }
     if(this.currentQuestion.items.length==3)
     {
       this.barChartData = [
         {data: [], label: []},{data: [], label: []},{data: [], label: []}
-       
-      
-      ]; 
+
+
+      ];
       this.barChartData[0].data[0]=this.DataAntwort;
       this.barChartData[0].label.push(" ❤ ");
       this.barChartData[1].data[1]=this.DataAntwort1;
@@ -658,16 +658,16 @@ if(this.currentQuestion.items!=null) {
      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[2].image.url);
      break;
     }
-     
+
     }
-  
+
 
     }
     if(this.currentQuestion.items.length==4)
     {
       this.barChartData = [
         {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []}
-      
+
       ];this.barChartLegend=false;
       this.barChartData[0].data[0]=this.DataAntwort;
       this.barChartData[0].label.push(" ❤ ");
@@ -685,35 +685,35 @@ if(this.currentQuestion.items!=null) {
       if(this.currentQuestion.items!=null){
       if(maximm==this.DataAntwort){
        console.log("choisequestion");
-      
+
     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[0].image.url);
     break;
   }
      if(maximm==this.DataAntwort1){
        console.log("chisequestion");
-     
+
     this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
    break;
   }
     if(maximm==this.DataAntwort2){
       console.log("choicequestion");
-    
+
      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[2].image.url);
      break;
     }
     if(maximm==this.DataAntwort3){
       console.log("choicequestion");
-      
+
      this.dataService.setChosenImageUrlarray(this.currentQuestion.items[3].image.url);
      break;
     }
-    
+
     }
 
 
     }}
 
-     
+
 
       break;
 
@@ -770,12 +770,12 @@ if(this.currentQuestion.items!=null) {
       {
 
      if(this.currentProject.activeSurvey.votes[i].answers[x].question==this.currentQuestion.id && this.currentProject.activeSurvey.votes[i].answers[x].__typename=="FavoriteAnswer")
-       
+
      {
 
 
 
-   
+
          if(this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem!=null)
          {
          if(this.currentQuestion.items.length==4)
@@ -783,30 +783,30 @@ if(this.currentQuestion.items!=null) {
           if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[0].id)
           this.DataAntwort=this.DataAntwort+1;
           if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[1].id)
-          this.DataAntwort1=this.DataAntwort1+1;  
+          this.DataAntwort1=this.DataAntwort1+1;
            if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[2].id)
-          this.DataAntwort2=this.DataAntwort2+1;  
+          this.DataAntwort2=this.DataAntwort2+1;
            if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[3].id)
           this.DataAntwort3=this.DataAntwort3+1;
          }
          if(this.currentQuestion.items.length==3)
-         { 
+         {
           if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[0].id)
           this.DataAntwort=this.DataAntwort+1;
           if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[1].id)
-          this.DataAntwort1=this.DataAntwort1+1;  
+          this.DataAntwort1=this.DataAntwort1+1;
            if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[2].id)
-          this.DataAntwort2=this.DataAntwort2+1; 
-               
+          this.DataAntwort2=this.DataAntwort2+1;
+
          }
          if(this.currentQuestion.items.length==2)
          { if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[0].id)
           this.DataAntwort=this.DataAntwort+1;
           if( this.currentProject.activeSurvey.votes[i].answers[x].favoriteItem==this.currentQuestion.items[1].id)
-          this.DataAntwort1=this.DataAntwort1+1;  
-           
-              
-               
+          this.DataAntwort1=this.DataAntwort1+1;
+
+
+
          }
        }
       }
@@ -824,9 +824,9 @@ if(this.currentQuestion.items!=null) {
        {
         this.barChartData = [
           {data: [], label: []},{data: [], label: []}
-         
-        
-        ]; 
+
+
+        ];
         this.barChartData[0].data[0]=this.DataAntwort;
       this.barChartData[0].label.push(" ❤ ");
       this.barChartData[1].data[1]=this.DataAntwort1;
@@ -843,22 +843,22 @@ if(this.currentQuestion.items!=null) {
       else {
         console.log("favorite");
         this.dataService.setChosenImageUrlarray(this.currentQuestion.items[1].image.url);
-       this.dataService.setChosenQuestionarray(this.currentQuestion.value); 
+       this.dataService.setChosenQuestionarray(this.currentQuestion.value);
        this.dataService.setMaxAntwortArray(m);
        console.log("data ",m);
       }
       }
-       
+
       }
        //anzahl der favorit antwort für jedes Bild
-      
+
        if(this.currentQuestion.items.length==3)
        {
          this.barChartData = [
            {data: [], label: []},{data: [], label: []},{data: [], label: []}
-          
-         
-         ]; 
+
+
+         ];
          this.barChartData[0].data[0]=this.DataAntwort;
          this.barChartData[0].label.push(" ❤ ");
          this.barChartData[1].data[1]=this.DataAntwort1;
@@ -887,16 +887,16 @@ if(this.currentQuestion.items!=null) {
         this.dataService.setChosenImageUrlarray(this.currentQuestion.items[2].image.url);
         break;
        }
-       
+
       }
-     
-   
+
+
        }
        if(this.currentQuestion.items.length==4)
        {
          this.barChartData = [
            {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []}
-         
+
          ];
          this.barChartData[0].data[0]=this.DataAntwort;
          this.barChartData[0].label.push(" ❤ ");
@@ -908,7 +908,7 @@ if(this.currentQuestion.items!=null) {
          this.barChartData[3].label.push(" ❤ ");
          this.barChartLegend=false;
          let maximm = Math.max(this.DataAntwort,this.DataAntwort1,this.DataAntwort2,this.DataAntwort3);
-         
+
          if(this.currentQuestion.items!=null){ this.dataService.setMaxAntwortArray(maximm);
           console.log("data ",maximm);
          if(maximm==this.DataAntwort){
@@ -931,16 +931,16 @@ if(this.currentQuestion.items!=null) {
          this.dataService.setChosenQuestionarray(this.currentQuestion.value)
         this.dataService.setChosenImageUrlarray(this.currentQuestion.items[3].image.url);break;
        }
-        
+
       }
-   
-   
+
+
        }}
-   
+
       break;
 
     }
-      
+
 
     let url= this.dataService.getChosenImageUrl();
     this.image=(url!=null) ? url : null;
