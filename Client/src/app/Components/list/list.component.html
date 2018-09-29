@@ -12,7 +12,7 @@
 				<div style="width: 50%;" *ngFor="let survey of surveys; let i = index">
   				<div class="card" (click)="openProject(survey.id)">
     				<div class="card-body" style="position: relative" id="{{survey.id}}">
-							<span style="position: absolute; left: 0; margin-left: -10px" target="_blank" class="buzzer button{{i+1}}"></span>
+							<span target="_blank" class="buzzer button{{i+1}} cardbuzzer"></span>
 					  <h3 style="margin-left:35px" class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
     				</div>
   				</div>

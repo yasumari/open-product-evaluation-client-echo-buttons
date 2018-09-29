@@ -75,6 +75,22 @@
     transition: all .1s linear;
 }
 
+.cardbuzzer{
+	position: absolute;
+	left: 0; 
+	margin-left: -10px;
+	height:50px;
+	width:70px
+}
+ 
+.smallIcon{
+	display: inline-flex; 
+	height:17px; 
+	width:17px; 
+	margin-top:0px; 
+	box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, .6), 0px 1px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5)
+}
+
 .heart
 {
 	background-image: -webkit-linear-gradient(to bottom, #eb0e1c, #ff7783);
