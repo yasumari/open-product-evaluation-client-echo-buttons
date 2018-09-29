@@ -50,3 +50,14 @@ img{
 .btn{
   color: #34a7bd;
 }
+.highcharts-axis-labels{
+  color: white;
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 60px;
+}
+canvas.labels
+{
+  color: white;
+  font-family: "Raleway", Arial, sans-serif;
+  font-size: 60px;
+}
