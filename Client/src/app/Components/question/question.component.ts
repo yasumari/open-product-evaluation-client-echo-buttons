@@ -195,6 +195,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
           }
         }).subscribe(({data}) => { 
             console.log("mutation update DeviceContext", data);
+            //Position der Umfrage wieder zum Anfang setzen
+            this.dataService.setPositionQuestion(0);
+            this.dataService.setAnswerNumberZero();
             //close Dialog nach paar Sekungen und dann zurück zum Anfang
             let dialogRef=this.dialog.open(DialogComponent, {
               minHeight: '20%',

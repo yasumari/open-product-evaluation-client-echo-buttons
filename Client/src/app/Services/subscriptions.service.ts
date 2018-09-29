@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import { subscribeContext } from '../GraphQL/Context.gql';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,6 @@ export class SubscriptionsService {
   constructor(private apollo: Apollo) {}
  
   sendMessageSubscription(message: string) {
-    console.log("MESSAGE wird gesendet: " + message);
     this.subject.next(message);
 }
 
@@ -34,24 +32,21 @@ export class SubscriptionsService {
        variables: {cID: contextID}
      })
      this.subscription=this.survey.subscribe( (data) => {
-       console.log("SUBSCRIPTION: ", data);
+       if (data.data.contextUpdate.event=="DELETE" && data.data.contextUpdate.changedAttributes==null){
+        console.log("ActiveSurvey wurde gelöscht");
+        this.sendMessageSubscription("activeSurvey");
+        this.unsub();
+       }
        //nur benachrichten, wenn es sich um das activeSurvey handelt. 
-       if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){
+       else if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){
           console.log("ActiveSurvey wurde geändert");
-          this.sendMessageSubscription("ActiveSurvey");
+          this.sendMessageSubscription("activeSurvey");
           this.unsub();
           //Sobald eine Änderung für das Survey 
-       } else if (data.data.contextUpdate.changedAttributes.includes("name")){
-        console.log("Name wurde geändert");
-        this.sendMessageSubscription("Name");
-        this.unsub();
-        //Sobald eine Änderung für das Survey 
-     } 
-       else {
-          console.log("Device wird nicht von Änderungen beeinflusst");
+       } else {
+         //Keine Reaktionen
+        console.log("Geändert: ", data.data.contextUpdate.changedAttributes[0]);
        }
     })
  }
-
-
 }
