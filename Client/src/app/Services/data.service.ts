@@ -12,7 +12,7 @@ export class DataService {
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
-    private socketID;
+    private reset;
     private chosenImage;
     private chosenImagearray:string[]=[];
     private chosenQuestion;
@@ -128,14 +128,14 @@ export class DataService {
       return this.contextID;
     }
 
-    //Socket-Kommunikation
-    /*setSocketID(id: string){
-      this.socketID=id;
+    //Subscription-Kommunikation für das PopUP-Fenster beim Start
+    setCalledBySubscription(resetValue: boolean){
+      this.reset=resetValue;
     }
 
     getSocketID(){
-      return this.socketID;
-    }*/
+      return this.reset;
+    }
 
     /**
      * Device speichern für Mutations
@@ -180,7 +180,7 @@ export class DataService {
     }
 
     /**
-     * 
+     * @description Question.Component legt wählbare Werte fest, die die RegulatorStrategy benötigt
      */
     setRegulatorsValue(regulators: Number[]){
       this.regulatorValues=regulators;
@@ -189,5 +189,7 @@ export class DataService {
      getRegulatorsValue(){
       return this.regulatorValues;
      }
+
+    
   constructor() { }
 }

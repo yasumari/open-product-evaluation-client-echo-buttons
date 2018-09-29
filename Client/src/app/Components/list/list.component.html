@@ -9,10 +9,11 @@
 			<h1>Projekte</h1>
 			<h4>Wähle ein Projekt aus, das du evaluieren möchtest.</h4>
 			<div class="tile">
-				<div style="width: 50%;" *ngFor="let survey of surveys">
+				<div style="width: 50%;" *ngFor="let survey of surveys; let i = index">
   				<div class="card" (click)="openProject(survey.id)">
-    				<div class="card-body" id="{{survey.id}}">
-      			<h3 class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
+    				<div class="card-body" style="position: relative" id="{{survey.id}}">
+							<span style="position: absolute; left: 0" target="_blank" class="buzzer button{{i+1}}"></span>
+					  <h3 style="margin-left:10px" class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
     				</div>
   				</div>
 				</div>

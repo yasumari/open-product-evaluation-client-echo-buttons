@@ -1,12 +1,16 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Apollo } from 'apollo-angular';
 import { DataService } from '../../Services/data.service';
 import { Router } from '@angular/router';
 import { MessageService } from '../../Services/message.service';
 import { Context, Question } from '../../types';
 import { Subscription } from 'rxjs/Subscription';
-import { Constants } from "../../constants";
 import { QuestionService } from "./question.service";
+import { SubscriptionsService } from "./../../Services/subscriptions.service";
+import { updateDevice } from './../../GraphQL/Device.gql';
+import { MatDialog } from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
+import { Constants } from '../../constants';
 
 @Component({
   selector: 'app-question',
@@ -15,7 +19,8 @@ import { QuestionService } from "./question.service";
 })
 
 export class QuestionComponent implements OnInit, OnDestroy {
-  sub: Subscription;
+  subSockets: Subscription;
+  subContext: Subscription;
   private currentProject: Context;
   private currentAnswer;
   private currentQuestion: Question;
@@ -32,7 +37,10 @@ export class QuestionComponent implements OnInit, OnDestroy {
     private renderer: Renderer2,
     private dataService: DataService,
     private router: Router,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private subscriptionsService: SubscriptionsService,
+    private dialog: MatDialog) {
+  }
 
   /**
    * @description Berechnet aus den beantworteten und noch offenen Fragen eine Progressbar-Fortschritt
@@ -73,7 +81,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       questionID: this.currentQuestion.id
     }
     if (this.currentQuestion.__typename == "RankingQuestion") {
-      if (btn_number>=this.currentQuestion.items.length){
+      if (btn_number >= this.currentQuestion.items.length) {
         console.log("Button hat kein zugehöriges Bild");
       } else {
         const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].id);
@@ -86,16 +94,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
         // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
         this.ranking.unshift(this.currentQuestion.items[btn_number].id);
         if (this.ranking.length == this.currentQuestion.items.length) {
-          //TODO welche Reihenfolge Array in die richtige Reihenfolge bringen. oder umgekehrte Reihenfolge?
+
           this.currentAnswer.ranking = this.ranking;
 
           //Im Feedback Platz 1 anzeigen
           for (var i = 0; i < this.currentQuestion.items.length; i++) {
-            if (this.ranking[this.ranking.length-1] == this.currentQuestion.items[i].id) {
+            if (this.ranking[this.ranking.length - 1] == this.currentQuestion.items[i].id) {
               this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
             }
           }
-          this.sub.unsubscribe();
           this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
         } else {
           this.count_items++;
@@ -103,7 +110,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
 
     } else {
-      this.sub.unsubscribe();
       this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
     }
   }
@@ -114,6 +120,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
     /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
+
     if (this.currentQuestion.__typename == "RankingQuestion") {
       this.count_items = 0;
     }
@@ -166,16 +173,48 @@ export class QuestionComponent implements OnInit, OnDestroy {
     console.log(this.currentQuestion);
     console.log(this.currentProject.activeSurvey.votes);
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
-    this.sub = this.messageService.getMessage().subscribe(message => {
+    this.subSockets = this.messageService.getMessage().subscribe(message => {
       if (message != undefined || message != null) {
         this.buttonClick(parseInt(message));
       } else {
         console.log("Button ungültig Nachricht");
       }
     })
+
+    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
+    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
+      console.log("Message: " + message);
+      //Vorher noch benachrichtigen, dass es zum Anfang geht
+        console.log("Abmelden");
+        this.apollo.mutate({
+          fetchPolicy: 'no-cache',
+          mutation: updateDevice,
+          variables: {
+            deviceID: this.dataService.getDeviceID(),
+            context: null,
+          }
+        }).subscribe(({data}) => {
+            console.log("mutation update DeviceContext", data);
+            //Position der Umfrage wieder zum Anfang setzen
+            this.dataService.setPositionQuestion(0);
+            this.dataService.setAnswerNumberZero();
+            //close Dialog nach paar Sekungen und dann zurück zum Anfang
+            let dialogRef=this.dialog.open(DialogComponent, {
+              minHeight: '20%',
+              minWidth: '40%'
+            });
+            setTimeout(() => {
+              dialogRef.close();
+              this.router.navigateByUrl("/");
+            }, Constants.TIMER_DIALOG);
+          });
+    })
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.subContext.unsubscribe();
+    this.subContext=undefined;
+    this.subSockets.unsubscribe();
+    this.subSockets=undefined;
   }
 }
