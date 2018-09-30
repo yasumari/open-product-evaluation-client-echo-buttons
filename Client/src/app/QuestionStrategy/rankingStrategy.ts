@@ -8,7 +8,6 @@ import { Constants } from "../constants";
 
 export class rankingStrategy extends QuestionStrategy {
     answer(router: Router, apollo: Apollo, answerQuestion:any, btn_number: Number, renderer: Renderer2, dataService:DataService){
-        let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
                 apollo.mutate({
                     fetchPolicy: 'no-cache',
                     mutation: rankingAnswerMutate,

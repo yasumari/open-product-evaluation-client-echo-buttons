@@ -10,14 +10,12 @@ interface myDevice {
 export class DataService {
     private deviceObj: myDevice;
     private subjectProject: Context;
-    private currentPositionQuestion=0;
     private contextID;
     private chosenImage;
     private chosenImagearray:string[]=[];
     private chosenQuestionarray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
-    private countRanking=0;
     private regulatorValues=[];
 
     /**
@@ -78,16 +76,10 @@ export class DataService {
       this.numberAnswerQuestions=numPosition;
     }
 
-    /*clearContext() {
-        this.subjectProject.next();
-    }*/
-
-    //Welcher Kontext wurde ausgewählt
-
-/**
- * @description Projekt damit die anderen Komponenten darauf zugreifen können
- * @param project 
- */
+    /**
+     * @description Projekt damit die anderen Komponenten darauf zugreifen können
+     * @param project 
+     */ 
     sendContext(project: Context ) {
       this.contextID=project.id;
       this.subjectProject = project;
@@ -132,22 +124,6 @@ export class DataService {
 
     getDeviceName(){
       return (this.deviceObj==undefined) ? null : this.deviceObj.deviceName;
-    }
-
-/**
- * @description Speziell für Ranking, um die Platz zu verteilen, 
- * beschriften und abzugleichen, wann alle Items in eine Reihenfolge gebracht wurde
- */
-    getCountRanking(){
-      return this.countRanking;
-    }
-
-    resetCountRanking(){
-      this.countRanking=0;
-    }
-
-    updateCountRanking(){
-      this.countRanking++;
     }
 
     /**

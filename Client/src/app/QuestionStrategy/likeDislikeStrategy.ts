@@ -12,13 +12,12 @@ export class likeDislikeStrategy extends QuestionStrategy {
         //DislikeQuestion: mutation besondere Variable:  liked - Gefällt oder gefällt das Objekt nicht
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
         
+        //Button 0: true, Button 1: false, daher keine weiteren Buttons
         if (btn_number<=1){
             let btn_like: HTMLElement = document.getElementById("btn_like");
             let btn_dislike: HTMLElement = document.getElementById("btn_dislike");
             renderer.setProperty(btn_like, 'disabled', 'true');
             renderer.setProperty(btn_dislike, 'disabled', 'true');
-    
-            
             apollo.mutate({
                 fetchPolicy: 'no-cache',
                 mutation: likeDislikeAnswerMutate,

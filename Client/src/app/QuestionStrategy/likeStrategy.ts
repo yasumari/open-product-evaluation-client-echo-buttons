@@ -11,17 +11,16 @@ export class likeStrategy extends QuestionStrategy {
     answer(router: Router, apollo: Apollo, answerQuestion:any, btn_number: Number, renderer: Renderer2, dataService:DataService){
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
         //Gibt nur ein Like Button, daher ==0
+        //Abfangen, dass Button 2 und 3 nicht existieren können, da nur 
+        //Button 0: like, Button 1: weiter (also false)
         if (btn_number<=1){
             let _btn: HTMLElement=document.getElementById(currentQuestion.likeIcon.id);
             renderer.setProperty(_btn, 'disabled', 'true');
-            //TODO welches Bild soll bei einer Like Frage im Feedback sein?
             if (currentQuestion.items!=null){
                 dataService.setChosenImageUrl(currentQuestion.items[""+btn_number].image.url);
             } else {
                 dataService.setChosenImageUrl(null);
             }
-    
-            
             apollo.mutate({
                 fetchPolicy: 'no-cache',
                 mutation: likeAnswerMutate,
