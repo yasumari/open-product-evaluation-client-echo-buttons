@@ -79,8 +79,7 @@ export class EndScreenComponent implements OnInit {
   goBackToListProjects(): void{
     this.sub.unsubscribe();
     this.subscriptionsService.unsub();
-    this.dataService.setPositionQuestion(0);
-    this.dataService.setAnswerNumberZero();
+    this.dataService.setAnswerNumber(0);
     clearTimeout(this.timer);
     this.abmelden();
     this.router.navigate(['/']);

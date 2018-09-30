@@ -59,7 +59,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
       /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
       this.dataService.sendContext(this.currentProject);
       /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
-      this.dataService.setPositionQuestion(0);
+      this.dataService.setAnswerNumber(0);
     })
   }
   /**

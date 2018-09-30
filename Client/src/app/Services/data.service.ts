@@ -12,10 +12,8 @@ export class DataService {
     private subjectProject: Context;
     private currentPositionQuestion=0;
     private contextID;
-    private reset;
     private chosenImage;
     private chosenImagearray:string[]=[];
-    private chosenQuestion;
     private chosenQuestionarray:string[]=[];
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
@@ -68,7 +66,7 @@ export class DataService {
     }
   
     //Beanwortete Fragen
-    setAnswerNumber(){
+    increaseAnswerNumber(){
       this.numberAnswerQuestions++;
     }
 
@@ -76,28 +74,10 @@ export class DataService {
       return this.numberAnswerQuestions;
     }
 
-    setAnswerNumberZero(){
-      this.numberAnswerQuestions=0;
+    setAnswerNumber(numPosition: number){
+      this.numberAnswerQuestions=numPosition;
     }
 
-  
-
-  /**
-   * @description Aktuelle Position der Frage aus dem Survey
-   * @param position: Position der Fragen im Array
-   */
-    setPositionQuestion(position: number){
-      this.currentPositionQuestion=position;
-    }
-    getPositionQuestion(){
-      return this.currentPositionQuestion;
-    }
-
-    //Nach beantworten der Frage, muss die Position erhöht werden, Durchlauf aller Fragen möglich
-    updatePositionQuestion(){
-      this.currentPositionQuestion++;
-    }  
-      
     /*clearContext() {
         this.subjectProject.next();
     }*/
@@ -126,15 +106,6 @@ export class DataService {
     
     getContextID(){
       return this.contextID;
-    }
-
-    //Subscription-Kommunikation für das PopUP-Fenster beim Start
-    setCalledBySubscription(resetValue: boolean){
-      this.reset=resetValue;
-    }
-
-    getSocketID(){
-      return this.reset;
     }
 
     /**

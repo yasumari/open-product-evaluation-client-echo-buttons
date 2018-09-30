@@ -30,7 +30,7 @@ export class likeStrategy extends QuestionStrategy {
                   liked: (btn_number==0) ? true : false},
                 }).subscribe((mutationResponse) => 
                 console.log("mutation", mutationResponse)); 
-                dataService.setAnswerNumber();
+                dataService.increaseAnswerNumber();
                 setTimeout(() => {
                     router.navigate(['/feedback']);
                   }, Constants.TIMER_QUESTION);

@@ -34,7 +34,7 @@ export class favoriteStrategy extends QuestionStrategy {
                 } else {
                     dataService.setChosenImageUrl(null);
                 }
-                dataService.setAnswerNumber();
+                dataService.increaseAnswerNumber();
                 setTimeout(() => {
                     router.navigate(['/feedback']);
                   }, Constants.TIMER_QUESTION);

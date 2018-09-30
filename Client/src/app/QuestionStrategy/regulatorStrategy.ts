@@ -42,7 +42,7 @@ export class regulatorStrategy extends QuestionStrategy {
               rating: regulator[""+btn_number]},
             }).subscribe((mutationResponse) => 
             console.log("mutation", mutationResponse)); 
-            dataService.setAnswerNumber();
+            dataService.increaseAnswerNumber();
             setTimeout(() => {
                 router.navigate(['/feedback']);
               }, Constants.TIMER_QUESTION);

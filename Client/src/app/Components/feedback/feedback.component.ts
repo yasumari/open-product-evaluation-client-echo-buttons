@@ -971,8 +971,7 @@ if(this.currentQuestion.items!=null) {
       }).subscribe(({data}) => {
         console.log("mutation update DeviceContext", data);
         //Position der Fragen auf 0 setzen
-        this.dataService.setPositionQuestion(0);
-        this.dataService.setAnswerNumberZero();
+        this.dataService.setAnswerNumber(0);
         //close Dialog nach paar Sekungen und dann zurück zum Anfang
         let dialogRef=this.dialog.open(DialogComponent, {
           minHeight: '20%',

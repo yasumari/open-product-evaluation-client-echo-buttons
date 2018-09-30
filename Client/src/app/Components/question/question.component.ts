@@ -26,8 +26,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private currentQuestion: Question;
   private ranking = [];
   private count_items;
-  private min;
-  private max;
   private step;
   private valueBTN = [];
 
@@ -49,16 +47,16 @@ export class QuestionComponent implements OnInit, OnDestroy {
     return (Math.round(this.dataService.getAnswerNumber() * 100 / this.currentProject.activeSurvey.questions.length)) + "%";
   }
 
-  regulatorButtonValues(diff, possibleNumbers): Number {
-    if (possibleNumbers.includes(this.min + diff)) {
-      if ((this.min + diff) == this.max) {
+  regulatorButtonValues(diff, possibleNumbers, min, max): Number {
+    if (possibleNumbers.includes(min + diff)) {
+      if ((min + diff) == max) {
         return null
       }
-      return (this.min + diff);
+      return (min + diff);
     } else {
       for (let i of possibleNumbers) {
-        if (i > (this.min + diff)) {
-          if (i >= this.max) {
+        if (i > (min + diff)) {
+          if (i >= max) {
             return null
           }
           return i;
@@ -94,9 +92,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
         // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
         this.ranking.unshift(this.currentQuestion.items[btn_number].id);
         if (this.ranking.length == this.currentQuestion.items.length) {
-
           this.currentAnswer.ranking = this.ranking;
-
           //Im Feedback Platz 1 anzeigen
           for (var i = 0; i < this.currentQuestion.items.length; i++) {
             if (this.ranking[this.ranking.length - 1] == this.currentQuestion.items[i].id) {
@@ -108,7 +104,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.count_items++;
         }
       }
-
     } else {
       this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
     }
@@ -118,6 +113,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+    console.log("Angezeigt Frage: " + this.dataService.getAnswerNumber());
     /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
 
@@ -130,20 +126,17 @@ export class QuestionComponent implements OnInit, OnDestroy {
        * @description Besonders für Regulator müssen die Zahlenwerte berechnet werden,
        * da die Buzzer nur 4 Werte darstellen können
        */
-      this.min = this.currentQuestion.min;
-      this.max = this.currentQuestion.max;
       this.step = this.currentQuestion.stepSize;
-      let range = (this.max - this.min) / 3;
-      let i = this.min;
+      let range = (this.currentQuestion.max - this.currentQuestion.min) / 3;
+      let i = this.currentQuestion.min;
       let possibleNumbers = [];
-      //Alle Möglichen Bewertungen
-      while (i <= this.max) {
+      //Alle Möglichen Werte
+      while (i <= this.currentQuestion.max) {
         possibleNumbers.push(i);
         i += this.step;
       }
-      let value = this.regulatorButtonValues(range, possibleNumbers);
-      let value2 = this.regulatorButtonValues((range + range), possibleNumbers);
-
+      let value = this.regulatorButtonValues(range, possibleNumbers, this.currentQuestion.min, this.currentQuestion.max);
+      let value2 = this.regulatorButtonValues((range + range), possibleNumbers, this.currentQuestion.min, this.currentQuestion.max);
 
       /**
        * immer die Button von min - max sichtbar
@@ -151,27 +144,23 @@ export class QuestionComponent implements OnInit, OnDestroy {
        * Vorher waren button1=min und button4=max, und die dazwischen wurden geprüft mit null
        */
       if (value == null && value2 == null) {
-        this.valueBTN.push(this.min);
-        this.valueBTN.push(this.max);
+        this.valueBTN=[this.currentQuestion.min, this.currentQuestion.max]
         this.dataService.setRegulatorsValue(this.valueBTN);
       }
       else if (value != null && value2 == null) {
-        this.valueBTN.push(this.min);
-        this.valueBTN.push(value)
-        this.valueBTN.push(this.max);
+        this.valueBTN=[this.currentQuestion.min, value, this.currentQuestion.max]
         this.dataService.setRegulatorsValue(this.valueBTN);
       }
       else {
-        this.valueBTN.push(this.min);
-        this.valueBTN.push(value)
-        this.valueBTN.push(value2)
-        this.valueBTN.push(this.max);
+        this.valueBTN.push(this.currentQuestion.min);
+        this.valueBTN=[this.currentQuestion.min, value, value2, this.currentQuestion.max]
         this.dataService.setRegulatorsValue(this.valueBTN);
       }
     }
 
     console.log(this.currentQuestion);
     console.log(this.currentProject.activeSurvey.votes);
+
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
     this.subSockets = this.messageService.getMessage().subscribe(message => {
       if (message != undefined || message != null) {
@@ -196,8 +185,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
         }).subscribe(({data}) => {
             console.log("mutation update DeviceContext", data);
             //Position der Umfrage wieder zum Anfang setzen
-            this.dataService.setPositionQuestion(0);
-            this.dataService.setAnswerNumberZero();
+            this.dataService.setAnswerNumber(0);
             //close Dialog nach paar Sekungen und dann zurück zum Anfang
             let dialogRef=this.dialog.open(DialogComponent, {
               minHeight: '20%',
