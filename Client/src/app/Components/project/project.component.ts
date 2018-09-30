@@ -56,7 +56,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
     }).subscribe(({data}) => {
       console.log(data);
       this.currentProject = data.context;
-
       /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
       this.dataService.sendContext(this.currentProject);
       /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/

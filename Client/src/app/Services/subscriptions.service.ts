@@ -42,9 +42,9 @@ export class SubscriptionsService {
        //nur benachrichten, wenn es sich um das activeSurvey handelt. 
        else if (data.data.contextUpdate.changedAttributes.includes("activeSurvey")){
           console.log("ActiveSurvey wurde geändert");
+          //Sobald eine Änderung für das Survey vorgenommen wurde, die Survey beenden und zum Anfang zurückkehren
           this.sendMessageSubscription("activeSurvey");
           this.unsub();
-          //Sobald eine Änderung für das Survey 
        } else {
          //Keine Reaktionen
         console.log("Geändert: ", data.data.contextUpdate.changedAttributes[0]);

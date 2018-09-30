@@ -8,9 +8,16 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('T1: should display headline home page', () => {
+  /** Testfall 1
+   * @description es sollten zwei Projekte auf der Startseite erscheinen
+   */
+  it('T1: should display two projects on homepage', () => {
     page.navigateTo();
-    expect(page.getParagraphText("app-list")).toEqual('Projekte');
+    browser.sleep(8000);
+    page.getCards().then(function (elements) {
+      expect(elements.length).toEqual(2);
+    });
+    
   });
 
   /** Testfall 2

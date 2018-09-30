@@ -3,7 +3,7 @@ import { NgModule, FactoryProvider, Renderer2 } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 
 import { AppComponent } from './app.component';
 import { CONST_ROUTING } from './app.routing';
@@ -150,13 +150,6 @@ export class AppModule {
     apollo.create({
       link: link2,
       cache: new InMemoryCache()
-      /*cache: new InMemoryCache({
-        dataIdFromObject: obj => obj.id,
-        addTypename: false,
-        fragmentMatcher: {
-          match: ({ id }, typeCond, context) => !!context.store.get(id)
-        }
-      }),*/
     });
   }
 }
