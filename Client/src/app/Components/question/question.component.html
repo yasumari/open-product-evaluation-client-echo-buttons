@@ -39,10 +39,14 @@
 						</div>
 					</div>
 				</div>
-				<label *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px; display: inline-grid;" >
+				<div *ngFor="let choice of currentQuestion.choices ; let y = index " style="font-weight: inherit; margin-right: 30px; display: inline-grid;" >
 					<button target="_blank" class="buzzer button{{y+1}}" name="input{{y}}" [value]="currentQuestion.choices[y].code" (click)="buttonClick(y)" id="{{currentQuestion.choices[y].id}}"></button>
-					<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
-				</label>
+					<div style="display: inline">
+						<img style="width: 20px; height: 20px; padding:0; margin-right:5px" src="{{currentQuestion.choices[y].image.url}}">
+						<label style="font-weight: inherit;" for="{{currentQuestion.choices[y].id}}"> {{currentQuestion.choices[y].label}}</label>
+					</div>
+					
+				</div>
 		</div>
 	</div>
 </div>
