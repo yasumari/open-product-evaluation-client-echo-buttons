@@ -54,6 +54,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       fontColor: "white",
       fontSize: 50,
       fontFamily: "Raleway",
+      fontWeight: 400,
       display: true
     }
   };
@@ -65,7 +66,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
   public chartColors: Array<any> = [
     { // first color
       fontColor:'#fafafa',
-      fontfamily:' Helvetica, Arial, sans-serif',
+      fontfamily:' Raleway, Arial, sans-serif',
       backgroundColor: 'rgb(28,128,108)',
       borderColor: 'rgb(28,128,108)',
       pointBackgroundColor: 'rgb(90,132,135)',
@@ -252,7 +253,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
 
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()-1];
 
-     this.barChartOptions.title.text=this.currentQuestion.value +" ( "+this.currentQuestion.__typename+" ) " ;
+     this.barChartOptions.title.text=this.currentQuestion.value;
 
     //Visualisierung der Grafik und rechnung der Antworten für jede Art von Fragen
     switch(this.currentQuestion.__typename){
