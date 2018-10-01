@@ -98,7 +98,7 @@
 			<h3>{{currentProject.activeSurvey.title}}</h3> <!-- Name des Projektes -->
 			<h1>{{currentQuestion.value}}</h1> <!-- Aktuelle Frage des Projektes -->
 			<h4 *ngIf="currentQuestion.description!=null">{{currentQuestion.description}}</h4> <!-- Beschreibung der Frage -->
-			<h4>Wähle auf einer Skala von {{min}} bis {{max}}</h4>
+			<h4>Wähle auf einer Skala von {{currentQuestion.min}} bis {{currentQuestion.max}}</h4>
 				<div class="row row-pb-md justify-content-around">
 					<div *ngFor="let item of currentQuestion.items ; let i = index " >
 							<div class="copy text-center">
