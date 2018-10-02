@@ -1,4 +1,4 @@
-import { Context } from '../types';
+import { Context, Survey } from '../types';
 
 /* Interface eines Device*/
 interface myDevice {
@@ -10,6 +10,7 @@ interface myDevice {
 export class DataService {
     private deviceObj: myDevice;
     private subjectProject: Context;
+    private survey: Context;
     private contextID;
     private chosenImage;
     private chosenImagearray:string[]=[];
@@ -76,6 +77,13 @@ export class DataService {
       this.numberAnswerQuestions=numPosition;
     }
 
+
+    sendSurvey(survey: Context){
+      this.survey=survey;
+    }
+    getSurvey(): Context{
+      return this.survey;
+    }
     /**
      * @description Projekt damit die anderen Komponenten darauf zugreifen können
      * @param project 

@@ -31,6 +31,11 @@ export class ListComponent implements OnInit, OnDestroy {
 
     openProject(contextID : string): void{
         this.dataService.setContextID(contextID);
+        this.surveys.forEach(survey=> {
+            if (survey.id==contextID){
+                this.dataService.sendSurvey(survey);
+            }
+        })
         this.router.navigateByUrl('/project');
     }
 
