@@ -25,8 +25,6 @@ export class ListComponent implements OnInit, OnDestroy {
         private router: Router, 
         private dataService: DataService, 
         private messageService: MessageService) {
-            
-        
     }
 
     openProject(contextID : string): void{

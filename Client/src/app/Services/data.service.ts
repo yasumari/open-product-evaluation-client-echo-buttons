@@ -18,6 +18,7 @@ export class DataService {
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
     private regulatorValues=[];
+    private ranking=[];
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -145,6 +146,22 @@ export class DataService {
       return this.regulatorValues;
      }
 
+     /**
+      * @description RankingStrategie benötigt die gewählten Bilder
+      * @param imageRanking Das gerade ausgewählte Bild wird vorne ins Array eingefügt
+      * Array vorne schlecht --> hinten bestes item
+      */
+     setRanking(imageRanking: string){
+      this.ranking.unshift(imageRanking);
+     }
+
+     getRanking(){
+       return this.ranking;
+     }
+
+     resetRanking(){
+       this.ranking=[];
+     }
     
   constructor() { }
 }

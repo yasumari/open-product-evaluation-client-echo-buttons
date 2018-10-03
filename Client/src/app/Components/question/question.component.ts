@@ -78,35 +78,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.currentAnswer = {
       questionID: this.currentQuestion.id
     }
-    if (this.currentQuestion.__typename == "RankingQuestion") {
-      if (btn_number >= this.currentQuestion.items.length) {
-        console.log("Button hat kein zugehöriges Bild");
-      } else {
-        const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].id);
-        this.renderer.setStyle(btn_rank, 'background', 'lightgrey');
-        this.renderer.setProperty(btn_rank, 'color', '#34a7bd');
-        this.renderer.setProperty(btn_rank, 'disabled', 'true');
-        this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz ' + (this.count_items + 1));
-
-        //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt
-        // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
-        this.ranking.unshift(this.currentQuestion.items[btn_number].id);
-        if (this.ranking.length == this.currentQuestion.items.length) {
-          this.currentAnswer.ranking = this.ranking;
-          //Im Feedback Platz 1 anzeigen
-          for (var i = 0; i < this.currentQuestion.items.length; i++) {
-            if (this.ranking[this.ranking.length - 1] == this.currentQuestion.items[i].id) {
-              this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
-            }
-          }
-          this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
-        } else {
-          this.count_items++;
-        }
-      }
-    } else {
-      this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
-    }
+    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
   }
 
 

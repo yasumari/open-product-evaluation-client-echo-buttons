@@ -11,7 +11,6 @@ export class likeDislikeStrategy extends QuestionStrategy {
     answer(router: Router,apollo: Apollo,answerQuestion: any, btn_number: Number, renderer: Renderer2, dataService:DataService){
         //DislikeQuestion: mutation besondere Variable:  liked - Gefällt oder gefällt das Objekt nicht
         let currentQuestion = dataService.getContext().activeSurvey.questions[dataService.getAnswerNumber()];
-        
         //Button 0: true, Button 1: false, daher keine weiteren Buttons
         if (btn_number<=1){
             let btn_like: HTMLElement = document.getElementById("btn_like");
@@ -23,7 +22,7 @@ export class likeDislikeStrategy extends QuestionStrategy {
                 mutation: likeDislikeAnswerMutate,
                 variables: { 
                   questionID: answerQuestion.questionID,
-                  liked: (btn_number == 0 ? true : false) },
+                  liked: (btn_number == 0 ? false : true) },
                 }).subscribe((mutationResponse) => 
                 console.log("mutation", mutationResponse)); 
                 if (currentQuestion.items!=null){
