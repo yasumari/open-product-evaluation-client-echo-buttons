@@ -24,8 +24,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private currentProject: Context;
   private currentAnswer;
   private currentQuestion: Question;
-  private ranking = [];
-  private count_items;
   private step;
   private valueBTN = [];
 
@@ -88,10 +86,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
     console.log("Angezeigt Frage: " + this.dataService.getAnswerNumber());
     /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
-
-    if (this.currentQuestion.__typename == "RankingQuestion") {
-      this.count_items = 0;
-    }
 
     if (this.currentQuestion.__typename == "RegulatorQuestion") {
       /**
