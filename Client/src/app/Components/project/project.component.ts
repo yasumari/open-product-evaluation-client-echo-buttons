@@ -12,7 +12,7 @@ import { SubscriptionsService} from '../../Services/subscriptions.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css'],
+  styleUrls: [],
 })
 export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
