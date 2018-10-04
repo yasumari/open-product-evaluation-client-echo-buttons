@@ -12,7 +12,7 @@ import { SubscriptionsService} from '../../Services/subscriptions.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styles: []
+  styleUrls: ['./project.component.css'],
 })
 export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
@@ -22,12 +22,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
   private contextid:string;
   private deviceID: string;
   constructor(
-    private apollo: Apollo, 
-    private router: Router, 
-    private dataService: DataService, 
-    private messageService: MessageService, 
+    private apollo: Apollo,
+    private router: Router,
+    private dataService: DataService,
+    private messageService: MessageService,
     private subscriptionsService: SubscriptionsService) { }
-  
+
 
   /**
    * @description wird vom Button "Starten" ausgelöst, damit wird das Device mit der ContextID geupdatet
@@ -46,7 +46,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.dataService.setAnswerNumber(0);
       this.router.navigateByUrl('/question');
     })
-  
+
   }
 
     /**
@@ -83,7 +83,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
       this.currentProject=this.dataService.getSurvey();
-      //Wenn es ohne Startseite aufgerufen wird, dann 
+      //Wenn es ohne Startseite aufgerufen wird, dann
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
       if (token==null || token==undefined || this.deviceID==null){
         this.apollo.mutate({
