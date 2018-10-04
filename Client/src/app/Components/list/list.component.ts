@@ -42,7 +42,6 @@ export class ListComponent implements OnInit, OnDestroy {
             query: queryAllSurveys
         }).subscribe(({data})=> {
             this.surveys=data.contexts;
-            console.log(this.surveys);
         })
     }
 

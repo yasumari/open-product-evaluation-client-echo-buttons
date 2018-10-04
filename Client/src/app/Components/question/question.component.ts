@@ -83,7 +83,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-    console.log("Angezeigt Frage: " + this.dataService.getAnswerNumber());
     /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
 
@@ -123,9 +122,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.dataService.setRegulatorsValue(this.valueBTN);
       }
     }
-
-    console.log(this.currentQuestion);
-    console.log(this.currentProject.activeSurvey.votes);
 
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
     this.subSockets = this.messageService.getMessage().subscribe(message => {
