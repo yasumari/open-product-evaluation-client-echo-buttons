@@ -83,6 +83,10 @@ div:not(:last-child){
   padding-bottom: 50px;
 }
 
+.tilewidth{
+  width: 50%;
+}
+
 .card {
     box-shadow: 0 32px 64px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -94,6 +98,10 @@ div:not(:last-child){
     transition: all .1s linear;
     width: 100%;
     height: 100%;
+}
+
+.card-body{
+    position: relative
 }
 
 .card:hover {
