@@ -21,10 +21,12 @@ import { Constants } from '../../constants';
 export class QuestionComponent implements OnInit, OnDestroy {
   subSockets: Subscription;
   subContext: Subscription;
+  private  ranking=[];
   private currentProject: Context;
   private currentAnswer;
   private currentQuestion: Question;
   private step;
+  public count_items=0;
   private valueBTN = [];
 
   constructor(

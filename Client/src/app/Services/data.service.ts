@@ -18,11 +18,11 @@ export class DataService {
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
     private regulatorValues=[];
-<<<<<<< HEAD
+
     private count=0;
-=======
+
     private ranking=[];
->>>>>>> 26bb1eeef9aa40cbd1c7e746c39d180800437719
+
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -91,7 +91,7 @@ export class DataService {
     
     getcount(){
       return this.count;
-
+    }
 
 
     sendSurvey(survey: Context){
