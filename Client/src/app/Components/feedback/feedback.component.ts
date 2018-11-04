@@ -752,7 +752,6 @@ if(this.currentQuestion.items!=null) {
      this.barChartData[0].data[0]=this.DataAntwort;
 
      this.barChartData[0].label.push(" ❤ ");
-     //TODO: Kann auch kein Item angezeigt werden?
      //es wird in Endscreen alles bilder für diese Frage gezeigt wird weil alle gleichzeitig als like gewählt sind
     if (this.currentQuestion.items!=null){
       console.log("likequ");

@@ -1,4 +1,4 @@
-import { Context } from '../types';
+import { Context, Survey } from '../types';
 
 /* Interface eines Device*/
 interface myDevice {
@@ -10,6 +10,7 @@ interface myDevice {
 export class DataService {
     private deviceObj: myDevice;
     private subjectProject: Context;
+    private survey: Context;
     private contextID;
     private chosenImage;
     private chosenImagearray:string[]=[];
@@ -17,7 +18,11 @@ export class DataService {
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
     private regulatorValues=[];
+<<<<<<< HEAD
     private count=0;
+=======
+    private ranking=[];
+>>>>>>> 26bb1eeef9aa40cbd1c7e746c39d180800437719
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -79,12 +84,22 @@ export class DataService {
     setAnswerNumber(numPosition: number){
       this.numberAnswerQuestions=numPosition;
     }
+
     setcountnull(count: number){
       this.count=0;
     }
     
     getcount(){
       return this.count;
+
+
+
+    sendSurvey(survey: Context){
+      this.survey=survey;
+    }
+    getSurvey(): Context{
+      return this.survey;
+
     }
     /**
      * @description Projekt damit die anderen Komponenten darauf zugreifen können
@@ -147,6 +162,22 @@ export class DataService {
       return this.regulatorValues;
      }
 
+     /**
+      * @description RankingStrategie benötigt die gewählten Bilder
+      * @param imageRanking Das gerade ausgewählte Bild wird vorne ins Array eingefügt
+      * Array vorne schlecht --> hinten bestes item
+      */
+     setRanking(imageRanking: string){
+      this.ranking.unshift(imageRanking);
+     }
+
+     getRanking(){
+       return this.ranking;
+     }
+
+     resetRanking(){
+       this.ranking=[];
+     }
     
   constructor() { }
 }

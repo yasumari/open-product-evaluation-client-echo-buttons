@@ -24,8 +24,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
   private currentProject: Context;
   private currentAnswer;
   private currentQuestion: Question;
-  private ranking = [];
-  private count_items;
   private step;
   private valueBTN = [];
 
@@ -78,6 +76,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.currentAnswer = {
       questionID: this.currentQuestion.id
     }
+
     if (this.currentQuestion.__typename == "RankingQuestion") {
       if (btn_number >= this.currentQuestion.items.length) {
         console.log("Button hat kein zugehöriges Bild");
@@ -116,6 +115,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
          
      this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
     }
+
+    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
+
   }
   buttonBack():void{ this.dataService.setAnswerNumber(0);
   this.router.navigateByUrl("/");
@@ -290,13 +292,8 @@ export class QuestionComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();
     this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
-    console.log("Angezeigt Frage: " + this.dataService.getAnswerNumber());
     /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
-
-    if (this.currentQuestion.__typename == "RankingQuestion") {
-      this.count_items = 0;
-    }
 
     if (this.currentQuestion.__typename == "RegulatorQuestion") {
       /**
@@ -334,9 +331,6 @@ export class QuestionComponent implements OnInit, OnDestroy {
         this.dataService.setRegulatorsValue(this.valueBTN);
       }
     }
-
-    console.log(this.currentQuestion);
-    console.log(this.currentProject.activeSurvey.votes);
 
     //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
     this.subSockets = this.messageService.getMessage().subscribe(message => {

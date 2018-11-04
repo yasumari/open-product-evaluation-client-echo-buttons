@@ -1,3 +1,113 @@
+/* GROßE SCREENS ab einer Breite von 2000Pixeln */
+@media screen and (min-width: 2000px) {
+
+	.buzzer	{
+	    height: 100px;
+			width: 150px;
+	}
+
+	.button1{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.button2{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.button3{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.button4{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.heart{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.weiter{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.cross{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.tick{
+	  height: 100px;
+	  width: 150px;
+	}
+
+	.buzzer:after	{
+		height: 100px;
+		width: 150px;
+		font-size: 60px;
+	}
+}
+
+/* KLEINE SCREENS bis zu einer Breite von 2000Pixeln */
+@media screen and (max-width: 2000px) {
+
+	.buzzer	{
+	    height: 50px;
+			width: 100px;
+	}
+
+	.button1{
+		height: 50px;
+		width: 100px;
+	}
+
+	.button2{
+		height: 50px;
+		width: 100px;
+	}
+
+	.button3{
+		height: 50px;
+		width: 100px;
+	}
+
+	.button4{
+		height: 50px;
+		width: 100px;
+	}
+
+	.heart{
+		height: 50px;
+		width: 100px;
+	}
+
+	.weiter{
+		height: 50px;
+		width: 100px;
+	}
+
+	.cross{
+		height: 50px;
+		width: 100px;
+	}
+
+	.tick{
+		height: 50px;
+		width: 100px;
+	}
+
+	.buzzer:after{
+		height: 50px;
+		width: 100px;
+		font-size: 30px;
+	}
+}
+
 .buzzer
 {
 	background-image: -webkit-linear-gradient(to bottom,  #45ccbc, #3aa0bb);
@@ -5,10 +115,8 @@
     border-radius: 50%;
     box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 120px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -22,10 +130,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -37,10 +143,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -52,10 +156,8 @@
     border-radius: 50%;
     box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -67,10 +169,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px ;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -99,10 +199,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -114,10 +212,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -132,10 +228,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -148,10 +242,8 @@
 	border-radius: 50%;
 	box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, .6),  0px 4px 1px 1px white, inset 0px -3px 1px 1px rgba(204,198,197,.5);
     float: center;
-    height: 100px;
     margin: 30px;
     position: relative;
-    width: 150px;
     -webkit-transition: all .1s linear;
     transition: all .1s linear;
 }
@@ -165,12 +257,9 @@
 		color:#e9e6e4;
 		content: "";
 		display: block;
-		font-size: 60px;
-		height: 100px;
 		text-decoration: none;
 		text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
 		position: absolute;
-		width: 150px;
 	}
 
 	.buzzer:after

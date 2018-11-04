@@ -25,12 +25,15 @@ export class ListComponent implements OnInit, OnDestroy {
         private router: Router, 
         private dataService: DataService, 
         private messageService: MessageService) {
-            
-        
     }
 
     openProject(contextID : string): void{
         this.dataService.setContextID(contextID);
+        this.surveys.forEach(survey=> {
+            if (survey.id==contextID){
+                this.dataService.sendSurvey(survey);
+            }
+        })
         this.router.navigateByUrl('/project');
     }
 
@@ -39,7 +42,6 @@ export class ListComponent implements OnInit, OnDestroy {
             query: queryAllSurveys
         }).subscribe(({data})=> {
             this.surveys=data.contexts;
-            console.log(this.surveys);
         })
     }
 

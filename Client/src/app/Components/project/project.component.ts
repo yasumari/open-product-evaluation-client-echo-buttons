@@ -12,7 +12,7 @@ import { SubscriptionsService} from '../../Services/subscriptions.service';
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styles: []
+  styleUrls: [],
 })
 export class ProjectComponent implements OnInit, OnDestroy {
   public currentProject: Context;
@@ -22,12 +22,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
   private contextid:string;
   private deviceID: string;
   constructor(
-    private apollo: Apollo, 
-    private router: Router, 
-    private dataService: DataService, 
-    private messageService: MessageService, 
+    private apollo: Apollo,
+    private router: Router,
+    private dataService: DataService,
+    private messageService: MessageService,
     private subscriptionsService: SubscriptionsService) { }
-  
+
 
   /**
    * @description wird vom Button "Starten" ausgelöst, damit wird das Device mit der ContextID geupdatet
@@ -35,7 +35,18 @@ export class ProjectComponent implements OnInit, OnDestroy {
    */
   startSurvey(){
     this.updateDevice(this.deviceID, this.contextid);
-    this.router.navigateByUrl('/question');
+    this.apollo.subscribe({
+      query: currentProjectData,
+      variables: {contextID: this.contextid},
+    }).subscribe(({data}) => {
+      console.log(data);
+      /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
+      this.dataService.sendContext(data.context);
+      /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
+      this.dataService.setAnswerNumber(0);
+      this.router.navigateByUrl('/question');
+    })
+
   }
 
     /**
@@ -45,23 +56,6 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  /**
-   * @description Server-Anfrage für Daten eines Projekts
-   * @param contextID ID des Kontextes, deren Daten geladen werden sollen
-   */
-  getProject(contextID: string){
-    this.apollo.subscribe({
-      query: currentProjectData,
-      variables: {contextID: contextID},
-    }).subscribe(({data}) => {
-      console.log(data);
-      this.currentProject = data.context;
-      /* Aktuelles Projekt allen Komponenten verfügbar machen mittels DataService*/
-      this.dataService.sendContext(this.currentProject);
-      /* Aktuelle Position der Frage auf 0 setzen, vorne anfangen und das Array durchlaufen*/
-      this.dataService.setAnswerNumber(0);
-    })
-  }
   /**
    * @description Gerät mit der Kontext ID versehen, damit bei Änderung des Kontextes darauf reagiert werden kann
    * @param deviceID
@@ -88,7 +82,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.contextid = ((this.dataService.getContextID() !=null) ? this.dataService.getContextID() : " "+1);
       this.deviceID =  this.dataService.getDeviceID();
       let token = this.dataService.getToken();
-      //Wenn es ohne Startseite aufgerufen wird, dann 
+      this.currentProject=this.dataService.getSurvey();
+      //Wenn es ohne Startseite aufgerufen wird, dann
       //Registriere das Gerät, nehme das erste Projekt vom Server, updateGerät
       if (token==null || token==undefined || this.deviceID==null){
         this.apollo.mutate({
@@ -101,14 +96,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
           this.dataService.setDevice(data.createDevice.token, data.createDevice.device.id, data.createDevice.device.name);
           this.deviceID=data.createDevice.device.id;
           //danach erst weitere Abfragen
-          this.apollo.subscribe({
-            query: queryContextID
-          }).subscribe((data)=>{
-            this.getProject(data.data.contexts[0].id);
-          })
         });
-      }else{
-        this.getProject(this.contextid);
       }
 
       //BUZZER: Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen

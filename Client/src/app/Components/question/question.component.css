@@ -1,39 +1,174 @@
-body{
-  padding-top: 100px;
+/* GROßE SCREENS ab einer Breite von 2000Pixeln */
+@media screen and (min-width: 2000px) {
+
+  body{
+    padding-top: 100px;
+  }
+
+  h1{
+    font-size: 50px;
+  }
+
+  h3{
+    font-size: 30px;
+  }
+
+  h4{
+    font-size: 24px;
+    margin: 40px;
+    padding-bottom: 15px;
+  }
+
+  h5{
+    font-size: 16px;
+    padding-bottom: 40px;
+  }
+
+  img{
+    height: 380px;
+    max-width: 610px;
+    padding-top: 60px;
+  }
+
+  .progress-bar {
+    font-size: 26px;
+  }
+
+  .regultornumber{
+    font-size:25px;
+  }
+
+  .regulator2{
+    width: 215px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: -100px;
+  }
+
+  .regulator3{
+    width: 425px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: -100px;
+  }
+
+  .regulator4{
+    max-width: 650px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: -100px;
+  }
+
+}
+
+/* KLEINE SCREENS bis zu einer Breite von 2000Pixeln */
+@media screen and (max-width: 2000px) {
+
+  body{
+    padding-top: 25px;
+  }
+
+  h1{
+    font-size: 30px;
+    padding-top: 10px;
+  }
+
+  h3{
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
+
+  h4{
+    font-size: 16px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  h5{
+    font-size: 16px;
+    padding-bottom: 20px;
+  }
+
+  img{
+    height: 240px;
+    max-width: 330px;
+    padding-top: 30px;
+  }
+
+  .progress-bar {
+    font-size: 16px;
+  }
+
+  .regultornumber{
+    font-size: 16px;
+  }
+
+  .regulator2{
+    width: 170px;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: -100px;
+  }
+
+  .regulator3{
+    width: 425px;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: -100px;
+  }
+
+  .regulator4{
+    max-width: 500px;
+    height: auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: -100px;
+  }
 }
 
 h1{
-  font-size: 50px;
   margin: 0px;
   padding-bottom: 10px;
 }
 
 h3{
-  font-size: 30px;
   margin-top: 30px;
   padding-bottom: 10px;
   color: grey;
 }
 
 h4{
-  font-size: 24px;
-  margin: 40px;
-  padding-bottom: 15px;
   color: grey;
 }
 
 h5{
-  font-size: 16px;
   padding-top: 5px;
-  padding-bottom: 40px;
   margin-left: 0px;
   color: grey;
 }
 
 img{
-  height: 380px;
-  max-width: 610px;
-  padding-top: 60px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.progress{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0px;
+  height: 4%;
+  min-width:23px;
+}
+
+.progress-bar {
+  min-width:23px;
+  background-color: #17B794;
+  color: white;
+  background-size: auto;
 }
