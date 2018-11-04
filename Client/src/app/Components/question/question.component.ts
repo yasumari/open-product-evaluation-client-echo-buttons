@@ -104,11 +104,188 @@ export class QuestionComponent implements OnInit, OnDestroy {
           this.count_items++;
         }
       }
-    } else {
-      this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
+    } else {if(this.currentQuestion.__typename == "ChoiceQuestion"){
+      console.log("number :: ",btn_number);
+      const btn_ch: HTMLElement = document.getElementById(this.currentQuestion.choices[btn_number].id);
+        this.renderer.setStyle(btn_ch, 'background', 'lightgrey');
+        this.renderer.setProperty(btn_ch, 'color', '#34a7bd');
+        this.renderer.setProperty(btn_ch, 'disabled', 'true');
+        this.renderer.setProperty(btn_ch, 'innerHTML', ' ');
+         }
+        
+         
+     this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
     }
   }
+  buttonBack():void{ this.dataService.setAnswerNumber(0);
+  this.router.navigateByUrl("/");
+  }
+  buttondelete():void{
+    this.currentAnswer = {
+      questionID: this.currentQuestion.id
+    }
+    switch (this.currentQuestion.__typename) {
+      case"RankingQuestion":
+      {console.log("delete farbe ranking");
+      
+      for (var i = 0; i < this.currentQuestion.items.length; i++) 
+              {
+                const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[i].id);
+               if(i==0){
+                this.renderer.setStyle(btn_rank, 'background', '#ff7783');
+                this.renderer.setProperty(btn_rank, 'color', '#ff7783');
+                  }
+                  if(i==1){
+                    this.renderer.setStyle(btn_rank, 'background', '#87e259');
+                    this.renderer.setProperty(btn_rank, 'color', '#87e259');
+                      }
+                      if(i==2){
+                        this.renderer.setStyle(btn_rank, 'background', '#fed500');
+                        this.renderer.setProperty(btn_rank, 'color', '#fed500');
+                          }
+                          if(i==3){
+                            this.renderer.setStyle(btn_rank, 'background', '#1e90ff');
+                            this.renderer.setProperty(btn_rank, 'color', '#1e90ff');
+                              }
+                              
+                this.renderer.setProperty(btn_rank, 'enabled', 'true');
+                this.renderer.setProperty(btn_rank, 'innerHTML', '');
+               
+                this.count_items--;
+              
+              }
+      }break;
+      case "RegulatorQuestion":
+      {console.log("delete farbe");
+      for (var i = 0; i < this.currentQuestion.items.length; i++) 
+              {
+                const btn_reg: HTMLElement = document.getElementById(this.currentQuestion.items[i].id);
+               if(i==0){
+                this.renderer.setStyle(btn_reg, 'background', '#ff7783');
+                this.renderer.setProperty(btn_reg, 'color', '#ff7783');
+                  }
+                  if(i==1){
+                    this.renderer.setStyle(btn_reg, 'background', '#87e259');
+                    this.renderer.setProperty(btn_reg, 'color', '#87e259');
+                      }
+                      if(i==2){
+                        this.renderer.setStyle(btn_reg, 'background', '#fed500');
+                        this.renderer.setProperty(btn_reg, 'color', '#fed500');
+                          }
+                          if(i==3){
+                            this.renderer.setStyle(btn_reg, 'background', '#1e90ff');
+                            this.renderer.setProperty(btn_reg, 'color', '#1e90ff');
+                              }
+                              
+                this.renderer.setProperty(btn_reg, 'enabled', 'true');
+                this.renderer.setProperty(btn_reg, 'innerHTML', '');
 
+              }
+      }break;
+      case"FavoriteQuestion":
+       {console.log("delete farbe");
+        for (var i = 0; i < this.currentQuestion.items.length; i++) 
+              {
+                const btn_fav: HTMLElement = document.getElementById(this.currentQuestion.items[i].id);
+               if(i==0){
+                this.renderer.setStyle(btn_fav, 'background', '#ff7783');
+                this.renderer.setProperty(btn_fav, 'color', '#ff7783');
+                  }
+                  if(i==1){
+                    this.renderer.setStyle(btn_fav, 'background', '#87e259');
+                    this.renderer.setProperty(btn_fav, 'color', '#87e259');
+                      }
+                      if(i==2){
+                        this.renderer.setStyle(btn_fav, 'background', '#fed500');
+                        this.renderer.setProperty(btn_fav, 'color', '#fed500');
+                          }
+                          if(i==3){
+                            this.renderer.setStyle(btn_fav, 'background', '#1e90ff');
+                            this.renderer.setProperty(btn_fav, 'color', '#1e90ff');
+                              }
+                              
+                this.renderer.setProperty(btn_fav, 'enabled', 'true');
+                this.renderer.setProperty(btn_fav, 'innerHTML', '');
+
+      
+              }
+       }break;
+      case"ChoiceQuestion":
+        {console.log("delete farbe lange choice",this.currentQuestion.choices.length);
+          
+                        for (var i = 0; i < this.currentQuestion.choices.length; i++) 
+                        {
+                          const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.choices[i].id);
+                         if(i==0){
+                          this.renderer.setStyle(btn_rank, 'background', '#eb0e1c');
+                          this.renderer.setProperty(btn_rank, 'color', '#eb0e1c');
+                            }
+                            if(i==1){
+                              this.renderer.setStyle(btn_rank, 'background', '#118714');
+                              this.renderer.setProperty(btn_rank, 'color', '#118714');
+                                }
+                                if(i==2){
+                                  this.renderer.setStyle(btn_rank, 'background', '#fe9800');
+                                  this.renderer.setProperty(btn_rank, 'color', '#fe9800');
+                                    }
+                                   
+                                        
+                          this.renderer.setProperty(btn_rank, 'enabled', 'true');
+                          this.renderer.setProperty(btn_rank, 'innerHTML', '');
+                  
+                        
+                        }    
+                         
+                              
+               
+    
+          }  
+        break;
+      case"LikeDislikeQuestion":
+        {console.log("delete farbe");
+          for (var i = 0; i < this.currentQuestion.items.length; i++) 
+          {
+            const btn_ld: HTMLElement = document.getElementById(this.currentQuestion.items[i].id);
+               if(i==0){
+                this.renderer.setStyle(btn_ld, 'background', '#ff7783');
+                this.renderer.setProperty(btn_ld, 'color', '#ff7783');
+                  }
+                  if(i==1){
+                    this.renderer.setStyle(btn_ld, 'background', '#87e259');
+                    this.renderer.setProperty(btn_ld, 'color', '#87e259');
+                      }
+                      
+                              
+                this.renderer.setProperty(btn_ld, 'enabled', 'true');
+                this.renderer.setProperty(btn_ld, 'innerHTML', '');
+    
+          }
+        }break;
+      case "LikeQuestion":
+        {console.log("delete farbe");
+          for (var i = 0; i < this.currentQuestion.items.length; i++) 
+          {
+            const btn_l: HTMLElement = document.getElementById(this.currentQuestion.items[i].id);
+               if(i==0){
+                this.renderer.setStyle(btn_l, 'background', '#ff7783');
+                this.renderer.setProperty(btn_l, 'color', '#ff7783');
+                  }
+                  if(i==1){
+                    this.renderer.setStyle(btn_l, 'background', '#87e259');
+                    this.renderer.setProperty(btn_l, 'color', '#87e259');
+                      }
+                     
+                              
+                this.renderer.setProperty(btn_l, 'enabled', 'true');
+                this.renderer.setProperty(btn_l, 'innerHTML', '');
+    
+          }
+        }break;
+
+    }
+     
+  } 
+  
 
   public ngOnInit(): void {
     this.currentProject = this.dataService.getContext();

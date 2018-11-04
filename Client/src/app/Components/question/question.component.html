@@ -18,6 +18,10 @@
 							<button style="margin: 0;" target="_blank" class="buzzer button{{i+1}}" (click)="buttonClick(i)" name="button{{i}}" id="{{currentQuestion.items[i].id}}"></button>
 						</div>
 					</div>
+					<p style="font-size:25px">Zurück</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttonBack()" name="button50" id="50"></button>
+					<p style="font-size:25px">Antwort Löschen</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttondelete()" name="button100" id="100"></button>
 				</div>
 		</div>
 	</div>
@@ -47,6 +51,11 @@
 					</div>
 
 				</div>
+
+				<p style="font-size:25px">Zurück</p>
+				<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttonBack()" name="button50" ></button>
+                <p style="font-size:25px">Antwort Löschen</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttondelete()" name="button100" id="100"></button>
 		</div>
 	</div>
 </div>
@@ -68,6 +77,10 @@
 				</div>
 				<button name="button1" target="_blank" class="buzzer cross" id="btn_dislike"(click)="buttonClick(1)"></button>
 				<button name="button0" target="_blank" class="buzzer tick" id="btn_like"(click)="buttonClick(0)"></button>
+				<p style="font-size:25px">Zurück</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4" (click)="buttonBack()" name="button50" id="50"></button>
+				<p style="font-size:25px">Antwort Löschen</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttondelete()" name="button100" id="100"></button>
 		</div>
 	</div>
 </div>
@@ -88,6 +101,10 @@
 				</div>
 				<button name="button0" target="_blank" class="buzzer heart" id="{{currentQuestion.likeIcon.id}}" (click)="buttonClick(0)"></button>
 				<button name="button1" target="_blank" class="buzzer weiter" (click)="buttonClick(1)"></button>
+			    <p style="font-size:25px">Zurück</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttonBack()" name="button50" id="50"></button>
+					<p style="font-size:25px">Antwort Löschen</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttondelete()" name="button100" id="100"></button>
 			</div>
 	</div>
 </div>
@@ -132,6 +149,14 @@
 					<p style="font-size:25px">{{valueBTN[3]}}</p>
 					<button target="_blank" class="buzzer button4" (click)="buttonClick(3)" id="ranking_3" name="button3"></button>
 				</div>
+				<div style="display: inline-block">
+					<p style="font-size:25px">Zurück</p>
+					<button target="_blank" class="buzzer button4" (click)="buttonBack()" id="ranking_50" name="button50"></button>
+					<p style="font-size:25px">Antwort Löschen</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttondelete()" name="button100" id="100"></button>
+				</div>
+				
+
 		</div>
 	</div>
 </div>
@@ -150,7 +175,11 @@
 								<h5>{{currentQuestion.items[i].label}}</h5>
 								<button style="margin: 0px;" target="_blank" class="buzzer button{{i+1}}" [id]="currentQuestion.items[i].id" name="button{{i}}" (click)="buttonClick(i)"></button>
 							</div>
-					</div>
+					</div><p style="font-size:25px">Zurück</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  [id]="50" name="button50" (click)="buttonBack()"></button>
+					<p style="font-size:25px">Antwort Löschen</p>
+					<button style="margin: 0;" target="_blank" class="buzzer button4"  (click)="buttondelete()" name="button100" id="100"></button>
+				
 				</div>
 		</div>
 	</div>

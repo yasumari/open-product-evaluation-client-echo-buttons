@@ -52,7 +52,7 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     title: {
       text: '',
       fontColor: "white",
-      fontSize: 50,
+      fontSize: 20,
       fontFamily: "Raleway",
       fontWeight: 400,
       display: true
@@ -203,7 +203,10 @@ export class FeedbackComponent implements OnInit, OnDestroy {
       scaleSteps:1,
       scaleStartValue:0,
       scaleStepWidth:5,
-
+      fontColor: "white",
+      color: "white",
+      fontfamily: "Raleway",
+  fontsize: 60
 
 
 
@@ -322,7 +325,7 @@ if(this.currentProject.activeSurvey.votes[i].answers[x].rankedItems!=null)
    if(this.currentQuestion.items.length==2)
    {
     this.barChartData = [
-      {data: [], label: []},{data: [], label: []},{data: [], label: []},{data: [], label: []}
+      {data: [], label:[]},{data: [], label: []},{data: [], label: []},{data: [], label: []}
 
 
     ];

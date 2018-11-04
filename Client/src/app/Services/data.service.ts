@@ -17,6 +17,7 @@ export class DataService {
     private MaxAnwortarray:any[]=[];
     private numberAnswerQuestions=0;
     private regulatorValues=[];
+    private count=0;
 
     /**
      * @description Anzeigen des gewählten Bild, muss von Question-Komponente festgelegt und von Feedback verwendet werden
@@ -67,6 +68,9 @@ export class DataService {
     increaseAnswerNumber(){
       this.numberAnswerQuestions++;
     }
+    decreaseAnswerNumber(){
+      this.numberAnswerQuestions--;
+    }
 
     getAnswerNumber(){
       return this.numberAnswerQuestions;
@@ -75,7 +79,13 @@ export class DataService {
     setAnswerNumber(numPosition: number){
       this.numberAnswerQuestions=numPosition;
     }
-
+    setcountnull(count: number){
+      this.count=0;
+    }
+    
+    getcount(){
+      return this.count;
+    }
     /**
      * @description Projekt damit die anderen Komponenten darauf zugreifen können
      * @param project 
