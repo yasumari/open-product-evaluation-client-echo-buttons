@@ -1,0 +1,106 @@
+/* GROßE SCREENS ab einer Breite von 2000Pixeln */
+@media screen and (min-width: 2000px) {
+
+  body {
+    padding: 100px;
+  }
+
+  h1{
+    font-size: 60px;
+    padding-top: 30px;
+  }
+
+  h2{
+    font-size: 30px;
+  }
+
+  h3{
+    font-size: 30px;
+    padding-top: 80px;
+    padding-bottom: 30px;
+  }
+
+  h4{
+    font-size: 16px;
+  }
+
+  img{
+    height:200px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+}
+
+/* KLEINE SCREENS bis zu einer Breite von 2000Pixeln */
+@media screen and (max-width: 2000px) {
+
+  body {
+    padding: 50px;
+  }
+
+  h1{
+    font-size: 50px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  h2{
+    font-size: 20px;
+    }
+
+  h3{
+    font-size: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  h4{
+    font-size: 12px;
+  }
+
+  img{
+    height:150px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+}
+
+body{
+  background-image: linear-gradient(to right, #3ccdbc 0%, #33a0bd 100%);
+  font-family: "Raleway", Arial, sans-serif;
+  height: -webkit-fill-available;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1{
+  color: white;
+  font-family: "Raleway", Arial, sans-serif;
+  line-height: 1.2 !important;
+  font-weight: 100;
+}
+
+h2{
+  color: white;
+}
+
+h3{
+  color: black;
+}
+
+h4{
+  margin: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+}
+
+.btn{
+  width: 230px;
+}
+
+#button {
+  color: #34a7bd;
+}

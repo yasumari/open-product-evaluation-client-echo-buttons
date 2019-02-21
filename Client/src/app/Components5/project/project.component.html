@@ -1,0 +1,23 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivität -->
+</head>
+
+<body id="gtco-header">
+  <div class="row row-pb-sm">
+    <div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+      <div class="project" *ngIf="currentProject"> <!-- ngIF abwarten bis was drin ist dann laden -->
+        <h2 class="projectheader">Expermient 2 </h2> <!-- Name des Projektes -->
+        <h4 class="projectdescription">Willkommen zur Umfrage </h4> <!-- Beschreibung des Projektes -->
+        <div>
+          <button class="btn btn-white" (click)="startSurvey()" style="width: 150px">
+          <span style="margin-left:-20px; margin-right:10px" class=".button button1 smallIcon"></span>
+              Start</button>
+          <button class="btn btn-white" (click)="backToList()" style="width: 150px;">
+              <span style="margin-left:-20px; margin-right: 10px" class=".button button2 smallIcon"></span>
+              Zurück</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</body>

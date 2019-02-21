@@ -78,7 +78,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
    
 
     if(btn_number == 1){
-    this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/Saft1.jpeg");
+    this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft1.jpeg");
     this.dataService.setChosenQuestionarray("FavoriteQuestion");
     let url= this.dataService.getChosenImageUrlarray();
     console.log("url set "+url);
@@ -87,6 +87,26 @@ export class QuestionComponent implements OnInit, OnDestroy {
     this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft2.jpeg");
     this.dataService.setChosenQuestionarray("FavoriteQuestion");
     let url= this.dataService.getChosenImageUrlarray();}
+    if(btn_number == 3){
+      this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft3.jpeg");
+      this.dataService.setChosenQuestionarray("FavoriteQuestion");
+      let url= this.dataService.getChosenImageUrlarray();
+      console.log("url set "+url);
+                         }
+  if(btn_number == 4){
+   this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft4.jpeg");
+                          this.dataService.setChosenQuestionarray("FavoriteQuestion");
+                          let url= this.dataService.getChosenImageUrlarray();
+                          console.log("url set "+url);
+                                             }
+
+  if(btn_number == 5){
+   this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft5.jpeg");
+                                              this.dataService.setChosenQuestionarray("FavoriteQuestion");
+                                              let url= this.dataService.getChosenImageUrlarray();
+                                              console.log("url set "+url);
+                                                                 }
+
     this.router.navigateByUrl("/feedback");
    // this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
   // this.questionService.answer("FavoriteQuestion", this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
