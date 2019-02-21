@@ -51,19 +51,16 @@ h1{
 
 p{
   position: relative;
-  animation-name: perspect;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  
 }
 
 img{
-  width: 250px;
+  width: 1000px;
 }
 
 #button {
   margin-top: 50px;
-  width: 130px;
+  width: 230px;
 }
 
 @keyframes turner{

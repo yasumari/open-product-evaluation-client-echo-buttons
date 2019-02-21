@@ -205,7 +205,7 @@ const images = [
     type: 'image/png',
     hash: '8277394c7b5ff16d3f3cae6f0c0d3b4b2e7e6936',
     tags: [],
-    url: 'static/images/default/eval1.jpeg',
+    url: 'static/images/default/saft1.jpg',
   },
   {
     user: getObjectID('user2'),
@@ -217,7 +217,7 @@ const images = [
     type: 'image/png',
     hash: '8277394c7b5ff16d3f3cae6f0c0d3b4b2e7e6936',
     tags: [],
-    url: 'static/images/default/eval1.jpeg',
+    url: 'static/images/default/saft1.jpg',
   },
   {
     user: getObjectID('user2'),
@@ -229,7 +229,7 @@ const images = [
     type: 'image/png',
     hash: '8277394c7b5ff16d3f3cae6f0c0d3b4b2e7e6936',
     tags: [],
-    url: 'static/images/default/eval1.jpeg',
+    url: 'static/images/default/saft1.jpeg',
   },
 
   {
@@ -265,7 +265,7 @@ const images = [
     type: 'image/png',
     hash: '8277394c7b5ff16d3f3cae6f0c0d3b4b2e7e6936',
     tags: [],
-    url: 'static/images/default/eval1.jpeg',
+    url: 'static/images/default/saft1.jpeg',
   },
   {
     user: getObjectID('user2'),
@@ -276,7 +276,7 @@ const images = [
     type: 'image/png',
     hash: '8277394c7b5ff16d3f3cae6f0c0d3b4b2e7e6936',
     tags: [],
-    url: 'static/images/default/eval1.jpeg',
+    url: 'static/images/default/saft1.jpeg',
   },
   {
     user: getObjectID('user1'),

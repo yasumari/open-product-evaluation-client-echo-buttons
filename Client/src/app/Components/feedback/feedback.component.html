@@ -12,27 +12,21 @@
   <div class="row row-pb-sm gtco-heading text-center">
   	<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
     <h1>{{title_nextPage}}</h1>
-      <div class="col-md-4 col-sm-4 col-sm-offset-1">
+    
+  
+  
         <p *ngIf="image!=null">
           <img class="looper" src="{{image}}" alt="Img">
         </p>
-        <button class="btn btn-white" id="button" (click)="nextPage()">
-            <span style="margin-left:-20px; margin-right:10px" class=".button button1 smallIcon"></span>Weiter</button>
-      </div>
-      <div class="col-md-4 col-sm-4 col-sm-offset-1 gtco-heading text-center"    >
-        <div class="diagram">
-          <canvas baseChart
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [colors]="chartColors"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  [chartType]="barChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)">
-          </canvas>
-        </div>
-      </div>
+        <div class="col-md-8 col-sm-4 col-sm-offset-2 gtco-heading text-center" >
+            <h1>Ihrer bester Saft </h1>
+          <div class="col-md-8 col-md-offset-2 gtco-heading text-center">
+            <button  class="btn btn-white" id="button" (click)="goBackToListProjects()">
+                <span style="margin-left:-20px; margin-right:15px; " class=".button button1 smallIcon"></span> Start Seite</button>
+          </div>
+        </div> 
+     
+      
     </div>
   </div>
 </body>

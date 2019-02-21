@@ -6,18 +6,12 @@
 <body>
 	<div class="row row-pb-sm">
 		<div class="col-md-8 col-md-offset-2 gtco-heading text-center">
-			<h1>Projekte</h1>
-			<h4>Wähle ein Projekt aus, das du evaluieren möchtest.</h4>
-			<div class="tile">
-				<div class="tilewidth" *ngFor="let survey of surveys; let i = index">
-  				<div class="card" (click)="openProject(survey.id)">
-    				<div class="card-body" id="{{survey.id}}">
-							<span target="_blank" class="buzzer button{{i+1}} cardbuzzer"></span>
-					  	<h3 class="card-title">{{survey.activeSurvey.title}}</h3> <!-- Name des Projektes -->
-    				</div>
-  				</div>
-				</div>
-			</div>
+			<h1 >Experiment 2</h1>
+			<h1  >Willkomen zur Umfrage</h1>
+			
+					<button class="btn btn-white" (click)="openProject()" style="width: 150px">Start</button>	
+				
+			
 		</div>
 	</div>
 </body>

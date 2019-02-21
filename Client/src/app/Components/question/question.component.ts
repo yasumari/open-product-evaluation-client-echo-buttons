@@ -74,52 +74,21 @@ export class QuestionComponent implements OnInit, OnDestroy {
     Items  0,1,2,3
    * @param btn_number Nummer des gedrückten Buttons
    */
-  buttonClick(btn_number: number) {
-    this.currentAnswer = {
-      questionID: this.currentQuestion.id
-    }
+  buttonClick(btn_number: number):void {
+   
 
-    if (this.currentQuestion.__typename == "RankingQuestion") {
-      if (btn_number >= this.currentQuestion.items.length) {
-        console.log("Button hat kein zugehöriges Bild");
-      } else {
-        const btn_rank: HTMLElement = document.getElementById(this.currentQuestion.items[btn_number].id);
-        this.renderer.setStyle(btn_rank, 'background', 'lightgrey');
-        this.renderer.setProperty(btn_rank, 'color', '#34a7bd');
-        this.renderer.setProperty(btn_rank, 'disabled', 'true');
-        this.renderer.setProperty(btn_rank, 'innerHTML', 'Platz ' + (this.count_items + 1));
-
-        //RankingQuestion: mutation besondere Variable:  rankedImages - in welcher Reihenfolge wurden die Bilder ausgewählt
-        // [1,2,3,...] - 1 schlecht, 2 mittel, 3 am besten...
-        this.ranking.unshift(this.currentQuestion.items[btn_number].id);
-        if (this.ranking.length == this.currentQuestion.items.length) {
-          this.currentAnswer.ranking = this.ranking;
-          //Im Feedback Platz 1 anzeigen
-          for (var i = 0; i < this.currentQuestion.items.length; i++) {
-            if (this.ranking[this.ranking.length - 1] == this.currentQuestion.items[i].id) {
-              this.dataService.setChosenImageUrl(this.currentQuestion.items[i].image.url);
-            }
-          }
-          this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
-        } else {
-          this.count_items++;
-        }
-      }
-    } else {if(this.currentQuestion.__typename == "ChoiceQuestion"){
-      console.log("number :: ",btn_number);
-      const btn_ch: HTMLElement = document.getElementById(this.currentQuestion.choices[btn_number].id);
-        this.renderer.setStyle(btn_ch, 'background', 'lightgrey');
-        this.renderer.setProperty(btn_ch, 'color', '#34a7bd');
-        this.renderer.setProperty(btn_ch, 'disabled', 'true');
-        this.renderer.setProperty(btn_ch, 'innerHTML', ' ');
-         }
-        
-         
-     this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
-    }
-
-    this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
-
+    if(btn_number == 1){
+    this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft1.jpg");
+    this.dataService.setChosenQuestionarray("FavoriteQuestion");
+    let url= this.dataService.getChosenImageUrlarray();
+    console.log("url set "+url);}
+    if(btn_number== 2){
+    this.dataService.setChosenImageUrlarray("http://localhost:3000/static/images/default/saft2.jpg");
+    this.dataService.setChosenQuestionarray("FavoriteQuestion");
+    let url= this.dataService.getChosenImageUrlarray();}
+    this.router.navigateByUrl("/feedback");
+   // this.questionService.answer(this.currentQuestion.__typename, this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
+  // this.questionService.answer("FavoriteQuestion", this.currentAnswer, btn_number, this.apollo, this.renderer, this.dataService, this.router);
   }
   buttonBack():void{ this.dataService.setAnswerNumber(0);
   this.router.navigateByUrl("/");
@@ -289,93 +258,22 @@ export class QuestionComponent implements OnInit, OnDestroy {
     }
      
   } 
-  
-
+ 
+ 
   public ngOnInit(): void {
-    this.currentProject = this.dataService.getContext();
-    this.currentQuestion = this.currentProject.activeSurvey.questions[this.dataService.getAnswerNumber()];
+    
+   
+
+    
     /*Für die Auskunft, welcher Platz gerade gewählt wird,
      muss die Anzahl der Button-Klicks berechnet werden. Erhöht sich bei rankingQuestionClick*/
 
-    if (this.currentQuestion.__typename == "RegulatorQuestion") {
-      /**
-       * @description Besonders für Regulator müssen die Zahlenwerte berechnet werden,
-       * da die Buzzer nur 4 Werte darstellen können
-       */
-      this.step = this.currentQuestion.stepSize;
-      let range = (this.currentQuestion.max - this.currentQuestion.min) / 3;
-      let i = this.currentQuestion.min;
-      let possibleNumbers = [];
-      //Alle Möglichen Werte
-      while (i <= this.currentQuestion.max) {
-        possibleNumbers.push(i);
-        i += this.step;
-      }
-      let value = this.regulatorButtonValues(range, possibleNumbers, this.currentQuestion.min, this.currentQuestion.max);
-      let value2 = this.regulatorButtonValues((range + range), possibleNumbers, this.currentQuestion.min, this.currentQuestion.max);
+   
 
-      /**
-       * immer die Button von min - max sichtbar
-       * wenn button1=min, dann button2=max, daher die Abfragen
-       * Vorher waren button1=min und button4=max, und die dazwischen wurden geprüft mit null
-       */
-      if (value == null && value2 == null) {
-        this.valueBTN=[this.currentQuestion.min, this.currentQuestion.max]
-        this.dataService.setRegulatorsValue(this.valueBTN);
-      }
-      else if (value != null && value2 == null) {
-        this.valueBTN=[this.currentQuestion.min, value, this.currentQuestion.max]
-        this.dataService.setRegulatorsValue(this.valueBTN);
-      }
-      else {
-        this.valueBTN.push(this.currentQuestion.min);
-        this.valueBTN=[this.currentQuestion.min, value, value2, this.currentQuestion.max]
-        this.dataService.setRegulatorsValue(this.valueBTN);
-      }
-    }
-
-    //Subscribed die Socket-Kommunikation, falls neue Nachrichten reinkommen
-    this.subSockets = this.messageService.getMessage().subscribe(message => {
-      if (message != undefined || message != null) {
-        this.buttonClick(parseInt(message));
-      } else {
-        console.log("Button ungültig Nachricht");
-      }
-    })
-
-    //Subscribed Context, falls Updates reinkommen, dann zurück zur Startseite und Device abmelden
-    this.subContext = this.subscriptionsService.getMessageSubscription().subscribe(message => {
-      console.log("Message: " + message);
-      //Vorher noch benachrichtigen, dass es zum Anfang geht
-        console.log("Abmelden");
-        this.apollo.mutate({
-          fetchPolicy: 'no-cache',
-          mutation: updateDevice,
-          variables: {
-            deviceID: this.dataService.getDeviceID(),
-            context: null,
-          }
-        }).subscribe(({data}) => {
-            console.log("mutation update DeviceContext", data);
-            //Position der Umfrage wieder zum Anfang setzen
-            this.dataService.setAnswerNumber(0);
-            //close Dialog nach paar Sekungen und dann zurück zum Anfang
-            let dialogRef=this.dialog.open(DialogComponent, {
-              minHeight: '20%',
-              minWidth: '40%'
-            });
-            setTimeout(() => {
-              dialogRef.close();
-              this.router.navigateByUrl("/");
-            }, Constants.TIMER_DIALOG);
-          });
-    })
+    
   }
 
   ngOnDestroy() {
-    this.subContext.unsubscribe();
-    this.subContext=undefined;
-    this.subSockets.unsubscribe();
-    this.subSockets=undefined;
+   
   }
 }

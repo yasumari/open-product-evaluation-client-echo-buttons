@@ -27,14 +27,9 @@ export class ListComponent implements OnInit, OnDestroy {
         private messageService: MessageService) {
     }
 
-    openProject(contextID : string): void{
-        this.dataService.setContextID(contextID);
-        this.surveys.forEach(survey=> {
-            if (survey.id==contextID){
-                this.dataService.sendSurvey(survey);
-            }
-        })
-        this.router.navigateByUrl('/project');
+    openProject(): void{
+        
+        this.router.navigateByUrl('/question');
     }
 
     getProjects(){
@@ -49,7 +44,7 @@ export class ListComponent implements OnInit, OnDestroy {
         //Wenn app.Component einen button-click erhält, dann zum nächsten Screen
         this.sub=this.messageService.getMessage().subscribe( message => {
             this.sub.unsubscribe();
-            this.openProject(this.surveys[message].id);
+           
         })
         let deviceID=this.dataService.getDeviceID();
         //Wenn das Gerät noch nicht vorhanden ist, muss es neu angelegt werden
