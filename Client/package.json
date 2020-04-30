@@ -35,7 +35,7 @@
     "graphql": "^0.13.2",
     "graphql-anywhere": "^4.1.19",
     "graphql-tag": "^2.9.2",
-    "jquery": "^1.12.4",
+    "jquery": "^3.5.0",
     "ng2-charts": "^1.6.0",
     "ng2-opd-popup": "^1.1.21",
     "rxjs": "^6.3.3",
